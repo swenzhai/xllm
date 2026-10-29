@@ -23,8 +23,12 @@ without building the full inference server or changing the xllm_ops submodule.
 
 The current development-device run passes all 206 extended checks, including
 both entries, offsets, invalid metadata, stream/lifetime pressure and allocation
-recovery. The unchanged official 50/200/5 benchmark has also run, but its latency
-limits are not met. These results do not establish formal acceptance on the
+recovery. The unchanged official 50/200/5 benchmark has also run. Eight
+small/medium cases meet their limits at 18–20 microseconds. The two large
+cache cases remain approximately 235 microseconds, above 75/77 microseconds.
+An additional diagnostic passes 8192 consecutive calls per entry and 100
+rounds of early release with Python storage wrappers. These results do not
+establish formal acceptance on the
 specified OS/driver combination.
 
 The supplied acceptance package remains external. Its task book and fixed-time

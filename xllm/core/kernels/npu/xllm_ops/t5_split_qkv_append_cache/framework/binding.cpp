@@ -22,7 +22,6 @@ WARRANTIES OR CONDITIONS OF ANY KIND.
 #include <memory>
 #include <stdexcept>
 #include <string>
-#include <utility>
 #include <vector>
 
 #include "common/t5_split_qkv_append_cache_tiling.h"
@@ -50,10 +49,6 @@ struct TensorMetadata {
   void* data = nullptr;
 };
 
-struct Submission {
-  std::array<c10::Storage, 6> storages;
-  std::array<TensorMetadata, 6> metadata;
-};
 using QueryFn = int32_t (*)(const aclTensor*,
                             const aclTensor*,
                             const aclTensor*,
@@ -264,7 +259,7 @@ Tensors run(const Tensors& inputs,
   const c10_npu::NPUGuard device_guard(inputs[0].device());
   const auto stream = c10_npu::getCurrentNPUStream(inputs[0].device().index());
   // Use the framework task queue, preserving ordering without draining that
-  // queue on every call. Captured tensors remain alive until submission.
+  // queue on every call. The allocator tracks input use until completion.
   const aclrtStream acl_stream = stream.stream(false);
   Tensors outputs;
   outputs.reserve(3);
@@ -279,30 +274,21 @@ Tensors run(const Tensors& inputs,
     c10_npu::NPUCachingAllocator::recordStream(input.storage().data_ptr(),
                                                stream);
   }
-  for (const auto& output : outputs) {
-    c10_npu::NPUCachingAllocator::recordStream(output.storage().data_ptr(),
-                                               stream);
-  }
+  // Fresh outputs belong to this allocation stream. The caching allocator
+  // reuses them only on the same stream, after this queued launch; registering
+  // that origin stream again would add redundant completion events per output.
   OperatorApi* operator_api = direct ? nullptr : &api();
-  auto submission = std::make_shared<Submission>();
+  std::array<TensorMetadata, 6> metadata;
   for (size_t index = 0; index < 3; ++index) {
-    submission->storages[index] = inputs[index].storage();
-    submission->storages[index + 3] = outputs[index].storage();
-    submission->metadata[index] = tensor_metadata(inputs[index]);
-    submission->metadata[index + 3] = tensor_metadata(outputs[index]);
+    metadata[index] = tensor_metadata(inputs[index]);
+    metadata[index + 3] = tensor_metadata(outputs[index]);
   }
-  auto launch = [submission,
-                 tiling,
-                 head_num,
-                 head_dim,
-                 direct,
-                 acl_stream,
-                 operator_api]() -> int {
-    // Keep only Storage ownership, never Python-associated TensorImpl objects,
-    // on the submission worker. Move ownership out once: delayed callback
-    // copies then retain no allocations after this submission has completed.
-    auto storages = std::move(submission->storages);
-    const auto& metadata = submission->metadata;
+  auto launch =
+      [metadata, tiling, head_num, head_dim, direct, acl_stream, operator_api]()
+      -> int {
+    // This task is queued before the caller can release its tensor references.
+    // recordStream makes subsequent frees enqueue allocator events behind this
+    // task. No Python-associated owner is retained or destroyed on the worker.
     if (direct) {
       check_acl(t5qkv_launch(tiling.block_dim,
                              acl_stream,

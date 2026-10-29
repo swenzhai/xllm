@@ -55,12 +55,16 @@ uses runtime launch metadata; the direct kernel receives the small POD by value.
 The Python extension obtains the current stream on the input device without
 draining the framework host queue. It submits both paths through torch_npu's
 `OpCommand::RunOpApi`, preserving the order of preceding framework operations.
-It records input and output storages on that stream and retains their C++
-storage ownership until the callback submits the device work. Fixed-size
-metadata describes each view without retaining Python-associated TensorImpl
-objects on the worker. The callback moves its storage handles out of a shared
-payload: deferred callback copies then retain only the emptied payload,
-allowing storage to be reclaimed after its recorded stream completes.
+It records input storages on that stream before enqueuing the launch. The
+torch_npu caching allocator puts completion events for subsequent input frees
+behind the already queued launch, including when the caller releases an input
+on another stream. Fresh outputs belong to the current allocation stream and
+can only be reused on that same stream, whose subsequent work follows this
+launch. They need no redundant origin-stream events. Fixed-size metadata
+describes each view without retaining or destroying Python-associated tensor
+or storage owners on the submission worker. This follows torch_npu 2.10.0's
+native caching allocator stream semantics; external allocation/IPC lifetimes
+remain the external owner's responsibility.
 The two-stage ACLNN query must return zero workspace; the normal non-reusable
 executor is consumed by the execution stage. Tensor descriptors live through
 both stages. Worker failures use C++ exceptions without accessing Python.

@@ -35,6 +35,14 @@ limitations under the License.
 namespace xllm::kernel::npu {
 inline constexpr int64_t kDsaMetadataBufferElements = 1024;
 
+// Single-token QKV split with newly allocated, bit-exact K/V cache outputs.
+std::tuple<torch::Tensor, torch::Tensor, torch::Tensor>
+t5_split_qkv_append_cache(const torch::Tensor& qkv,
+                          const torch::Tensor& past_key,
+                          const torch::Tensor& past_value,
+                          int64_t head_num,
+                          int64_t head_dim);
+
 namespace op_infer {
 constexpr int32_t N = 32;
 // npu tensor max size

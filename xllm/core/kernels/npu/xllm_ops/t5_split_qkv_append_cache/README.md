@@ -21,17 +21,16 @@ without building the full inference server or changing the xllm_ops submodule.
 - [x] Public and extended correctness, stream/lifetime, memory validation on the development device.
 - [x] End-to-end performance measurements and reproducible build evidence on the development device.
 
-The current development-device run passes all 206 extended checks, including
-both entries, offsets, invalid metadata, stream/lifetime pressure and allocation
-recovery. The unchanged official 50/200/5 benchmark passes all ten limits:
-eight small/medium cases take 17.75–19.02 microseconds, and the two large cache
-cases take 74.30/75.40 microseconds against limits of 75/77 microseconds.
-An additional diagnostic passes 8192 consecutive calls per entry and 100
-rounds of early release with Python storage wrappers. Eight large unaligned
-cache-boundary checks also pass across both entries, dtypes and offsets.
-See [validation details](docs/validation.md) for the tested commit, exact timing,
-memory checks and evidence archive. These development results do not establish
-formal acceptance on the specified OS/driver combination.
+The current development checkpoint passes 35 public precision cases and 206
+extended records, including both entries, offsets, invalid metadata,
+stream/lifetime pressure and allocation recovery. The unchanged official
+50/200/5 benchmark passes eight of ten absolute limits. Cases 007 and 017 remain
+above their 75/77 microsecond limits. Queue pressure, cache-policy boundaries and
+aligned-tail fusion boundaries also pass. See
+[the optimization checkpoint](docs/optimization_status.md) for exact measurements,
+original evidence and unresolved limits, and [validation details](docs/validation.md)
+for reproduction. Earlier passing batches did not reproduce consistently and
+are not the current acceptance result. Formal acceptance remains incomplete.
 
 The supplied acceptance package remains external. Its task book and fixed-time
 performance files disagree about relative versus absolute timing. Development

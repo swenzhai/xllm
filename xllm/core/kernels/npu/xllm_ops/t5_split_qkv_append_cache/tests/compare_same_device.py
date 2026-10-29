@@ -55,8 +55,9 @@ def _main() -> int:
         exit_codes[name] = _child(name, [sys.executable, str(package / "benchmark.py"),
             "--solution-file", str(entry), "--report", str(directory / (name + ".json")), *common], package, directory)
     current, reference = _read(directory / "custom.json"), _read(directory / "baseline.json")
-    if exit_codes["custom"] != 0 or current["status"] != "passed":
-        raise RuntimeError("Custom absolute performance failed; original report retained")
+    # Preserve a complete paired diagnostic even when the custom misses its
+    # absolute limits. The aggregate and exit status must still report failure.
+    assert current.get("npu_executed") and not current.get("error")
     limits = {c["case_name"]: c["max_wall_us"] for c in _read(package / "performance_targets.json")["cases"]}
     reference_cases = {c["case_name"]: c for c in reference["cases"]}
     assert set(reference_cases) == set(limits)
@@ -81,9 +82,12 @@ def _main() -> int:
             "views_concat_q_copy": previous["accuracy"]}, "results": {"custom": custom,
             "views_concat_q_copy": base}, "selected_baseline": "views_concat_q_copy",
             "input_sha256": [hashlib.sha256(a.tobytes()).hexdigest() for a in generator.generate(fixtures[name])],
-            "max_wall_us": limits[name], "absolute_status": "passed",
+            "max_wall_us": limits[name],
+            "absolute_status": "passed" if custom["wall_us_median"] <= limits[name] else "failed",
             "ratio": custom["wall_us_median"] / base["wall_us_median"]})
-    result = {"status": "passed", "npu_executed": True, "cases": cases,
+    passed = (exit_codes["custom"] == 0 and current["status"] == "passed"
+              and all(case["absolute_status"] == "passed" for case in cases))
+    result = {"status": "passed" if passed else "failed", "npu_executed": True, "cases": cases,
         "protocol": current["protocol"], "environment": current["environment"],
         "runtime_options": {k: os.environ.get(k) for k in ["ASCEND_RT_VISIBLE_DEVICES", "PYTORCH_NPU_ALLOC_CONF", "TASK_QUEUE_ENABLE", "ASCEND_LAUNCH_BLOCKING"]},
         "comparison_method": "unchanged public benchmark; independent processes on same device and generated input values",
@@ -95,7 +99,7 @@ def _main() -> int:
             for p in [solution, baseline, Path(__file__)]}}
     report_path.write_text(json.dumps(result, indent=2))
     print(json.dumps(result), flush=True)
-    return 0
+    return 0 if passed else 1
 
 
 if __name__ == "__main__":

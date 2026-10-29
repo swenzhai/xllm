@@ -1,0 +1,20 @@
+[
+  {
+    "file": "2.1 精度自验证报告.xlsx",
+    "sha256": "59447fec4e2d304d82bba66412cf7d0cf68873447d02d0bca98c3310a269f283",
+    "unchanged_from_previous_delivery": true,
+    "workspace_repository_identical": true
+  },
+  {
+    "file": "3.1 性能自验证报告.xlsx",
+    "sha256": "5994bfd22ac156efe53791f0acca237dd877b0bd7e8b5a9fb84715c8fae6b6c9",
+    "unchanged_from_previous_delivery": true,
+    "workspace_repository_identical": true
+  },
+  {
+    "file": "4.1 内存自验证报告.xlsx",
+    "sha256": "cdd304b3fccc90c38b5626bd75f6e165b8b58f176e8ca6e6937974e9ec7a9aa1",
+    "unchanged_from_previous_delivery": true,
+    "workspace_repository_identical": true
+  }
+]

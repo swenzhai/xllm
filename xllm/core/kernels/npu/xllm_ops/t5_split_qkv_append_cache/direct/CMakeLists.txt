@@ -42,6 +42,9 @@ get_filename_component(T5QKV_PROJECT_ROOT "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUT
 ascendc_library(t5qkv_direct SHARED
   "${T5QKV_PROJECT_ROOT}/op_kernel/t5_split_qkv_append_cache.cpp")
 ascendc_compile_definitions(t5qkv_direct PRIVATE T5QKV_DIRECT_LAUNCH=1)
+# This legacy direct-launch compiler does not provide g_opSystemRunCfg, required
+# by L2_CACHE_HINT. Cache hints are therefore no-ops in this build; ACLNN's
+# official op compiler enables them. Both paths share mapping and copy semantics.
 ascendc_include_directories(t5qkv_direct PRIVATE "${T5QKV_PROJECT_ROOT}")
 set_target_properties(t5qkv_direct PROPERTIES
   LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")

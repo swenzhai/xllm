@@ -26,12 +26,13 @@ For head row `r=b*H+h`, historical input starts at `r*L*D`, and its output start
 at `r*(L+1)*D`. The appended token starts at `r*(L+1)*D+L*D`. Source QKV offsets
 are `b*3HD + hD`, `b*3HD + HD+hD`, and `b*3HD + 2HD+hD`.
 
-The initial implementation slices each historical K/V head into 16384-element
-tiles. The last tile appends the current token through a separate copy operation.
-L=0 creates one append-only task per cache row. Q tasks copy contiguous HD-sized
-batch segments, splitting only when required by the tile size. Tasks use cyclic
-core assignment, bounded by the available Vector Core count and 48 cores on the
-target SoC. Each output element has exactly one writer.
+The implementation slices each historical K/V head into 32768-element tiles.
+Append tokens have independent tasks, so the last history tiles do not
+concentrate the append work on a few cores. L=0 creates no history tasks.
+Q tasks copy contiguous HD-sized batch segments. History, append and query
+groups each distribute contiguous task ranges across the available Vector
+Cores, capped at 48 on the target SoC. Each output element has exactly one
+writer.
 
 `common/t5_split_qkv_append_cache_tiling.h` defines the 44-byte tiling POD and the
 same task decoder used by the device and the host mapping checker. The host
@@ -40,7 +41,7 @@ output sizes. Both ACLNN and direct launch use the same kernel class.
 
 ## Memory and synchronization
 
-Two 32 KiB UB buffers are bound to a VECIN/VECOUT queue. A copy allocates a buffer,
+Two 64 KiB UB buffers are bound to a VECIN/VECOUT queue. A copy allocates a buffer,
 performs GM-to-UB DataCopyPad, enqueues/dequeues it, performs UB-to-GM DataCopyPad,
 and releases it. Queue dependencies protect buffer reuse. Every segment begins
 at a 32-byte-aligned UB base, including the append token; no append uses an
@@ -51,6 +52,23 @@ Explicit global workspace is zero. Output bytes are
 `2*B*H*D*(2*L+3)`. The ideal total GM read/write volume is twice this quantity.
 The kernel uses no intermediate device tensor or conversion buffer. ACLNN tiling
 uses runtime launch metadata; the direct kernel receives the small POD by value.
+
+For large working sets, the ACLNN kernel uses a measured 176 MiB L2 budget,
+leaving headroom below the target platform's reported 192 MiB capacity. This is
+a cache-policy tuning parameter, not a new allocation or workspace. With
+`N=B*H*D`, the complete input/output working set is `8*N*L+12*N` bytes. Sets
+within the budget use normal caching. For larger sets, V output uses the disable
+hint; the kernel caches a prefix of whole K rows using the budget remaining
+after `4*N*(L+2)` bytes for the historical inputs, packed QKV and Q output.
+The rest of K output uses the disable hint.
+
+Two K GlobalTensor aliases select the appropriate cache hint without changing
+the GM address, copy length or ownership. Both aliases are initialized once;
+each task selects one by comparing its first output offset with the cached
+prefix length. No per-task cache-hint setup or row division is needed. The
+legacy direct-launch build does not enable CANN's L2-hint runtime configuration;
+it uses the same task mapping and bit-copy kernel with normal caching. The
+official performance protocol measures the ACLNN `run` entry.
 
 The Python extension obtains the current stream on the input device without
 draining the framework host queue. It submits both paths through torch_npu's

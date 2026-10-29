@@ -35,7 +35,7 @@ static_assert(sizeof(T5SplitQkvAppendCacheTilingData) == 11 * sizeof(uint32_t),
               "T5 QKV host/device tiling layout changed");
 
 namespace t5qkv {
-constexpr uint32_t kTileElements = 16384;
+constexpr uint32_t kTileElements = 32768;
 constexpr uint32_t kMaxVectorCores = 48;
 constexpr uint64_t kMaxOutputElements = uint64_t{1} << 28;
 
@@ -66,17 +66,14 @@ inline bool make_tiling(int64_t batch,
   const uint32_t history_elements = result.past_length * result.head_dim;
   result.cache_tiles_per_head =
       (history_elements + kTileElements - 1) / kTileElements;
-  // Empty histories retain one task per head solely to append the token.
-  if (result.cache_tiles_per_head == 0) {
-    result.cache_tiles_per_head = 1;
-  }
   const uint32_t query_elements = result.head_num * result.head_dim;
   result.query_tiles_per_batch =
       (query_elements + kTileElements - 1) / kTileElements;
   result.cache_tasks_per_tensor =
       result.batch * result.head_num * result.cache_tiles_per_head;
   result.query_tasks = result.batch * result.query_tiles_per_batch;
-  result.total_tasks = 2 * result.cache_tasks_per_tensor + result.query_tasks;
+  result.total_tasks = 2 * result.cache_tasks_per_tensor +
+                       2 * result.batch * result.head_num + result.query_tasks;
   const uint32_t cores = available_vector_cores < kMaxVectorCores
                              ? available_vector_cores
                              : kMaxVectorCores;
@@ -89,6 +86,23 @@ inline bool make_tiling(int64_t batch,
 #else
 #define T5QKV_MAPPING_INLINE inline
 #endif
+
+struct TaskRange {
+  uint32_t begin;
+  uint32_t end;
+};
+
+// Give each core a contiguous, balanced slice of one independent phase.
+// History, append and query phases use this same host-testable assignment.
+T5QKV_MAPPING_INLINE TaskRange partition_tasks(uint32_t first,
+                                               uint32_t count,
+                                               uint32_t block_dim,
+                                               uint32_t core) {
+  const uint32_t chunk = count / block_dim;
+  const uint32_t extra = count % block_dim;
+  const uint32_t begin = first + core * chunk + (core < extra ? core : extra);
+  return {begin, begin + chunk + (core < extra ? 1 : 0)};
+}
 
 enum class Output : uint32_t { QUERY = 0, KEY = 1, VALUE = 2 };
 
@@ -110,8 +124,10 @@ decode_task(const T5SplitQkvAppendCacheTilingData& tiling, uint32_t task_id) {
   CopyTask task{};
   const uint32_t hd = tiling.head_num * tiling.head_dim;
   const uint32_t cache_task_count = 2 * tiling.cache_tasks_per_tensor;
-  if (task_id >= cache_task_count) {
-    const uint32_t q_task = task_id - cache_task_count;
+  const uint32_t rows = tiling.batch * tiling.head_num;
+  const uint32_t append_task_end = cache_task_count + 2 * rows;
+  if (task_id >= append_task_end) {
+    const uint32_t q_task = task_id - append_task_end;
     const uint32_t batch = q_task / tiling.query_tiles_per_batch;
     const uint32_t tile_offset =
         (q_task % tiling.query_tiles_per_batch) * tiling.tile_elements;
@@ -124,12 +140,26 @@ decode_task(const T5SplitQkvAppendCacheTilingData& tiling, uint32_t task_id) {
     return task;
   }
 
+  const uint32_t history_elements = tiling.past_length * tiling.head_dim;
+  const uint32_t output_row_elements = history_elements + tiling.head_dim;
+  if (task_id >= cache_task_count) {
+    const uint32_t append_task = task_id - cache_task_count;
+    const uint32_t cache_index = append_task / rows;
+    const uint32_t row = append_task % rows;
+    const uint32_t batch = row / tiling.head_num;
+    const uint32_t head = row % tiling.head_num;
+    task.output = cache_index == 0 ? Output::KEY : Output::VALUE;
+    task.append_source_offset =
+        batch * 3 * hd + (cache_index + 1) * hd + head * tiling.head_dim;
+    task.append_destination_offset =
+        row * output_row_elements + history_elements;
+    task.append_count = tiling.head_dim;
+    return task;
+  }
   const uint32_t cache_index = task_id / tiling.cache_tasks_per_tensor;
   const uint32_t within_cache = task_id % tiling.cache_tasks_per_tensor;
   const uint32_t row = within_cache / tiling.cache_tiles_per_head;
   const uint32_t tile = within_cache % tiling.cache_tiles_per_head;
-  const uint32_t history_elements = tiling.past_length * tiling.head_dim;
-  const uint32_t output_row_elements = history_elements + tiling.head_dim;
   const uint32_t tile_offset = tile * tiling.tile_elements;
   task.output = cache_index == 0 ? Output::KEY : Output::VALUE;
   task.source_offset = row * history_elements + tile_offset;
@@ -137,15 +167,6 @@ decode_task(const T5SplitQkvAppendCacheTilingData& tiling, uint32_t task_id) {
   const uint32_t remaining = history_elements - tile_offset;
   task.count =
       remaining < tiling.tile_elements ? remaining : tiling.tile_elements;
-  if (tile + 1 == tiling.cache_tiles_per_head) {
-    const uint32_t batch = row / tiling.head_num;
-    const uint32_t head = row % tiling.head_num;
-    task.append_source_offset =
-        batch * 3 * hd + (cache_index + 1) * hd + head * tiling.head_dim;
-    task.append_destination_offset =
-        row * output_row_elements + history_elements;
-    task.append_count = tiling.head_dim;
-  }
   return task;
 }
 #undef T5QKV_MAPPING_INLINE

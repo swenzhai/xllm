@@ -44,50 +44,97 @@ class KernelT5SplitQkvAppendCache final {
                            query_elements);
     key_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(key),
                          query_elements * (tiling.past_length + 1));
+    // Both views name the same GM allocation. Selecting the view avoids
+    // rebuilding the hint address and dividing by row size for every task.
+    key_bypass_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(key),
+                                query_elements * (tiling.past_length + 1));
+    key_bypass_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
     value_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(value),
                            query_elements * (tiling.past_length + 1));
+    const uint64_t row_bytes =
+        uint64_t{2} * (tiling.past_length + 1) * tiling.head_dim;
+    const uint64_t rows = uint64_t{tiling.batch} * tiling.head_num;
+    const uint64_t normal_working_set =
+        uint64_t{8} * query_elements * tiling.past_length +
+        uint64_t{12} * query_elements;
+    // A3 has 192 MiB shared L2. Keep 16 MiB of software headroom for
+    // other live lines and cache conflicts; this is not a hardware reservation.
+    // Small working sets retain normal caching for subsequent consumers.
+    constexpr uint64_t kL2BudgetBytes = uint64_t{176} * 1024 * 1024;
+    if (normal_working_set > kL2BudgetBytes) {
+      value_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+      const uint64_t input_and_query_bytes =
+          uint64_t{4} * query_elements * (tiling.past_length + 2);
+      const uint64_t remaining = kL2BudgetBytes > input_and_query_bytes
+                                     ? kL2BudgetBytes - input_and_query_bytes
+                                     : 0;
+      const uint64_t cache_rows = remaining / row_bytes;
+      cacheable_key_elements_ =
+          static_cast<uint32_t>((cache_rows < rows ? cache_rows : rows) *
+                                row_bytes / sizeof(uint16_t));
+    } else {
+      cacheable_key_elements_ =
+          static_cast<uint32_t>(rows * row_bytes / sizeof(uint16_t));
+    }
     pipe_.InitBuffer(
         queue_, /*num=*/2, tiling.tile_elements * sizeof(uint16_t));
   }
 
   __aicore__ inline void process() {
-    for (uint32_t task_id = AscendC::GetBlockIdx();
-         task_id < tiling_.total_tasks;
-         task_id += tiling_.block_dim) {
-      const CopyTask task = decode_task(tiling_, task_id);
-      if (task.output == Output::QUERY) {
-        copy_segment(query_,
-                     qkv_,
-                     task.destination_offset,
-                     task.source_offset,
-                     task.count);
-      } else if (task.output == Output::KEY) {
-        copy_segment(key_,
-                     past_key_,
-                     task.destination_offset,
-                     task.source_offset,
-                     task.count);
-        copy_segment(key_,
-                     qkv_,
-                     task.append_destination_offset,
-                     task.append_source_offset,
-                     task.append_count);
-      } else {
-        copy_segment(value_,
-                     past_value_,
-                     task.destination_offset,
-                     task.source_offset,
-                     task.count);
-        copy_segment(value_,
-                     qkv_,
-                     task.append_destination_offset,
-                     task.append_source_offset,
-                     task.append_count);
-      }
-    }
+    // Append work is balanced separately: assigning it to each head's last
+    // history tile concentrated short copies on a few cores for common shapes.
+    const uint32_t history_tasks = 2 * tiling_.cache_tasks_per_tensor;
+    const uint32_t append_tasks = 2 * tiling_.batch * tiling_.head_num;
+    process_phase(0, history_tasks);
+    process_phase(history_tasks, append_tasks);
+    process_phase(history_tasks + append_tasks, tiling_.query_tasks);
   }
 
  private:
+  __aicore__ inline void process_phase(uint32_t first, uint32_t count) {
+    const TaskRange tasks = partition_tasks(
+        first, count, tiling_.block_dim, AscendC::GetBlockIdx());
+    for (uint32_t task_id = tasks.begin; task_id < tasks.end; ++task_id) {
+      process_task(task_id);
+    }
+  }
+
+  __aicore__ inline void process_task(uint32_t task_id) {
+    const CopyTask task = decode_task(tiling_, task_id);
+    if (task.output == Output::QUERY) {
+      copy_segment(query_,
+                   qkv_,
+                   task.destination_offset,
+                   task.source_offset,
+                   task.count);
+    } else if (task.output == Output::KEY) {
+      const uint32_t offset = task.count > 0 ? task.destination_offset
+                                             : task.append_destination_offset;
+      auto& destination = offset < cacheable_key_elements_ ? key_ : key_bypass_;
+      copy_segment(destination,
+                   past_key_,
+                   task.destination_offset,
+                   task.source_offset,
+                   task.count);
+      copy_segment(destination,
+                   qkv_,
+                   task.append_destination_offset,
+                   task.append_source_offset,
+                   task.append_count);
+    } else {
+      copy_segment(value_,
+                   past_value_,
+                   task.destination_offset,
+                   task.source_offset,
+                   task.count);
+      copy_segment(value_,
+                   qkv_,
+                   task.append_destination_offset,
+                   task.append_source_offset,
+                   task.append_count);
+    }
+  }
+
   __aicore__ inline void copy_segment(
       AscendC::GlobalTensor<uint16_t>& destination,
       const AscendC::GlobalTensor<uint16_t>& source,
@@ -110,11 +157,12 @@ class KernelT5SplitQkvAppendCache final {
     queue_.FreeTensor(local);
   }
 
+  uint32_t cacheable_key_elements_ = 0;
   T5SplitQkvAppendCacheTilingData tiling_{};
   AscendC::TPipe pipe_;
   AscendC::TQueBind<AscendC::TPosition::VECIN, AscendC::TPosition::VECOUT, 2>
       queue_;
   AscendC::GlobalTensor<uint16_t> qkv_, past_key_, past_value_, query_, key_,
-      value_;
+      key_bypass_, value_;
 };
 }  // namespace t5qkv

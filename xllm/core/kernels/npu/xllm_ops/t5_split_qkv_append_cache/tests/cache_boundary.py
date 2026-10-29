@@ -33,7 +33,7 @@ def main() -> int:
     batch, heads, length, dim = 4, 128, 1024, 65
     query_elements = batch * heads * dim
     row_bytes = 2 * (length + 1) * dim
-    cache_rows = max(0, 176 * 1024**2 - 4 * query_elements * (length + 2)) // row_bytes
+    cache_rows = max(0, 172 * 1024**2 - 4 * query_elements * (length + 2)) // row_bytes
     if not 0 < cache_rows < batch * heads or cache_rows * row_bytes % 32 == 0:
         raise AssertionError("case must cross the cache policy inside an unaligned row boundary")
     shapes = [(batch, 1, 3 * heads * dim), (batch, heads, length, dim)]

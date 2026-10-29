@@ -15,4 +15,6 @@ mkdir -p "$project_root/build_direct"
 cp "$direct_build/libt5qkv_direct.so" "$project_root/build_direct/libt5qkv_direct.so.new"
 mv "$project_root/build_direct/libt5qkv_direct.so.new" "$project_root/build_direct/libt5qkv_direct.so"
 cd "$project_root"
-python3 framework/setup.py build_ext --build-temp build_framework/temp --build-lib build_framework/lib --inplace
+# Enter the compiler dependency check even when the extension itself is newer
+# than binding.cpp: changes to the shared tiling header must not be skipped.
+python3 framework/setup.py build_ext --build-temp build_framework/temp --build-lib build_framework/lib --inplace --force

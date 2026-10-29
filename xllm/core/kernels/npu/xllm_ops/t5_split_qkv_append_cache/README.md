@@ -88,6 +88,7 @@ python3 tests/acceptance.py --package-dir "$TASK_PACKAGE" --solution-file "$T5QK
 python3 tests/queue_stress.py --package-dir "$TASK_PACKAGE" --solution-file "$T5QKV_SOLUTION" --report "$T5QKV_REPORTS/queue_stress.json"
 python3 tests/cache_boundary.py --solution-file "$T5QKV_SOLUTION" --report "$T5QKV_REPORTS/cache_boundary.json"
 (cd "$TASK_PACKAGE" && python3 benchmark.py --solution-file "$T5QKV_SOLUTION" --report "$T5QKV_REPORTS/performance.json")
+python3 tests/compare_same_device.py --package-dir "$TASK_PACKAGE" --solution-file "$T5QKV_SOLUTION" --report "$T5QKV_REPORTS/same_device.json"
 (cd "$TASK_PACKAGE" && python3 check_performance.py --report "$T5QKV_REPORTS/performance.json" --output "$T5QKV_REPORTS/performance_acceptance.json")
 ```
 

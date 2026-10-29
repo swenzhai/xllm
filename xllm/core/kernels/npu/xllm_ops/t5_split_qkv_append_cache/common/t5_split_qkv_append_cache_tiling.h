@@ -35,9 +35,27 @@ static_assert(sizeof(T5SplitQkvAppendCacheTilingData) == 11 * sizeof(uint32_t),
               "T5 QKV host/device tiling layout changed");
 
 namespace t5qkv {
-constexpr uint32_t kTileElements = 32768;
+constexpr uint32_t kTileElements = 47104;
 constexpr uint32_t kMaxVectorCores = 48;
 constexpr uint64_t kMaxOutputElements = uint64_t{1} << 28;
+
+#if defined(__CCE_AICORE__)
+#define T5QKV_MAPPING_INLINE __aicore__ inline
+#else
+#define T5QKV_MAPPING_INLINE inline
+#endif
+
+T5QKV_MAPPING_INLINE bool fuses_append(
+    const T5SplitQkvAppendCacheTilingData& tiling) {
+  if (tiling.past_length == 0) {
+    return false;
+  }
+  const uint32_t history = tiling.past_length * tiling.head_dim;
+  const uint32_t tail =
+      history - (tiling.cache_tiles_per_head - 1) * tiling.tile_elements;
+  const uint32_t padded_append = ((tiling.head_dim + 15) / 16) * 16;
+  return tail % 16 == 0 && tail + padded_append <= tiling.tile_elements;
+}
 
 // Shape/dtype/layout validation belongs to each public host entry. This helper
 // also rejects invalid dimensions so direct and ACLNN tilers share the limits.
@@ -72,20 +90,16 @@ inline bool make_tiling(int64_t batch,
   result.cache_tasks_per_tensor =
       result.batch * result.head_num * result.cache_tiles_per_head;
   result.query_tasks = result.batch * result.query_tiles_per_batch;
-  result.total_tasks = 2 * result.cache_tasks_per_tensor +
-                       2 * result.batch * result.head_num + result.query_tasks;
+  result.total_tasks =
+      2 * result.cache_tasks_per_tensor +
+      (fuses_append(result) ? 0 : 2 * result.batch * result.head_num) +
+      result.query_tasks;
   const uint32_t cores = available_vector_cores < kMaxVectorCores
                              ? available_vector_cores
                              : kMaxVectorCores;
   result.block_dim = result.total_tasks < cores ? result.total_tasks : cores;
   return true;
 }
-
-#if defined(__CCE_AICORE__)
-#define T5QKV_MAPPING_INLINE __aicore__ inline
-#else
-#define T5QKV_MAPPING_INLINE inline
-#endif
 
 struct TaskRange {
   uint32_t begin;
@@ -125,7 +139,8 @@ decode_task(const T5SplitQkvAppendCacheTilingData& tiling, uint32_t task_id) {
   const uint32_t hd = tiling.head_num * tiling.head_dim;
   const uint32_t cache_task_count = 2 * tiling.cache_tasks_per_tensor;
   const uint32_t rows = tiling.batch * tiling.head_num;
-  const uint32_t append_task_end = cache_task_count + 2 * rows;
+  const uint32_t append_task_end =
+      cache_task_count + (fuses_append(tiling) ? 0 : 2 * rows);
   if (task_id >= append_task_end) {
     const uint32_t q_task = task_id - append_task_end;
     const uint32_t batch = q_task / tiling.query_tiles_per_batch;
@@ -167,6 +182,14 @@ decode_task(const T5SplitQkvAppendCacheTilingData& tiling, uint32_t task_id) {
   const uint32_t remaining = history_elements - tile_offset;
   task.count =
       remaining < tiling.tile_elements ? remaining : tiling.tile_elements;
+  if (fuses_append(tiling) && tile + 1 == tiling.cache_tiles_per_head) {
+    const uint32_t batch = row / tiling.head_num;
+    const uint32_t head = row % tiling.head_num;
+    task.append_source_offset =
+        batch * 3 * hd + (cache_index + 1) * hd + head * tiling.head_dim;
+    task.append_destination_offset = task.destination_offset + task.count;
+    task.append_count = tiling.head_dim;
+  }
   return task;
 }
 #undef T5QKV_MAPPING_INLINE

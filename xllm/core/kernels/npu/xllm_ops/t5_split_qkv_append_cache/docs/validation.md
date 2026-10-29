@@ -2,6 +2,56 @@
 
 # Development validation: 2026-10-29
 
+
+## Current optimized validation (2026-10-30)
+
+The current implementation uses 47,104-element history tiles, two 92 KiB UB
+buffers, one-task-ahead prefetch, a 172 MiB L2 admission budget, and guarded UB
+tail fusion. No output caching, global workspace or arithmetic conversion is
+introduced. The fallback retains separate append tasks for unsupported tails.
+`build_framework.sh --force` ensures shared-header changes rebuild the extension.
+
+The fixed run `optimized_tail_buffer172_final_01` passed 35 public accuracy
+cases, all 206 extended records (including ten active-allocation measurements),
+8,192 queued calls plus 100 lifetime-pressure rounds per entry, eight unaligned
+cache-boundary checks and 80 host shape/core/offset checks (165,960 tasks).
+All four complete public-timer batches passed the ten absolute limits. Both
+reference qualifications passed all 35 public cases. Source and installed binary
+manifests were identical before and after the entire run. The subsequent C++
+example also passed FP16 and BF16 with bit-exact output and zero workspace.
+
+| Case ID | Minimum us across four batches | Maximum us across four batches | Limit us |
+| --- | ---: | ---: | ---: |
+| T5SplitQkvAppendCache_001_float16_random | 16.08180 | 17.44225 | 28 |
+| T5SplitQkvAppendCache_005_float16_random | 16.77565 | 17.81520 | 28 |
+| T5SplitQkvAppendCache_006_float16_random | 16.69660 | 17.67030 | 29 |
+| T5SplitQkvAppendCache_007_float16_random | 68.04515 | 74.64870 | 75 |
+| T5SplitQkvAppendCache_008_float16_random | 17.30555 | 19.23500 | 29 |
+| T5SplitQkvAppendCache_011_bfloat16_random | 16.92785 | 18.77670 | 28 |
+| T5SplitQkvAppendCache_015_bfloat16_random | 17.78955 | 19.27860 | 28 |
+| T5SplitQkvAppendCache_016_bfloat16_random | 17.75165 | 20.03345 | 29 |
+| T5SplitQkvAppendCache_017_bfloat16_random | 67.28030 | 74.92840 | 77 |
+| T5SplitQkvAppendCache_018_bfloat16_random | 17.93245 | 20.09875 | 29 |
+
+Every batch and every round is retained; the table gives a range and is not a
+best-batch selection. Delivery tables use the complete final comparison batch
+`same_device_confirm.json`. Prior candidates and the non-fused 172 MiB version
+had repeat failures and are not promoted as the final result. The previous
+baseline-comparison prototype also had a module-path error; its original child
+measurements and failed driver remain archived.
+
+Measured hardware remains Ascend910_9382, CANN 9.1.0, Ubuntu 22.04.5 and driver
+26.1.1. The task's specified OS/driver/single-visible-device environment, ambiguous
+ratio-versus-microsecond column, original task-manifest anomaly, full xLLM server
+integration, TBE applicability and external community submission remain explicit
+acceptance gaps. These device results do not assert formal acceptance.
+
+## Historical implementation and evidence
+
+The following sections describe the previous implementation and are retained for
+traceability. Current source, timing and UB parameters are those above and in
+`design.md`; historical report values are not substituted for the current run.
+
 Tested implementation: `ab70af7891455b36c7aaac6344f0f2207afcc068`, on branch
 `codex/t5-qkv-split-cache-append`. The ACLNN package, direct library and Python
 extension were rebuilt together from this implementation in a clean build,

@@ -57,10 +57,10 @@ class KernelT5SplitQkvAppendCache final {
     const uint64_t normal_working_set =
         uint64_t{8} * query_elements * tiling.past_length +
         uint64_t{12} * query_elements;
-    // A3 has 192 MiB shared L2. Keep 16 MiB of software headroom for
+    // A3 has 192 MiB shared L2. Keep 20 MiB of software headroom for
     // other live lines and cache conflicts; this is not a hardware reservation.
     // Small working sets retain normal caching for subsequent consumers.
-    constexpr uint64_t kL2BudgetBytes = uint64_t{176} * 1024 * 1024;
+    constexpr uint64_t kL2BudgetBytes = uint64_t{172} * 1024 * 1024;
     if (normal_working_set > kL2BudgetBytes) {
       value_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
       const uint64_t input_and_query_bytes =
@@ -84,13 +84,68 @@ class KernelT5SplitQkvAppendCache final {
     // Append work is balanced separately: assigning it to each head's last
     // history tile concentrated short copies on a few cores for common shapes.
     const uint32_t history_tasks = 2 * tiling_.cache_tasks_per_tensor;
-    const uint32_t append_tasks = 2 * tiling_.batch * tiling_.head_num;
-    process_phase(0, history_tasks);
+    const uint32_t append_tasks =
+        fuses_append(tiling_) ? 0 : 2 * tiling_.batch * tiling_.head_num;
+    process_history(history_tasks);
     process_phase(history_tasks, append_tasks);
     process_phase(history_tasks + append_tasks, tiling_.query_tasks);
   }
 
  private:
+  __aicore__ inline void prefetch_history(uint32_t task_id) {
+    const CopyTask task = decode_task(tiling_, task_id);
+    auto local = queue_.AllocTensor<uint16_t>();
+    const AscendC::DataCopyExtParams copy{
+        1, task.count * static_cast<uint32_t>(sizeof(uint16_t)), 0, 0, 0};
+    const AscendC::DataCopyPadExtParams<uint16_t> pad{false, 0, 0, 0};
+    const auto& source = task.output == Output::KEY ? past_key_ : past_value_;
+    AscendC::DataCopyPad(local, source[task.source_offset], copy, pad);
+    if (task.append_count != 0) {
+      const AscendC::DataCopyExtParams append_copy{
+          1,
+          task.append_count * static_cast<uint32_t>(sizeof(uint16_t)),
+          0,
+          0,
+          0};
+      AscendC::DataCopyPad(
+          local[task.count], qkv_[task.append_source_offset], append_copy, pad);
+    }
+    queue_.EnQue(local);
+  }
+
+  __aicore__ inline void process_history(uint32_t count) {
+    const TaskRange tasks =
+        partition_tasks(0, count, tiling_.block_dim, AscendC::GetBlockIdx());
+    if (tasks.begin == tasks.end) {
+      return;
+    }
+    prefetch_history(tasks.begin);
+    for (uint32_t task_id = tasks.begin; task_id < tasks.end; ++task_id) {
+      // Fill the second queue slot before retiring the current copy. Queue
+      // events protect both DMA directions when a slot is reused.
+      if (task_id + 1 < tasks.end) {
+        prefetch_history(task_id + 1);
+      }
+      const CopyTask task = decode_task(tiling_, task_id);
+      auto local = queue_.DeQue<uint16_t>();
+      const AscendC::DataCopyExtParams copy{
+          1,
+          (task.count + task.append_count) *
+              static_cast<uint32_t>(sizeof(uint16_t)),
+          0,
+          0,
+          0};
+      auto& destination =
+          task.output == Output::VALUE
+              ? value_
+              : (task.destination_offset < cacheable_key_elements_
+                     ? key_
+                     : key_bypass_);
+      AscendC::DataCopyPad(destination[task.destination_offset], local, copy);
+      queue_.FreeTensor(local);
+    }
+  }
+
   __aicore__ inline void process_phase(uint32_t first, uint32_t count) {
     const TaskRange tasks = partition_tasks(
         first, count, tiling_.block_dim, AscendC::GetBlockIdx());

@@ -90,7 +90,7 @@ uint32_t check_shape(int64_t batch,
   assert(t5qkv::make_tiling(batch, heads, length, dim, core_count, tiling));
   assert(tiling.block_dim > 0);
   assert(tiling.block_dim <= 48 && tiling.block_dim <= core_count);
-  assert(tiling.tile_elements == 32768);
+  assert(tiling.tile_elements == 47104);
   assert((tiling.tile_elements * sizeof(uint16_t)) % 32 == 0);
   const uint32_t query = static_cast<uint32_t>(batch * heads * dim);
   const uint32_t history = query * static_cast<uint32_t>(length);
@@ -104,9 +104,10 @@ uint32_t check_shape(int64_t batch,
   std::vector<uint8_t> visits(tiling.total_tasks, 0);
   uint32_t history_segments = 0;
   uint32_t append_segments = 0;
-  const std::array<uint32_t, 3> phase_counts{2 * tiling.cache_tasks_per_tensor,
-                                             2 * tiling.batch * tiling.head_num,
-                                             tiling.query_tasks};
+  const std::array<uint32_t, 3> phase_counts{
+      2 * tiling.cache_tasks_per_tensor,
+      t5qkv::fuses_append(tiling) ? 0 : 2 * tiling.batch * tiling.head_num,
+      tiling.query_tasks};
   uint32_t first = 0;
   for (const uint32_t count : phase_counts) {
     uint32_t minimum = count;
@@ -121,8 +122,16 @@ uint32_t check_shape(int64_t batch,
       for (uint32_t task_id = tasks.begin; task_id < tasks.end; ++task_id) {
         assert(visits[task_id]++ == 0);
         const t5qkv::CopyTask task = t5qkv::decode_task(tiling, task_id);
-        // A task is either history/query or append, never both.
-        assert((task.count > 0) != (task.append_count > 0));
+        // Fused tails carry adjacent, separately checked history and append
+        // segments.
+        assert(task.count > 0 || task.append_count > 0);
+        if (task.count > 0 && task.append_count > 0) {
+          assert(task.destination_offset + task.count ==
+                 task.append_destination_offset);
+          assert(task.count % 16 == 0);
+          assert(task.count + ((task.append_count + 15) / 16) * 16 <=
+                 tiling.tile_elements);
+        }
         const uint32_t primary_source = static_cast<uint32_t>(task.output);
         check_segment(tiling,
                       input_sizes,

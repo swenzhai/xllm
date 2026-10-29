@@ -26,9 +26,13 @@ For head row `r=b*H+h`, historical input starts at `r*L*D`, and its output start
 at `r*(L+1)*D`. The appended token starts at `r*(L+1)*D+L*D`. Source QKV offsets
 are `b*3HD + hD`, `b*3HD + HD+hD`, and `b*3HD + 2HD+hD`.
 
-The implementation slices each historical K/V head into 32768-element tiles.
-Append tokens have independent tasks, so the last history tiles do not
-concentrate the append work on a few cores. L=0 creates no history tasks.
+The implementation slices each historical K/V head into 47104-element tiles.
+When the final history tile has a 32-byte-aligned UB tail and enough space for
+its padded append token, the token is loaded into that tail and written back in
+one DMA with the history. The shared `fuses_append` guard checks both conditions;
+otherwise append tokens retain independent tasks. L=0 creates no history tasks.
+Fused tasks keep history and packed-QKV reads separate, with adjacent output
+ranges checked by the host mapping test.
 Q tasks copy contiguous HD-sized batch segments. History, append and query
 groups each distribute contiguous task ranges across the available Vector
 Cores, capped at 48 on the target SoC. Each output element has exactly one
@@ -41,19 +45,21 @@ output sizes. Both ACLNN and direct launch use the same kernel class.
 
 ## Memory and synchronization
 
-Two 64 KiB UB buffers are bound to a VECIN/VECOUT queue. A copy allocates a buffer,
+Two 92 KiB UB buffers are bound to a VECIN/VECOUT queue. A copy allocates a buffer,
 performs GM-to-UB DataCopyPad, enqueues/dequeues it, performs UB-to-GM DataCopyPad,
-and releases it. Queue dependencies protect buffer reuse. Every segment begins
-at a 32-byte-aligned UB base, including the append token; no append uses an
-unaligned history-tail UB offset. GM transfers have exact byte lengths and do
+and releases it. History copying prefills one task, then fills the next queue
+slot before retiring the current task, overlapping MTE2 and MTE3. Total UB is
+184 KiB, leaving 8 KiB below the reported 192 KiB capacity. Queue dependencies protect buffer reuse. Every transfer begins
+at a 32-byte-aligned UB address. A fused append uses a checked aligned tail;
+the fallback append uses the buffer base. GM transfers have exact byte lengths and do
 not write UB padding to neighbouring rows. Scalar GM stores are not used.
 
 Explicit global workspace is zero. Output bytes are
-`2*B*H*D*(2*L+3)`. The ideal total GM read/write volume is twice this quantity.
+`2*B*H*D*(2*L+3)`. The complete GM read/write volume is twice this quantity; L2 hits reduce HBM traffic.
 The kernel uses no intermediate device tensor or conversion buffer. ACLNN tiling
 uses runtime launch metadata; the direct kernel receives the small POD by value.
 
-For large working sets, the ACLNN kernel uses a measured 176 MiB L2 budget,
+For large working sets, the ACLNN kernel uses a measured 172 MiB L2 budget,
 leaving headroom below the target platform's reported 192 MiB capacity. This is
 a cache-policy tuning parameter, not a new allocation or workspace. With
 `N=B*H*D`, the complete input/output working set is `8*N*L+12*N` bytes. Sets
@@ -117,3 +123,18 @@ absolute performance language. Development follows the executable absolute-time
 policy without altering the package. The available machine matches SoC, CANN,
 Python and framework versions, but its Ubuntu distribution and driver differ
 from the acceptance environment. Results on it are development evidence.
+
+
+## Same-device comparison
+
+`tests/taskbook_baseline.py` implements the taskbook's sole candidate,
+`views_concat_q_copy`. `tests/compare_same_device.py` first qualifies that
+candidate with all 35 public accuracy cases. It then runs the unchanged public
+benchmark separately for the custom implementation and reference on device 0,
+using identical fixture values and the original 50/200/5 protocol. Independent
+processes prevent one algorithm's temporary allocations from setting up the
+other's allocator state. Device addresses are not required to be identical.
+Reference absolute-threshold failures are retained as original child exit codes;
+those submission limits do not qualify reference performance. Current/reference
+ratios and all five wall/event samples are retained. Earlier mixed-process
+experiments, including failures, remain diagnostic evidence.

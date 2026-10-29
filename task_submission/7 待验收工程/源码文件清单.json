@@ -1,0 +1,287 @@
+{
+  "source_repository": "https://github.com/swenzhai/xllm",
+  "delivery_branch": "t5-qkv-task-submission",
+  "implementation_commit": "ab70af7891455b36c7aaac6344f0f2207afcc068",
+  "operator_directory": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache",
+  "source_files": [
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/.gitignore",
+      "bytes": 152,
+      "sha256": "cc0791c608530647ce4d263710190c513316fab6151abf9525f56e08e8987acb",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/.gitignore"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/CMakeLists.txt",
+      "bytes": 1119,
+      "sha256": "9a295d373832034580d7a7f91ce121d9ca4452ebe00f8fe64a0c6d6c98dfa3ac",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/CMakeLists.txt"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/README.md",
+      "bytes": 5141,
+      "sha256": "49eef17cfcd7d3c1feb8d2320a8ec24bd12be245e82056ca54add4e071acfecd",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/README.md"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/common/t5_split_qkv_append_cache_tiling.h",
+      "bytes": 7223,
+      "sha256": "dd8f0555408d51cd28c0cfd932aa107c6e00dd6ee6f89bfa0af3557621d01d56",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/common/t5_split_qkv_append_cache_tiling.h"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/direct/CMakeLists.txt",
+      "bytes": 2508,
+      "sha256": "c9966a06efb432fc1b9cf6ea095d813fab60302afe0cde98c57bccf51dada901",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/direct/CMakeLists.txt"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/direct/launch.cpp",
+      "bytes": 1717,
+      "sha256": "4cd1bab09fe425526fd956188e57a4f0d1d329b7c92eb813445fe81ee74f415e",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/direct/launch.cpp"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/docs/design.md",
+      "bytes": 7040,
+      "sha256": "2838ba191b7f5fa28d56aa56c5fdd831055bc843940b9f3678949e9b026d7578",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/docs/design.md"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/examples/CMakeLists.txt",
+      "bytes": 956,
+      "sha256": "4cb46bb7b275821705d14be1d431188c60cc8d50b57d9f04b22a5f213cbf5824",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/examples/CMakeLists.txt"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/examples/aclnn_example.cpp",
+      "bytes": 9256,
+      "sha256": "9ede2f6391c46c309c8c18c9e2ef2b652cca1f2ff084d536fe68ea534888d401",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/examples/aclnn_example.cpp"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/framework/binding.cpp",
+      "bytes": 13488,
+      "sha256": "30aa6a7d654a26008f3f313561e74b1f7f2d5df33df65338fcccdf39abb9b7e3",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/framework/binding.cpp"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/framework/setup.py",
+      "bytes": 1047,
+      "sha256": "876710b252038fa437b6996beabc45349ef47a77852712ca8e60b2a4b49834d9",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/framework/setup.py"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/op_host/CMakeLists.txt",
+      "bytes": 1284,
+      "sha256": "64e08dd570b8d410ae28a45d595990d00551517ef2b80f69cb4f35c4f88fc1c2",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/op_host/CMakeLists.txt"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/op_host/t5_split_qkv_append_cache.cpp",
+      "bytes": 7475,
+      "sha256": "5f39f1b1c76171903f4e2dea30828baaab398f1bc15daab6a244b66e46045157",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/op_host/t5_split_qkv_append_cache.cpp"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/op_kernel/CMakeLists.txt",
+      "bytes": 1049,
+      "sha256": "ff52c2aca70f6b71e83f353857636dd94e79c456161bce4460f608b2c054c107",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/op_kernel/CMakeLists.txt"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/op_kernel/t5_split_qkv_append_cache.cpp",
+      "bytes": 1887,
+      "sha256": "64edd8c6b84fc520d298351101797d1ef89471763b137554764905195b9071b3",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/op_kernel/t5_split_qkv_append_cache.cpp"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/op_kernel/t5_split_qkv_append_cache_kernel.h",
+      "bytes": 7327,
+      "sha256": "e3e0d10e743086a7d6a4b87f0bb8276f773a760c726a1c4c9a365ec77df4fc19",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/op_kernel/t5_split_qkv_append_cache_kernel.h"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/scripts/build.sh",
+      "bytes": 594,
+      "sha256": "1b6afe803ea2ace763f9b94c74c563efbb7302aa45722b49a41f4dde83ea14cc",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/scripts/build.sh"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/scripts/build_framework.sh",
+      "bytes": 1028,
+      "sha256": "ff1cf3b39d37d1e679c735e9ae8f82759ff778d80db24f7d6fc01213e27c3120",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/scripts/build_framework.sh"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/scripts/install.sh",
+      "bytes": 919,
+      "sha256": "0f7c073e9679fe147e3d19fa28334d1e47d21e2b5a4a9207220c5d1013f6e263",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/scripts/install.sh"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/solution.py",
+      "bytes": 4446,
+      "sha256": "50cce71c4aceb7d1e94c328f3ba543b2ab33bc04a81d978463c13371502656dc",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/solution.py"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/tests/acceptance.py",
+      "bytes": 34820,
+      "sha256": "3f4b42907547dab97ecf41ec496c0c3632c08c3b689d8a954e5ff33ecfbfd56a",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/tests/acceptance.py"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/tests/cache_boundary.py",
+      "bytes": 4574,
+      "sha256": "9ec0c79ffd938bed51ca8ec42ebd42914a45ff5faa70b6f382b0bdd8e1b7482d",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/tests/cache_boundary.py"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/tests/check_task_mapping.cpp",
+      "bytes": 9375,
+      "sha256": "211e980d0b16e5c118d945575c3de50a5a0637a4989601244e9767ece5e490a0",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/tests/check_task_mapping.cpp"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/tests/check_task_mapping.py",
+      "bytes": 1926,
+      "sha256": "7a01b99478e7f5d5d00f2166cdacf621f5aff309c9bc0750fea057358502ff8c",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/tests/check_task_mapping.py"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/tests/queue_stress.py",
+      "bytes": 3722,
+      "sha256": "231c57675856edcd3552e77e7d3d2f0a51d6eae30af43ebb148d0bdbc0cae3d6",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/tests/queue_stress.py"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache.cpp",
+      "bytes": 3978,
+      "sha256": "69b71262a928a38bdfb51b4d710191d06cab666ca4e43848e5745a00d0e68f65",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache.cpp"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/xllm_ops_api.h",
+      "bytes": 24119,
+      "sha256": "bd36522b2da9236b8627e0a3bbc7ecd5f28d4918faf706c12178bd77f1489a57",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/xllm_ops_api.h"
+    },
+    {
+      "path": "xllm/core/kernels/npu/xllm_ops/CMakeLists.txt",
+      "bytes": 1370,
+      "sha256": "8be67926c76e0d76e8b86e3f2d7b60a258b7d30496db2f289a90d7b896688869",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/CMakeLists.txt"
+    },
+    {
+      "path": "xllm/core/kernels/npu/aclnn/pytorch_npu_helper.hpp",
+      "bytes": 33522,
+      "sha256": "24d52bd9e6a4cef6e9c1fe50201a7fcb2009ff9e02c1b80edd306d660d60ae8c",
+      "url": "https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/aclnn/pytorch_npu_helper.hpp"
+    }
+  ],
+  "copied_files": [
+    {
+      "delivery_path": "6 自测用例及测试代码/官方任务包/README.md",
+      "origin": "original_task_package",
+      "sha256": "03cbb24ca636c45f26f5a5d1883d3678592290f4c949ef64dc20e3c0ec82acbc"
+    },
+    {
+      "delivery_path": "6 自测用例及测试代码/官方任务包/SHA256SUMS.txt",
+      "origin": "original_task_package",
+      "sha256": "b124c8653715e91966be15aa00395e6f9bac9a5c150aa444ead097475d2bb5b3"
+    },
+    {
+      "delivery_path": "6 自测用例及测试代码/官方任务包/T5QKV拆分与缓存追加算子任务书.md",
+      "origin": "original_task_package",
+      "sha256": "e65bf0cc08fcb170bf9b15caac0922fa3cde539f4a58c23722c15fe3bdb7ca57"
+    },
+    {
+      "delivery_path": "6 自测用例及测试代码/官方任务包/benchmark.py",
+      "origin": "original_task_package",
+      "sha256": "84a198138a226f6185348c81045dde9bfac1c70e98b0d8e3a529c34261db868d"
+    },
+    {
+      "delivery_path": "6 自测用例及测试代码/官方任务包/case.json",
+      "origin": "original_task_package",
+      "sha256": "9ce34ba31fc08abe1969ad4997f7b6173fa950533473d6977398a8ed4db741e8"
+    },
+    {
+      "delivery_path": "6 自测用例及测试代码/官方任务包/check_performance.py",
+      "origin": "original_task_package",
+      "sha256": "52f3fbb1280284c74585fbe2dfafeef91d8d77ee3ef1a8bbe4495c0c9bc0f2c5"
+    },
+    {
+      "delivery_path": "6 自测用例及测试代码/官方任务包/coverage_requirements.json",
+      "origin": "original_task_package",
+      "sha256": "bff52ed8380d83c0e19e2c898b4507c3dd4e20a17736e17739aa44749edbdc57"
+    },
+    {
+      "delivery_path": "6 自测用例及测试代码/官方任务包/generate_data.py",
+      "origin": "original_task_package",
+      "sha256": "39c73731b0afebd242b2fc8e3e85df24c4b9c5c423ebe9adc1e4140507b2292d"
+    },
+    {
+      "delivery_path": "6 自测用例及测试代码/官方任务包/golden.py",
+      "origin": "original_task_package",
+      "sha256": "258c322025f5875bb89a2529c2d85659d96ee5bb9526f292dce3b3ca7648021a"
+    },
+    {
+      "delivery_path": "6 自测用例及测试代码/官方任务包/op.json",
+      "origin": "original_task_package",
+      "sha256": "9bccb18b2dbfb48e7f4affc30141d0c0313d7269a1edd88cb0eab76641188357"
+    },
+    {
+      "delivery_path": "6 自测用例及测试代码/官方任务包/performance_targets.json",
+      "origin": "original_task_package",
+      "sha256": "bd81fce31f5664f9c8d8461d077666c0d8cc96ae9c96b871e00fa89e82651c54"
+    },
+    {
+      "delivery_path": "6 自测用例及测试代码/官方任务包/verify.py",
+      "origin": "original_task_package",
+      "sha256": "d3a467156b3aada1ef2175f51dbc3e878e80dd2a6836421574e51c36fda80bff"
+    },
+    {
+      "delivery_path": "6 自测用例及测试代码/扩展测试/common/t5_split_qkv_append_cache_tiling.h",
+      "source_path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/common/t5_split_qkv_append_cache_tiling.h",
+      "source_commit": "ab70af7891455b36c7aaac6344f0f2207afcc068",
+      "sha256": "dd8f0555408d51cd28c0cfd932aa107c6e00dd6ee6f89bfa0af3557621d01d56"
+    },
+    {
+      "delivery_path": "6 自测用例及测试代码/扩展测试/tests/acceptance.py",
+      "source_path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/tests/acceptance.py",
+      "source_commit": "ab70af7891455b36c7aaac6344f0f2207afcc068",
+      "sha256": "3f4b42907547dab97ecf41ec496c0c3632c08c3b689d8a954e5ff33ecfbfd56a"
+    },
+    {
+      "delivery_path": "6 自测用例及测试代码/扩展测试/tests/cache_boundary.py",
+      "source_path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/tests/cache_boundary.py",
+      "source_commit": "ab70af7891455b36c7aaac6344f0f2207afcc068",
+      "sha256": "9ec0c79ffd938bed51ca8ec42ebd42914a45ff5faa70b6f382b0bdd8e1b7482d"
+    },
+    {
+      "delivery_path": "6 自测用例及测试代码/扩展测试/tests/check_task_mapping.cpp",
+      "source_path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/tests/check_task_mapping.cpp",
+      "source_commit": "ab70af7891455b36c7aaac6344f0f2207afcc068",
+      "sha256": "211e980d0b16e5c118d945575c3de50a5a0637a4989601244e9767ece5e490a0"
+    },
+    {
+      "delivery_path": "6 自测用例及测试代码/扩展测试/tests/check_task_mapping.py",
+      "source_path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/tests/check_task_mapping.py",
+      "source_commit": "ab70af7891455b36c7aaac6344f0f2207afcc068",
+      "sha256": "7a01b99478e7f5d5d00f2166cdacf621f5aff309c9bc0750fea057358502ff8c"
+    },
+    {
+      "delivery_path": "6 自测用例及测试代码/扩展测试/tests/queue_stress.py",
+      "source_path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/tests/queue_stress.py",
+      "source_commit": "ab70af7891455b36c7aaac6344f0f2207afcc068",
+      "sha256": "231c57675856edcd3552e77e7d3d2f0a51d6eae30af43ebb148d0bdbc0cae3d6"
+    }
+  ],
+  "package": {
+    "path": "7 待验收工程/custom_opp_ubuntu_aarch64.run",
+    "sha256": "8326e307a751ab75664316e5a7980cdd2817c901ec15c43ea4edf30cfa94f33b",
+    "bytes": 223669,
+    "origin": "development_evidence/20261029_ab70af7/raw/project/build_final_176/custom_opp_ubuntu_aarch64.run",
+    "environment": "Ubuntu 22.04.5 / aarch64 / Ascend910_9382 / CANN 9.1.0; rebuild for required acceptance environment"
+  }
+}

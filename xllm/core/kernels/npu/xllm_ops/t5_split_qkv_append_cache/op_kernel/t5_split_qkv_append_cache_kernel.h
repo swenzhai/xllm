@@ -51,42 +51,27 @@ class KernelT5SplitQkvAppendCache final {
     key_bypass_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
     value_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(value),
                            query_elements * (tiling.past_length + 1));
-    const uint64_t row_bytes =
-        uint64_t{2} * (tiling.past_length + 1) * tiling.head_dim;
-    const uint64_t rows = uint64_t{tiling.batch} * tiling.head_num;
-    const uint64_t normal_working_set =
-        uint64_t{8} * query_elements * tiling.past_length +
-        uint64_t{12} * query_elements;
-    // A3 has 192 MiB shared L2. Keep 20 MiB of software headroom for
-    // other live lines and cache conflicts; this is not a hardware reservation.
-    // Small working sets retain normal caching for subsequent consumers.
-    constexpr uint64_t kL2BudgetBytes = uint64_t{172} * 1024 * 1024;
-    if (normal_working_set > kL2BudgetBytes) {
+    const CachePolicy policy = make_cache_policy(tiling);
+    cacheable_key_elements_ = policy.key_elements;
+    cacheable_key_tasks_ = policy.key_tasks;
+    if (policy.bypass_value) {
       value_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
-      const uint64_t input_and_query_bytes =
-          uint64_t{4} * query_elements * (tiling.past_length + 2);
-      const uint64_t remaining = kL2BudgetBytes > input_and_query_bytes
-                                     ? kL2BudgetBytes - input_and_query_bytes
-                                     : 0;
-      const uint64_t cache_rows = remaining / row_bytes;
-      cacheable_key_elements_ =
-          static_cast<uint32_t>((cache_rows < rows ? cache_rows : rows) *
-                                row_bytes / sizeof(uint16_t));
-    } else {
-      cacheable_key_elements_ =
-          static_cast<uint32_t>(rows * row_bytes / sizeof(uint16_t));
     }
     pipe_.InitBuffer(
         queue_, /*num=*/2, tiling.tile_elements * sizeof(uint16_t));
   }
 
   __aicore__ inline void process() {
-    // Append work is balanced separately: assigning it to each head's last
-    // history tile concentrated short copies on a few cores for common shapes.
+    // Balance cache-admitted and bypassed history separately so every core
+    // receives HBM traffic while retaining contiguous input-page locality.
     const uint32_t history_tasks = 2 * tiling_.cache_tasks_per_tensor;
     const uint32_t append_tasks =
         fuses_append(tiling_) ? 0 : 2 * tiling_.batch * tiling_.head_num;
-    process_history(history_tasks);
+    process_history(0, cacheable_key_tasks_);
+    process_history(cacheable_key_tasks_,
+                    tiling_.cache_tasks_per_tensor - cacheable_key_tasks_);
+    process_history(tiling_.cache_tasks_per_tensor,
+                    tiling_.cache_tasks_per_tensor);
     process_phase(history_tasks, append_tasks);
     process_phase(history_tasks + append_tasks, tiling_.query_tasks);
   }
@@ -113,16 +98,14 @@ class KernelT5SplitQkvAppendCache final {
     queue_.EnQue(local);
   }
 
-  __aicore__ inline void process_history(uint32_t count) {
-    const TaskRange tasks =
-        partition_tasks(0, count, tiling_.block_dim, AscendC::GetBlockIdx());
+  __aicore__ inline void process_history(uint32_t first, uint32_t count) {
+    const TaskRange tasks = partition_tasks(
+        first, count, tiling_.block_dim, AscendC::GetBlockIdx());
     if (tasks.begin == tasks.end) {
       return;
     }
     prefetch_history(tasks.begin);
     for (uint32_t task_id = tasks.begin; task_id < tasks.end; ++task_id) {
-      // Fill the second queue slot before retiring the current copy. Queue
-      // events protect both DMA directions when a slot is reused.
       if (task_id + 1 < tasks.end) {
         prefetch_history(task_id + 1);
       }
@@ -213,6 +196,7 @@ class KernelT5SplitQkvAppendCache final {
   }
 
   uint32_t cacheable_key_elements_ = 0;
+  uint32_t cacheable_key_tasks_ = 0;
   T5SplitQkvAppendCacheTilingData tiling_{};
   AscendC::TPipe pipe_;
   AscendC::TQueBind<AscendC::TPosition::VECIN, AscendC::TPosition::VECOUT, 2>

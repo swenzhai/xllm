@@ -29,13 +29,16 @@ are `b*3HD + hD`, `b*3HD + HD+hD`, and `b*3HD + 2HD+hD`.
 The implementation slices each historical K/V head into 47104-element tiles.
 When the final history tile has a 32-byte-aligned UB tail and enough space for
 its padded append token, the token is loaded into that tail and written back in
-one DMA with the history. The shared `fuses_append` guard checks both conditions;
-otherwise append tokens retain independent tasks. L=0 creates no history tasks.
+one DMA with the history. The host `can_fuse_append` guard checks both conditions;
+otherwise append tokens retain independent tasks. The device reads the selected
+task layout from the total task count, avoiding repeated tail divisions. L=0 creates no history tasks.
 Fused tasks keep history and packed-QKV reads separate, with adjacent output
 ranges checked by the host mapping test.
-Q tasks copy contiguous HD-sized batch segments. History, append and query
-groups each distribute contiguous task ranges across the available Vector
-Cores, capped at 48 on the target SoC. Each output element has exactly one
+Q tasks copy contiguous HD-sized batch segments. Historical K is split at the
+cache-admission row boundary into normal-cache and bypass groups; V is a third
+group. Each group, fallback append and Q distribute contiguous task ranges across
+all available Vector Cores, capped at 48. This balances HBM traffic without the
+large per-task page strides of a cyclic assignment. Each output element has exactly one
 writer.
 
 `common/t5_split_qkv_append_cache_tiling.h` defines the 44-byte tiling POD and the
@@ -66,7 +69,9 @@ a cache-policy tuning parameter, not a new allocation or workspace. With
 within the budget use normal caching. For larger sets, V output uses the disable
 hint; the kernel caches a prefix of whole K rows using the budget remaining
 after `4*N*(L+2)` bytes for the historical inputs, packed QKV and Q output.
-The rest of K output uses the disable hint.
+The rest of K output uses the disable hint. `make_cache_policy` returns both
+the admitted element prefix and its history-task boundary; the kernel and host
+mapping checker share this policy and the five-phase partition.
 
 Two K GlobalTensor aliases select the appropriate cache hint without changing
 the GM address, copy length or ownership. Both aliases are initialized once;

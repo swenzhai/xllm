@@ -98,3 +98,22 @@ performance measurements. `tests/acceptance.py --list --package-dir ...` and
 `python3 tests/check_task_mapping.py` run on a CPU host and do not prove NPU
 correctness. The `prepare` callable owns only metadata and accepts a fresh input
 list with the same shape, dtype and device.
+
+
+Allocator experiments use the same process configuration for the submission and
+reference, exported before torch import. Expose one logical device as required
+by the task:
+
+```bash
+export ASCEND_RT_VISIBLE_DEVICES=0
+# Default allocator trial:
+unset PYTORCH_NPU_ALLOC_CONF
+# Separate expandable allocator trial (use a new report directory):
+# export PYTORCH_NPU_ALLOC_CONF=expandable_segments:True
+python3 tests/tail_fusion_boundary.py --solution-file "$T5QKV_SOLUTION" --report "$T5QKV_REPORTS/tail_fusion_boundary.json"
+```
+
+The operator does not modify process configuration. Record the measured setting
+with results, and report allocated/active peaks rather than reserved virtual
+segments. Earlier trials, including performance failures, remain separate
+evidence. The delivery ledger records the actual current status and scope.

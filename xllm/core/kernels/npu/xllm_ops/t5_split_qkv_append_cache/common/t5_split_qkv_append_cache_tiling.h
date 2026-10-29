@@ -45,8 +45,36 @@ constexpr uint64_t kMaxOutputElements = uint64_t{1} << 28;
 #define T5QKV_MAPPING_INLINE inline
 #endif
 
-T5QKV_MAPPING_INLINE bool fuses_append(
-    const T5SplitQkvAppendCacheTilingData& tiling) {
+constexpr uint64_t kL2BudgetBytes = uint64_t{172} * 1024 * 1024;
+
+struct CachePolicy {
+  uint32_t key_elements;
+  uint32_t key_tasks;
+  bool bypass_value;
+};
+
+// Software admission budget, not a reservation or a residency guarantee.
+T5QKV_MAPPING_INLINE CachePolicy
+make_cache_policy(const T5SplitQkvAppendCacheTilingData& tiling) {
+  const uint64_t n = uint64_t{tiling.batch} * tiling.head_num * tiling.head_dim;
+  const uint64_t rows = uint64_t{tiling.batch} * tiling.head_num;
+  const uint64_t row_elements =
+      uint64_t{tiling.past_length + 1} * tiling.head_dim;
+  if (8 * n * tiling.past_length + 12 * n <= kL2BudgetBytes) {
+    return {static_cast<uint32_t>(rows * row_elements),
+            tiling.cache_tasks_per_tensor,
+            false};
+  }
+  const uint64_t base = 4 * n * (tiling.past_length + 2);
+  const uint64_t remaining = kL2BudgetBytes > base ? kL2BudgetBytes - base : 0;
+  const uint64_t candidate_rows = remaining / (2 * row_elements);
+  const uint64_t admitted_rows = candidate_rows < rows ? candidate_rows : rows;
+  return {static_cast<uint32_t>(admitted_rows * row_elements),
+          static_cast<uint32_t>(admitted_rows * tiling.cache_tiles_per_head),
+          true};
+}
+
+inline bool can_fuse_append(const T5SplitQkvAppendCacheTilingData& tiling) {
   if (tiling.past_length == 0) {
     return false;
   }
@@ -55,6 +83,15 @@ T5QKV_MAPPING_INLINE bool fuses_append(
       history - (tiling.cache_tiles_per_head - 1) * tiling.tile_elements;
   const uint32_t padded_append = ((tiling.head_dim + 15) / 16) * 16;
   return tail % 16 == 0 && tail + padded_append <= tiling.tile_elements;
+}
+
+// make_tiling has already selected the task layout. Decode that decision
+// without repeating tail division/modulo on every device copy task.
+T5QKV_MAPPING_INLINE bool fuses_append(
+    const T5SplitQkvAppendCacheTilingData& tiling) {
+  return tiling.past_length != 0 &&
+         tiling.total_tasks ==
+             2 * tiling.cache_tasks_per_tensor + tiling.query_tasks;
 }
 
 // Shape/dtype/layout validation belongs to each public host entry. This helper
@@ -92,7 +129,7 @@ inline bool make_tiling(int64_t batch,
   result.query_tasks = result.batch * result.query_tiles_per_batch;
   result.total_tasks =
       2 * result.cache_tasks_per_tensor +
-      (fuses_append(result) ? 0 : 2 * result.batch * result.head_num) +
+      (can_fuse_append(result) ? 0 : 2 * result.batch * result.head_num) +
       result.query_tasks;
   const uint32_t cores = available_vector_cores < kMaxVectorCores
                              ? available_vector_cores
@@ -107,7 +144,7 @@ struct TaskRange {
 };
 
 // Give each core a contiguous, balanced slice of one independent phase.
-// History, append and query phases use this same host-testable assignment.
+// History cache classes, fallback append and Q use this same assignment.
 T5QKV_MAPPING_INLINE TaskRange partition_tasks(uint32_t first,
                                                uint32_t count,
                                                uint32_t block_dim,

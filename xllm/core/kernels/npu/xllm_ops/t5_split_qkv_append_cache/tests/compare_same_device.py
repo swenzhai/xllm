@@ -14,6 +14,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -84,6 +85,7 @@ def _main() -> int:
             "ratio": custom["wall_us_median"] / base["wall_us_median"]})
     result = {"status": "passed", "npu_executed": True, "cases": cases,
         "protocol": current["protocol"], "environment": current["environment"],
+        "runtime_options": {k: os.environ.get(k) for k in ["ASCEND_RT_VISIBLE_DEVICES", "PYTORCH_NPU_ALLOC_CONF", "TASK_QUEUE_ENABLE", "ASCEND_LAUNCH_BLOCKING"]},
         "comparison_method": "unchanged public benchmark; independent processes on same device and generated input values",
         "reference_qualification": "35 public accuracy cases; submission absolute thresholds are not reference acceptance criteria",
         "original_child_exit_codes": exit_codes, "original_reference_status": reference["status"],

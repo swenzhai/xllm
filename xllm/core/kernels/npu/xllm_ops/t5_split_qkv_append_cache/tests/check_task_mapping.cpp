@@ -91,6 +91,7 @@ uint32_t check_shape(int64_t batch,
   assert(tiling.block_dim > 0);
   assert(tiling.block_dim <= 48 && tiling.block_dim <= core_count);
   assert(tiling.tile_elements == 47104);
+  assert(t5qkv::fuses_append(tiling) == t5qkv::can_fuse_append(tiling));
   assert((tiling.tile_elements * sizeof(uint16_t)) % 32 == 0);
   const uint32_t query = static_cast<uint32_t>(batch * heads * dim);
   const uint32_t history = query * static_cast<uint32_t>(length);
@@ -104,8 +105,12 @@ uint32_t check_shape(int64_t batch,
   std::vector<uint8_t> visits(tiling.total_tasks, 0);
   uint32_t history_segments = 0;
   uint32_t append_segments = 0;
-  const std::array<uint32_t, 3> phase_counts{
-      2 * tiling.cache_tasks_per_tensor,
+  const auto policy = t5qkv::make_cache_policy(tiling);
+  assert(policy.key_tasks <= tiling.cache_tasks_per_tensor);
+  const std::array<uint32_t, 5> phase_counts{
+      policy.key_tasks,
+      tiling.cache_tasks_per_tensor - policy.key_tasks,
+      tiling.cache_tasks_per_tensor,
       t5qkv::fuses_append(tiling) ? 0 : 2 * tiling.batch * tiling.head_num,
       tiling.query_tasks};
   uint32_t first = 0;
@@ -198,7 +203,7 @@ int32_t main() {
   static_assert(
       std::is_standard_layout<T5SplitQkvAppendCacheTilingData>::value);
   static_assert(std::is_trivial<T5SplitQkvAppendCacheTilingData>::value);
-  const std::array<std::array<int64_t, 4>, 10> shapes{{{1, 1, 0, 1},
+  const std::array<std::array<int64_t, 4>, 13> shapes{{{1, 1, 0, 1},
                                                        {4, 8, 0, 64},
                                                        {2, 3, 2, 5},
                                                        {2, 3, 127, 65},
@@ -207,7 +212,10 @@ int32_t main() {
                                                        {64, 128, 62, 256},
                                                        {1, 128, 1, 1},
                                                        {16, 16, 2048, 64},
-                                                       {4, 128, 1024, 65}}};
+                                                       {4, 128, 1024, 65},
+                                                       {1, 7, 2944, 16},
+                                                       {1, 7, 8192, 256},
+                                                       {1, 7, 2048, 48}}};
   uint32_t checks = 0;
   uint32_t tasks = 0;
   for (const auto& shape : shapes) {

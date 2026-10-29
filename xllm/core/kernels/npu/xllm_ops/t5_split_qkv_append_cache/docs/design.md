@@ -52,12 +52,18 @@ Explicit global workspace is zero. Output bytes are
 The kernel uses no intermediate device tensor or conversion buffer. ACLNN tiling
 uses runtime launch metadata; the direct kernel receives the small POD by value.
 
-The Python extension obtains the current stream on the input device and drains
-pending framework host submissions before direct ACL submissions, without a
-device synchronization. It records input and output storages on that stream so
-asynchronous launches remain safe under early tensor release. The two-stage
-ACLNN query must return zero workspace; the normal non-reusable executor is
-consumed by the execution stage. Tensor descriptors live through both stages.
+The Python extension obtains the current stream on the input device without
+draining the framework host queue. It submits both paths through torch_npu's
+`OpCommand::RunOpApi`, preserving the order of preceding framework operations.
+It records input and output storages on that stream and retains their C++
+storage ownership until the callback submits the device work. Fixed-size
+metadata describes each view without retaining Python-associated TensorImpl
+objects on the worker. The callback moves its storage handles out of a shared
+payload: deferred callback copies then retain only the emptied payload,
+allowing storage to be reclaimed after its recorded stream completes.
+The two-stage ACLNN query must return zero workspace; the normal non-reusable
+executor is consumed by the execution stage. Tensor descriptors live through
+both stages. Worker failures use C++ exceptions without accessing Python.
 
 ## Interfaces
 

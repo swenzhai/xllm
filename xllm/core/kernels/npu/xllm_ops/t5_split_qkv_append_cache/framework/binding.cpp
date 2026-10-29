@@ -15,12 +15,14 @@ WARRANTIES OR CONDITIONS OF ANY KIND.
 #include <torch_npu/csrc/core/npu/NPUFormat.h>
 #include <torch_npu/csrc/core/npu/NPUGuard.h>
 #include <torch_npu/csrc/core/npu/NPUStream.h>
+#include <torch_npu/csrc/framework/OpCommand.h>
 
 #include <array>
 #include <cstdlib>
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "common/t5_split_qkv_append_cache_tiling.h"
@@ -39,6 +41,19 @@ extern "C" uint32_t t5qkv_launch(uint32_t block_dim,
 namespace {
 namespace py = pybind11;
 using Tensors = std::vector<torch::Tensor>;
+
+struct TensorMetadata {
+  std::array<int64_t, 4> sizes{};
+  std::array<int64_t, 4> strides{};
+  uint64_t rank = 0;
+  aclDataType dtype = ACL_FLOAT16;
+  void* data = nullptr;
+};
+
+struct Submission {
+  std::array<c10::Storage, 6> storages;
+  std::array<TensorMetadata, 6> metadata;
+};
 using QueryFn = int32_t (*)(const aclTensor*,
                             const aclTensor*,
                             const aclTensor*,
@@ -190,23 +205,34 @@ class TensorDeleter final {
 };
 using TensorHandle = std::unique_ptr<aclTensor, TensorDeleter>;
 
-TensorHandle describe(const torch::Tensor& tensor) {
-  const auto sizes = tensor.sizes();
-  const auto strides = tensor.strides();
-  const aclDataType dtype =
+TensorMetadata tensor_metadata(const torch::Tensor& tensor) {
+  TensorMetadata metadata{};
+  metadata.rank = tensor.dim();
+  for (uint64_t index = 0; index < metadata.rank; ++index) {
+    metadata.sizes[index] = tensor.size(index);
+    metadata.strides[index] = tensor.stride(index);
+  }
+  metadata.dtype =
       tensor.scalar_type() == torch::kFloat16 ? ACL_FLOAT16 : ACL_BF16;
+  metadata.data = tensor.data_ptr();
+  return metadata;
+}
+
+TensorHandle describe(const TensorMetadata& tensor) {
   // data_ptr already includes storage_offset; offset zero describes this exact
   // contiguous view without exposing or copying any prefix/suffix allocation.
-  TensorHandle result(aclCreateTensor(sizes.data(),
-                                      sizes.size(),
-                                      dtype,
-                                      strides.data(),
+  TensorHandle result(aclCreateTensor(tensor.sizes.data(),
+                                      tensor.rank,
+                                      tensor.dtype,
+                                      tensor.strides.data(),
                                       /*offset=*/0,
                                       ACL_FORMAT_ND,
-                                      sizes.data(),
-                                      sizes.size(),
-                                      tensor.data_ptr()));
-  require(result != nullptr, "aclCreateTensor failed");
+                                      tensor.sizes.data(),
+                                      tensor.rank,
+                                      tensor.data));
+  if (result == nullptr) {
+    throw std::runtime_error("aclCreateTensor failed");
+  }
   return result;
 }
 
@@ -237,9 +263,9 @@ Tensors run(const Tensors& inputs,
   const auto tiling = validate_inputs(inputs, head_num, head_dim);
   const c10_npu::NPUGuard device_guard(inputs[0].device());
   const auto stream = c10_npu::getCurrentNPUStream(inputs[0].device().index());
-  // Drain pending framework submissions before bypassing its host task queue.
-  // This does not synchronize device work.
-  const aclrtStream acl_stream = stream.stream();
+  // Use the framework task queue, preserving ordering without draining that
+  // queue on every call. Captured tensors remain alive until submission.
+  const aclrtStream acl_stream = stream.stream(false);
   Tensors outputs;
   outputs.reserve(3);
   outputs.emplace_back(
@@ -257,40 +283,64 @@ Tensors run(const Tensors& inputs,
     c10_npu::NPUCachingAllocator::recordStream(output.storage().data_ptr(),
                                                stream);
   }
-  if (direct) {
-    check_acl(t5qkv_launch(tiling.block_dim,
-                           acl_stream,
-                           inputs[0].data_ptr(),
-                           inputs[1].data_ptr(),
-                           inputs[2].data_ptr(),
-                           outputs[0].data_ptr(),
-                           outputs[1].data_ptr(),
-                           outputs[2].data_ptr(),
-                           tiling),
-              "t5qkv_launch");
-  } else {
-    std::array<TensorHandle, 6> descriptors;
-    for (size_t index = 0; index < 3; ++index) {
-      descriptors[index] = describe(inputs[index]);
-      descriptors[index + 3] = describe(outputs[index]);
-    }
-    uint64_t workspace = 0;
-    aclOpExecutor* executor = nullptr;
-    check_acl(api().query(descriptors[0].get(),
-                          descriptors[1].get(),
-                          descriptors[2].get(),
-                          head_num,
-                          head_dim,
-                          descriptors[3].get(),
-                          descriptors[4].get(),
-                          descriptors[5].get(),
-                          &workspace,
-                          &executor),
-              "aclnnT5SplitQkvAppendCacheGetWorkspaceSize");
-    require(workspace == 0, "operator requested nonzero global workspace");
-    check_acl(api().execute(nullptr, workspace, executor, acl_stream),
-              "aclnnT5SplitQkvAppendCache");
+  OperatorApi* operator_api = direct ? nullptr : &api();
+  auto submission = std::make_shared<Submission>();
+  for (size_t index = 0; index < 3; ++index) {
+    submission->storages[index] = inputs[index].storage();
+    submission->storages[index + 3] = outputs[index].storage();
+    submission->metadata[index] = tensor_metadata(inputs[index]);
+    submission->metadata[index + 3] = tensor_metadata(outputs[index]);
   }
+  auto launch = [submission,
+                 tiling,
+                 head_num,
+                 head_dim,
+                 direct,
+                 acl_stream,
+                 operator_api]() -> int {
+    // Keep only Storage ownership, never Python-associated TensorImpl objects,
+    // on the submission worker. Move ownership out once: delayed callback
+    // copies then retain no allocations after this submission has completed.
+    auto storages = std::move(submission->storages);
+    const auto& metadata = submission->metadata;
+    if (direct) {
+      check_acl(t5qkv_launch(tiling.block_dim,
+                             acl_stream,
+                             metadata[0].data,
+                             metadata[1].data,
+                             metadata[2].data,
+                             metadata[3].data,
+                             metadata[4].data,
+                             metadata[5].data,
+                             tiling),
+                "t5qkv_launch");
+    } else {
+      std::array<TensorHandle, 6> descriptors;
+      for (size_t index = 0; index < descriptors.size(); ++index) {
+        descriptors[index] = describe(metadata[index]);
+      }
+      uint64_t workspace = 0;
+      aclOpExecutor* executor = nullptr;
+      check_acl(operator_api->query(descriptors[0].get(),
+                                    descriptors[1].get(),
+                                    descriptors[2].get(),
+                                    head_num,
+                                    head_dim,
+                                    descriptors[3].get(),
+                                    descriptors[4].get(),
+                                    descriptors[5].get(),
+                                    &workspace,
+                                    &executor),
+                "aclnnT5SplitQkvAppendCacheGetWorkspaceSize");
+      if (workspace != 0) {
+        throw std::runtime_error("operator requested nonzero global workspace");
+      }
+      check_acl(operator_api->execute(nullptr, workspace, executor, acl_stream),
+                "aclnnT5SplitQkvAppendCache");
+    }
+    return 0;
+  };
+  at_npu::native::OpCommand::RunOpApi("T5SplitQkvAppendCache", launch);
   return outputs;
 }
 }  // namespace

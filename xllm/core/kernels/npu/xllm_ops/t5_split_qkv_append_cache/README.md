@@ -15,11 +15,17 @@ without building the full inference server or changing the xllm_ops submodule.
 
 ## Development milestones
 
-- [ ] Shared shape validation and tiling, bit-preserving kernel.
-- [ ] Private ACLNN operator package and two-stage C++ example.
-- [ ] PyTorch `run`, `run_direct`, and metadata-only `prepare` interfaces.
-- [ ] Public and extended correctness, stream/lifetime, memory validation.
+- [x] Shared shape validation and tiling, bit-preserving kernel.
+- [x] Private ACLNN operator package and two-stage C++ example.
+- [x] PyTorch `run`, `run_direct`, and metadata-only `prepare` interfaces.
+- [x] Public and extended correctness, stream/lifetime, memory validation on the development device.
 - [ ] End-to-end performance measurements and reproducible build evidence.
+
+The current development-device run passes all 206 extended checks, including
+both entries, offsets, invalid metadata, stream/lifetime pressure and allocation
+recovery. The unchanged official 50/200/5 benchmark has also run, but its latency
+limits are not met. These results do not establish formal acceptance on the
+specified OS/driver combination.
 
 The supplied acceptance package remains external. Its task book and fixed-time
 performance files disagree about relative versus absolute timing. Development
@@ -30,3 +36,56 @@ Neither discrepancy is resolved by modifying the supplied files.
 The available development machine has the correct 9382 SoC and CANN 9.1.0,
 but uses Ubuntu 22.04 and driver 26.1.1 rather than the acceptance specification's
 openEuler and driver 25.5.t6.b001. Device results must identify this difference.
+
+## Build and run
+
+Use an aarch64 Python 3.12 virtual environment with torch 2.10.0,
+torch_npu 2.10.0.post4, NumPy 2.2.6, ml_dtypes 0.6.0, setuptools, wheel, ninja,
+and the Python dependencies of CANN. Run these commands from this directory:
+
+```bash
+source /usr/local/Ascend/ascend-toolkit/set_env.sh
+bash scripts/build.sh
+export T5QKV_INSTALL_PREFIX="$HOME/t5qkv-opp"
+bash scripts/install.sh build/custom_opp_ubuntu_aarch64.run "$T5QKV_INSTALL_PREFIX"
+source "$T5QKV_INSTALL_PREFIX/vendors/t5qkv/bin/set_env.bash"
+export T5QKV_OPAPI_LIB="$T5QKV_INSTALL_PREFIX/vendors/t5qkv/op_api/lib/libcust_opapi.so"
+bash scripts/build_framework.sh
+```
+
+Use the `.run` filename actually produced for the host OS. The installer refuses
+system CANN paths. The direct build uses a fresh build directory on each run
+because CANN's legacy kernel preprocessing transforms object files in place.
+The extension embeds the direct-library build location in its runtime search
+path; rebuild it when moving the project. A complete xLLM server build remains
+a separate integration check with the repository's normal dependencies.
+
+The independent C++ example needs no PyTorch:
+
+```bash
+cmake -S examples -B build_example -DT5QKV_OPP_PATH="$T5QKV_INSTALL_PREFIX/vendors/t5qkv"
+cmake --build build_example
+./build_example/t5qkv_aclnn_example
+```
+
+The sample invokes both ACLNN stages and checks raw uint16 bits.
+
+Keep the original task package outside this repository. Set `TASK_PACKAGE` to
+its absolute directory, then run the official scripts from that directory:
+
+```bash
+export T5QKV_SOLUTION="$(pwd)/solution.py"
+export T5QKV_REPORTS="$(pwd)/reports"
+mkdir -p "$T5QKV_REPORTS"
+(cd "$TASK_PACKAGE" && python3 verify.py --solution-file "$T5QKV_SOLUTION" --report "$T5QKV_REPORTS/public_accuracy.json")
+python3 tests/acceptance.py --package-dir "$TASK_PACKAGE" --solution-file "$T5QKV_SOLUTION" --report "$T5QKV_REPORTS/extended.json"
+(cd "$TASK_PACKAGE" && python3 benchmark.py --solution-file "$T5QKV_SOLUTION" --report "$T5QKV_REPORTS/performance.json")
+(cd "$TASK_PACKAGE" && python3 check_performance.py --report "$T5QKV_REPORTS/performance.json" --output "$T5QKV_REPORTS/performance_acceptance.json")
+```
+
+Save stdout/stderr and exit codes under a new run directory on every attempt.
+Do not run profiling, lifetime pressure or other NPU workloads concurrently with
+performance measurements. `tests/acceptance.py --list --package-dir ...` and
+`python3 tests/check_task_mapping.py` run on a CPU host and do not prove NPU
+correctness. The `prepare` callable owns only metadata and accepts a fresh input
+list with the same shape, dtype and device.

@@ -69,11 +69,8 @@ t5_split_qkv_append_cache(const torch::Tensor& qkv,
                                              stream);
   c10_npu::NPUCachingAllocator::recordStream(past_value.storage().data_ptr(),
                                              stream);
-  c10_npu::NPUCachingAllocator::recordStream(query.storage().data_ptr(),
-                                             stream);
-  c10_npu::NPUCachingAllocator::recordStream(key.storage().data_ptr(), stream);
-  c10_npu::NPUCachingAllocator::recordStream(value.storage().data_ptr(),
-                                             stream);
+  // Fresh outputs are allocated on this stream and can only be reused there,
+  // after this queued launch. Only inputs may come from another stream.
   EXEC_NPU_CMD(aclnnT5SplitQkvAppendCache,
                qkv,
                past_key,

@@ -83,6 +83,7 @@ export T5QKV_REPORTS="$(pwd)/reports"
 mkdir -p "$T5QKV_REPORTS"
 (cd "$TASK_PACKAGE" && python3 verify.py --solution-file "$T5QKV_SOLUTION" --report "$T5QKV_REPORTS/public_accuracy.json")
 python3 tests/acceptance.py --package-dir "$TASK_PACKAGE" --solution-file "$T5QKV_SOLUTION" --report "$T5QKV_REPORTS/extended.json"
+python3 tests/queue_stress.py --package-dir "$TASK_PACKAGE" --solution-file "$T5QKV_SOLUTION" --report "$T5QKV_REPORTS/queue_stress.json"
 (cd "$TASK_PACKAGE" && python3 benchmark.py --solution-file "$T5QKV_SOLUTION" --report "$T5QKV_REPORTS/performance.json")
 (cd "$TASK_PACKAGE" && python3 check_performance.py --report "$T5QKV_REPORTS/performance.json" --output "$T5QKV_REPORTS/performance_acceptance.json")
 ```

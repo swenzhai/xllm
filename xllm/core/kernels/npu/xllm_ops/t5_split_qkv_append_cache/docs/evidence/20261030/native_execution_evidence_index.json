@@ -1,0 +1,55 @@
+{
+  "status": "diagnostic_evidence_not_passing_delivery",
+  "user_authorization": "2026-10-30: continue current Ubuntu 22.04.5 / driver 26.1.1 environment; Mac manually unlocked",
+  "raw_archive": "visible_phase172_20261030_evidence.tar.gz",
+  "raw_archive_sha256": "5e3f2261542e19e3bfd5b25a0a6fcc92cfb2862afc014184281ce906f0d87b01",
+  "verified_raw_files": 182,
+  "screenshots": [
+    {
+      "file": "phase172_accuracy_native.jpg",
+      "sha256": "257f25c7b4e6736ef9f813c3f770a555c5d819d396fb751ec647acf1e1f90db8",
+      "pixels": [
+        2880,
+        1800
+      ],
+      "capture_method": "unmodified native CUA app screenshot of Visual Studio Code SSH terminal",
+      "mode": "accuracy",
+      "displayed_source_json": "reports/visible_phase172_20261030_accuracy.json",
+      "original_child_output": "reports/visible_phase172_20261030_accuracy.log",
+      "derived_display_stdout": "reports/visible_phase172_20261030_accuracy_display.log",
+      "kernel_sha256": "2ef61f8b01ad553c14578830dea742cd58395f4943a78fcf8195b55236ad9c55",
+      "api_sha256": "b327e4c17e4b714b1a179fb9d5e3d69ef07a5a3c393d12bf2aff0a7f05768f76"
+    },
+    {
+      "file": "phase172_memory_native.jpg",
+      "sha256": "7bc0155e475e62268f95b8c92609f899a08a5528f4d9c72eb08d0aaeeafffa42",
+      "pixels": [
+        2880,
+        1800
+      ],
+      "capture_method": "unmodified native CUA app screenshot of Visual Studio Code SSH terminal",
+      "mode": "memory",
+      "displayed_source_json": "reports/visible_phase172_20261030_memory.json",
+      "original_child_output": "reports/visible_phase172_20261030_memory.log",
+      "derived_display_stdout": "reports/visible_phase172_20261030_memory_display.log",
+      "kernel_sha256": "2ef61f8b01ad553c14578830dea742cd58395f4943a78fcf8195b55236ad9c55",
+      "api_sha256": "b327e4c17e4b714b1a179fb9d5e3d69ef07a5a3c393d12bf2aff0a7f05768f76"
+    },
+    {
+      "file": "phase172_performance_native.jpg",
+      "sha256": "18e571051784cc26a0865204e2094e341978e49b2e454db7ccde8521209b0ad1",
+      "pixels": [
+        2880,
+        1800
+      ],
+      "capture_method": "unmodified native CUA app screenshot of Visual Studio Code SSH terminal",
+      "mode": "performance",
+      "displayed_source_json": "reports/visible_phase172_20261030_performance.json",
+      "original_child_output": "reports/visible_phase172_20261030_performance.log",
+      "derived_display_stdout": "reports/visible_phase172_20261030_performance_display.log",
+      "kernel_sha256": "2ef61f8b01ad553c14578830dea742cd58395f4943a78fcf8195b55236ad9c55",
+      "api_sha256": "b327e4c17e4b714b1a179fb9d5e3d69ef07a5a3c393d12bf2aff0a7f05768f76"
+    }
+  ],
+  "xlsx_modified": false
+}

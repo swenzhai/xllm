@@ -17,8 +17,8 @@ cache admission (including alternating per-core phase orders) were rejected.
 
 ## Latest same-device measurement
 
-`reports/checkpoint172_paired_final/comparison.json` is the latest retained
-comparison. The custom and the unique task-book `views_concat_q_copy` reference
+`reports/visible_phase172_20261030_performance.json` is the latest retained
+comparison, executed live in the SSH terminal for native screenshots. The custom and the unique task-book `views_concat_q_copy` reference
 ran in independent processes on logical device 0, using the unchanged official
 fixture generator, verifier and 50-warmup / 200-call / five-round benchmark.
 The reference passed all 35 public accuracy cases; both timed implementations
@@ -32,23 +32,24 @@ they do not qualify or disqualify the custom implementation.
 
 | Case | Custom median (us) | Limit (us) | Same-device baseline (us) | Custom / baseline | Absolute check |
 | --- | ---: | ---: | ---: | ---: | --- |
-| 001 float16 | 16.1984 | 28 | 83.928 | 0.193004 | passed |
-| 005 float16 | 16.86915 | 28 | 94.6977 | 0.178137 | passed |
-| 006 float16 | 16.6323 | 29 | 85.5223 | 0.194479 | passed |
-| 007 float16 | 87.9758 | 75 | 226.4281 | 0.388537 | failed |
-| 008 float16 | 16.9616 | 29 | 95.14285 | 0.178275 | passed |
-| 011 bfloat16 | 16.321 | 28 | 84.29195 | 0.193625 | passed |
-| 015 bfloat16 | 16.89525 | 28 | 94.40745 | 0.178961 | passed |
-| 016 bfloat16 | 17.14895 | 29 | 84.6871 | 0.202498 | passed |
-| 017 bfloat16 | 87.98345 | 77 | 217.43475 | 0.404643 | failed |
-| 018 bfloat16 | 16.99735 | 29 | 96.8451 | 0.175511 | passed |
+| 001 float16 | 17.093850 | 28 | 112.573700 | 0.151846 | passed |
+| 005 float16 | 17.282500 | 28 | 119.788150 | 0.144276 | passed |
+| 006 float16 | 18.910650 | 29 | 116.062850 | 0.162935 | passed |
+| 007 float16 | 93.429350 | 75 | 233.842400 | 0.399540 | failed |
+| 008 float16 | 18.217550 | 29 | 93.914500 | 0.193980 | passed |
+| 011 bfloat16 | 17.272850 | 28 | 82.234050 | 0.210045 | passed |
+| 015 bfloat16 | 17.755550 | 28 | 93.641200 | 0.189613 | passed |
+| 016 bfloat16 | 18.173200 | 29 | 87.863850 | 0.206834 | passed |
+| 017 bfloat16 | 92.646550 | 77 | 233.942100 | 0.396023 | failed |
+| 018 bfloat16 | 18.467650 | 29 | 86.514850 | 0.213462 | passed |
 
 The custom and reference child exit codes are both 1. The aggregate status and
 its exit code remain failed because the custom exceeds two limits. The comparison
 helper now writes complete diagnostic rows even on absolute-limit failure,
-instead of dropping the aggregate. The pre/post source and artifact manifests
-are identical. The final restored checkpoint was force-recompiled before this
-comparison; its shared/kernel source matches the retained implementation.
+instead of dropping the aggregate. The earlier `checkpoint172_paired_final` run has identical pre/post source and
+artifact manifests. The subsequent native-capture run retains the kernel/API
+hashes in its display output; it is a separate run and does not inherit that
+earlier manifest-freeze check.
 
 ## Rejected candidates and repeatability
 
@@ -59,8 +60,8 @@ comparison; its shared/kernel source matches the retained implementation.
 | `optimized_stripe176_final_01` | 83.9896 | 83.73925 |
 | `optimized_stripe176_stagger_final_01` | 87.10885 | 86.80975 |
 
-The unchanged checkpoint's earlier 81-us measurements and the latest 88-us
-measurements are both retained. Earlier candidates, including a four-batch
+The unchanged checkpoint's earlier 81-us and 88-us measurements and the latest
+93-us native-capture measurements are all retained. Earlier candidates, including a four-batch
 passing experiment, later failed repeat measurements. None establishes stable
 closure of 007/017. The table above uses the latest paired batch, not the fastest
 historical batch. Striped cache admission and alternating K/V order were restored
@@ -96,9 +97,9 @@ and CANN 9.1.0 match the requested versions. Ubuntu 22.04.5 and driver 26.1.1
 differ from the required openEuler 24.03 image and driver 25.5.t6.b001. This is
 an acceptance/environment gap, not a proven cause of the slowdown. Read-only
 checks reported device-share=False and UNION_POLICY. No hardware policy or
-clocks were changed. Further tuning needs measured MTE/cache counters for the
-slow run, or repeat verification on the specified image; current evidence does
-not justify another speculative cache-policy change.
+clocks were changed. The user explicitly authorized continuing on this environment on 2026-10-30;
+matching the acceptance image is not a blocker for continued development.
+The environment mismatch remains disclosed for formal acceptance.
 
 ## Frozen diagnostics and delivery boundary
 
@@ -120,6 +121,62 @@ The existing XLSX files and installer do not represent this optimized checkpoint
 All three XLSX SHA-256 hashes match the pre-optimization backup and repository
 copies, as recorded in `xlsx_optimization_unchanged_audit.json`. Their content,
 format and screenshots were not changed. The complete-pass condition requested
-for updating the official reports/package has not been met. Native screenshots
-for new tests also remain unavailable while the Mac is locked. This is a
+for updating the official reports/package has not been met. After the user unlocked the Mac, three native terminal screenshots were captured
+for newly executed precision, memory and paired performance checks; see below. This is a
 reviewable development checkpoint, not ready-to-submit material or formal acceptance.
+
+
+## Native screenshots and new hardware counters
+
+The user unlocked the Mac on 2026-10-30. The original, unedited 2880 x 1800 JPEG
+captures are `phase172_accuracy_native.jpg`, `phase172_memory_native.jpg` and
+`phase172_performance_native.jpg` under `evidence/20261030/`. They show a fresh
+35-case precision pass, ten memory measurements with release recovery, and an
+8/10 paired performance result respectively. The screenshots show a CLI view
+explicitly derived from that actual execution's JSON; they are not original
+benchmark stdout. The original child stdout, JSON, reference qualification,
+five-round samples, display CLI and display stdout are retained separately.
+No new screenshot was inserted into the old XLSX reports.
+
+`native_execution_evidence_index.json` links each capture to those files and
+its kernel/API hashes. `visible_phase172_20261030_evidence.tar.gz` contains 182
+raw files, verified individually and against server archive SHA-256
+`5e3f2261542e19e3bfd5b25a0a6fcc92cfb2862afc014184281ce906f0d87b01`.
+
+Two additional `msprof` diagnostics collect PipeUtilization and Memory separately.
+Each executes 80 calls per large case; the derived counter summary discards the
+first 64 and reports the final 16. In PipeUtilization, 007/017 task-duration
+medians are 84.692/85.542 us. MTE2 active-ratio medians are 0.8385/0.8355,
+MTE3 0.828/0.819, and scalar 0.103/0.102. These counters overlap in time and must
+not be added together. They support investigating memory movement and overlap
+before scalar-only changes. The separate Memory capture reports L2 bandwidth
+as zero; this is insufficient to infer cache-hit rate or zero L2 traffic.
+Profiling overhead and the changed workload make all these timings diagnostic,
+not substitutes for the official 50/200/5 measurements.
+
+A targeted triple-buffer trial (`optimized_triple60_final_01`) used three 60 KiB
+UB slots, a 30,720-element tile and two-task lookahead. It passed public precision,
+206 extended records, queue/cache/tail checks and 104 host combinations
+(191472 decoded tasks), but 007/017 remained 92.41635/92.4474 us. The trial is
+rejected; the retained kernel and screenshots remain the two-buffer checkpoint.
+
+
+The second counter-driven candidate, `optimized_balanced172_final_01`, divides
+172 MiB admission between the same row prefix of both K/V history inputs and
+both outputs. It passed the functional gates but measured 92.41095/91.98115 us
+for 007/017. It was also rejected. Restored kernel sources match the committed
+two-buffer policy. A direct-entry diagnostic using the unchanged public timer
+measured 214.48345/214.02325 us; it shows no shortcut via entry substitution.
+The task book explicitly requires `run` to call ACLNN, so the mandatory entry
+remains unchanged. Runtime/cache behavior may differ between the two launch
+paths; this comparison alone does not isolate pure API overhead.
+
+`native_trials_20261030_evidence.tar.gz` retains the two failed candidates,
+their raw build/test logs, installers, installed files and reconstructed tested
+sources, plus the independent direct-entry diagnostic. SHA-256:
+`bf57567d7d4d92895c0b7f6384852de90fb03d2c25ad40917aedb1e170578c17`.
+All 144 archived files were checked locally against its manifest. Each candidate
+has 23 reconstructed source/build/test files matching its pretest manifest,
+including the actual clang-format output. Both runs stop on performance failure
+before producing a posttest manifest; they are not passing acceptance freezes.
+The archive manifest and `DERIVED_TRIAL_SUMMARY.json` preserve that limitation.

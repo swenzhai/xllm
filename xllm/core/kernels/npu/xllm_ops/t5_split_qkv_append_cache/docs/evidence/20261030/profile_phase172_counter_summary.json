@@ -1,0 +1,58 @@
+{
+  "raw_archive_sha256": "5e3f2261542e19e3bfd5b25a0a6fcc92cfb2862afc014184281ce906f0d87b01",
+  "raw_file_count": 182,
+  "profiles": [
+    {
+      "source": "raw/reports/profile_phase172_pipe_20261030/PROF_000001_20261030013721779_00524688JCEKDBKQ/mindstudio_profiler_output/op_summary_20261030013728.csv",
+      "case_id": "007",
+      "retained_samples": 16,
+      "warmup_skipped": 64,
+      "metrics_median": {
+        "Task Duration(us)": 84.69200000000001,
+        "aiv_time(us)": 74.3485,
+        "aiv_scalar_time(us)": 7.667999999999999,
+        "aiv_scalar_ratio": 0.103,
+        "aiv_mte2_time(us)": 62.4975,
+        "aiv_mte2_ratio": 0.8385,
+        "aiv_mte3_time(us)": 61.5255,
+        "aiv_mte3_ratio": 0.828
+      }
+    },
+    {
+      "source": "raw/reports/profile_phase172_pipe_20261030/PROF_000001_20261030013721779_00524688JCEKDBKQ/mindstudio_profiler_output/op_summary_20261030013728.csv",
+      "case_id": "017",
+      "retained_samples": 16,
+      "warmup_skipped": 64,
+      "metrics_median": {
+        "Task Duration(us)": 85.542,
+        "aiv_time(us)": 75.73949999999999,
+        "aiv_scalar_time(us)": 7.725,
+        "aiv_scalar_ratio": 0.102,
+        "aiv_mte2_time(us)": 63.043,
+        "aiv_mte2_ratio": 0.8354999999999999,
+        "aiv_mte3_time(us)": 62.025999999999996,
+        "aiv_mte3_ratio": 0.819
+      }
+    },
+    {
+      "source": "raw/reports/profile_phase172_memory_20261030/PROF_000001_20261030013733879_00525117QLCCDIFJ/mindstudio_profiler_output/op_summary_20261030013740.csv",
+      "case_id": "007",
+      "retained_samples": 16,
+      "warmup_skipped": 64,
+      "metrics_median": {
+        "Task Duration(us)": 114.912,
+        "aiv_time(us)": 100.58699999999999
+      }
+    },
+    {
+      "source": "raw/reports/profile_phase172_memory_20261030/PROF_000001_20261030013733879_00525117QLCCDIFJ/mindstudio_profiler_output/op_summary_20261030013740.csv",
+      "case_id": "017",
+      "retained_samples": 16,
+      "warmup_skipped": 64,
+      "metrics_median": {
+        "Task Duration(us)": 114.79249999999999,
+        "aiv_time(us)": 100.27449999999999
+      }
+    }
+  ]
+}

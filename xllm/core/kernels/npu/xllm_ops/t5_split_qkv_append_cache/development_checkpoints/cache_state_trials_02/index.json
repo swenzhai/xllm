@@ -1,0 +1,78 @@
+{
+  "status": "performance_incomplete",
+  "archive": "cache_state_trials_02_evidence.tar.gz",
+  "sha256": "a1562b3500a0f943aa66e4d050309625b26ab7a4291d6044c625fcc283f3b0d7",
+  "verified_original_files": 865,
+  "production_candidate_fdf39d3": "failed 007=93.4543us / 017=93.2739us; kernel change withdrawn",
+  "hint_probe": "Requested device tiling mode matched all 18 records. Bypass address delta 0x80000000000. Query intentionally modified; canary is not precision acceptance.",
+  "l2_counters": [
+    {
+      "dtype": "FLOAT16",
+      "mode": 3,
+      "state": "before_other_modes",
+      "samples": 1000,
+      "raw_csv": "reports/profile_cache_l2_matrix_01/PROF_000001_20261030142057674_00990348FCEJKFLE/mindstudio_profiler_output/op_summary_20261030142120.csv",
+      "medians": {
+        "Task Duration(us)": 93.062,
+        "aiv_write_cache_hit": 264304.0,
+        "aiv_write_cache_miss_allocate": 0.0,
+        "aiv_r0_read_cache_hit": 503.0,
+        "aiv_r0_read_cache_miss_allocate": 0.0,
+        "aiv_r1_read_cache_hit": 504.0,
+        "aiv_r1_read_cache_miss_allocate": 1.0
+      }
+    },
+    {
+      "dtype": "FLOAT16",
+      "mode": 3,
+      "state": "after_other_modes",
+      "samples": 1000,
+      "raw_csv": "reports/profile_cache_l2_matrix_01/PROF_000001_20261030142057674_00990348FCEJKFLE/mindstudio_profiler_output/op_summary_20261030142120.csv",
+      "medians": {
+        "Task Duration(us)": 56.281,
+        "aiv_write_cache_hit": 264304.0,
+        "aiv_write_cache_miss_allocate": 0.0,
+        "aiv_r0_read_cache_hit": 260663.5,
+        "aiv_r0_read_cache_miss_allocate": 0.0,
+        "aiv_r1_read_cache_hit": 260679.5,
+        "aiv_r1_read_cache_miss_allocate": 1.0
+      }
+    },
+    {
+      "dtype": "DT_BF16",
+      "mode": 3,
+      "state": "before_other_modes",
+      "samples": 1000,
+      "raw_csv": "reports/profile_cache_l2_matrix_01/PROF_000001_20261030142057674_00990348FCEJKFLE/mindstudio_profiler_output/op_summary_20261030142120.csv",
+      "medians": {
+        "Task Duration(us)": 93.062,
+        "aiv_write_cache_hit": 264304.0,
+        "aiv_write_cache_miss_allocate": 0.0,
+        "aiv_r0_read_cache_hit": 504.0,
+        "aiv_r0_read_cache_miss_allocate": 0.0,
+        "aiv_r1_read_cache_hit": 503.0,
+        "aiv_r1_read_cache_miss_allocate": 1.0
+      }
+    },
+    {
+      "dtype": "DT_BF16",
+      "mode": 3,
+      "state": "after_other_modes",
+      "samples": 1000,
+      "raw_csv": "reports/profile_cache_l2_matrix_01/PROF_000001_20261030142057674_00990348FCEJKFLE/mindstudio_profiler_output/op_summary_20261030142120.csv",
+      "medians": {
+        "Task Duration(us)": 55.621,
+        "aiv_write_cache_hit": 264304.0,
+        "aiv_write_cache_miss_allocate": 0.0,
+        "aiv_r0_read_cache_hit": 260681.5,
+        "aiv_r0_read_cache_miss_allocate": 1.0,
+        "aiv_r1_read_cache_hit": 260684.0,
+        "aiv_r1_read_cache_miss_allocate": 0.0
+      }
+    }
+  ],
+  "counter_scope": "Raw event counts, not universal hit percentages; bypass misses do not necessarily allocate. Dedicated l2_cache.csv Hit Rate=N/A is not used.",
+  "acceptance_exclusions": "Retained-output entries, modified-timer matrices and profiler runs are diagnostics only, including aggregate JSON marked passed. No measured best diagnostic value is promoted.",
+  "source_snapshot_scope": "Archive-time sources/artifacts are frozen. Only runs carrying matching pre/post manifests establish unchanged artifacts throughout execution.",
+  "official_delivery_updated": false
+}

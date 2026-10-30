@@ -1,5 +1,41 @@
 <!-- Copyright 2026 The xLLM Authors. Licensed under the Apache License, Version 2.0. -->
 
+# Current optimization result (2026-10-30)
+
+The final kernel at `8ea9affaf131b22c8fb786b79da5968ce6724744` passes all ten
+absolute limits in five independent fresh-process batches on the current server.
+The latest native-terminal paired batch measures 007 at 72.10475 us (limit 75)
+and 017 at 72.16775 us (limit 77). The full regression passes 35 public accuracy
+cases, 206 extended records, queue pressure, cache/tail/hot geometry boundaries,
+and the 104-check / 171584-task host mapping suite. The reference passes all 35
+accuracy/storage cases and runs with the same allocator and public timer.
+
+This result requires `PYTORCH_NPU_ALLOC_CONF=page_size:1g` before importing torch,
+for both custom and baseline processes. Normal/expandable allocator trials were
+unstable and remain diagnostic failures. The new manual event pipeline keeps
+one task ahead across cache classes, uses two 92 KiB slots, and admits a bounded
+Value-input prefix while retaining Key input/output. For 007/017 this normal
+logical working set is 188.15625 MiB under a 190 MiB software admission budget.
+The budget is not a physical residency guarantee. The 1 GiB large allocator pool
+and 2 MiB small pool are measured process reservations, separate from zero
+explicit operator workspace, 184 KiB UB and active output allocation.
+
+The reports and submission now promote this passing current-environment result,
+preserving workbook styles and all 35 case rows, with three fresh real terminal
+captures and immutable original logs. See `task_submission/` at the repository
+root for the complete design, reproduction steps, reports and evidence index.
+The original server archive SHA-256 is
+`2f142c1f953965ef4353df283c03086c561abdb2aa7ff3ef8e5f269a6af8bda1`.
+
+Formal acceptance still has explicit environment, taskbook checksum/criterion,
+TBE-reference and full-service/community-process gaps. The user authorized this
+Ubuntu22.04.5 / driver26.1.1 environment; no global policy or clock was changed.
+
+## Historical checkpoint (superseded by the result above)
+
+The following text and its evidence describe prior failed candidates. They are
+retained for traceability and do not supply the current reported measurements.
+
 # Optimization checkpoint (2026-10-30)
 
 Performance acceptance remains incomplete: the final paired run passes 8/10

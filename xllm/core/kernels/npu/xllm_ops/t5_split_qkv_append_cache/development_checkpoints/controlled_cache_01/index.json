@@ -73,5 +73,10 @@
     },
     "all_fixed_output_comparisons_bit_exact": true
   },
-  "production_change": "Keep existing copy schedule. If all normal outputs plus QKV/Q fit the software budget, bypass history reads and retain KV outputs. Normal allocating ACLNN acceptance validation is separate."
+  "production_change": "Keep existing copy schedule. If all normal outputs plus QKV/Q fit the software budget, bypass history reads and retain KV outputs. Normal allocating ACLNN acceptance validation is separate.",
+  "superseded_by": {
+    "implementation_commit": "8ea9affaf131b22c8fb786b79da5968ce6724744",
+    "evidence": "../page1g_final_03/index.json",
+    "note": "Earlier trial status is historical; current report evidence is separate."
+  }
 }

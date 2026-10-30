@@ -1,0 +1,96 @@
+{
+  "implementation_commit": "8ea9affaf131b22c8fb786b79da5968ce6724744",
+  "current_result": {
+    "official_precision_passed": 35,
+    "extended_passed": 206,
+    "performance_passed": 10,
+    "performance_failed": 0,
+    "memory_passed": 10,
+    "performance_memory_not_applicable": 25,
+    "successful_fresh_performance_batches": 5
+  },
+  "required_runtime": "PYTORCH_NPU_ALLOC_CONF=page_size:1g before torch import; baseline identical",
+  "final_original_archive": {
+    "name": "page1g_final_evidence.tar.gz",
+    "sha256": "2f142c1f953965ef4353df283c03086c561abdb2aa7ff3ef8e5f269a6af8bda1",
+    "verified_files": 126
+  },
+  "diagnostic_original_archive": {
+    "name": "allocator_trials_03.tar.gz",
+    "sha256": "de2aa6c1010fe4d830d3ddcb37f085788916a38493545d93de67fa64e85ae48b",
+    "verified_files": 234,
+    "scope": "cold-cache/read-balance/manual-event/allocator prototypes and failed final_01 script regression; excluded from passing report measurements"
+  },
+  "latest_paired_large_cases": {
+    "T5SplitQkvAppendCache_007_float16_random": {
+      "applicable": true,
+      "status": "passed",
+      "wall_us_rounds": [
+        72.28225,
+        72.25635000000001,
+        72.08755000000001,
+        72.10475,
+        72.07455
+      ],
+      "device_event_us_rounds": [
+        71.68749809265137,
+        71.78239822387695,
+        71.68459892272949,
+        71.65820121765137,
+        71.67140007019043
+      ],
+      "wall_us_median": 72.10475,
+      "device_event_us_median": 71.68459892272949,
+      "max_wall_us": 75,
+      "measured_baseline_us": 238.57604999999998,
+      "baseline_rounds": [
+        238.72025,
+        238.69570000000002,
+        238.56445000000002,
+        238.53629999999998,
+        238.57604999999998
+      ],
+      "current_over_measured_baseline": 0.3022296244740409,
+      "evidence": "raw/reports/visible_page1g_final_performance.json"
+    },
+    "T5SplitQkvAppendCache_017_bfloat16_random": {
+      "applicable": true,
+      "status": "passed",
+      "wall_us_rounds": [
+        72.19785,
+        72.1315,
+        72.20975,
+        72.06830000000001,
+        72.16775
+      ],
+      "device_event_us_rounds": [
+        71.65989875793457,
+        71.70360088348389,
+        71.76690101623535,
+        71.65150165557861,
+        71.74280166625977
+      ],
+      "wall_us_median": 72.16775,
+      "device_event_us_median": 71.70360088348389,
+      "max_wall_us": 77,
+      "measured_baseline_us": 238.8597,
+      "baseline_rounds": [
+        238.88670000000002,
+        238.837,
+        238.95765,
+        238.8597,
+        238.70755
+      ],
+      "current_over_measured_baseline": 0.3021344747565202,
+      "evidence": "raw/reports/visible_page1g_final_performance.json"
+    }
+  },
+  "formal_gaps": [
+    "Specified OS/driver differ; current environment authorized by user",
+    "Taskbook performance ratio dimension requires clarification",
+    "Baseline memory not measured",
+    "No complete xLLM service integration; no community PR/CLA/compile confirmation",
+    "Original taskbook checksum discrepancy preserved"
+  ],
+  "submission": "task_submission/ at repository root"
+}

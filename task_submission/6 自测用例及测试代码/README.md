@@ -4,7 +4,7 @@
 
 `官方任务包/` 保存发布包全部12个文件的逐字节副本：35个公开case、10个性能/内存适用项、coverage_requirements、独立CPU golden、数据生成器、公开验证器、benchmark及性能检查器。原始SHA256SUMS中的任务书名称/哈希异常原样保留，详见根目录步骤说明；交付副本的新哈希见 `../7 待验收工程/源码文件清单.json`。
 
-`扩展测试/tests/` 是被测固定提交的5个测试源码副本，`扩展测试/common/` 保留host映射测试依赖的共享tiling头；目录层级与原工程一致。`acceptance.py` 覆盖工程契约、非法输入、准备接口、stream、生命周期、连续追加、workspace及分配器内存；另有队列压力、缓存边界和纯CPU地址映射检查。副本没有改变算法或测试判据。
+`扩展测试/tests/` 是被测固定提交的9个测试源码副本，`扩展测试/common/` 保留host映射测试依赖的共享tiling头；目录层级与原工程一致。`acceptance.py` 覆盖工程契约、非法输入、准备接口、stream、生命周期、连续追加、workspace及分配器内存；另有队列压力、缓存边界、尾块融合边界、hot geometry、同机基线比较和纯CPU地址映射检查。副本没有改变算法或测试判据。
 
 无需NPU即可检查交付结构和公开case清单（Python3和C++17编译器）：
 
@@ -30,3 +30,5 @@ python3 "$EXT_TESTS/cache_boundary.py" --solution-file "$T5QKV_SOLUTION" \
 ```
 
 35个官方case不能由扩展统计替代，未标记performance的25个case仍需精度验证。纯CPU映射检查和 `--list` 不证明NPU正确性或性能。本次已有实测记录见原始证据ZIP；此目录提供源码与复现入口，不生成新的硬件验证声明。
+
+本次所有NPU进程启动前设置 `PYTORCH_NPU_ALLOC_CONF=page_size:1g`，custom与baseline相同。完整运行命令和实际边界见根目录步骤说明；tests含8个Python脚本及1个C++源码（按实际源码清单核对）。

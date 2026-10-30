@@ -1,5 +1,23 @@
 <!-- Copyright 2026 The xLLM Authors. Licensed under the Apache License, Version 2.0. -->
 
+# Latest validation
+
+The final tested product source is `8ea9affaf131b22c8fb786b79da5968ce6724744`.
+Current evidence: 35 official precision cases, 206 extended records and all
+queue/cache/tail/hot geometry/host mapping checks pass. All ten absolute
+performance limits pass in five fresh processes with `page_size:1g` configured
+before torch import; the latest paired run also measures the independently
+qualified taskbook baseline under the same configuration. Ten allocator memory
+records meet zero-workspace and output-allocation/recovery checks; reserved pool
+memory is reported separately, not hidden in the workspace claim.
+
+The current report ledger, real native captures, original logs, source/artifact
+freeze checks and full reproduction commands are in repository `task_submission`.
+The following earlier validation notes remain historical; their timestamps and
+source revisions must not be substituted for the current evidence.
+
+<!-- Copyright 2026 The xLLM Authors. Licensed under the Apache License, Version 2.0. -->
+
 # Validation procedure and evidence scope
 
 Use the immutable public task package for all 35 accuracy cases and all ten

@@ -2,19 +2,18 @@
 
 # 【社区任务】T5SplitQkvAppendCache算子设计文档
 
-<!-- SUPPLEMENT_CURRENT -->
-> 当前更新：同机基线10项已实测，真实精度/性能/内存截图已补入XLSX；02批次绝对门限5/10通过。当前数据、日志哈希、截图和限制以[补充测试记录](补充测试记录.md)为准。下文保留final_176_01历史数据与当时未闭合状态。
+> 当前版本：35精度、206扩展和5批全部10个性能case通过；真实截图已补齐。当前运行依赖page_size:1g；正式环境差异仍披露。
 
 
 本算子面向 T5 单 token 解码，将融合 QKV 拆分为独立 Q，并把当前 K/V 追加到连续历史缓存。设计采用一次 AIV 内核启动、逐位搬运、零显式全局工作区，同时提供 ACLNN 和 Kernel 直调入口。
 
-本文描述已实现并在开发环境测试的版本，不把设计覆盖等同于正式验收通过。35 个官方精度 case、10 个内存 case 和随包绝对耗时检查已通过；指定环境复测、同机合格基线性能比较及真实执行截图尚待补齐。
+本文描述已实现并在开发环境测试的版本，不把设计覆盖等同于正式验收通过。35 个官方精度 case、10 个内存 case 和随包绝对耗时检查已通过；同机合格基线与真实截图已补齐；指定环境复测及社区正式流程仍待完成。
 
 | 版本项 | 固定内容 |
 | --- | --- |
-| 文档日期 | 2026-10-29 |
+| 文档日期 | 2026-10-30 |
 | 仓库与交付分支 | `https://github.com/swenzhai/xllm`，`t5-qkv-task-submission` |
-| 被测实现提交 | `ab70af7891455b36c7aaac6344f0f2207afcc068`；后续提交仅更新文档和交付附件 |
+| 被测实现提交 | `8ea9affaf131b22c8fb786b79da5968ce6724744`；后续附件提交与被测源码提交分别记录 |
 | 算子目录 | `xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/`，下文简称 OP_ROOT |
 | 设计审核依据 | `asctool/docs/official/设计文档CheckList.md`，原表第 2–24 行，共 23 项 |
 | CheckList SHA256 | `e36651e3c496e19ce8b279c6412c7b673c0ef5503e1fbf4796a20fb8e90502cf` |
@@ -26,7 +25,7 @@
 
 需求来自《题目3-T5QKV拆分与缓存追加算子开发任务书》及同包 `op.json`、`case.json`、`coverage_requirements.json`。任务要求向 xLLM 的 NPU 算子目录贡献可构建的 Ascend C 实现，交付 OpDef、shape/dtype 推导、tiling、私有安装包、两阶段 ACLNN API、独立 C++ 样例和 PyTorch NPU 封装，并通过直调交叉验证。
 
-原始任务包保存在本交付的 `5 原始证据.zip` 内，目录为 `题目3-T5QKV拆分与缓存追加算子-独立包/`。公开 `case.json` 的 SHA256 为 `9ce34ba31fc08abe1969ad4997f7b6173fa950533473d6977398a8ed4db741e8`。原包保持不改。其任务书文件名/哈希与 `SHA256SUMS.txt` 不一致，且任务书的相对性能要求与随包绝对时间检查器不同，具体影响见 5.1、6.2。
+原始任务包保存在本交付的 `5 原始证据.zip` 内，目录为 `official_task_package/`（另在交付第6目录保留原件）。公开 `case.json` 的 SHA256 为 `9ce34ba31fc08abe1969ad4997f7b6173fa950533473d6977398a8ed4db741e8`。原包保持不改。其任务书文件名/哈希与 `SHA256SUMS.txt` 不一致，且任务书的相对性能要求与随包绝对时间检查器不同，具体影响见 5.1、6.2。
 
 ### 1.2 背景介绍
 
@@ -40,7 +39,7 @@
 | --- | --- | --- |
 | 任务算子信息 | 原任务包 `op.json` | 定义 `T5SplitQkvAppendCache`、三输入三输出、FP16/BF16、ND、两个 int 属性；不是 TBE 信息库 |
 | 独立功能标杆 | 原任务包 `golden.py:calculate`、`calc_expect_func` | CPU NumPy/ml_dtypes 标杆；不调用提交实现，不是 TBE 内核 |
-| 指定性能基线 | 原任务书 3.3 `candidates` 中 `views_concat_q_copy` | 同机 NPU 视图拆分、Q clone、两次 concat；当前没有该候选的实测数据 |
+| 指定性能基线 | 原任务书 3.3 `candidates` 中 `views_concat_q_copy` | 同机 NPU 视图拆分、Q clone、两次 concat；当前已独立进程精度资格验证并同机实测 |
 | 注册与推导 | OP_ROOT `op_host/t5_split_qkv_append_cache.cpp` | OpDef、输入输出约束、shape/dtype 推导与 tiling |
 | ACLNN API | 构建生成 `aclnn_t5_split_qkv_append_cache.h` | `aclnnT5SplitQkvAppendCacheGetWorkspaceSize` 与 `aclnnT5SplitQkvAppendCache`；独立样例实际调用这两个符号 |
 
@@ -111,7 +110,7 @@ flowchart LR
 | 模块 | 具体文件 | 职责 |
 | --- | --- | --- |
 | 注册和 host tiling | `op_host/t5_split_qkv_append_cache.cpp` | 约束检查、输出推导、工作区0、blockDim、tilingKey |
-| 共用 tiling / 地址映射 | `common/t5_split_qkv_append_cache_tiling.h` | 44 B POD、尺寸边界、任务数、分核、任务解码 |
+| 共用 tiling / 地址映射 | `common/t5_split_qkv_append_cache_tiling.h` | 52 B POD、尺寸边界、任务数、分核、任务解码 |
 | AIV kernel | `op_kernel/t5_split_qkv_append_cache.cpp`、`..._kernel.h` | ACLNN/直调实例共用复制实现 |
 | 直调 launcher | `direct/launch.cpp`、`direct/CMakeLists.txt` | 按值传递 tiling、当前 stream 启动 |
 | 框架入口 | `solution.py`、`framework/binding.cpp` | 元数据校验、新输出分配、stream/lifetime、两阶段 API |
@@ -176,118 +175,78 @@ callback按值捕获六份固定`TensorMetadata`（shape、stride、dtype及视�
 
 ### 3.2 需求总体设计
 
-#### 3.2.1 Host 侧设计
+#### 3.2.1 Host侧设计
 
-Host 先验证 rank、维度范围、两份缓存 shape、dtype、格式、属性与输出 shape，再做乘法。总输出元素数用 uint64 计算，越界即拒绝；合法的 task 偏移和数量可用 uint32 表示。共享 POD 为11个 uint32字段，共44 B，host/device 用静态断言固定布局。
+Host先校验rank、维度、dtype、ND和属性，再以uint64计算N=BHD、O=N(2L+3)，O≤2^28。共享POD为13个uint32，共52 B：B/H/L/D、tile_elements、cache_tiles_per_head、query_tiles_per_batch、cache_tasks_per_tensor、query_tasks、total_tasks、block_dim、cacheable_key_rows、bypass_value_cache。Host/device静态断言布局；direct同一共享helper。
 
 ##### 3.2.1.1 分核策略
 
-每块上限 `T=32768` 个 uint16 元素。单 head 历史长度 `E=L×D`，每 head 历史块数 `C=ceil(E/T)`；每 batch Q 的块数 `Qb=ceil(H×D/T)`。当 L=0，C=0，不创建历史任务。
+令R=BH，E=LD，T=47104，C=ceil(E/T)，Qb=ceil(HD/T)。历史任务2RC，Q任务BQb。L>0且历史尾块tail为16元素整数倍、tail+roundUp(D,16)≤T时，当前token在最后历史tile融合搬运；否则另有2R个追加任务。total=2RC+BQb+[不融合]2R；P=min(total,availableAiv,48)。L=0无历史读写，由独立追加与Q覆盖。
 
-任务空间固定分为三段：
+每个独立缓存类别、追加和Q阶段使用连续均衡公式：数量M、起点F，q=M/P、r=M%P，核c区间为 `[F+cq+min(c,r), F+cq+min(c,r)+q+[c<r])`。缓存类别按完整head行分界，不在tile内切换hint。各核无全核barrier，输出元素唯一writer。
 
-| 阶段 | 起始 task id | 任务数量 |
-| --- | ---: | ---: |
-| K/V 历史复制 | 0 | `Th=2×R×C` |
-| K/V 当前 token 追加 | Th | `Ta=2×R` |
-| Q 复制 | Th+Ta | `Tq=B×Qb` |
-
-`total_tasks=Th+Ta+Tq`，ACLNN `P=blockDim=min(total_tasks,min(availableAiv,48))`。每个阶段分别做连续均衡分配：阶段起点 F、数量 M，令 `q=floor(M/P)`、`r=M mod P`，核 c 获得 `[F+cq+min(c,r), F+cq+min(c,r)+q+[c<r])`。任一阶段内核间任务数差不超过1；M<P时允许部分核该阶段没有任务。
-
-每核按历史、追加、Q 的顺序执行自己的任务，没有全核 barrier。三个阶段写入互不重叠的逻辑区间，追加不读取已写输出，因此无需跨核同步。分开均衡追加任务，避免短复制全部集中到执行最后历史块的少数核。
-
-例：官方007的 `(B,H,L,D)=(16,16,2048,64)`，R=256，C=4，Qb=1，Th=2048、Ta=512、Tq=16、总任务2576、P=48。历史每核42或43个任务，追加10或11个任务，Q仅16个核各1个任务；不能把P=48解释为三个阶段均有48个活跃核。
+007/017的R=256、E=131072、C=3、tail=36864，满足融合，历史1536任务、Q16、total1552、P48。Key历史768任务每核16；Value正常前缀240行×3=720任务每核15；bypass尾16行×3=48任务每核1。Q仅16个核各1条。
 
 ##### 3.2.1.2 分块和内存优化策略
 
-每个历史任务仅覆盖一个 head 的连续片段；尾块长度 `min(T,E-tT)`。追加任务搬运 D 个元素，Q任务搬运 batch 内至多T个连续元素。采用2槽 `TQueBind<VECIN,VECOUT,2>`：每槽 `32768×2=65536 B`，每个执行核总 UB 数据缓冲 `2×65536=131072 B`。这是片上缓冲，不计入显式全局workspace。
+UB使用一个TBuf<VECCALC>，两槽每槽47104×2=94208 B=92KiB，总188416 B=184KiB。每槽首址32B对齐。历史尾块满足融合时先精确搬运历史，再把当前D元素追加到同一槽有效末尾，最后一次写连续有效数据；不满足条件回退独立copy。DataCopyPad使用精确有效字节数，不将padding写到邻head。最大单槽字节94208，低于扩展blockLen范围。无浮点计算、全局中间张量或显式workspace。
 
-每次拷贝都从独立、32 B对齐的 UB 槽首址开始；不把追加数据接在可能未对齐的历史尾块 UB 地址上。最大单次搬运为65536 B，`DataCopyExtParams` 的 blockCount=1、blockLen=`count×2` 字节、两端stride=0。GM→UB 不主动填充有语义的数据，UB→GM仅写有效字节，不将对齐padding写入邻接输出。
+逻辑输入/输出均Mout=2N(2L+3)B，理想总GM有效读写=4N(2L+3)B；缓存行、写分配和运行时开销不含在此公式，不能将其命名为HBM实测带宽。
 
-总输出元素 `O=N(2L+3)`，输出字节 `Mout=2N(2L+3)`。输入恰好也是 Mout 字节；每个有效输入元素理想情况下读一次、每个输出元素写一次，因此最小逻辑 GM 读写量为 `2Mout=4N(2L+3)` B。该值不包含缓存行放大、写分配、元数据和框架开销，不能直接当作实测HBM带宽。
+基础软件缓存预算172MiB：W=8NL+12N≤预算时正常缓存；超预算时Value输出bypass，按A=4N(L+2)、每Key行2(L+1)D计算Key正常缓存前缀。新的读平衡策略在bypass_value_cache、L>0、base=2N(2L+5)<190MiB时优先启用：Key输入和输出、QKV/Q正常缓存，Value输入正常前缀 `min(R,floor((190MiB-base)/(2LD)))`，若行数足够则向下取 `P/gcd(C,P)` 的整数倍；剩余Value输入和全部Value输出bypass。base已超190MiB时保留172MiB回退策略。
 
-显式全局workspace=0，无中间设备张量。ACLNN tiling 是运行时启动元数据，direct 的44 B POD按值进入启动参数，不为其申请设备工作区。框架只分配三块最终输出；验收分配器允许输出字节以外16 KiB对齐余量。
+007/017的Key输入64MiB、Key输出64.03125MiB、Value输入前缀240行60MiB、QKV/Q合计0.125MiB，正常逻辑工作集188.15625MiB；不是缓存预留、实际驻留或命中率保证。GlobalTensor别名同存储仅hint不同。direct旧编译链hint无效，仅用于正确性对照。
 
-L2策略预算 `S=176×2^20=184549376 B`，不是硬件预留或额外内存分配。令整个输入输出逻辑工作集 `W=8NL+12N`。W≤S时使用正常缓存；W>S时V输出使用disable hint，同时计算保留输入和Q后的预算 `A=4N(L+2)`、`remaining=max(0,S-A)`。每个K输出head行 `rowBytes=2(L+1)D`，正常缓存的完整K行数为 `min(R,floor(remaining/rowBytes))`，其余K行使用disable hint。输入本身若超过预算，算法不会把全部工作集强行限制在176 MiB内。
+所有最终性能进程在torch导入前设置 `PYTORCH_NPU_ALLOC_CONF=page_size:1g`，baseline同设。该进程配置改变大内存池分页/预留，实测007身份进程reserved=1075838976B=1GiB大池+2MiB小池，输出释放后仍保留。它不是workspace或UB，也不是整卡瞬时峰值。常规/expandable allocator旧试验仍有超限，本次不作跨allocator保证；不能单凭相同虚拟地址或预算公式推断物理页/缓存映射。原始诊断与失败批次另存开发checkpoint。
 
-K的两个GlobalTensor别名指向同一输出存储及同一逻辑元素范围，区别只有缓存hint；任务按首个输出偏移与缓存前缀边界比较选择别名。前缀只以完整head行划分，而任务不跨head，故单个任务不会跨越前缀边界。大非对齐边界测试专门覆盖该条件。direct旧编译链未启用所需L2运行时配置，hint不生效，仍保持相同逐位复制语义；官方耗时只测ACLNN `run`。
+##### 3.2.1.3 tilingKey规划
 
-官方007的 Mout=134316032 B，W=268632064 B，A=134348800 B，remaining=50200576 B，rowBytes=262272 B，K正常缓存前缀191行。预算值来自该开发环境的优化选择；不能将源码注释中的平台L2容量或一次测量外推为所有设备的保证。
+唯一tilingKey=0，合法FP16/BF16共用uint16搬运内核。形状、尾块融合和hint分支由上述元数据/helper决定，不虚增未使用key。
 
-##### 3.2.1.3 tilingKey 规划
+#### 3.2.2 Kernel侧设计
 
-当前唯一 `tilingKey=0`，所有合法FP16/BF16形状共用同一uint16搬运内核。L=0、长短缓存、奇数D和尾块由tiling字段与任务解码处理；L2 hint也不分配新key。未来增加新key须同时更新host选择条件、device dispatch、两入口的一致性验证，不能仅增加未使用的host标记。
+##### 3.2.2.1 实现与地址推导
 
-| POD字段 | 含义 |
-| --- | --- |
-| batch/head_num/past_length/head_dim | B/H/L/D |
-| tile_elements | T=32768 |
-| cache_tiles_per_head | C=ceil(LD/T) |
-| query_tiles_per_batch | Qb=ceil(HD/T) |
-| cache_tasks_per_tensor | R×C，单份K或V历史任务数 |
-| query_tasks | B×Qb |
-| total_tasks | 2RC+2R+BQb |
-| block_dim | 启动Vector Core数P |
+以uint16为偏移单位，r=bH+h，J=(L+1)D。data pointer已含storage_offset，不重复相加。
 
-#### 3.2.2 Kernel 侧设计
-
-##### 3.2.2.1 实现描述与地址推导
-
-以 uint16 元素为偏移单位，令 head行 `r=bH+h`、历史行长E=LD、输出行长J=(L+1)D。输入tensor的data pointer已包含storage offset，以下偏移均相对该指针，不再重复叠加offset。
-
-| 数据段 | 读偏移 | 写偏移 | 长度 |
+| 数据 | 源偏移 | 目的偏移 | 有效元素 |
 | --- | --- | --- | --- |
-| Q的batch块t | `b×3HD+tT` | `b×HD+tT` | `min(T,HD-tT)` |
-| K/V历史块t | `r×LD+tT`，对应pastKey或pastValue | `r×J+tT`，对应key或value | `min(T,LD-tT)` |
-| 当前K | `b×3HD+HD+hD` | `r×J+LD` | D |
-| 当前V | `b×3HD+2HD+hD` | `r×J+LD` | D |
+| Q batch tile t | b×3HD+tT | b×HD+tT | min(T,HD-tT) |
+| K/V历史tile t | r×LD+tT | r×J+tT | min(T,LD-tT) |
+| 当前K | b×3HD+HD+hD | r×J+LD | D |
+| 当前V | b×3HD+2HD+hD | r×J+LD | D |
 
-历史任务首先确定K/V张量，再以商余数确定head与tile；追加任务确定K/V及head；Q任务确定batch与tile。三类区间恰好覆盖Q、历史K/V、最后token且彼此不交叠。每个有效输出元素有唯一writer，不需atomic或归约。L=0时历史GlobalTensor不绑定，history任务数为0，`copy_segment(count=0)`在解引用source之前返回，避免读取空缓存。
+每核用phase/task/row/tile增量游标，只有进入缓存类别时做除法求行/块，循环中自增并在边界归零。读平衡依次Key、正常Value前缀、bypass Value尾；回退计划依次正常Key前缀、bypass Key尾、Value。两槽的一任务预取流水跨类别延续，避免类别之间反复排空。HistoryWrite保存目的偏移、有效长度及enum输出类别，读写地址不依赖后续游标状态。
 
-`copy_segment`依次执行 AllocTensor、DataCopyPad(GM→UB)、EnQue、DeQue、DataCopyPad(UB→GM)、FreeTensor。队列依赖管理搬运就绪及槽复用；2槽设计不等于已经证明所有搬运完全重叠。整个路径没有FP16/BF16算术或类型转换，NaN payload、Inf、正负零与普通值均按原始16位复制。
+为每槽分别AllocEventID申请MTE2_MTE3读就绪和MTE3_MTE2写完成事件（共4个独立ID）。重用槽前等待上次写完成；GM→UB及可选融合追加完成后Set读事件，UB→GM前Wait读事件，写后Set写完成事件。最后排空所有已提交槽、匹配等待flag并ReleaseEventID。不能用两次FetchEventID当作两次独立保留。剩余独立追加及Q在槽0以同样成对事件同步，最后释放ID。没有跨核依赖、原子或数值转换；任意NaN payload等原始位保持。
 
-本机接口索引《Ascend C 9.1.0-beta.1 接口参考》2.3.1.2（238–248页）将DataCopyPad标为A3支持的ISASI接口：LocalTensor首址须32 B对齐，GlobalTensor无首址对齐要求；当前使用带uint32 blockLen的扩展参数，65536 B低于其2097151 B上限。2.2.2.12（138–139页）列出SetL2CacheHint对A3的支持。手册版本用于静态约束核对，实际CANN9.1.0构建与设备结果另有原始证据；不声称这些接口能无条件跨平台使用。
+DataCopyPad满足LocalTensor首址32B对齐、GlobalTensor可非32B对齐，UB及有效长度按共享边界检查；尾融合条件另有边界测试。Ascend C手册A3支持DataCopyPad和SetL2CacheHint，实际构建与NPU结果是当前版本支持的证据，不作跨型号承诺。
 
-##### 3.2.2.2 Ascend C 实现流程图
+##### 3.2.2.2 Ascend C流程图
 
 ```mermaid
 flowchart TD
-    A["AIV启动；加载44 B tiling"] --> B["绑定uint16 GM；L大于0才绑定历史输入"]
-    B --> C["配置输出缓存hint；初始化2个64 KiB UB槽"]
-    C --> D["每核依次处理历史、追加、Q三个阶段"]
-    D --> E["partition_tasks取得本核连续区间"]
-    E --> F{"本阶段有剩余任务？"}
-    F -- 是 --> G["decode_task计算输出类别、源/目的偏移和有效长度"]
-    G --> H["K任务按完整行前缀选择normal或disable别名"]
-    H --> I{"本段count是否为0？"}
-    I -- 是 --> M["处理下一段或下一task"]
-    I -- 否 --> J["AllocTensor；DataCopyPad GM到UB"]
-    J --> K["EnQue / DeQue等待数据就绪"]
-    K --> L["DataCopyPad UB到GM；FreeTensor"]
-    L --> M
-    M --> F
-    F -- 否 --> N{"是否还有下一阶段？"}
-    N -- 是 --> E
-    N -- 否 --> O["本核结束；无跨核barrier"]
+  A[加载52B tiling] --> B[绑定uint16 GM和hint别名]
+  B --> C[分配184KiB双槽及4个独立事件ID]
+  C --> D[计算三个缓存类别的每核区间]
+  D --> E[游标初始化并预取首task]
+  E --> F[等待空槽并预取下一task]
+  F --> G[等待读就绪 写当前槽 信号写完成]
+  G --> H{还有历史任务?}
+  H -- 是 --> F
+  H -- 否 --> I[排空历史槽 执行回退追加与Q]
+  I --> J[匹配等待并释放全部事件ID]
 ```
 
-##### 3.2.2.3 与参考流程的差异及原因
+##### 3.2.2.3 与参考的差异和原因
 
-| 参考流程 | 当前Ascend C流程 | 原因与等价性 |
-| --- | --- | --- |
-| split、reshape、transpose | 直接计算打包QKV偏移 | shape语义相同，不生成转置中间张量 |
-| CPU标杆复制当前Q/K/V再concat | Q直接写最终输出；K/V历史与新token分别写最终区间 | 输出独立存储不变，去掉中间K/V复制 |
-| 参考按Q、K、V逻辑顺序构造 | 每核历史、追加、Q三阶段均衡处理 | 不同输出区间无依赖，调度顺序不改变位结果 |
-| 标杆使用数组操作 | uint16 DataCopyPad与队列同步 | 不经过浮点计算，保持任意16位模式 |
-| 未规定L2策略 | ACLNN按工作集选择输出hint | 只改变访存策略，不改变地址映射与数据内容 |
-
-因为未提供同名TBE源码，不能断言上表就是“与TBE源码”的逐行差异。若社区评审指定实际TBE文件，需补其文件名、版本、原始流程图和逐分支对照后再作兼容性结论。
+参考split/reshape/transpose映射直接化为地址，不生成当前K/V中间张量；历史和新token写最终连续输出，语义保持独立存储。参考依次Q/K/V与本实现各核分阶段并行写互不相交区间等价。uint16搬运保持任意位模式；hint、双槽、游标和大页改变访存/调度，不改变输入输出合同。没有同名TBE源码，不能声称逐行对齐未知实现；真实TBE若由评审指定需补源码和流程图对照。
 
 ### 3.3 支持硬件
 
 目标为昇腾910C / Atlas A3、Ascend910_9382、单个逻辑设备、48个Vector Core及24个Cube Core。本内核声明AIV_ONLY，不使用Cube。注册/编译目标为`ascend910_93`；没有承诺910B、初代910或950支持。
 
-开发实测为Ascend910_9382、CANN9.1.0、Ubuntu22.04.5、driver26.1.1；验收指定openEuler24.03 LTS-SP3和driver25.5.t6.b001尚未复测。环境报告曾显示两个可见设备，测试选择逻辑0，这不等于已证明“仅暴露单逻辑设备”的部署配置。正式复测应按分配设备设置可见性并使用容器逻辑0。
+开发实测为Ascend910_9382、CANN9.1.0、Ubuntu22.04.5、driver26.1.1；验收指定openEuler24.03 LTS-SP3和driver25.5.t6.b001尚未复测。最终进程设置ASCEND_RT_VISIBLE_DEVICES=0，实际torch可见设备1个；不据此声称整机独占或物理隔离。
 
 ### 3.4 算子约束限制
 
@@ -330,64 +289,47 @@ flowchart TD
 | 大非对齐边界 | 8/8；两入口、两dtype、offset0/1 |
 | C++ ACLNN样例 | FP16/BF16 bit_exact=1，workspace_bytes=0 |
 
-任务映射CPU检查用于证明区间/来源映射，不替代NPU实测。复现和原始返回码见步骤说明及证据包；本次新增设计文档不重写或追加成功测试日志。
+任务映射CPU检查用于证明区间/来源映射，不替代NPU实测。复现和原始返回码见步骤说明及证据包；本次日志直接保存实际stdout/stderr；独立样例第二次配置正确vendor后通过，首次161001原件保留。
 
 #### 性能
 
-正式任务书要求提交实现与至少一个合格候选基线在同一NPU、同一输入上测量，基线亦须通过精度与存储要求。协议为预热50次，5轮×200次，每轮完成同步后除以200，取5个轮均墙钟us的中位数；每次分配新输出，输入传输与golden比较不计时。设备事件时间包含提交间隙，不称纯kernel耗时。
+50次预热、200次×5轮原公开timer，取轮均墙钟us中位数，每调用新分配输出。当前实现与 `views_concat_q_copy` 同机、新进程、相同输入/allocator测量，baseline先通过35项精度和输出合同。5个独立新进程批次10/10绝对门限均通过，报告取最新visible批次；事件计时另记，非纯kernel时间。主表E/F=baseline/custom，G=F/E，量纲为无量纲。任务书“耗时比”表头歧义未由实测替代，仍需权威确认。
 
-当前随包`benchmark.py`及`check_performance.py`执行绝对us门槛，保留10项共50个墙钟轮均值和50个事件轮均值，10项绝对检查均通过；这些结果不能替代任务书的同机基线比值。模板标杆和rato列据实标记未测/不可计算，不能拿绝对上限或任务书参考基线当实测分母。任务书文字称“耗时比上限”，表头却为“目标耗时上限”且与绝对脚本同值，需发布方确认最终量纲及判据。
+| 独立新进程批次 | 007(us)，上限75 | 017(us)，上限77 | 全10项 |
+| --- | ---: | ---: | --- |
+| performance | 72.24560 | 72.07870 | 通过 |
+| same_device | 72.39960 | 72.07480 | 通过 |
+| performance_repeat_02 | 72.40120 | 72.32610 | 通过 |
+| performance_repeat_03 | 72.06880 | 72.56680 | 通过 |
+| visible_page1g_final_performance（最新报告批次） | 72.10475 | 72.16775 | 通过 |
 
 #### 内存
 
-任务要求显式全局workspace=0。输入预先分配并预热，10个`performance=true`用例各记录一次调用的allocated和active峰值增量，两者均不超过`Mout+16384 B`，释放并同步后回到调用前水平。20次重复回收只在018对run/run_direct各执行一条记录，不宣称35个case或10个内存case逐项做过20次。
+显式workspace0；10项allocated/active峰值增量≤Mout+16384B，释放回到调用前；20次回收仅018两入口。F=active增量/10^9 GB，baseline内存未测，比值不可计算。另存全部reserved字段，007身份进程1GiB大池+2MiB小池，释放输出不归还预留池。该统计不是整卡HBM峰值/全部运行时资源泄漏证明，UB184KiB属片上缓冲。
 
-指标来自PyTorch NPU张量分配器，包含输出及其分配对齐，排除整卡HBM、driver reserved缓存和片上UB；F列GB采用`peak_active_delta/10^9`。分配器回收证明的是被测路径和统计范围，不等于完整运行时所有内部资源的泄漏证明。
+### 5.2 兼容性分析
 
-### 5.2 兼容性分析与维护
-
-FP16/BF16共享一份uint16 kernel，形状上下界及44 B tiling布局集中管理，ACLNN与direct共用同一helper，避免地址算法分叉。框架校验在Python/C++边界保留，异常不返回伪造成功输出。
-
-torch/torch_npu ABI、OpCommand排队和allocator recordStream语义均绑定本次版本；升级框架、CANN、驱动、设备或搬迁工程后应重新构建并重跑精度/生命周期/内存/性能。direct使用新的构建目录防止legacy预处理复用旧对象；Python扩展记录direct库构建位置，移动项目需要重建。旧版direct hint不生效这一差异不外推到未来工具链。
-
-维护时优先修改共享tiling/映射和kernel，再复查两入口的边界。007/017大缓存性能余量较小，任何策略变化均须保留完整5轮协议及失败原件，不能只替换最有利样本。当前不承诺训练反向、图捕获、多卡通信、跨框架版本或完整xLLM服务的兼容性。
+FP16/BF16共享uint16内核，52B共享POD固定host/device布局；动态合法尺寸逐次eager调用，不承诺图捕获/反向或多host线程首次加载并发。torch_npu ABI、host队列、recordStream、cache hint及allocator分页依赖当前框架/驱动/CANN。升级版本、搬迁工程、修改shape策略或allocator须重建并复跑完整测试；direct hint差异和完整xLLM服务尚未闭合。007/017余量有限，保留全部轮样本，禁止挑最快批次掩盖失败。
 
 ## 六、交付与社区审核流程
 
-### 6.1 设计文档 PR 信息
+### 6.1 设计文档PR信息
 
-建议正式设计评审PR标题为本文件标题：`【社区任务】T5SplitQkvAppendCache算子设计文档`。CheckList要求提交到 `https://gitcode.com/cann/cann-competitions/tree/master/04_tasks/01_community-task-2026/tasklist` 中对应任务位置，必须是PR而非issue，并要求CLA签署与PR评论`/compile`触发构建。
-
-当前已交付的是用户指定GitHub仓库中的分支和文件；正式社区PR尚未创建，对应任务的具体子目录尚未确认，CLA签署状态未核实，`/compile`尚未执行，均不得标为已完成。任务书第5节另指向xLLM代码合入位置，其代码PR与上述社区设计PR是两项不同流程。本文不以分支链接或commit链接代替PR凭证。
+设计标题采用 `【社区任务】T5SplitQkvAppendCache算子设计文档`。Checklist要求向cann-competitions对应tasklist位置提交真实PR（非issue）、CLA及评论 `/compile` 构建。这是任务文件的正式审核要求，不是用户当前已授权的外部发帖动作。本次只提交用户指定GitHub分支；社区PR/compile未执行、CLA未核实、具体任务子目录待确认，不用commit链接代替PR。
 
 ### 6.2 未闭合事项
 
-| 事项 | 当前状态 | 后续完成条件 |
-| --- | --- | --- |
-| 正式环境 | 开发OS/driver与指定版本不同 | 在指定镜像/驱动/单逻辑设备配置复测并冻结新证据 |
-| 性能判据/基线 | 绝对脚本通过，同机基线比值未测 | 确认量纲和权威判据，补合格候选及5轮同机数据 |
-| TBE对照 | 任务未提供同名源码/信息库 | 社区确认本新增算子的N/A口径；若指定参考则补逐分支对照 |
-| 原任务书 | 文件名及内容hash与原manifest不匹配 | 发布方确认权威版本；保留当前原件与差异 |
-| 现场截图 | 三报告截图栏已明确缺项 | 补与实际被测提交/批次对应的真实执行截图 |
-| 全服务集成 | native wrapper仅语法/类型编译 | 完整构建/链接、模型实际调用和端到端测试 |
-| 社区流程 | 设计PR、CLA、compile未闭合 | 使用真实PR及构建结果逐项更新附录CheckList |
+- 当前容器 Ubuntu22.04.5 / driver26.1.1，与任务指定 openEuler24.03 LTS-SP3 / driver25.5.t6.b001 不同；用户已指定继续当前环境。当前可见设备数1、逻辑0，不能据此证明整机物理隔离。
+- 任务书“耗时比上限”和“目标耗时上限”表头量纲需发布方确认。本包分别提供原公开绝对检查与同机F/E，不把二者混为同一判据。
+- 原发布manifest中的任务书文件名/内容hash与实际原件不符，12个原文件原样保留；待发布方确认权威版本。
+- 同名TBE源码/信息库未提供，TBE对齐口径待确认。完整xLLM服务构建、链接、模型端到端未验证；不以独立binding结果代替。
+- 社区设计PR、代码合入PR及 `/compile` 未执行，CLA状态未核实；此处不是正式验收结论。
 
 ## 七、源码与证据索引
 
-以下链接固定在被测实现提交；交付文件位于新分支`task_submission/`。本次文档引用的任务包、JSON、日志和安装包可在`5 原始证据.zip`找到；未归档逐输入/golden/output二进制，重建依据为原始固定种子生成器、case定义与验证器。
+源码固定Git提交 `8ea9affaf131b22c8fb786b79da5968ce6724744`，产品文件、4个外部集成文件及测试副本hash见 `7 待验收工程/源码文件清单.json`。原始公开12文件位于第6目录及证据ZIP `official_task_package/`。原始tar `page1g_final_evidence.tar.gz` SHA256 `2f142c1f953965ef4353df283c03086c561abdb2aa7ff3ef8e5f269a6af8bda1`，整体和126文件已核验；交付ZIP是增加ledger/截图的派生包，有独立manifest。
 
-| 编号 | 文件 | 主要设计依据 |
-| --- | --- | --- |
-| S1 | [共用tiling与任务映射](https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/common/t5_split_qkv_append_cache_tiling.h) | 边界、44 B布局、任务数、均衡分核和地址 |
-| S2 | [OpDef及host](https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/op_host/t5_split_qkv_append_cache.cpp) | dtype/shape、ND、key0、workspace0、AIV数 |
-| S3 | [Kernel实现](https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/op_kernel/t5_split_qkv_append_cache_kernel.h) | 三阶段、UB、DataCopyPad、L2 hint |
-| S4 | [Kernel入口](https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/op_kernel/t5_split_qkv_append_cache.cpp) | AIV_ONLY与两种参数传递方式 |
-| S5 | [框架binding](https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/framework/binding.cpp)、[solution.py](https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/solution.py) | 元数据、输出所有权、stream及两阶段调用 |
-| S6 | [C++样例](https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/examples/aclnn_example.cpp) | ACLNN ABI和workspace实测 |
-| S7 | [验收测试](https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache/tests/acceptance.py) | 官方/额外/异常/stream/内存检查 |
-| S8 | [原生wrapper](https://github.com/swenzhai/xllm/blob/ab70af7891455b36c7aaac6344f0f2207afcc068/xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache.cpp) | xLLM EXEC_NPU_CMD集成入口 |
-
-服务器原始归档 `evidence_ab70af7.tar.gz` SHA256：`cc9d89474fdefe205035b26cebdc4d2174f37692a2cb31a0cf92e06e405dcfaa`。本交付证据ZIP是派生选择包，不能混称服务器原件。执行记录为`development_evidence/20261029_ab70af7/raw/reports/final_176_01/`下的原始JSON/log；加载库身份及前后hash分别见`runtime_identity.json`、`pretest_manifest.json`和`source_manifest.json`。
+`raw/reports/acceptance_page1g_final_02/`含完整回归、四批性能、源/产物前后manifest和加载库身份；`raw/reports/visible_page1g_final_*`为最新三类报告批次及baseline子进程。三张原始JPG截图对应这些真实执行，三份独立log是child输出直接副本。输入/golden/output二进制未逐项归档，原固定种子生成器与输入hash支持复建；不伪称保留全部二进制。
 
 ## 附录A CheckList逐项对照
 
@@ -407,16 +349,16 @@ torch/torch_npu ABI、OpCommand排队和allocator recordStream语义均绑定本
 | 11 | 设计文档内容 / 二、需求分析 / 2.3 需求模块设计 / 2.3.1 AscendC算子原型 | 除《算子任务书》中不要求适配的部分外，其他 TBE 算子对齐 | 2.3.1 | 任务原型已覆盖；TBE对齐未证实 | 三输入三输出、属性/默认值、ACLNN两阶段、direct/Python/native入口均列出。 |
 | 12 | 设计文档内容 / 二、需求分析 / 2.3 需求模块设计 / 2.3.1 AscendC算子相关约束 | 填写与 TBE 算子相比缺失哪些功能 | 2.3.2、3.4 | 任务边界已覆盖；TBE差异未知 | 列明排除功能和未验证能力，不编造未知TBE的能力列表。 |
 | 13 | 设计文档内容 / 三、需求详细设计 / 3.1 使能方式 | 根据实际开发任务，适配算子调用框架，当前主要是 ACLNN | 3.1 | 已覆盖 | 私有安装、ACLNN和直调使能、框架排队与原生宏路径。 |
-| 14 | 设计文档内容 / 三、需求详细设计 / 3.2 需求总体设计 / 3.2.1host侧设计 / 3.2.1.1分核策略 | 描述算子数据分核策略 | 3.2.1.1 | 已覆盖 | 三组任务、P上限、连续均衡公式、007例子和无全核barrier。 |
-| 15 | 设计文档内容 / 三、需求详细设计 / 3.2 需求总体设计 / 3.2.1host侧设计 / 3.2.1.2数据分块和内存优化策略 | 描述数据块切分策略和 LocalMemory 使用情况，需要给出详细描述和计算公式 | 3.2.1.2 | 已覆盖 | 32768元素tile、尾块、2×64KiB UB、0workspace、GM字节公式和L2预算边界。 |
+| 14 | 设计文档内容 / 三、需求详细设计 / 3.2 需求总体设计 / 3.2.1host侧设计 / 3.2.1.1分核策略 | 描述算子数据分核策略 | 3.2.1.1 | 已覆盖 | 缓存类别/追加/Q任务、P上限、均衡公式、007融合例子和无全核barrier。 |
+| 15 | 设计文档内容 / 三、需求详细设计 / 3.2 需求总体设计 / 3.2.1host侧设计 / 3.2.1.2数据分块和内存优化策略 | 描述数据块切分策略和 LocalMemory 使用情况，需要给出详细描述和计算公式 | 3.2.1.2 | 已覆盖 | 47104元素tile、尾融合、2×92KiB UB、0workspace、双缓存预算和大页池口径。 |
 | 16 | 设计文档内容 / 三、需求详细设计 / 3.2 需求总体设计 / 3.2.1host侧设计 / 3.2.1.3tilingKey规划策略 | 描述 tilingKey 的设置条件 | 3.2.1.3 | 已覆盖 | 所有合法输入固定key0，dtype/shape/L2不分新key。 |
-| 17 | 设计文档内容 / 三、需求详细设计 / 3.2 需求总体设计 / 3.2.2kernel侧设计 / 3.2.2.1kernel侧实现描述 | 描述 Ascend C 算子 kernel 设计，与 TBE 源码流程保持一致 | 3.2.2.1 | 任务语义已覆盖；TBE对齐未证实 | 逐位复制、偏移推导、唯一writer、空缓存和队列顺序。 |
-| 18 | 设计文档内容 / 三、需求详细设计 / 3.2 需求总体设计 / 3.2.2kernel侧设计 / 3.2.2.2AscendC实现流程图 | 根据实际 AscendC 算子设计输出流程图，需要重点关注 | 3.2.2.2 | 已覆盖 | 给出与当前device源码匹配的三阶段与DataCopyPad流程。 |
+| 17 | 设计文档内容 / 三、需求详细设计 / 3.2 需求总体设计 / 3.2.2kernel侧设计 / 3.2.2.1kernel侧实现描述 | 描述 Ascend C 算子 kernel 设计，与 TBE 源码流程保持一致 | 3.2.2.1 | 任务语义已覆盖；TBE对齐未证实 | 逐位复制、偏移推导、唯一writer、空缓存、独立事件和双槽流水顺序。 |
+| 18 | 设计文档内容 / 三、需求详细设计 / 3.2 需求总体设计 / 3.2.2kernel侧设计 / 3.2.2.2AscendC实现流程图 | 根据实际 AscendC 算子设计输出流程图，需要重点关注 | 3.2.2.2 | 已覆盖 | 给出与当前device源码匹配的缓存类别流水、DataCopyPad及事件释放流程。 |
 | 19 | 设计文档内容 / 三、需求详细设计 / 3.2 需求总体设计 / 3.2.2kernel侧设计 / 3.2.2.3AscendC实现流程图与TBE流程图存在的差异点和原因 | 详细描述 Ascend C 与 TBE 两者实现中存在的差异点，并给出原因 | 3.2.2.3 | 参考差异已覆盖；同名TBE缺失 | 按语义标杆对照消除中间张量、分核与hint；未声称未知TBE逐行一致。 |
 | 20 | 设计文档内容 / 三、需求详细设计 / 3.3 支持硬件 | 与《算子任务书》要求支持的硬件保持一致 | 3.3 | 设计目标已覆盖；正式环境待复测 | A3/910C/9382、AIV_ONLY、ascend910_93及指定/实际版本差异。 |
 | 21 | 设计文档内容 / 三、需求详细设计 / 3.4 算子约束限制 | 填写 Ascend C 算子的约束限制，如不支持什么数据类型，参数只支持哪几种场景等 | 2.3.2、3.4 | 已覆盖 | shape、dtype、布局、存储、跨流依赖、allocator与未验证能力。 |
 | 22 | 设计文档内容 / 四、特性交叉分析 | 原清单未附额外文字要求，保留此章节。 | 四 | 已覆盖 | 特性交叉矩阵有行为、测试范围和限制，不以笼统支持代替。 |
-| 23 | 设计文档内容 / 五、可维可测分析 / 5.1精度标准/性能标准 | 精度不低于 TBE，性能不低于 TBE | 5.1、附录B/C | 精度已测；完整性能标准待闭合 | 35精度、10绝对耗时/内存结果；TBE及同机基线性能未证明，未写性能不低于TBE。 |
+| 23 | 设计文档内容 / 五、可维可测分析 / 5.1精度标准/性能标准 | 精度不低于 TBE，性能不低于 TBE | 5.1、附录B/C | 精度已测；完整性能标准待闭合 | 35精度、10绝对耗时/内存结果；同机基线已测且10项更快；未知TBE性能未证明，未写性能不低于TBE。 |
 | 24 | 设计文档内容 / 五、可维可测分析 / 5.2兼容性分析 | 原清单未附额外文字要求，保留此章节。 | 5.2 | 已覆盖 | 平台/框架ABI、构建路径迁移、双入口差异和升级复测范围。 |
 
 ## 附录B 全部35个官方case
@@ -461,19 +403,19 @@ torch/torch_npu ABI、OpCommand排队和allocator recordStream语义均绑定本
 | T5SplitQkvAppendCache_audit_033_bfloat16_bits | (1,128,1,1) | bfloat16 | bits | 通过，位差异0 | 不适用：任务书3.5 |
 | T5SplitQkvAppendCache_audit_034_float16_bits | (64,128,62,256) | float16 | bits | 通过，位差异0 | 不适用：任务书3.5 |
 
-## 附录C 十项性能与内存实测摘要
+## 附录C 十项最新性能与内存摘要
 
-以下为开发环境final_176_01原始记录的派生摘要，不能充当同机基线比值或指定环境结果。五轮原始样本在性能工作簿及performance.json/log中；内存上限为输出+16384 B。完整ID由附录B对应，序号不省略dtype归属。
+| Case ID | 当前(us) | 同机基线(us) | F/E | 绝对上限(us) | active增量(B) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| T5SplitQkvAppendCache_001_float16_random | 16.17680 | 89.72850 | 0.180286 | 28 | 13824 |
+| T5SplitQkvAppendCache_005_float16_random | 16.81525 | 100.49075 | 0.167331 | 28 | 266752 |
+| T5SplitQkvAppendCache_006_float16_random | 16.70865 | 86.72215 | 0.192669 | 29 | 12621312 |
+| T5SplitQkvAppendCache_007_float16_random | 72.10475 | 238.57605 | 0.302230 | 75 | 134317568 |
+| T5SplitQkvAppendCache_008_float16_random | 17.93855 | 98.75150 | 0.181653 | 29 | 4195840 |
+| T5SplitQkvAppendCache_011_bfloat16_random | 16.95360 | 85.24925 | 0.198871 | 28 | 13824 |
+| T5SplitQkvAppendCache_015_bfloat16_random | 17.37835 | 97.01095 | 0.179138 | 28 | 266752 |
+| T5SplitQkvAppendCache_016_bfloat16_random | 17.74630 | 85.99040 | 0.206375 | 29 | 12621312 |
+| T5SplitQkvAppendCache_017_bfloat16_random | 72.16775 | 238.85970 | 0.302134 | 77 | 134317568 |
+| T5SplitQkvAppendCache_018_bfloat16_random | 18.45525 | 105.29490 | 0.175272 | 29 | 4195840 |
 
-| 官方序号/dtype | 墙钟中位数(us) | 随包绝对上限(us) | active峰值增量(B) | 内存上限(B) | 释放回到基线 |
-| --- | ---: | ---: | ---: | ---: | --- |
-| 001/float16 | 18.59530 | 28 | 13824 | 28672 | 是（单次峰值测量后） |
-| 005/float16 | 18.30965 | 28 | 266752 | 281600 | 是（单次峰值测量后） |
-| 006/float16 | 19.01450 | 29 | 12621312 | 12636160 | 是（单次峰值测量后） |
-| 007/float16 | 74.29595 | 75 | 134317568 | 134332416 | 是（单次峰值测量后） |
-| 008/float16 | 18.60170 | 29 | 4195840 | 4211456 | 是（单次峰值测量后） |
-| 011/bfloat16 | 17.74520 | 28 | 13824 | 28672 | 是（单次峰值测量后） |
-| 015/bfloat16 | 18.14985 | 28 | 266752 | 281600 | 是（单次峰值测量后） |
-| 016/bfloat16 | 18.63915 | 29 | 12621312 | 12636160 | 是（单次峰值测量后） |
-| 017/bfloat16 | 75.40325 | 77 | 134317568 | 134332416 | 是（单次峰值测量后） |
-| 018/bfloat16 | 18.96190 | 29 | 4195840 | 4211456 | 是（单次峰值测量后） |
+内存统计边界及全部复测样本见5.1、原始JSON与《补充测试记录》。

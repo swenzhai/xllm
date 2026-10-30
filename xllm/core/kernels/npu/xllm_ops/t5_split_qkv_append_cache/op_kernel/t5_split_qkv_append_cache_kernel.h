@@ -48,7 +48,19 @@ class KernelT5SplitQkvAppendCache final {
     // rebuilding the hint address and dividing by row size for every task.
     key_bypass_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(key),
                                 query_elements * (tiling.past_length + 1));
-    key_bypass_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+    // When the output working set fits, bypass streaming history reads and
+    // retain both repeatedly written outputs. Preserve the existing task split
+    // so this changes cache attributes without changing per-core copy work.
+    const uint64_t normal_output_bytes =
+        uint64_t{4} * query_elements * (tiling.past_length + 3);
+    const bool retain_outputs =
+        tiling.bypass_value_cache != 0 && normal_output_bytes <= kL2BudgetBytes;
+    if (retain_outputs) {
+      past_key_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+      past_value_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+    } else {
+      key_bypass_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+    }
     value_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(value),
                            query_elements * (tiling.past_length + 1));
     // The host computes admission once. Avoid a 64-bit budget division on
@@ -57,7 +69,7 @@ class KernelT5SplitQkvAppendCache final {
         tiling.cacheable_key_rows * (tiling.past_length + 1) * tiling.head_dim;
     cacheable_key_tasks_ =
         tiling.cacheable_key_rows * tiling.cache_tiles_per_head;
-    if (tiling.bypass_value_cache != 0) {
+    if (tiling.bypass_value_cache != 0 && !retain_outputs) {
       value_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
     }
     pipe_.InitBuffer(

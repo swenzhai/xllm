@@ -1,0 +1,77 @@
+{
+  "status": "diagnostic_completed_production_validation_pending",
+  "sha256": "6d5f0777a6e7e844493d0ab6d5438c4643f2c3bfdaa0b169f999e3c06524885b",
+  "verified_members": 132,
+  "pre_and_post_artifact_manifests_equal": true,
+  "summary": {
+    "scope": "diagnostic_only_not_acceptance",
+    "matrix": {
+      "007": {
+        "0": {
+          "count": 8,
+          "min": 81.12355000000001,
+          "median": 83.72155,
+          "max": 92.05080000000001
+        },
+        "1": {
+          "count": 8,
+          "min": 149.8007,
+          "median": 178.16002500000002,
+          "max": 214.5093
+        },
+        "2": {
+          "count": 8,
+          "min": 76.2166,
+          "median": 78.064675,
+          "max": 80.00355
+        },
+        "3": {
+          "count": 8,
+          "min": 56.2027,
+          "median": 57.182575,
+          "max": 57.39325
+        },
+        "4": {
+          "count": 8,
+          "min": 73.56094999999999,
+          "median": 73.967825,
+          "max": 75.409
+        }
+      },
+      "017": {
+        "0": {
+          "count": 8,
+          "min": 86.385,
+          "median": 90.642675,
+          "max": 114.04469999999999
+        },
+        "1": {
+          "count": 8,
+          "min": 195.2732,
+          "median": 214.916525,
+          "max": 215.24179999999998
+        },
+        "2": {
+          "count": 8,
+          "min": 78.56569999999999,
+          "median": 80.09732500000001,
+          "max": 82.06389999999999
+        },
+        "3": {
+          "count": 8,
+          "min": 60.10755,
+          "median": 63.2705,
+          "max": 66.05125
+        },
+        "4": {
+          "count": 8,
+          "min": 74.02465,
+          "median": 74.586025,
+          "max": 74.8119
+        }
+      }
+    },
+    "all_fixed_output_comparisons_bit_exact": true
+  },
+  "production_change": "Keep existing copy schedule. If all normal outputs plus QKV/Q fit the software budget, bypass history reads and retain KV outputs. Normal allocating ACLNN acceptance validation is separate."
+}

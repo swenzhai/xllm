@@ -1,0 +1,66 @@
+{
+  "status": "incomplete_performance_repeatability",
+  "official_delivery_updated": false,
+  "archive": "tuning_variability_checkpoint_20261030.tar.gz",
+  "archive_sha256": "59af047a5485f26840459c9ac23c8efda2b3fb2540e0cdbdc97eaf228cfa3fca",
+  "original_member_count": 393,
+  "all_member_hashes_verified": true,
+  "scope": "Development diagnostics; parameter/row scans, runtime configurations and instrumented profiling are not acceptance results. The archive also retains failed unmodified public benchmark runs.",
+  "runtime_diagnostics": [
+    {
+      "mode": "queue0_native",
+      "index": 0,
+      "status": "failed",
+      "large_case_wall_us": {
+        "T5SplitQkvAppendCache_007_float16_random": 79.38335000000001,
+        "T5SplitQkvAppendCache_017_bfloat16_random": 79.11364999999999
+      }
+    },
+    {
+      "mode": "queue0_native",
+      "index": 1,
+      "status": "failed",
+      "large_case_wall_us": {
+        "T5SplitQkvAppendCache_007_float16_random": 101.43485000000001,
+        "T5SplitQkvAppendCache_017_bfloat16_random": 100.4765
+      }
+    },
+    {
+      "mode": "queue0_native",
+      "index": 2,
+      "status": "failed",
+      "large_case_wall_us": {
+        "T5SplitQkvAppendCache_007_float16_random": 79.64439999999999,
+        "T5SplitQkvAppendCache_017_bfloat16_random": 79.40105
+      }
+    },
+    {
+      "mode": "queue2_expand",
+      "index": 0,
+      "status": "failed",
+      "large_case_wall_us": {
+        "T5SplitQkvAppendCache_007_float16_random": 104.55810000000001,
+        "T5SplitQkvAppendCache_017_bfloat16_random": 105.67880000000001
+      }
+    },
+    {
+      "mode": "queue2_expand",
+      "index": 1,
+      "status": "failed",
+      "large_case_wall_us": {
+        "T5SplitQkvAppendCache_007_float16_random": 85.60875,
+        "T5SplitQkvAppendCache_017_bfloat16_random": 86.0702
+      }
+    },
+    {
+      "mode": "queue2_expand",
+      "index": 2,
+      "status": "failed",
+      "large_case_wall_us": {
+        "T5SplitQkvAppendCache_007_float16_random": 105.7902,
+        "T5SplitQkvAppendCache_017_bfloat16_random": 106.49495
+      }
+    }
+  ],
+  "conclusion": "Some individual batches pass; repeated independent batches fail. No stable 007/017 performance closure is claimed. Official XLSX and delivery packages remain unchanged."
+}

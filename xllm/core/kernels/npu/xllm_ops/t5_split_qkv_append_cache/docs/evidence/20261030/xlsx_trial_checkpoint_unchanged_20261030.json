@@ -1,0 +1,29 @@
+{
+  "status": "byte_identical_to_preoptimization",
+  "verified_files": [
+    {
+      "file": "operator_development_workspace/T5QKV_wsp/03_delivery_packages/delivery/2.1 精度自验证报告.xlsx",
+      "sha256": "59447fec4e2d304d82bba66412cf7d0cf68873447d02d0bca98c3310a269f283"
+    },
+    {
+      "file": "operator_development_workspace/T5QKV_wsp/03_delivery_packages/delivery/3.1 性能自验证报告.xlsx",
+      "sha256": "5994bfd22ac156efe53791f0acca237dd877b0bd7e8b5a9fb84715c8fae6b6c9"
+    },
+    {
+      "file": "operator_development_workspace/T5QKV_wsp/03_delivery_packages/delivery/4.1 内存自验证报告.xlsx",
+      "sha256": "cdd304b3fccc90c38b5626bd75f6e165b8b58f176e8ca6e6937974e9ec7a9aa1"
+    },
+    {
+      "file": "operator_development_workspace/T5QKV_wsp/xllm/task_submission/2.1 精度自验证报告.xlsx",
+      "sha256": "59447fec4e2d304d82bba66412cf7d0cf68873447d02d0bca98c3310a269f283"
+    },
+    {
+      "file": "operator_development_workspace/T5QKV_wsp/xllm/task_submission/3.1 性能自验证报告.xlsx",
+      "sha256": "5994bfd22ac156efe53791f0acca237dd877b0bd7e8b5a9fb84715c8fae6b6c9"
+    },
+    {
+      "file": "operator_development_workspace/T5QKV_wsp/xllm/task_submission/4.1 内存自验证报告.xlsx",
+      "sha256": "cdd304b3fccc90c38b5626bd75f6e165b8b58f176e8ca6e6937974e9ec7a9aa1"
+    }
+  ]
+}

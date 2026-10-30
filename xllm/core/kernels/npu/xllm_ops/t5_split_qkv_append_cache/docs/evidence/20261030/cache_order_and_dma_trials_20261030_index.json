@@ -1,0 +1,126 @@
+{
+  "status": "performance_incomplete",
+  "archive": "cache_order_and_dma_trials_20261030.tar.gz",
+  "sha256": "c0d0997f19c4f70dcc8b72fdb6263966ba7725e8b71252da42af2c4a8ed3d07c",
+  "original_members_verified": 94,
+  "runs": [
+    {
+      "name": "optimized_cached_last_final_01",
+      "status": "failed",
+      "functional_commands": [
+        {
+          "name": "public_accuracy",
+          "exit_code": 0
+        },
+        {
+          "name": "extended",
+          "exit_code": 0
+        },
+        {
+          "name": "queue_stress",
+          "exit_code": 0
+        },
+        {
+          "name": "cache_boundary",
+          "exit_code": 0
+        },
+        {
+          "name": "tail_fusion_boundary",
+          "exit_code": 0
+        },
+        {
+          "name": "hot_geometry_boundary",
+          "exit_code": 0
+        },
+        {
+          "name": "host_mapping",
+          "exit_code": 0
+        }
+      ],
+      "large_case_wall_us": {
+        "T5SplitQkvAppendCache_007_float16_random": 94.4057,
+        "T5SplitQkvAppendCache_017_bfloat16_random": 95.06635
+      }
+    },
+    {
+      "name": "optimized_striped_groups_final_01",
+      "status": "failed",
+      "functional_commands": [
+        {
+          "name": "public_accuracy",
+          "exit_code": 0
+        },
+        {
+          "name": "extended",
+          "exit_code": 0
+        },
+        {
+          "name": "queue_stress",
+          "exit_code": 0
+        },
+        {
+          "name": "cache_boundary",
+          "exit_code": 0
+        },
+        {
+          "name": "tail_fusion_boundary",
+          "exit_code": 0
+        },
+        {
+          "name": "hot_geometry_boundary",
+          "exit_code": 0
+        },
+        {
+          "name": "host_mapping",
+          "exit_code": 0
+        }
+      ],
+      "large_case_wall_us": {
+        "T5SplitQkvAppendCache_007_float16_random": 80.31665,
+        "T5SplitQkvAppendCache_017_bfloat16_random": 79.7551
+      }
+    },
+    {
+      "name": "optimized_aligned_dma_final_01",
+      "status": "failed",
+      "functional_commands": [
+        {
+          "name": "public_accuracy",
+          "exit_code": 0
+        },
+        {
+          "name": "extended",
+          "exit_code": 0
+        },
+        {
+          "name": "queue_stress",
+          "exit_code": 0
+        },
+        {
+          "name": "cache_boundary",
+          "exit_code": 0
+        },
+        {
+          "name": "tail_fusion_boundary",
+          "exit_code": 0
+        },
+        {
+          "name": "hot_geometry_boundary",
+          "exit_code": 0
+        },
+        {
+          "name": "host_mapping",
+          "exit_code": 0
+        }
+      ],
+      "large_case_wall_us": {
+        "T5SplitQkvAppendCache_007_float16_random": 78.91125,
+        "T5SplitQkvAppendCache_017_bfloat16_random": 79.47935000000001
+      }
+    }
+  ],
+  "retained_production_source": "fef1e72970a3d29afa6dc085332911bf41a1dbd4",
+  "source_action": "Trial source is archived; unsuccessful production changes were not promoted.",
+  "evidence_limits": "The aligned DMA trial has matching pretest and post-failure source/artifact manifests. The earlier two trials stopped at performance failure before the driver emitted a posttest manifest. No trial supports an acceptance pass.",
+  "official_xlsx_and_delivery_updated": false
+}

@@ -48,6 +48,7 @@ constexpr uint64_t kMaxOutputElements = uint64_t{1} << 28;
 #endif
 
 constexpr uint64_t kL2BudgetBytes = uint64_t{172} * 1024 * 1024;
+constexpr uint64_t kReadBalanceBudgetBytes = uint64_t{190} * 1024 * 1024;
 
 struct CachePolicy {
   uint32_t key_elements;
@@ -74,6 +75,42 @@ make_cache_policy(const T5SplitQkvAppendCacheTilingData& tiling) {
   return {static_cast<uint32_t>(admitted_rows * row_elements),
           static_cast<uint32_t>(admitted_rows * tiling.cache_tiles_per_head),
           true};
+}
+
+struct ReadBalancePolicy {
+  bool enabled;
+  uint32_t value_rows;
+  uint32_t value_tasks;
+};
+
+// Retain Key input/output and admit only a bounded prefix of Value input.
+// Value output uses the bypass hint. This budget is not a cache reservation.
+T5QKV_MAPPING_INLINE ReadBalancePolicy
+make_read_balance_policy(const T5SplitQkvAppendCacheTilingData& tiling) {
+  const uint64_t n = uint64_t{tiling.batch} * tiling.head_num * tiling.head_dim;
+  const uint64_t base = 2 * n * (2 * uint64_t{tiling.past_length} + 5);
+  if (tiling.bypass_value_cache == 0 || tiling.past_length == 0 ||
+      base >= kReadBalanceBudgetBytes) {
+    return {};
+  }
+  const uint64_t rows = uint64_t{tiling.batch} * tiling.head_num;
+  uint64_t cached_rows = (kReadBalanceBudgetBytes - base) /
+                         (2 * uint64_t{tiling.past_length} * tiling.head_dim);
+  cached_rows = cached_rows < rows ? cached_rows : rows;
+  uint32_t divisor = tiling.cache_tiles_per_head;
+  uint32_t cores = tiling.block_dim;
+  while (cores != 0) {
+    const uint32_t remainder = divisor % cores;
+    divisor = cores;
+    cores = remainder;
+  }
+  const uint32_t group = tiling.block_dim / divisor;
+  if (cached_rows >= group) {
+    cached_rows -= cached_rows % group;
+  }
+  return {true,
+          static_cast<uint32_t>(cached_rows),
+          static_cast<uint32_t>(cached_rows) * tiling.cache_tiles_per_head};
 }
 
 inline bool can_fuse_append(const T5SplitQkvAppendCacheTilingData& tiling) {

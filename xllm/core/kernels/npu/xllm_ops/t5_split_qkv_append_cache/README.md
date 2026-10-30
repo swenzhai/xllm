@@ -116,3 +116,22 @@ The operator does not modify process configuration. Record the measured setting
 with results, and report allocated/active peaks rather than reserved virtual
 segments. Earlier trials, including performance failures, remain separate
 evidence. The delivery ledger records the actual current status and scope.
+
+## Repeated performance configuration
+
+The performance configuration uses `PYTORCH_NPU_ALLOC_CONF=page_size:1g`, set
+before importing PyTorch or initializing the NPU. This is a process-local
+TorchNPU allocator option supported on the A3 platform; it changes the backing
+allocation granularity and reserved memory. Record allocator allocated, active
+and reserved bytes separately. Reserved pool memory is not operator workspace.
+The operator still allocates three independent outputs on every call, uses zero
+explicit GM workspace, and keeps no input/output cache or cross-call state.
+All baseline and custom comparisons must use the same allocator setting and the
+original 50-warmup / 200-call / five-round protocol. Default-allocator and
+instrumented-cache experiments are separate diagnostics.
+
+```bash
+export PYTORCH_NPU_ALLOC_CONF=page_size:1g
+```
+
+Reference: <https://github.com/Ascend/pytorch/blob/master/docs/zh/api/environment_variable/memory_management/PYTORCH_NPU_ALLOC_CONF.md>

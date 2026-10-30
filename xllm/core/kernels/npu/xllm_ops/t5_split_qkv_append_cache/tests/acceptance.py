@@ -26,6 +26,7 @@ import gc
 import hashlib
 import importlib.util
 import json
+import os
 import platform
 import sys
 import time
@@ -481,12 +482,17 @@ class Suite:
                 del out
             self._settle_allocator()
             after, active_after = self._allocated(), self._active()
+            reserved_after = int(self._torch.npu.memory_reserved(self._args.device))
             if after != before or active_after != active_before:
                 raise AssertionError(f"active tensor leak: allocated {before}->{after}; "
                                      f"active {active_before}->{active_after}")
             self._report["npu_executed"] = True
             return {"calls": 20, "allocated_before": before, "allocated_after": after,
-                    "active_before": active_before, "active_after": active_after}
+                    "active_before": active_before, "active_after": active_after,
+                    "reserved_before": reserved_before, "reserved_with_outputs": reserved_with_outputs,
+                    "peak_reserved_bytes": reserved_peak, "reserved_after": reserved_after,
+                    "allocator_environment": os.environ.get("PYTORCH_NPU_ALLOC_CONF"),
+                    "reserved_scope": "process allocator pool including input/output backing; not explicit workspace"}
         for entry in ("run", "run_direct"):
             self._record("recovery", self._coverage["stream_case_ids"][1], entry,
                         lambda e=entry: _run(e))
@@ -527,11 +533,14 @@ class Suite:
             self._settle_allocator()
             before = self._allocated()
             active_before = self._active()
+            reserved_before = int(self._torch.npu.memory_reserved(self._args.device))
             self._torch.npu.reset_peak_memory_stats(self._args.device)
             outputs = self._solution.run(inputs, attrs)
             self._torch.npu.synchronize()
             peak = int(self._torch.npu.max_memory_allocated(self._args.device))
             active_peak = self._active(peak=True)
+            reserved_peak = int(self._torch.npu.max_memory_reserved(self._args.device))
+            reserved_with_outputs = int(self._torch.npu.memory_reserved(self._args.device))
             output_bytes = sum(t.numel()*t.element_size() for t in outputs)
             delta, limit = peak-before, output_bytes+16384
             active_delta = active_peak-active_before

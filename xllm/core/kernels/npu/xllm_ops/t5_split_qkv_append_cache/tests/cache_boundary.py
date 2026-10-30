@@ -1,10 +1,11 @@
 # Copyright 2026 The xLLM Authors. Licensed under the Apache License, Version 2.0.
-"""Check raw bits across a large, unaligned cache-policy row boundary."""
+"""Check raw bits across the Value-input admission boundary and offset views."""
 
 import argparse
 import hashlib
 import importlib.util
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -32,10 +33,15 @@ def main() -> int:
     spec.loader.exec_module(solution)
     batch, heads, length, dim = 4, 128, 1024, 65
     query_elements = batch * heads * dim
-    row_bytes = 2 * (length + 1) * dim
-    cache_rows = max(0, 172 * 1024**2 - 4 * query_elements * (length + 2)) // row_bytes
-    if not 0 < cache_rows < batch * heads or cache_rows * row_bytes % 32 == 0:
-        raise AssertionError("case must cross the cache policy inside an unaligned row boundary")
+    row_bytes = 2 * length * dim
+    cache_rows = max(0, 190 * 1024**2 - 2 * query_elements * (2 * length + 5)) // row_bytes
+    cache_rows = min(cache_rows, batch * heads)
+    history_tiles = (length * dim + 47103) // 47104
+    group = 48 // math.gcd(history_tiles, 48)
+    if cache_rows >= group:
+        cache_rows -= cache_rows % group
+    if not 0 < cache_rows < batch * heads:
+        raise AssertionError("case must cross the Value-input cache admission boundary")
     shapes = [(batch, 1, 3 * heads * dim), (batch, heads, length, dim)]
     shapes.append(shapes[1])
     arrays = [(np.arange(np.prod(shape), dtype=np.uint16) + index * 997).reshape(shape)
@@ -72,7 +78,8 @@ def main() -> int:
                         if not np.array_equal(observed, wanted):
                             raise AssertionError("raw uint16 mismatch")
                     item.update(status="passed", shape=[batch, heads, length, dim],
-                                cacheable_key_rows=cache_rows, boundary_mod32=cache_rows * row_bytes % 32,
+                                normal_value_rows=cache_rows,
+                                input_boundary_mod32=(cache_rows * row_bytes + 2 * offset) % 32,
                                 bit_exact=True, inputs_unchanged=True, independent_outputs=True)
                     del outputs, inputs, raw, view, actual, observed
                 except Exception as error:

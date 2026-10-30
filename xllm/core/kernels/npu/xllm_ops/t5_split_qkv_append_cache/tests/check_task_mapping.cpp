@@ -107,12 +107,35 @@ uint32_t check_shape(int64_t batch,
   uint32_t append_segments = 0;
   const auto policy = t5qkv::make_cache_policy(tiling);
   assert(policy.key_tasks <= tiling.cache_tasks_per_tensor);
-  const std::array<uint32_t, 5> phase_counts{
-      policy.key_tasks,
-      tiling.cache_tasks_per_tensor - policy.key_tasks,
-      tiling.cache_tasks_per_tensor,
-      t5qkv::fuses_append(tiling) ? 0 : 2 * tiling.batch * tiling.head_num,
-      tiling.query_tasks};
+  const auto read_policy = t5qkv::make_read_balance_policy(tiling);
+  if (read_policy.enabled) {
+    const uint64_t n =
+        uint64_t{tiling.batch} * tiling.head_num * tiling.head_dim;
+    const uint64_t normal_bytes =
+        2 * n * (2 * uint64_t{tiling.past_length} + 5) +
+        2 * uint64_t{read_policy.value_rows} * tiling.past_length *
+            tiling.head_dim;
+    assert(normal_bytes <= t5qkv::kReadBalanceBudgetBytes);
+    assert(read_policy.value_rows <= tiling.batch * tiling.head_num);
+  }
+  const std::array<uint32_t, 5> phase_counts =
+      read_policy.enabled
+          ? std::array<uint32_t, 5>{tiling.cache_tasks_per_tensor,
+                                    read_policy.value_tasks,
+                                    tiling.cache_tasks_per_tensor -
+                                        read_policy.value_tasks,
+                                    t5qkv::fuses_append(tiling)
+                                        ? 0
+                                        : 2 * tiling.batch * tiling.head_num,
+                                    tiling.query_tasks}
+          : std::array<uint32_t, 5>{
+                policy.key_tasks,
+                tiling.cache_tasks_per_tensor - policy.key_tasks,
+                tiling.cache_tasks_per_tensor,
+                t5qkv::fuses_append(tiling)
+                    ? 0
+                    : 2 * tiling.batch * tiling.head_num,
+                tiling.query_tasks};
   uint32_t first = 0;
   for (const uint32_t count : phase_counts) {
     uint32_t minimum = count;

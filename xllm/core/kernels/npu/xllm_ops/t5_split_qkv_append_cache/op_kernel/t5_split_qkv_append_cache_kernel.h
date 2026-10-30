@@ -51,10 +51,13 @@ class KernelT5SplitQkvAppendCache final {
     key_bypass_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
     value_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(value),
                            query_elements * (tiling.past_length + 1));
-    const CachePolicy policy = make_cache_policy(tiling);
-    cacheable_key_elements_ = policy.key_elements;
-    cacheable_key_tasks_ = policy.key_tasks;
-    if (policy.bypass_value) {
+    // The host computes admission once. Avoid a 64-bit budget division on
+    // every core at launch, including the direct-launch validation path.
+    cacheable_key_elements_ =
+        tiling.cacheable_key_rows * (tiling.past_length + 1) * tiling.head_dim;
+    cacheable_key_tasks_ =
+        tiling.cacheable_key_rows * tiling.cache_tiles_per_head;
+    if (tiling.bypass_value_cache != 0) {
       value_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
     }
     pipe_.InitBuffer(
@@ -67,65 +70,91 @@ class KernelT5SplitQkvAppendCache final {
     const uint32_t history_tasks = 2 * tiling_.cache_tasks_per_tensor;
     const uint32_t append_tasks =
         fuses_append(tiling_) ? 0 : 2 * tiling_.batch * tiling_.head_num;
-    process_history(0, cacheable_key_tasks_);
-    process_history(cacheable_key_tasks_,
-                    tiling_.cache_tasks_per_tensor - cacheable_key_tasks_);
-    process_history(tiling_.cache_tasks_per_tensor,
-                    tiling_.cache_tasks_per_tensor);
+    process_history<0>(key_, past_key_, 0, cacheable_key_tasks_);
+    process_history<0>(key_bypass_,
+                       past_key_,
+                       cacheable_key_tasks_,
+                       tiling_.cache_tasks_per_tensor - cacheable_key_tasks_);
+    process_history<1>(value_, past_value_, 0, tiling_.cache_tasks_per_tensor);
     process_phase(history_tasks, append_tasks);
     process_phase(history_tasks + append_tasks, tiling_.query_tasks);
   }
 
  private:
-  __aicore__ inline void prefetch_history(uint32_t task_id) {
-    const CopyTask task = decode_task(tiling_, task_id);
+  struct HistoryWrite {
+    uint32_t destination_offset;
+    uint32_t count;
+  };
+
+  template <uint32_t CacheIndex>
+  __aicore__ inline HistoryWrite prefetch_history(
+      const AscendC::GlobalTensor<uint16_t>& source,
+      uint32_t row,
+      uint32_t tile) {
+    const uint32_t history_elements = tiling_.past_length * tiling_.head_dim;
+    const uint32_t tile_offset = tile * tiling_.tile_elements;
+    const uint32_t remaining = history_elements - tile_offset;
+    const uint32_t count =
+        remaining < tiling_.tile_elements ? remaining : tiling_.tile_elements;
+    const uint32_t destination_offset =
+        row * (history_elements + tiling_.head_dim) + tile_offset;
+    const bool append =
+        fuses_append(tiling_) && tile + 1 == tiling_.cache_tiles_per_head;
     auto local = queue_.AllocTensor<uint16_t>();
     const AscendC::DataCopyExtParams copy{
-        1, task.count * static_cast<uint32_t>(sizeof(uint16_t)), 0, 0, 0};
+        1, count * static_cast<uint32_t>(sizeof(uint16_t)), 0, 0, 0};
     const AscendC::DataCopyPadExtParams<uint16_t> pad{false, 0, 0, 0};
-    const auto& source = task.output == Output::KEY ? past_key_ : past_value_;
-    AscendC::DataCopyPad(local, source[task.source_offset], copy, pad);
-    if (task.append_count != 0) {
+    AscendC::DataCopyPad(
+        local, source[row * history_elements + tile_offset], copy, pad);
+    if (append) {
+      const uint32_t batch = row / tiling_.head_num;
+      const uint32_t head = row % tiling_.head_num;
+      const uint32_t hd = tiling_.head_num * tiling_.head_dim;
+      const uint32_t append_offset =
+          batch * 3 * hd + (CacheIndex + 1) * hd + head * tiling_.head_dim;
       const AscendC::DataCopyExtParams append_copy{
           1,
-          task.append_count * static_cast<uint32_t>(sizeof(uint16_t)),
+          tiling_.head_dim * static_cast<uint32_t>(sizeof(uint16_t)),
           0,
           0,
           0};
-      AscendC::DataCopyPad(
-          local[task.count], qkv_[task.append_source_offset], append_copy, pad);
+      AscendC::DataCopyPad(local[count], qkv_[append_offset], append_copy, pad);
     }
     queue_.EnQue(local);
+    return {destination_offset, count + (append ? tiling_.head_dim : 0)};
   }
 
-  __aicore__ inline void process_history(uint32_t first, uint32_t count) {
+  template <uint32_t CacheIndex>
+  __aicore__ inline void process_history(
+      AscendC::GlobalTensor<uint16_t>& destination,
+      const AscendC::GlobalTensor<uint16_t>& source,
+      uint32_t first,
+      uint32_t count) {
     const TaskRange tasks = partition_tasks(
         first, count, tiling_.block_dim, AscendC::GetBlockIdx());
     if (tasks.begin == tasks.end) {
       return;
     }
-    prefetch_history(tasks.begin);
+    uint32_t row = tasks.begin / tiling_.cache_tiles_per_head;
+    uint32_t tile = tasks.begin % tiling_.cache_tiles_per_head;
+    HistoryWrite current = prefetch_history<CacheIndex>(source, row, tile);
     for (uint32_t task_id = tasks.begin; task_id < tasks.end; ++task_id) {
+      HistoryWrite next{};
       if (task_id + 1 < tasks.end) {
-        prefetch_history(task_id + 1);
+        ++tile;
+        if (tile == tiling_.cache_tiles_per_head) {
+          tile = 0;
+          ++row;
+        }
+        next = prefetch_history<CacheIndex>(source, row, tile);
       }
-      const CopyTask task = decode_task(tiling_, task_id);
       auto local = queue_.DeQue<uint16_t>();
       const AscendC::DataCopyExtParams copy{
-          1,
-          (task.count + task.append_count) *
-              static_cast<uint32_t>(sizeof(uint16_t)),
-          0,
-          0,
-          0};
-      auto& destination =
-          task.output == Output::VALUE
-              ? value_
-              : (task.destination_offset < cacheable_key_elements_
-                     ? key_
-                     : key_bypass_);
-      AscendC::DataCopyPad(destination[task.destination_offset], local, copy);
+          1, current.count * static_cast<uint32_t>(sizeof(uint16_t)), 0, 0, 0};
+      AscendC::DataCopyPad(
+          destination[current.destination_offset], local, copy);
       queue_.FreeTensor(local);
+      current = next;
     }
   }
 

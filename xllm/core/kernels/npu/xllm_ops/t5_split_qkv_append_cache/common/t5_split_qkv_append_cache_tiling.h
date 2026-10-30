@@ -30,8 +30,10 @@ struct T5SplitQkvAppendCacheTilingData {
   uint32_t query_tasks;
   uint32_t total_tasks;
   uint32_t block_dim;
+  uint32_t cacheable_key_rows;
+  uint32_t bypass_value_cache;
 };
-static_assert(sizeof(T5SplitQkvAppendCacheTilingData) == 11 * sizeof(uint32_t),
+static_assert(sizeof(T5SplitQkvAppendCacheTilingData) == 13 * sizeof(uint32_t),
               "T5 QKV host/device tiling layout changed");
 
 namespace t5qkv {
@@ -135,6 +137,10 @@ inline bool make_tiling(int64_t batch,
                              ? available_vector_cores
                              : kMaxVectorCores;
   result.block_dim = result.total_tasks < cores ? result.total_tasks : cores;
+  const CachePolicy policy = make_cache_policy(result);
+  result.cacheable_key_rows =
+      policy.key_elements / ((result.past_length + 1) * result.head_dim);
+  result.bypass_value_cache = policy.bypass_value ? 1 : 0;
   return true;
 }
 

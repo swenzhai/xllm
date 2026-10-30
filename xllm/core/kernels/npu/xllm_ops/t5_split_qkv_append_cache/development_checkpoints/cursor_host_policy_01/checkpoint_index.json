@@ -1,0 +1,22 @@
+{
+  "scope": "development_checkpoint_not_acceptance",
+  "status": "absolute_performance_incomplete",
+  "change": "carry 8-byte history write metadata; advance row/tile cursors; compute cache admission on host",
+  "tiling_pod_bytes": 52,
+  "compatibility": "Rebuild the private package, direct library and framework together; do not mix this tiling ABI with older binaries.",
+  "validation": "Current host-policy checkpoint: 35 public precision cases, 206 extended records, queue/cache/tail checks, 56 geometry checks and 104 host mappings passed; performance still failed 007/017.",
+  "official_reports_updated": false,
+  "task_submission_updated": false,
+  "archives": [
+    {
+      "archive": "core_scan_20261030_evidence.tar.gz",
+      "sha256": "19574fbfe62b3e204f5de081ef2397680c377b3b655a3600d1f0b47f7c3ecfc3",
+      "verified_file_count": 82
+    },
+    {
+      "archive": "cursor_host_policy_checkpoint_01.tar.gz",
+      "sha256": "f3e6d503115e05daa46ebe1f9b7ca1dd1e4a4b9822f8e97ae5fbcc5d92c118d9",
+      "verified_file_count": 149
+    }
+  ]
+}

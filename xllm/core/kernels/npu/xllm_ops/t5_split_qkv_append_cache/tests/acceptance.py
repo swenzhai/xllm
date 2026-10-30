@@ -482,17 +482,13 @@ class Suite:
                 del out
             self._settle_allocator()
             after, active_after = self._allocated(), self._active()
-            reserved_after = int(self._torch.npu.memory_reserved(self._args.device))
             if after != before or active_after != active_before:
                 raise AssertionError(f"active tensor leak: allocated {before}->{after}; "
                                      f"active {active_before}->{active_after}")
             self._report["npu_executed"] = True
             return {"calls": 20, "allocated_before": before, "allocated_after": after,
-                    "active_before": active_before, "active_after": active_after,
-                    "reserved_before": reserved_before, "reserved_with_outputs": reserved_with_outputs,
-                    "peak_reserved_bytes": reserved_peak, "reserved_after": reserved_after,
-                    "allocator_environment": os.environ.get("PYTORCH_NPU_ALLOC_CONF"),
-                    "reserved_scope": "process allocator pool including input/output backing; not explicit workspace"}
+                    "active_before": active_before, "active_after": active_after}
+
         for entry in ("run", "run_direct"):
             self._record("recovery", self._coverage["stream_case_ids"][1], entry,
                         lambda e=entry: _run(e))
@@ -549,6 +545,7 @@ class Suite:
             del outputs
             self._settle_allocator()
             after, active_after = self._allocated(), self._active()
+            reserved_after = int(self._torch.npu.memory_reserved(self._args.device))
             if after != before or active_after != active_before:
                 raise AssertionError("active tensor allocation did not return to baseline")
             self._report["npu_executed"] = True
@@ -557,7 +554,11 @@ class Suite:
                     "allocation_metric": "memory_allocated", "active_metric": "active_bytes.all",
                     "limit_bytes": limit,
                     "allocated_before": before, "allocated_after": after,
-                    "active_before": active_before, "active_after": active_after}
+                    "active_before": active_before, "active_after": active_after,
+                    "reserved_before": reserved_before, "reserved_with_outputs": reserved_with_outputs,
+                    "peak_reserved_bytes": reserved_peak, "reserved_after": reserved_after,
+                    "allocator_environment": os.environ.get("PYTORCH_NPU_ALLOC_CONF"),
+                    "reserved_scope": "process allocator pool including input/output backing; not explicit workspace"}
         for name in self._coverage["performance_case_ids"]:
             self._record("memory", name, "run", lambda c=self._by_id[name]: _run(c))
 

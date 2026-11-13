@@ -1,5 +1,24 @@
 <!-- Copyright 2026 The xLLM Authors. Licensed under the Apache License, Version 2.0. -->
 
+# Acceptance reopened after review (2026-11-13)
+
+The reviewer reports case 007 above its 75 us absolute limit: default allocator
+75.50/80.55 us; page_size:1g 71.51/75.41/74.82/75.78 us (two failures).
+These are user-relayed reviewer figures without attached raw logs or commands.
+The approximately 0.32 custom/baseline ratio does not close absolute acceptance.
+Case 017's detailed results remain unknown. Precision 35/35, memory 10/10 and
+engineering 206/206 are reported passing by the reviewer.
+
+The earlier five passing development batches below remain historical evidence;
+they no longer support a current ready-for-acceptance claim. The original
+XLSX/log/ZIP bytes are retained. See [review feedback](review_feedback_20261113.md).
+No new kernel changes or NPU results are claimed in this update. The original
+A3 server is unavailable, and the currently connected VS Code server is 910B4;
+the user confirms no A3 resource is currently available. Target A3 measurement
+is required before promoting another performance result.
+
+## Historical development result
+
 # Latest validation
 
 The final tested product source is `8ea9affaf131b22c8fb786b79da5968ce6724744`.

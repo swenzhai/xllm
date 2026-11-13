@@ -2,7 +2,7 @@
 
 # Review remediation candidates (2026-11-13)
 
-These are **unvalidated A3 performance experiments**, not a new accepted product
+These are **isolated A3 performance experiments**, not a new accepted product
 implementation. The default product source and existing XLSX/log/ZIP bytes are
 unchanged. The reviewer still reports case 007 over 75 us; case 017 must also be
 retested against 77 us. See `docs/review_feedback_20261113.md` and the remediation
@@ -191,3 +191,14 @@ C5 describe that unchanged **legacy helper**, not the mirrored kernel roles;
 mapper success does not exercise its new prefetch selection. NPU precision and
 raw-bit cache-boundary tests (now labelled Key-input) are required before timing.
 C5 is not a verified implementation until those tests and independent timing pass.
+
+## Completed stage result
+
+C5's 12 functional children passed with unchanged source/artifacts. Its 12-process
+screen completed: all three page1g batches passed, but all three default batches
+failed (007 about 94.5–96.0 us, 017 about 94.6–131.3 us; one default batch also
+failed 001/005). C5 is rejected. None of C1–C5 is promoted, no final confirmation
+or new acceptance delivery was produced. See [A3阶段复测记录](A3阶段复测记录.md)
+and `mirror_screen_results.json` for this bounded candidate-screen stage and
+its retained evidence. The next diagnostic direction is same-device old/new
+machine-code and allocation/device mapping comparisons, not more budget scans.

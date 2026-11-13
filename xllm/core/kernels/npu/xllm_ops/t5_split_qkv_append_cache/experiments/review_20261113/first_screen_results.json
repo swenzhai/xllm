@@ -1,0 +1,676 @@
+{
+  "scope": "first_screen_derived_summary_not_acceptance",
+  "source_commit": "8ea9affaf131b22c8fb786b79da5968ce6724744",
+  "screen_status": "failed",
+  "source_and_artifacts_unchanged": true,
+  "archive": "/Users/swen/Documents/Code/cann/operator_development_workspace/T5QKV_wsp/development_evidence/20261114_screen_profile_evidence.tar.gz",
+  "archive_sha256": "797d451799389683d362cf90b682e5f79d081e4960970f0f9c6c92808bcc8b34",
+  "remote_root": "/workspace/t5qkv-review-20261113-01",
+  "batches": [
+    {
+      "candidate": "control",
+      "allocator": "default",
+      "status": "failed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/000_control_default/benchmark.json",
+      "other_eight_all_passed": true,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            95.49305,
+            94.62519999999999,
+            94.4425,
+            94.3876,
+            94.10925
+          ],
+          "wall_us_median": 94.4425,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            95.4816,
+            95.33460000000001,
+            95.1572,
+            95.28335000000001,
+            95.2935
+          ],
+          "wall_us_median": 95.2935,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": []
+    },
+    {
+      "candidate": "c1_186mib",
+      "allocator": "default",
+      "status": "failed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/001_c1_186mib_default/benchmark.json",
+      "other_eight_all_passed": true,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            117.6737,
+            116.82225,
+            116.69885000000001,
+            116.69325,
+            116.706
+          ],
+          "wall_us_median": 116.706,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            117.32795,
+            117.4485,
+            117.2303,
+            117.1335,
+            117.18445
+          ],
+          "wall_us_median": 117.2303,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": []
+    },
+    {
+      "candidate": "c2_182mib",
+      "allocator": "default",
+      "status": "failed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/002_c2_182mib_default/benchmark.json",
+      "other_eight_all_passed": true,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            100.80655,
+            100.10889999999999,
+            99.88745,
+            99.9093,
+            99.91425
+          ],
+          "wall_us_median": 99.91425,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            99.8665,
+            99.6077,
+            99.56705000000001,
+            99.6581,
+            99.51975
+          ],
+          "wall_us_median": 99.6077,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": []
+    },
+    {
+      "candidate": "c2_182mib",
+      "allocator": "page1g",
+      "status": "failed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/003_c2_182mib_page1g/benchmark.json",
+      "other_eight_all_passed": true,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            80.60815,
+            80.45975,
+            80.43565,
+            80.39475,
+            80.47614999999999
+          ],
+          "wall_us_median": 80.45975,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            81.34935,
+            81.57339999999999,
+            81.57125,
+            81.22135,
+            81.1855
+          ],
+          "wall_us_median": 81.34935,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": []
+    },
+    {
+      "candidate": "c1_186mib",
+      "allocator": "page1g",
+      "status": "failed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/004_c1_186mib_page1g/benchmark.json",
+      "other_eight_all_passed": true,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            76.519,
+            76.35905,
+            76.2212,
+            76.2818,
+            76.56460000000001
+          ],
+          "wall_us_median": 76.35905,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            75.78635,
+            75.67885000000001,
+            75.6595,
+            75.56955,
+            75.6514
+          ],
+          "wall_us_median": 75.6595,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": []
+    },
+    {
+      "candidate": "control",
+      "allocator": "page1g",
+      "status": "passed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/005_control_page1g/benchmark.json",
+      "other_eight_all_passed": true,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            72.78945,
+            72.94175,
+            72.96375,
+            72.8342,
+            72.7915
+          ],
+          "wall_us_median": 72.8342,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            72.67160000000001,
+            72.5242,
+            72.38785,
+            72.48015,
+            72.44645
+          ],
+          "wall_us_median": 72.48015,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": []
+    },
+    {
+      "candidate": "c1_186mib",
+      "allocator": "page1g",
+      "status": "failed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/006_c1_186mib_page1g/benchmark.json",
+      "other_eight_all_passed": true,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            75.73755,
+            75.63105,
+            75.663,
+            75.68455,
+            75.57414999999999
+          ],
+          "wall_us_median": 75.663,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            76.4625,
+            76.38810000000001,
+            76.2298,
+            76.32125,
+            76.264
+          ],
+          "wall_us_median": 76.32125,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": []
+    },
+    {
+      "candidate": "c2_182mib",
+      "allocator": "page1g",
+      "status": "failed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/007_c2_182mib_page1g/benchmark.json",
+      "other_eight_all_passed": true,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            81.4615,
+            81.276,
+            81.43805,
+            81.4263,
+            81.7114
+          ],
+          "wall_us_median": 81.43805,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            80.4468,
+            80.36014999999999,
+            80.3775,
+            80.30964999999999,
+            80.28045
+          ],
+          "wall_us_median": 80.36014999999999,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": []
+    },
+    {
+      "candidate": "control",
+      "allocator": "page1g",
+      "status": "passed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/008_control_page1g/benchmark.json",
+      "other_eight_all_passed": true,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            72.92365,
+            72.7485,
+            72.70505,
+            72.64485,
+            72.69605
+          ],
+          "wall_us_median": 72.70505,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            72.5949,
+            72.45315,
+            72.40125,
+            72.35015,
+            72.3126
+          ],
+          "wall_us_median": 72.40125,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": []
+    },
+    {
+      "candidate": "control",
+      "allocator": "default",
+      "status": "failed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/009_control_default/benchmark.json",
+      "other_eight_all_passed": true,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            114.28975,
+            114.3218,
+            114.19505000000001,
+            114.30035000000001,
+            114.14825
+          ],
+          "wall_us_median": 114.28975,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            114.0244,
+            113.92065,
+            113.97805,
+            113.90714999999999,
+            113.80630000000001
+          ],
+          "wall_us_median": 113.92065,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": []
+    },
+    {
+      "candidate": "c2_182mib",
+      "allocator": "default",
+      "status": "failed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/010_c2_182mib_default/benchmark.json",
+      "other_eight_all_passed": true,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            98.37565,
+            98.02525,
+            97.9632,
+            97.95605,
+            97.8221
+          ],
+          "wall_us_median": 97.9632,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            98.40035,
+            98.43060000000001,
+            98.63345,
+            98.62910000000001,
+            98.60964999999999
+          ],
+          "wall_us_median": 98.60964999999999,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": []
+    },
+    {
+      "candidate": "c1_186mib",
+      "allocator": "default",
+      "status": "failed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/011_c1_186mib_default/benchmark.json",
+      "other_eight_all_passed": true,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            116.774,
+            116.67035,
+            116.65594999999999,
+            116.8475,
+            116.8768
+          ],
+          "wall_us_median": 116.774,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            116.70485000000001,
+            116.64585000000001,
+            116.53675,
+            116.66980000000001,
+            116.5865
+          ],
+          "wall_us_median": 116.64585000000001,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": []
+    },
+    {
+      "candidate": "c2_182mib",
+      "allocator": "default",
+      "status": "failed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/012_c2_182mib_default/benchmark.json",
+      "other_eight_all_passed": true,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            99.82995,
+            99.457,
+            99.20185000000001,
+            99.30069999999999,
+            99.0801
+          ],
+          "wall_us_median": 99.30069999999999,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            99.35419999999999,
+            99.10889999999999,
+            98.82414999999999,
+            98.80525,
+            98.70805
+          ],
+          "wall_us_median": 98.82414999999999,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": []
+    },
+    {
+      "candidate": "control",
+      "allocator": "default",
+      "status": "failed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/013_control_default/benchmark.json",
+      "other_eight_all_passed": true,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            114.58895,
+            114.522,
+            114.81055,
+            114.46464999999999,
+            114.37339999999999
+          ],
+          "wall_us_median": 114.522,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            114.44545,
+            114.27945,
+            114.32260000000001,
+            114.27525,
+            114.31965
+          ],
+          "wall_us_median": 114.31965,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": []
+    },
+    {
+      "candidate": "c1_186mib",
+      "allocator": "default",
+      "status": "failed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/014_c1_186mib_default/benchmark.json",
+      "other_eight_all_passed": true,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            96.3117,
+            95.9159,
+            95.8465,
+            95.7583,
+            95.66560000000001
+          ],
+          "wall_us_median": 95.8465,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            97.16,
+            96.7856,
+            96.77225,
+            97.14160000000001,
+            96.90115
+          ],
+          "wall_us_median": 96.90115,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": []
+    },
+    {
+      "candidate": "c1_186mib",
+      "allocator": "page1g",
+      "status": "failed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/015_c1_186mib_page1g/benchmark.json",
+      "other_eight_all_passed": false,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            75.87710000000001,
+            75.73015,
+            75.72715,
+            75.73135,
+            75.72705
+          ],
+          "wall_us_median": 75.73015,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            76.46945,
+            76.3444,
+            76.43495,
+            76.3528,
+            76.43455
+          ],
+          "wall_us_median": 76.43455,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            35.435,
+            31.497700000000002,
+            31.208849999999998,
+            31.4501,
+            31.407700000000002
+          ],
+          "wall_us_median": 31.4501,
+          "max_wall_us": 28
+        }
+      ]
+    },
+    {
+      "candidate": "control",
+      "allocator": "page1g",
+      "status": "passed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/016_control_page1g/benchmark.json",
+      "other_eight_all_passed": true,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            72.84585000000001,
+            72.5515,
+            72.91595,
+            72.50710000000001,
+            72.54355
+          ],
+          "wall_us_median": 72.5515,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "passed",
+          "wall_us_rounds": [
+            72.17955,
+            71.9767,
+            71.9933,
+            71.9756,
+            72.01755
+          ],
+          "wall_us_median": 71.9933,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": []
+    },
+    {
+      "candidate": "c2_182mib",
+      "allocator": "page1g",
+      "status": "failed",
+      "original_report": "/workspace/t5qkv-review-20261113-01/screen_01/017_c2_182mib_page1g/benchmark.json",
+      "other_eight_all_passed": true,
+      "large_cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            81.34795,
+            81.13985000000001,
+            81.1069,
+            81.1242,
+            81.1044
+          ],
+          "wall_us_median": 81.1242,
+          "max_wall_us": 75
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "status": "failed",
+          "wall_us_rounds": [
+            81.48519999999999,
+            81.36045,
+            81.24725,
+            81.44605,
+            81.2266
+          ],
+          "wall_us_median": 81.36045,
+          "max_wall_us": 77
+        }
+      ],
+      "other_case_failures": []
+    }
+  ],
+  "decision": "reject_c1_c2_do_not_promote_control",
+  "next_experiment_root": "/workspace/t5qkv-review-20261114-03",
+  "next_bundle_sha256": "d56e90061aa93b0692cf31cc10cab2ea510d88731415b9408eb9758526059939"
+}

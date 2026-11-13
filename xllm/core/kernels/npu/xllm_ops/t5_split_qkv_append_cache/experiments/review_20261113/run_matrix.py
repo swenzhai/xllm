@@ -154,11 +154,13 @@ def _execute(root: Path, package: Path, directory: Path, names: list[str],
                          "--report", str(qualified)], package, env,
                         directory / ("reference_accuracy_" + allocator + ".log"))
             accuracy = _read(qualified)
+            summary["npu_executed"] |= accuracy.get("npu_executed") is True
             if (rc != 0 or accuracy.get("status") != "passed"
                     or accuracy.get("npu_executed") is not True or len(accuracy.get("cases", [])) != 35):
                 raise ValueError("Reference did not qualify on all 35 public cases")
             result = _benchmark(root, package, directory / ("reference_" + allocator),
                                 python, names[0], allocator, True, targets)
+            summary["npu_executed"] |= result["npu_executed"]
             # Reference threshold failure is preserved; it is not custom acceptance.
             if result["status"] == "error":
                 raise ValueError("Invalid reference timing evidence")

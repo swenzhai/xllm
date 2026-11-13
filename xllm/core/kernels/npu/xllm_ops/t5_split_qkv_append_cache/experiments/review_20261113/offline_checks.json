@@ -1,0 +1,20 @@
+{
+  "scope": "offline_preparation_only",
+  "npu_executed": false,
+  "candidate_source_commit": "8ea9affaf131b22c8fb786b79da5968ce6724744",
+  "host_candidate_checks": "host_validation.json",
+  "driver_self_tests": {
+    "count": 5,
+    "passed": 5,
+    "scope": "mocked_child_orchestration_not_hardware_results"
+  },
+  "plan_only": {
+    "custom_processes": 18,
+    "status": "planned_not_executed"
+  },
+  "formatter": "clang-format 20.1.6",
+  "notes": [
+    "No A3 kernel compile or performance assertion follows from these checks.",
+    "A3 connection restored during preparation; real builds/results will be stored separately."
+  ]
+}

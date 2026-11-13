@@ -37,6 +37,9 @@ def _boundary_source(text: str, entry: dict[str, Any], no_admission: bool = Fals
                                 "case must admit zero Key-output rows")
     elif no_admission:
         raise ValueError("No-admission boundary belongs only to the input-priority candidates")
+    if entry.get("kernel_policy") == "mirror_key_value":
+        text = text.replace("normal_value_rows=cache_rows", "normal_key_input_rows=cache_rows")
+        text = text.replace("Value-input", "Key-input")
     return text
 
 

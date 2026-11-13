@@ -1,0 +1,110 @@
+--- a/op_kernel/t5_split_qkv_append_cache_kernel.h
++++ b/op_kernel/t5_split_qkv_append_cache_kernel.h
+@@ -31,7 +31,7 @@
+     tiling_ = tiling;
+     const ReadBalancePolicy read_policy = make_read_balance_policy(tiling);
+     balanced_ = read_policy.enabled;
+-    normal_value_tasks_ = read_policy.value_tasks;
++    normal_secondary_tasks_ = read_policy.value_tasks;
+     const uint32_t query_elements =
+         tiling.batch * tiling.head_num * tiling.head_dim;
+     qkv_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(qkv),
+@@ -39,10 +39,10 @@
+     if (tiling.past_length != 0) {
+       past_key_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(past_key),
+                                 query_elements * tiling.past_length);
+-      past_value_bypass_.SetGlobalBuffer(
+-          reinterpret_cast<__gm__ uint16_t*>(past_value),
++      past_key_bypass_.SetGlobalBuffer(
++          reinterpret_cast<__gm__ uint16_t*>(past_key),
+           query_elements * tiling.past_length);
+-      past_value_bypass_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
++      past_key_bypass_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+       past_value_.SetGlobalBuffer(
+           reinterpret_cast<__gm__ uint16_t*>(past_value),
+           query_elements * tiling.past_length);
+@@ -55,18 +55,20 @@
+     // rebuilding the hint address and dividing by row size for every task.
+     key_bypass_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(key),
+                                 query_elements * (tiling.past_length + 1));
+-    if (!balanced_) {
+-      key_bypass_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+-    }
++    if (balanced_) {
++      key_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
++    }
++    key_bypass_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+     value_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(value),
+                            query_elements * (tiling.past_length + 1));
+-    // The serialized Key prefix supports the streaming plan. The balanced
+-    // Value-input quota is computed once, never inside the copy loop.
++    // The fallback streaming plan retains its Key-output prefix. In the
++    // experimental balanced plan the shared secondary quota applies to Key
++    // input: Value input/output stay normal, while Key output bypasses.
+     cacheable_key_elements_ =
+         tiling.cacheable_key_rows * (tiling.past_length + 1) * tiling.head_dim;
+     cacheable_key_tasks_ =
+         tiling.cacheable_key_rows * tiling.cache_tiles_per_head;
+-    if (tiling.bypass_value_cache != 0) {
++    if (tiling.bypass_value_cache != 0 && !balanced_) {
+       value_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+     }
+     pipe_.InitBuffer(buffer_, 2 * tiling.tile_elements * sizeof(uint16_t));
+@@ -83,16 +85,19 @@
+     const uint32_t append_tasks =
+         fuses_append(tiling_) ? 0 : 2 * tiling_.batch * tiling_.head_num;
+     const uint32_t core = AscendC::GetBlockIdx();
++    // Mirror only the balanced cache roles; phase zero copies Value, and
++    // phases one/two copy normal/bypass Key input. The event order is
++    // unchanged.
+     if (balanced_) {
+       ranges_[0] = partition_tasks(
+           0, tiling_.cache_tasks_per_tensor, tiling_.block_dim, core);
+       ranges_[1] =
+-          partition_tasks(0, normal_value_tasks_, tiling_.block_dim, core);
+-      ranges_[2] =
+-          partition_tasks(normal_value_tasks_,
+-                          tiling_.cache_tasks_per_tensor - normal_value_tasks_,
+-                          tiling_.block_dim,
+-                          core);
++          partition_tasks(0, normal_secondary_tasks_, tiling_.block_dim, core);
++      ranges_[2] = partition_tasks(
++          normal_secondary_tasks_,
++          tiling_.cache_tasks_per_tensor - normal_secondary_tasks_,
++          tiling_.block_dim,
++          core);
+     } else {
+       ranges_[0] =
+           partition_tasks(0, cacheable_key_tasks_, tiling_.block_dim, core);
+@@ -156,11 +161,10 @@
+   }
+ 
+   __aicore__ inline HistoryWrite prefetch(const Cursor& cursor, uint32_t slot) {
+-    const bool value = balanced_ ? cursor.phase != 0 : cursor.phase == 2;
++    const bool value = balanced_ ? cursor.phase == 0 : cursor.phase == 2;
+     const auto& source =
+-        !value ? past_key_
+-               : (balanced_ && cursor.phase == 2 ? past_value_bypass_
+-                                                 : past_value_);
++        value ? past_value_
++              : (balanced_ && cursor.phase == 2 ? past_key_bypass_ : past_key_);
+     const uint32_t history_elements = tiling_.past_length * tiling_.head_dim;
+     const uint32_t tile_offset = cursor.tile * tiling_.tile_elements;
+     const uint32_t remaining = history_elements - tile_offset;
+@@ -303,7 +307,7 @@
+   }
+ 
+   bool balanced_ = false;
+-  uint32_t normal_value_tasks_ = 0;
++  uint32_t normal_secondary_tasks_ = 0;
+   uint32_t cacheable_key_elements_ = 0;
+   uint32_t cacheable_key_tasks_ = 0;
+   T5SplitQkvAppendCacheTilingData tiling_{};
+@@ -313,6 +317,6 @@
+   int32_t write_events_[2]{};
+   TaskRange ranges_[3]{};
+   AscendC::GlobalTensor<uint16_t> qkv_, past_key_, past_value_, query_, key_,
+-      key_bypass_, value_, past_value_bypass_;
++      key_bypass_, value_, past_key_bypass_;
+ };
+ }  // namespace t5qkv

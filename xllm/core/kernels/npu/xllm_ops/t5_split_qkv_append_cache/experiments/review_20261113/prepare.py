@@ -77,12 +77,13 @@ def _prepare(repo: Path, output: Path) -> dict[str, Any]:
             if paths != set(original):
                 raise ValueError("Patch added or removed files outside the pinned source inventory")
             changed = {p: (project / p).read_bytes() for p in original}
-            if {p for p in original if changed[p] != original[p]} - {header}:
-                raise ValueError("Current candidate patches may change only the shared policy header")
-        patch = "".join(difflib.unified_diff(
-            original[header].decode().splitlines(keepends=True),
-            changed[header].decode().splitlines(keepends=True),
-            fromfile="a/" + header, tofile="b/" + header))
+            allowed = set(candidate.get("allowed_patch_files", [header]))
+            if {p for p in original if changed[p] != original[p]} - allowed:
+                raise ValueError("Patch changed files outside its explicit trusted inventory")
+        patch = "".join(line for path in sorted(original) for line in difflib.unified_diff(
+            original[path].decode().splitlines(keepends=True),
+            changed[path].decode().splitlines(keepends=True),
+            fromfile="a/" + path, tofile="b/" + path))
         (project.parent / "candidate.patch").write_text(patch)
         entry = {**candidate, "source_files": {p: _sha(b) for p, b in changed.items()},
                  "patch_sha256": _sha(patch.encode()), "status": "source_prepared_a3_unvalidated"}

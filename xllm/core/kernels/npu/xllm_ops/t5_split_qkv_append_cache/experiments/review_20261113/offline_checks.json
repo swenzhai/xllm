@@ -17,5 +17,6 @@
     "No A3 kernel compile or performance assertion follows from these checks.",
     "A3 connection restored during preparation; real builds/results will be stored separately."
   ],
-  "host_candidate_checks_round2": "host_validation_input_priority.json"
+  "host_candidate_checks_round2": "host_validation_input_priority.json",
+  "host_candidate_checks_mirror": "host_validation_mirror.json"
 }

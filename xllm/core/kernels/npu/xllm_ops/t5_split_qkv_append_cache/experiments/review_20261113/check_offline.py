@@ -57,7 +57,10 @@ def _main() -> int:
                 or mapping["shape_core_offset_checks"] != 104 or mapping["decoded_tasks"] != 171584):
             raise ValueError("Actual compiled policy/mapping differs from candidate contract")
         _check(project, entry["source_files"])
-        result["candidates"].append({"name": name, "policy": policy, "mapping": mapping})
+        result["candidates"].append({"name": name, "policy": policy, "mapping": mapping,
+            "kernel_policy": entry.get("kernel_policy", entry["policy"]),
+            "scope_note": "Shared quota helper and generic mapper only; mirror prefetch requires NPU tests"
+                if entry.get("kernel_policy") == "mirror_key_value" else "Actual shared policy and generic mapper"})
     result["status"] = "passed"
     _write(reports / "summary.json", result)
     print(json.dumps(result))

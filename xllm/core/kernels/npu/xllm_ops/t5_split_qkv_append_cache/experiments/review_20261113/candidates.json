@@ -46,6 +46,23 @@
       "normal_key_rows": 240,
       "normal_value_rows": 256,
       "patch": "patches/c4_input_priority_190mib.patch"
+    },
+    {
+      "name": "c5_mirror_key_value",
+      "budget_mib": 190,
+      "large_value_rows": 240,
+      "policy": "read_balance",
+      "normal_key_rows": 256,
+      "normal_value_rows": 240,
+      "patch": "patches/c5_mirror_key_value.patch",
+      "allowed_patch_files": [
+        "op_kernel/t5_split_qkv_append_cache_kernel.h"
+      ],
+      "kernel_policy": "mirror_key_value",
+      "actual_normal_key_input_rows": 240,
+      "actual_normal_value_input_rows": 256,
+      "actual_normal_key_output_rows": 0,
+      "actual_normal_value_output_rows": 256
     }
   ]
 }

@@ -170,3 +170,24 @@ First-run raw evidence is retained on the A3 under
 `/workspace/t5qkv-review-20261113-01`; compact archives and derived summaries are
 under the workspace `development_evidence/20261114_*`. C1/C2 rejection and
 profiling do not qualify the default product or the historical delivery package.
+
+## C5 address-role experiment
+
+The second 18-process screen rejected C3/C4 for default-allocator timing. C4
+large cases were around 83 us in all three default batches versus about 70 us
+with page1g. Its instrumented default runs also varied between about 82 and
+117 us; read-miss allocation counts remained much larger than page1g. Five small
+case checks failed in its first default/page1g batches and remain in the evidence.
+Neither candidate is promoted.
+
+C5 mirrors the original control's balanced cache roles without changing its
+190 MiB budget or phase/event schedule: cache all Value input/output, normally
+cache the 240-row Key-input prefix and bypass Key output. This tests whether
+which physical allocations occupy the cache matters, rather than scanning more
+budgets. The fallback path and shared quota helper remain unchanged. The
+`normal_key_rows`/`normal_value_rows` configuration and host checker fields for
+C5 describe that unchanged **legacy helper**, not the mirrored kernel roles;
+`actual_normal_*` fields state the experimental kernel's intended roles. Host
+mapper success does not exercise its new prefetch selection. NPU precision and
+raw-bit cache-boundary tests (now labelled Key-input) are required before timing.
+C5 is not a verified implementation until those tests and independent timing pass.

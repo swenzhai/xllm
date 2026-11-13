@@ -72,6 +72,20 @@ means compilation only and must not be reported as precision/performance passed.
 
 ## Later A3 measurement
 
+After building, run a functional pre-screen before timing:
+
+```bash
+python "$EXP/run_functional.py" --prepared-root "$PREPARED" --report-dir /absolute/path/to/new-functional
+```
+
+This checks 35 public accuracy cases, 206 engineering records and eight cache
+boundary records for each candidate and allocator. `--full` also includes queue,
+tail-fusion and hot-geometry tests. The pinned legacy boundary test assumed a
+190 MiB budget in its metadata calculation; the driver archives a separate
+executed copy with that expected-budget literal adjusted per candidate. Product
+and built test trees remain unchanged, and both original and executed test
+hashes are retained. This adjustment changes no inputs, golden or pass criteria.
+
 `run_matrix.py --plan-only` prepares the process schedule without importing
 torch or touching an NPU. Actual execution first verifies the candidate source,
 build artifacts and original task-package hashes, then probes both allocator

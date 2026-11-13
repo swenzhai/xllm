@@ -2,13 +2,50 @@
   "schema_version": 1,
   "source_commit": "8ea9affaf131b22c8fb786b79da5968ce6724744",
   "operator_path": "xllm/core/kernels/npu/xllm_ops/t5_split_qkv_append_cache",
-  "official_path": "task_submission/6 自测用例及测试代码/官方任务包",
+  "official_path": "task_submission/6 \u81ea\u6d4b\u7528\u4f8b\u53ca\u6d4b\u8bd5\u4ee3\u7801/\u5b98\u65b9\u4efb\u52a1\u5305",
   "header": "common/t5_split_qkv_append_cache_tiling.h",
   "header_sha256": "47fc97d38ff706a772a1e72cdd06e7aa9566f61c7a2115bfa6cbd83828c3423f",
   "status": "unvalidated_on_a3",
   "candidates": [
-    {"name": "control", "budget_mib": 190, "large_value_rows": 240},
-    {"name": "c1_186mib", "budget_mib": 186, "large_value_rows": 224},
-    {"name": "c2_182mib", "budget_mib": 182, "large_value_rows": 208}
+    {
+      "name": "control",
+      "budget_mib": 190,
+      "large_value_rows": 240,
+      "policy": "read_balance",
+      "normal_key_rows": 256,
+      "normal_value_rows": 240
+    },
+    {
+      "name": "c1_186mib",
+      "budget_mib": 186,
+      "large_value_rows": 224,
+      "policy": "read_balance",
+      "normal_key_rows": 256,
+      "normal_value_rows": 224
+    },
+    {
+      "name": "c2_182mib",
+      "budget_mib": 182,
+      "large_value_rows": 208,
+      "policy": "read_balance",
+      "normal_key_rows": 256,
+      "normal_value_rows": 208
+    },
+    {
+      "name": "c3_input_priority_186mib",
+      "budget_mib": 186,
+      "policy": "input_priority",
+      "normal_key_rows": 224,
+      "normal_value_rows": 256,
+      "patch": "patches/c3_input_priority_186mib.patch"
+    },
+    {
+      "name": "c4_input_priority_190mib",
+      "budget_mib": 190,
+      "policy": "input_priority",
+      "normal_key_rows": 240,
+      "normal_value_rows": 256,
+      "patch": "patches/c4_input_priority_190mib.patch"
+    }
   ]
 }

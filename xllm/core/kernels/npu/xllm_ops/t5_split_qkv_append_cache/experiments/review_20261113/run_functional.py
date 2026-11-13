@@ -4,11 +4,40 @@
 import argparse
 from pathlib import Path
 import sys
+from typing import Any
 
 from evidence import _candidate, _child, _environment, _read, _write
 from run_matrix import _freeze_files, _snapshot
 
 HERE = Path(__file__).resolve().parent
+
+
+def _boundary_source(text: str, entry: dict[str, Any], no_admission: bool = False) -> str:
+    if text.count("190 * 1024**2") != 1:
+        raise ValueError("Unexpected boundary-test source; inspect before adapting")
+    text = text.replace("190 * 1024**2", str(entry["budget_mib"]) + " * 1024**2")
+    if entry.get("policy", "read_balance") == "input_priority":
+        if not no_admission:
+            text = text.replace("4, 128, 1024, 65", "4, 128, 1023, 65")
+        text = text.replace("row_bytes = 2 * length * dim", "row_bytes = 2 * (length + 1) * dim")
+        text = text.replace("2 * query_elements * (2 * length + 5)", "4 * query_elements * (length + 2)")
+        text = text.replace("group = 48 // math.gcd(history_tiles, 48)",
+            "group = 48 // math.gcd(history_tiles, 48)\n"
+            "    alignment_group = 256 // math.gcd((length + 1) * dim, 256)\n"
+            "    group = math.lcm(group, alignment_group)")
+        text = text.replace("if cache_rows >= group:\n        cache_rows -= cache_rows % group",
+                            "cache_rows -= cache_rows % group")
+        text = text.replace("normal_value_rows=cache_rows", "normal_key_rows=cache_rows")
+        text = text.replace("input_boundary_mod32=(cache_rows * row_bytes + 2 * offset) % 32",
+                            "output_boundary_mod512=(cache_rows * row_bytes) % 512")
+        text = text.replace("Value-input", "Key-output")
+        if no_admission:
+            text = text.replace("if not 0 < cache_rows < batch * heads:", "if cache_rows != 0:")
+            text = text.replace("case must cross the Key-output cache admission boundary",
+                                "case must admit zero Key-output rows")
+    elif no_admission:
+        raise ValueError("No-admission boundary belongs only to the input-priority candidates")
+    return text
 
 
 def _main() -> int:
@@ -27,11 +56,13 @@ def _main() -> int:
     for name in args.candidates:
         entry = _candidate(root, name)
         text = (root / name / "project/tests/cache_boundary.py").read_text()
-        if text.count("190 * 1024**2") != 1:
-            raise ValueError("Unexpected boundary-test source; inspect before adapting")
         path = reports / (name + "_executed_cache_boundary.py")
-        path.write_text(text.replace("190 * 1024**2", str(entry["budget_mib"]) + " * 1024**2"))
+        path.write_text(_boundary_source(text, entry))
         files.append(str(path))
+        if entry.get("policy") == "input_priority":
+            path = reports / (name + "_executed_cache_no_admission.py")
+            path.write_text(_boundary_source(text, entry, no_admission=True))
+            files.append(str(path))
     before = _snapshot(files)
     _write(reports / "pretest_manifest.json", before)
     summary = {"scope": "functional_pre_screen" if not args.full else "functional_regression",
@@ -54,6 +85,8 @@ def _main() -> int:
                     ("extended", project / "tests/acceptance.py", ["--package-dir", str(package)]),
                     ("cache_boundary", reports / (name + "_executed_cache_boundary.py"), []),
                 ]
+                if _candidate(root, name).get("policy") == "input_priority":
+                    commands.append(("cache_no_admission", reports / (name + "_executed_cache_no_admission.py"), []))
                 if args.full:
                     commands += [
                         ("queue_stress", project / "tests/queue_stress.py", ["--package-dir", str(package)]),
@@ -75,7 +108,7 @@ def _main() -> int:
                     _write(reports / "summary.json", summary)
                     if rc != 0 or result.get("status") != "passed" or result.get("npu_executed") is not True:
                         raise ValueError("Candidate functional check failed; inspect original records")
-                    expected = {"public_accuracy": 35, "extended": 206, "cache_boundary": 8}
+                    expected = {"public_accuracy": 35, "extended": 206, "cache_boundary": 8, "cache_no_admission": 8}
                     if label in expected and len(result.get("cases", result.get("records", []))) != expected[label]:
                         raise ValueError("Unexpected functional record count")
         summary["status"] = "passed"

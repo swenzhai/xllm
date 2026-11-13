@@ -7,6 +7,7 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+import tempfile
 from typing import Any
 
 HERE = Path(__file__).resolve().parent
@@ -56,12 +57,28 @@ def _prepare(repo: Path, output: Path) -> dict[str, Any]:
         project = output / name / "project"
         project.mkdir(parents=True)
         changed = dict(original)
-        replacement = needle.replace("{190}", "{" + str(candidate["budget_mib"]) + "}")
-        changed[header] = original[header].decode().replace(needle, replacement).encode()
+        if not candidate.get("patch"):
+            replacement = needle.replace("{190}", "{" + str(candidate["budget_mib"]) + "}")
+            changed[header] = original[header].decode().replace(needle, replacement).encode()
         for path, data in changed.items():
             target = project / path
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(data)
+        if candidate.get("patch"):
+            source_patch = (HERE / candidate["patch"]).resolve()
+            if not source_patch.is_relative_to(HERE):
+                raise ValueError("Candidate patch must stay inside the experiment directory")
+            # Apply trusted experiment patches outside any Git worktree, with an
+            # explicit isolated output prefix. Never changes the repository index.
+            with tempfile.TemporaryDirectory(prefix="t5qkv-apply-") as temporary:
+                subprocess.run(["git", "apply", "--unsafe-paths", "--directory=" + str(project),
+                                str(source_patch)], cwd=temporary, check=True)
+            paths = {str(p.relative_to(project)) for p in project.rglob("*") if p.is_file()}
+            if paths != set(original):
+                raise ValueError("Patch added or removed files outside the pinned source inventory")
+            changed = {p: (project / p).read_bytes() for p in original}
+            if {p for p in original if changed[p] != original[p]} - {header}:
+                raise ValueError("Current candidate patches may change only the shared policy header")
         patch = "".join(difflib.unified_diff(
             original[header].decode().splitlines(keepends=True),
             changed[header].decode().splitlines(keepends=True),

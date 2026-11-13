@@ -5,12 +5,17 @@ import copy
 import hashlib
 from pathlib import Path
 import tempfile
+import subprocess
+import sys
+import math
+import textwrap
 import unittest
 from unittest.mock import patch
 from typing import Any
 
 from evidence import _read, _write
 from run_matrix import _evaluate, _execute, _schedule
+from run_functional import _boundary_source
 
 
 def _targets() -> dict[str, Any]:
@@ -34,6 +39,40 @@ def _report(slow: bool = False) -> dict[str, Any]:
 
 
 class DriverTest(unittest.TestCase):
+    def test_boundary_metadata_covers_partial_and_zero_admission(self) -> None:
+        # Execute only the generated pure-integer metadata prefix, never imports
+        # or NPU operations. The C++ policy checker independently checks geometry.
+        original = (Path(__file__).resolve().parents[2] / "tests/cache_boundary.py").read_text()
+        for budget, expected in [(186, 432), (190, 456)]:
+            for zero in [False, True]:
+                with self.subTest(budget=budget, zero=zero):
+                    source = _boundary_source(original, {"budget_mib": budget, "policy": "input_priority"}, zero)
+                    prefix = "    batch, heads, length, dim =" + source.split(
+                        "batch, heads, length, dim =", 1)[1].split("    shapes =", 1)[0]
+                    namespace: dict[str, Any] = {"math": math}
+                    exec(textwrap.dedent(prefix), namespace)
+                    self.assertEqual(namespace["cache_rows"], 0 if zero else expected)
+                    self.assertEqual(namespace["cache_rows"] * namespace["row_bytes"] % 512, 0)
+                    self.assertIn("normal_key_rows=", source)
+
+    def test_profiler_bootstrap_loads_selected_site_and_preserves_exit(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="t5qkv-profile-bootstrap-") as temporary:
+            root = Path(temporary)
+            dependency = root / "site"
+            dependency.mkdir()
+            (dependency / "bootstrap_dependency.py").write_text("VALUE = 73\n")
+            application = root / "application.py"
+            application.write_text("import sys, bootstrap_dependency\n"
+                                   "assert bootstrap_dependency.VALUE == 73\n"
+                                   "assert sys.argv[1:] == ['--original-argument', 'kept']\n"
+                                   "raise SystemExit(7)\n")
+            identity = root / "identity.json"
+            result = subprocess.run([sys.executable, str(Path(__file__).with_name("profile_application.py")),
+                "--site-packages", str(dependency), "--identity", str(identity),
+                "--benchmark", str(application), "--", "--original-argument", "kept"], capture_output=True)
+            self.assertEqual(result.returncode, 7, result.stderr)
+            self.assertEqual(_read(identity)["argv"], [str(application.resolve()), "--original-argument", "kept"])
+
     def test_schedule_covers_both_contexts_without_favoring_fixed_order(self) -> None:
         plan = _schedule(["control", "c1", "c2"], 3)
         self.assertEqual(len(plan), 18)

@@ -46,8 +46,11 @@ def _main() -> int:
                 return 1
         policy = _read(reports / (name + "_policy.log"))
         mapping = _read(reports / (name + "_mapping.log"))
-        expected_bytes = 134381568 + entry["large_value_rows"] * 262144
-        if (policy["value_rows"] != entry["large_value_rows"]
+        expected_bytes = (67108864 + entry["normal_value_rows"] * 262144
+                          + entry["normal_key_rows"] * 262272 + 131072)
+        if (policy["value_rows"] != entry["normal_value_rows"]
+                or policy["normal_key_rows"] != entry["normal_key_rows"]
+                or policy["read_balance_enabled"] != (entry["policy"] == "read_balance")
                 or policy["normal_bytes"] != expected_bytes
                 or policy["budget_bytes"] != entry["budget_mib"] * 1024 * 1024
                 or policy["tiling_bytes"] != 52 or mapping["status"] != "passed"

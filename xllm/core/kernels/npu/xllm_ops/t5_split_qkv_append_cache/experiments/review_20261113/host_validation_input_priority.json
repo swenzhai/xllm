@@ -1,0 +1,112 @@
+{
+  "status": "passed",
+  "scope": "host_mapping_and_policy_only",
+  "npu_executed": false,
+  "candidates": [
+    {
+      "name": "control",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 199229440,
+        "value_rows": 240,
+        "normal_key_rows": 256,
+        "read_balance_enabled": true,
+        "value_tasks": 720,
+        "normal_bytes": 197296128
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      }
+    },
+    {
+      "name": "c1_186mib",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 195035136,
+        "value_rows": 224,
+        "normal_key_rows": 256,
+        "read_balance_enabled": true,
+        "value_tasks": 672,
+        "normal_bytes": 193101824
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      }
+    },
+    {
+      "name": "c2_182mib",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 190840832,
+        "value_rows": 208,
+        "normal_key_rows": 256,
+        "read_balance_enabled": true,
+        "value_tasks": 624,
+        "normal_bytes": 188907520
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      }
+    },
+    {
+      "name": "c3_input_priority_186mib",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 195035136,
+        "value_rows": 256,
+        "normal_key_rows": 224,
+        "read_balance_enabled": false,
+        "value_tasks": 768,
+        "normal_bytes": 193097728
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      }
+    },
+    {
+      "name": "c4_input_priority_190mib",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 199229440,
+        "value_rows": 256,
+        "normal_key_rows": 240,
+        "read_balance_enabled": false,
+        "value_tasks": 768,
+        "normal_bytes": 197294080
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      }
+    }
+  ]
+}

@@ -8,7 +8,7 @@ unchanged. The reviewer still reports case 007 over 75 us; case 017 must also be
 retested against 77 us. See `docs/review_feedback_20261113.md` and the remediation
 plan in this directory. No speedup follows from the host-only checks below.
 
-## Single-variable source candidates
+## Isolated source candidates
 
 `prepare.py` reads product sources and all 12 original task files from the fixed
 Git commit in `candidates.json`. It does not copy dirty/untracked files or old
@@ -28,7 +28,25 @@ build path while leaving another unchanged.
 The budget applies generically through the existing geometry policy, not a case
 name or dtype check. Smaller admission can increase bypass reads and make timing
 worse. Other geometries therefore require the full boundary regression too.
-Constant-geometry/scalar and event-order changes remain gated on fresh profiling.
+C1/C2 were rejected after the first real A3 screen: neither improved the large
+cases. The control passed three page1g batches, but failed all default batches.
+Profiling showed much higher MTE2 time and read-miss allocation counts with the
+default allocator; scalar time was about 4.9 us in both contexts. Instrumented
+times are diagnostic, not acceptance samples.
+
+C3/C4 instead keep all historical inputs normally cached, bypass Value output,
+and admit a prefix of Key output. They use the existing streaming scheduler and
+preserve the 52-byte tiling and event pipeline. At B16 H16 L2048 D64, C3 admits
+224 Key rows (193097728 normal logical bytes), C4 admits 240 (197294080 bytes).
+The prefix is rounded down to a common multiple of the core-balance group and
+the 512-byte output-boundary group. Both candidates are unvalidated performance
+hypotheses until measured. Their trusted patches touch only the policy header.
+
+Offline checks cover all five candidates. The new boundary regressions exercise
+both partial admission (L1023 D65; 432/456 Key rows) and zero admission (L1024
+D65; group too large). The latter deliberately checks the no-admission edge.
+These tests change their own derived inputs/golden consistently; the original
+35 public cases and ten public timing cases remain unchanged.
 
 ## Offline preparation
 
@@ -129,3 +147,26 @@ Even a confirmation summary with `status=passed` is **performance-only**. Comple
 cache/tail/hot-geometry, two-entry and C++-example regressions, same-device ratio
 reporting and new genuine screenshots are required before updating delivery.
 The published thresholds and XLSX formats are unchanged.
+
+## Restored A3 follow-up
+
+Use explicit `--candidates control c3_input_priority_186mib c4_input_priority_190mib`
+for both functional screening and the timing matrix of the second isolated run.
+Build those same three names separately first. `run_functional.py` adds eight
+zero-admission records per allocator for each input-priority candidate, in
+addition to its eight partial-boundary records. This makes 22 functional child
+processes for the selected three candidates across both allocator contexts.
+
+`collect_profile.py` collects the unchanged full benchmark under PipeUtilization
+and L2Cache, separately per allocator, preserving failures and source/artifact
+identity. `profile_application.py` explicitly adds the selected Python's site
+packages because the profiler launch otherwise omitted them; an initial failed
+launch is retained. `summarize_profile.py` accepts only the complete four-job
+collection and selects 1051 T5SplitQkvAppendCache tasks per public case, retaining
+the last 1000 after accuracy/warmup. Counts and instrumented timings are not
+acceptance results or universal hit-rate percentages.
+
+First-run raw evidence is retained on the A3 under
+`/workspace/t5qkv-review-20261113-01`; compact archives and derived summaries are
+under the workspace `development_evidence/20261114_*`. C1/C2 rejection and
+profiling do not qualify the default product or the historical delivery package.

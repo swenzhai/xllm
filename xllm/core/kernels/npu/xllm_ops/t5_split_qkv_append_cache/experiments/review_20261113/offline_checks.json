@@ -4,8 +4,8 @@
   "candidate_source_commit": "8ea9affaf131b22c8fb786b79da5968ce6724744",
   "host_candidate_checks": "host_validation.json",
   "driver_self_tests": {
-    "count": 5,
-    "passed": 5,
+    "count": 7,
+    "passed": 7,
     "scope": "mocked_child_orchestration_not_hardware_results"
   },
   "plan_only": {
@@ -16,5 +16,6 @@
   "notes": [
     "No A3 kernel compile or performance assertion follows from these checks.",
     "A3 connection restored during preparation; real builds/results will be stored separately."
-  ]
+  ],
+  "host_candidate_checks_round2": "host_validation_input_priority.json"
 }

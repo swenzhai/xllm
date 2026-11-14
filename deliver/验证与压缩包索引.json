@@ -1,0 +1,42 @@
+{
+  "status": "current_environment_default_allocator_self_validation_passed_ready_for_review",
+  "implementation_commit": "85f8644918f08ff07b356de568aa1ed1548c3183",
+  "delivery_branch": "t5-qkv-task-submission",
+  "official_cases_per_report": 35,
+  "precision_passed": 35,
+  "extended_passed": 206,
+  "memory_passed": 10,
+  "absolute_performance_passed": 10,
+  "absolute_performance_failed": 0,
+  "default_confirmation_batches_passed": 10,
+  "page1g_comparison_batches_passed": 10,
+  "complete_functional_children_passed": 22,
+  "required_allocator_environment": "Default: PYTORCH_NPU_ALLOC_CONF unset before importing torch; same for baseline",
+  "case_007_worst_default_confirmation_us": 74.18185000000001,
+  "case_017_worst_default_confirmation_us": 74.19035000000001,
+  "baseline_memory_measured": false,
+  "not_applicable_performance_memory": 25,
+  "checklist_items_covered": 23,
+  "xlsx_original_format_preserved": true,
+  "workspace_and_repo_byte_identical": true,
+  "acceptance_gaps": [
+    "Specified OS/driver differ; current environment authorized by user",
+    "Taskbook ratio wording requires publisher confirmation",
+    "Baseline memory not measured",
+    "No full xLLM service or community PR/CLA/compile confirmation",
+    "Original taskbook checksum discrepancy preserved"
+  ],
+  "formal_acceptance": false,
+  "archives": [
+    {
+      "name": "T5QKV交付件.zip",
+      "sha256": "35de5acf30d64ebc4c6b83d05263ed850821f7253fad8b49b843e1ea77818e0c",
+      "bytes": 7512711
+    },
+    {
+      "name": "task_submission.zip",
+      "sha256": "6c4e54e57f0255807719e0fc918d0ee1cb2d966401f60a30c27425e58ed5f90e",
+      "bytes": 2771437
+    }
+  ]
+}

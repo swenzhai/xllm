@@ -12,6 +12,24 @@ from run_matrix import _freeze_files, _snapshot
 HERE = Path(__file__).resolve().parent
 
 
+def _functional_npu_evidence(label: str, result: dict[str, Any]) -> bool:
+    if label not in {"queue_stress", "large_queue_stress"}:
+        return result.get("npu_executed") is True
+    # The pinned legacy queue executor omits this flag. It calls the real NPU
+    # and synchronizes before recording each counter; A3 and source identities
+    # are independently guarded by the caller. Never rewrite its original JSON.
+    if result.get("npu_executed", True) is not True or result.get("status") != "passed":
+        return False
+    rows = result.get("records", [])
+    if len(rows) != 2 or {row.get("entry") for row in rows} != {"run", "run_direct"}:
+        return False
+    return all(row.get("status") == "passed" and row.get("queued_calls") == 8192
+               and row.get("storage_wrapper_release_rounds") == 100
+               and type(row.get("allocated_before")) is int and row["allocated_before"] > 0
+               and type(row.get("allocated_after")) is int
+               and row["allocated_before"] == row["allocated_after"] for row in rows)
+
+
 def _supplied_plan(entry: dict[str, Any]) -> Path:
     name = entry.get("supplied_outputs_plan")
     if name:
@@ -171,6 +189,16 @@ def _main() -> int:
                                       "normal_rows_per_plane=cache_rows, planes=4")
             path.write_text(derived)
             files += [str(path), str(_supplied_plan(entry)), str(HERE / "identity/check_supplied_outputs.py")]
+        if args.full and entry.get("history_slots") == 3:
+            original = (root / name / "project/tests/queue_stress.py").read_text()
+            needle = "case = json.loads((args.package_dir/'case.json').read_text())[5]"
+            if original.count(needle) != 1:
+                raise ValueError("Inspect the pinned queue case selection before deriving large-case stress")
+            source = original.replace(needle, "case = next(c for c in json.loads((args.package_dir/'case.json').read_text()) "
+                                      "if c['case_name'] == 'T5SplitQkvAppendCache_007_float16_random')")
+            path = reports / (name + "_executed_large_queue.py")
+            path.write_text(source)
+            files.append(str(path))
     if any(_candidate(root, n).get("kernel_policy") in ("distributed_key_output", "flat_output_tiles", "dispersed_key_output", "paired_history", "interleaved_history") for n in args.candidates):
         files += [str(HERE / "identity/check_supplied_outputs.py"), str(HERE / "distributed_write_host_result.json"), str(HERE / "flat_mapping_host_result.json")]
     before = _snapshot(files)
@@ -217,6 +245,9 @@ def _main() -> int:
                         ("tail_fusion_boundary", project / "tests/tail_fusion_boundary.py", []),
                         ("hot_geometry_boundary", project / "tests/hot_geometry_boundary.py", []),
                     ]
+                    if _candidate(root, name).get("history_slots") == 3:
+                        commands.append(("large_queue_stress", reports / (name + "_executed_large_queue.py"),
+                                         ["--package-dir", str(package)]))
                 for label, script, extra in commands:
                     if _snapshot(files) != before:
                         raise ValueError("Source/artifact changed before functional execution")
@@ -225,12 +256,16 @@ def _main() -> int:
                                "--report", str(result_path), *extra]
                     rc = _child(command, package, env, directory / (label + ".log"))
                     result = _read(result_path)
-                    summary["npu_executed"] |= result.get("npu_executed") is True
+                    npu_verified = _functional_npu_evidence(label, result)
+                    summary["npu_executed"] |= npu_verified
                     record = {"candidate": name, "allocator": allocator, "test": label,
-                              "exit_code": rc, "status": result.get("status"), "report": str(result_path)}
+                              "exit_code": rc, "status": result.get("status"), "report": str(result_path),
+                              "npu_execution_verified": npu_verified}
+                    if label in {"queue_stress", "large_queue_stress"}:
+                        record["execution_evidence"] = "A3 runtime/source guard plus both entries: 8192 queued calls, 100 cross-stream release rounds, positive allocation recovery"
                     summary["records"].append(record)
                     _write(reports / "summary.json", summary)
-                    if rc != 0 or result.get("status") != "passed" or result.get("npu_executed") is not True:
+                    if rc != 0 or result.get("status") != "passed" or not npu_verified:
                         raise ValueError("Candidate functional check failed; inspect original records")
                     expected = {"public_accuracy": 35, "extended": 206, "cache_boundary": 8, "cache_no_admission": 8, "distributed_value_boundary": 8, "distributed_key_boundary": 8, "four_plane_boundary": 8, "supplied_outputs": 4}
                     expected["dispersed_key_boundary"] = 8

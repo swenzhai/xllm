@@ -287,3 +287,7 @@ C32沿用C29单平面双槽、交替K/V完整块调度及2448读取piece/1426写
 C34以此作一次结构验证，并不声称512B对齐必然提升带宽：改用60KiB逻辑块、三个独立UB槽，每槽前后各512B私有空间，总183KiB。Key输入基址512B对齐时，将历史Key旁路读向512B边界扩展，直接落入槽前缀/后缀；只有首个historical piece可能带前缀，后续head piece前缀为0，后续QKV/head覆盖先前后缀，最终store只写真实有效块。输入总长度512B倍数、向前/向后扩展均在合法只读输入区间内；未对齐输入不扩读。完整CPU local-map模拟覆盖67M元素及所有额外读取边界，额外读取341632B、无额外GM。每核44/46次历史任务，16Query分至37–47短核；52字节POD不变，其余几何/未对齐输出沿用原双槽路径。
 
 三槽各自申请MTE2_MTE3/MTE3_MTE2事件，先预取最多三块，再依次等R/store/setW，只有等对应槽W后才重填；最终全部W消费后才复用UB处理Query并释放事件。A3事件ID范围0–7已核对官方9.1页1120，三份/方向合法，TPipe只有一个TBuf。CPU槽复用依赖/地址/Query覆盖及31候选通用mapper、9项driver测试通过。C34仍待目标构建；先完整20个功能子检查（含queue/tail/hot），再6批原协议筛选，全部通过才20新进程确认。已在前置full中覆盖的相同源码/产物不重复执行full。若失败停止该复合方向，不通过扩大参数扫描或改变分配器来宣布通过。
+
+C34目标构建完成。首次functional_full_01在8项后被驱动的报告格式检查阻断：原queue_stress执行器rc0/status passed，两入口各8192 queued calls、100次跨stream提前释放检查及活跃分配回收均成功，但该旧执行器未写npu_executed字段。原失败summary和原JSON不修改，也不据此跳过未执行的tail/hot/page1g检查。新runner仅对此已核对源代码的queue格式，用A3 runtime/source guard及完整两入口计数/正值回收核验；显式false、缺入口、少调用或回收不一致仍拒绝，其余测试和性能继续严格要求原npu_executed=true。新增CPU拒绝路径回归，10项driver检查通过，模拟报告不算NPU证据。
+
+新完整回归额外从原queue脚本派生007大case版本，仅替换case选择，原8192/100计数保持；两allocator分别补测三槽快路径的排队/跨流释放压力，不增加官方case分母。新runner02/functional_full_02共22个功能子检查，全部通过后才6原协议性能和可选20确认。产品源码/构建产物不改，旧runner/报告保持原件。

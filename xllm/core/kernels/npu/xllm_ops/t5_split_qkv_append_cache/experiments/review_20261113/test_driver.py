@@ -15,7 +15,7 @@ from typing import Any
 
 from evidence import _read, _write
 from run_matrix import _evaluate, _execute, _schedule
-from run_functional import _boundary_source, _supplied_args
+from run_functional import _boundary_source, _functional_npu_evidence, _supplied_args
 
 
 def _targets() -> dict[str, Any]:
@@ -39,6 +39,26 @@ def _report(slow: bool = False) -> dict[str, Any]:
 
 
 class DriverTest(unittest.TestCase):
+    def test_legacy_queue_runtime_proof_is_narrow_and_complete(self) -> None:
+        report = {"status": "passed", "records": [
+            {"entry": entry, "status": "passed", "queued_calls": 8192,
+             "storage_wrapper_release_rounds": 100, "allocated_before": 266752,
+             "allocated_after": 266752} for entry in ["run", "run_direct"]]}
+        self.assertTrue(_functional_npu_evidence("queue_stress", report))
+        self.assertTrue(_functional_npu_evidence("large_queue_stress", report))
+        self.assertFalse(_functional_npu_evidence("public_accuracy", report))
+        explicit_false = copy.deepcopy(report)
+        explicit_false["npu_executed"] = False
+        self.assertFalse(_functional_npu_evidence("queue_stress", explicit_false))
+        for field, value in [("queued_calls", 8191), ("storage_wrapper_release_rounds", 99),
+                             ("allocated_after", 266753), ("allocated_before", True),
+                             ("status", "failed"), ("entry", "run")]:
+            broken = copy.deepcopy(report)
+            broken["records"][1][field] = value
+            self.assertFalse(_functional_npu_evidence("queue_stress", broken))
+        report["records"].pop()
+        self.assertFalse(_functional_npu_evidence("queue_stress", report))
+
     def test_supplied_output_commands_parse_actual_cli(self) -> None:
         from identity.check_supplied_outputs import _parse_args
         root = Path(__file__).resolve().parent

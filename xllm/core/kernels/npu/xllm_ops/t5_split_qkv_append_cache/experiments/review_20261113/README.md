@@ -291,3 +291,9 @@ C34以此作一次结构验证，并不声称512B对齐必然提升带宽：改�
 C34目标构建完成。首次functional_full_01在8项后被驱动的报告格式检查阻断：原queue_stress执行器rc0/status passed，两入口各8192 queued calls、100次跨stream提前释放检查及活跃分配回收均成功，但该旧执行器未写npu_executed字段。原失败summary和原JSON不修改，也不据此跳过未执行的tail/hot/page1g检查。新runner仅对此已核对源代码的queue格式，用A3 runtime/source guard及完整两入口计数/正值回收核验；显式false、缺入口、少调用或回收不一致仍拒绝，其余测试和性能继续严格要求原npu_executed=true。新增CPU拒绝路径回归，10项driver检查通过，模拟报告不算NPU证据。
 
 新完整回归额外从原queue脚本派生007大case版本，仅替换case选择，原8192/100计数保持；两allocator分别补测三槽快路径的排队/跨流释放压力，不增加官方case分母。新runner02/functional_full_02共22个功能子检查，全部通过后才6原协议性能和可选20确认。产品源码/构建产物不改，旧runner/报告保持原件。
+
+C34完整22/22功能检查通过，6批性能全部失败，default大case约106–108µs，page1g约105µs；对齐扩读/三槽未降低该旁路读方案的耗时，不晋升、不确认。全部source/artifact/post-identity检查成功，见aligned_triple_screen_results.json。另补CPU验证Flat guard覆盖的全部合法B/H分解：6组合法、2组B>64被原host约束拒绝，QKV追加3072地址/126 Query任务检查通过；首版辅助CPU测试误把B256当合法而失败，原测试保留，未涉及NPU或改动host约束。
+
+C35回到本轮较低但仍超限的C31方案，保留全部128MiB历史输入正常读取、约32MiB Key输出正常/其余输出旁路；不主动旁路历史读取。用三个62KiB UB槽，每槽成对放置K/V各31KiB，沿用C27已验证的正向合法gap 2D读取，读完两块才发布R，两次输出store之后发布W，消费对应W才复用槽，全部W清空后处理Query/释放事件。UB总186KiB，无扩读或额外GM；其他几何/源反序同源超范围/未对齐输出先选择原支持路径。固定52字节POD不变，Query分给少一帧历史任务的短核。
+
+实际CPU helper覆盖67M元素、2116成对任务、2625读取DMA/4232 store、完整源/UB边界和槽复用图；正常Key写33585152B、旁路写100698112B，两输入读取134217728B全normal。6合法/2拒绝B/H分解及32候选通用CPU、10项driver检查通过。C35尚待目标构建；预算一套构建→22完整功能→6原协议筛选，通过才20新进程确认，不重复同源码已完成的full。该实验验证正常读取条件下的成对三槽流水，不能用C34对旁路读取的失败来推断其性能，也不预先宣称有效。

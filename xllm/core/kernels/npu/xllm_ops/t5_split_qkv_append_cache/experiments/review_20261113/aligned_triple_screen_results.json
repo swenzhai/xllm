@@ -1,0 +1,1488 @@
+{
+  "scope": "aligned_triple_screen_NOT_ACCEPTANCE_NOT_ACCEPTANCE",
+  "archive": {
+    "remote_archive": "/workspace/t5qkv-aligned-triple-20261114-01/aligned_triple_evidence.tar.gz",
+    "sha256": "d38312b85478b6c5b59e8918e7a0aceb7c41d7effa96f71a7065cdc7518fba72",
+    "files": 491,
+    "bytes": 927217
+  },
+  "functional": {
+    "scope": "functional_regression",
+    "status": "passed",
+    "npu_executed": true,
+    "records": [
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "public_accuracy",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_default/public_accuracy.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "extended",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_default/extended.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "cache_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_default/cache_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "cache_no_admission",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_default/cache_no_admission.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "dispersed_key_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_default/dispersed_key_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "supplied_outputs",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_default/supplied_outputs.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "source_layouts",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_default/source_layouts.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "queue_stress",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_default/queue_stress.json",
+        "npu_execution_verified": true,
+        "execution_evidence": "A3 runtime/source guard plus both entries: 8192 queued calls, 100 cross-stream release rounds, positive allocation recovery"
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "tail_fusion_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_default/tail_fusion_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "hot_geometry_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_default/hot_geometry_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "large_queue_stress",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_default/large_queue_stress.json",
+        "npu_execution_verified": true,
+        "execution_evidence": "A3 runtime/source guard plus both entries: 8192 queued calls, 100 cross-stream release rounds, positive allocation recovery"
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "page1g",
+        "test": "public_accuracy",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_page1g/public_accuracy.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "page1g",
+        "test": "extended",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_page1g/extended.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "page1g",
+        "test": "cache_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_page1g/cache_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "page1g",
+        "test": "cache_no_admission",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_page1g/cache_no_admission.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "page1g",
+        "test": "dispersed_key_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_page1g/dispersed_key_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "page1g",
+        "test": "supplied_outputs",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_page1g/supplied_outputs.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "page1g",
+        "test": "source_layouts",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_page1g/source_layouts.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "page1g",
+        "test": "queue_stress",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_page1g/queue_stress.json",
+        "npu_execution_verified": true,
+        "execution_evidence": "A3 runtime/source guard plus both entries: 8192 queued calls, 100 cross-stream release rounds, positive allocation recovery"
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "page1g",
+        "test": "tail_fusion_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_page1g/tail_fusion_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "page1g",
+        "test": "hot_geometry_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_page1g/hot_geometry_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "page1g",
+        "test": "large_queue_stress",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02/c34_aligned_triple_history_page1g/large_queue_stress.json",
+        "npu_execution_verified": true,
+        "execution_evidence": "A3 runtime/source guard plus both entries: 8192 queued calls, 100 cross-stream release rounds, positive allocation recovery"
+      }
+    ],
+    "source_and_artifacts_unchanged": true
+  },
+  "original_incomplete_functional": {
+    "scope": "functional_regression",
+    "status": "failed",
+    "npu_executed": true,
+    "records": [
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "public_accuracy",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_01/c34_aligned_triple_history_default/public_accuracy.json"
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "extended",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_01/c34_aligned_triple_history_default/extended.json"
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "cache_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_01/c34_aligned_triple_history_default/cache_boundary.json"
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "cache_no_admission",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_01/c34_aligned_triple_history_default/cache_no_admission.json"
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "dispersed_key_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_01/c34_aligned_triple_history_default/dispersed_key_boundary.json"
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "supplied_outputs",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_01/c34_aligned_triple_history_default/supplied_outputs.json"
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "source_layouts",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_01/c34_aligned_triple_history_default/source_layouts.json"
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "test": "queue_stress",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_01/c34_aligned_triple_history_default/queue_stress.json"
+      }
+    ],
+    "error": "ValueError: Candidate functional check failed; inspect original records",
+    "source_and_artifacts_unchanged": true
+  },
+  "performance": {
+    "scope": "performance_only",
+    "phase": "screen",
+    "status": "failed",
+    "npu_executed": true,
+    "records": [
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/screen_01/000_c34_aligned_triple_history_default/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "runtime_identity": "/workspace/t5qkv-aligned-triple-20261114-01/screen_01/000_c34_aligned_triple_history_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.5418,
+              16.41495,
+              16.1872,
+              16.126549999999998,
+              16.2704
+            ],
+            "wall_us_median": 16.2704,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.86235,
+              17.0175,
+              17.1266,
+              16.96,
+              16.6866
+            ],
+            "wall_us_median": 16.96,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.8741,
+              16.58025,
+              16.66055,
+              16.70085,
+              16.7834
+            ],
+            "wall_us_median": 16.70085,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              107.36375,
+              107.33019999999999,
+              107.1283,
+              107.2058,
+              107.22325
+            ],
+            "wall_us_median": 107.22325,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.42485,
+              19.2641,
+              19.116349999999997,
+              19.2829,
+              18.97015
+            ],
+            "wall_us_median": 19.2641,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.5794,
+              18.98515,
+              18.47355,
+              18.417450000000002,
+              18.484650000000002
+            ],
+            "wall_us_median": 18.484650000000002,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.0247,
+              20.5809,
+              19.24395,
+              18.846349999999997,
+              19.17805
+            ],
+            "wall_us_median": 19.17805,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.376099999999997,
+              20.03585,
+              19.63645,
+              20.2323,
+              19.34025
+            ],
+            "wall_us_median": 19.63645,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              107.76805,
+              107.65385,
+              107.68485000000001,
+              107.71735000000001,
+              107.61864999999999
+            ],
+            "wall_us_median": 107.68485000000001,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.0251,
+              19.87455,
+              19.1537,
+              19.7721,
+              18.98235
+            ],
+            "wall_us_median": 19.1537,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 0
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/screen_01/001_c34_aligned_triple_history_page1g/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "runtime_identity": "/workspace/t5qkv-aligned-triple-20261114-01/screen_01/001_c34_aligned_triple_history_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.1133,
+              16.7834,
+              16.690900000000003,
+              16.5272,
+              16.77295
+            ],
+            "wall_us_median": 16.77295,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.26505,
+              17.264950000000002,
+              17.2482,
+              17.32795,
+              16.9106
+            ],
+            "wall_us_median": 17.264950000000002,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.533099999999997,
+              16.5254,
+              16.7286,
+              17.4312,
+              17.19005
+            ],
+            "wall_us_median": 16.7286,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              105.528,
+              105.46705,
+              105.25789999999999,
+              105.4235,
+              105.41489999999999
+            ],
+            "wall_us_median": 105.4235,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.9815,
+              16.86235,
+              16.95845,
+              17.1848,
+              16.83185
+            ],
+            "wall_us_median": 16.95845,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.47555,
+              16.50235,
+              16.4017,
+              16.29605,
+              16.3565
+            ],
+            "wall_us_median": 16.4017,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.2411,
+              17.4115,
+              16.97855,
+              16.742099999999997,
+              16.70875
+            ],
+            "wall_us_median": 16.97855,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.67615,
+              16.7269,
+              16.847450000000002,
+              17.12975,
+              16.8275
+            ],
+            "wall_us_median": 16.8275,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              105.5022,
+              105.43265,
+              105.3268,
+              105.3343,
+              105.4286
+            ],
+            "wall_us_median": 105.4286,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.13355,
+              17.08425,
+              17.205299999999998,
+              17.36615,
+              16.90315
+            ],
+            "wall_us_median": 17.13355,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 0
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/screen_01/002_c34_aligned_triple_history_page1g/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "runtime_identity": "/workspace/t5qkv-aligned-triple-20261114-01/screen_01/002_c34_aligned_triple_history_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.414900000000003,
+              17.03865,
+              16.89175,
+              17.031,
+              16.90915
+            ],
+            "wall_us_median": 17.031,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.64785,
+              17.578599999999998,
+              17.57995,
+              17.521549999999998,
+              17.448150000000002
+            ],
+            "wall_us_median": 17.578599999999998,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.044700000000002,
+              17.0748,
+              16.99985,
+              16.99475,
+              16.94405
+            ],
+            "wall_us_median": 16.99985,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              105.6172,
+              105.5562,
+              105.48325,
+              105.44165,
+              105.4212
+            ],
+            "wall_us_median": 105.48325,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.58545,
+              18.688950000000002,
+              18.5708,
+              18.781,
+              18.645799999999998
+            ],
+            "wall_us_median": 18.645799999999998,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.296799999999998,
+              18.45355,
+              18.4681,
+              18.455599999999997,
+              18.310200000000002
+            ],
+            "wall_us_median": 18.45355,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.072200000000002,
+              19.235599999999998,
+              19.042099999999998,
+              18.7065,
+              18.74825
+            ],
+            "wall_us_median": 19.042099999999998,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.7724,
+              18.5946,
+              18.8406,
+              18.89625,
+              18.780150000000003
+            ],
+            "wall_us_median": 18.780150000000003,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              105.4054,
+              105.30114999999999,
+              105.40055000000001,
+              105.26995,
+              105.6183
+            ],
+            "wall_us_median": 105.40055000000001,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.75735,
+              18.7265,
+              19.57725,
+              19.4277,
+              19.113
+            ],
+            "wall_us_median": 19.113,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 1
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/screen_01/003_c34_aligned_triple_history_default/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "runtime_identity": "/workspace/t5qkv-aligned-triple-20261114-01/screen_01/003_c34_aligned_triple_history_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              22.40095,
+              18.78065,
+              18.2984,
+              18.67715,
+              18.4582
+            ],
+            "wall_us_median": 18.67715,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.26225,
+              19.16665,
+              19.07875,
+              19.0683,
+              19.08865
+            ],
+            "wall_us_median": 19.08865,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              20.0183,
+              19.19515,
+              19.11845,
+              19.2118,
+              19.187099999999997
+            ],
+            "wall_us_median": 19.19515,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              106.52860000000001,
+              106.41005,
+              106.41789999999999,
+              106.4106,
+              106.3721
+            ],
+            "wall_us_median": 106.4106,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.863799999999998,
+              18.87125,
+              18.8421,
+              18.787650000000003,
+              18.6112
+            ],
+            "wall_us_median": 18.8421,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.125799999999998,
+              18.59355,
+              18.75685,
+              18.25735,
+              18.2518
+            ],
+            "wall_us_median": 18.25735,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.627599999999997,
+              19.100150000000003,
+              18.80925,
+              18.44175,
+              18.11245
+            ],
+            "wall_us_median": 18.627599999999997,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.4228,
+              18.4994,
+              19.02725,
+              19.02325,
+              19.058349999999997
+            ],
+            "wall_us_median": 19.02325,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              106.68480000000001,
+              106.59339999999999,
+              106.63195,
+              106.61985,
+              106.61595
+            ],
+            "wall_us_median": 106.61985,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.28545,
+              19.1304,
+              19.284599999999998,
+              19.2375,
+              19.0207
+            ],
+            "wall_us_median": 19.2375,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 1
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/screen_01/004_c34_aligned_triple_history_default/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "runtime_identity": "/workspace/t5qkv-aligned-triple-20261114-01/screen_01/004_c34_aligned_triple_history_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              20.99175,
+              16.715799999999998,
+              16.75885,
+              16.561049999999998,
+              16.750400000000003
+            ],
+            "wall_us_median": 16.750400000000003,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.203799999999998,
+              17.1507,
+              17.16995,
+              17.31865,
+              16.7697
+            ],
+            "wall_us_median": 17.16995,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.49045,
+              16.689049999999998,
+              16.86395,
+              16.802049999999998,
+              16.871
+            ],
+            "wall_us_median": 16.86395,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              107.7702,
+              107.5271,
+              107.5615,
+              107.4693,
+              107.55925
+            ],
+            "wall_us_median": 107.55925,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.15595,
+              18.47335,
+              18.14005,
+              18.33545,
+              18.058349999999997
+            ],
+            "wall_us_median": 18.15595,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.307299999999998,
+              17.8182,
+              17.17335,
+              17.30215,
+              17.3462
+            ],
+            "wall_us_median": 17.307299999999998,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.13465,
+              18.04815,
+              18.0795,
+              18.60075,
+              17.71725
+            ],
+            "wall_us_median": 18.0795,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.71845,
+              17.799049999999998,
+              18.286099999999998,
+              18.7302,
+              18.57535
+            ],
+            "wall_us_median": 18.286099999999998,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              107.35210000000001,
+              107.24130000000001,
+              107.28335000000001,
+              107.20715,
+              107.25965
+            ],
+            "wall_us_median": 107.25965,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.595950000000002,
+              18.51305,
+              18.414900000000003,
+              18.8801,
+              18.189700000000002
+            ],
+            "wall_us_median": 18.51305,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 2
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/screen_01/005_c34_aligned_triple_history_page1g/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "runtime_identity": "/workspace/t5qkv-aligned-triple-20261114-01/screen_01/005_c34_aligned_triple_history_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              32.0405,
+              15.908850000000001,
+              15.903049999999999,
+              15.9092,
+              16.0262
+            ],
+            "wall_us_median": 15.9092,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.54405,
+              16.47025,
+              16.2566,
+              16.564799999999998,
+              16.59675
+            ],
+            "wall_us_median": 16.54405,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.33305,
+              16.150100000000002,
+              16.01215,
+              16.2365,
+              16.13055
+            ],
+            "wall_us_median": 16.150100000000002,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              105.57675,
+              105.34845,
+              105.3239,
+              105.4049,
+              105.2446
+            ],
+            "wall_us_median": 105.34845,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              15.582450000000001,
+              15.54955,
+              15.63875,
+              15.6444,
+              15.6346
+            ],
+            "wall_us_median": 15.6346,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              15.140649999999999,
+              14.94195,
+              14.87665,
+              14.913549999999999,
+              14.7358
+            ],
+            "wall_us_median": 14.913549999999999,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              15.792950000000001,
+              15.55085,
+              15.58235,
+              15.60575,
+              15.4916
+            ],
+            "wall_us_median": 15.58235,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              15.4476,
+              15.44,
+              15.320799999999998,
+              15.73165,
+              15.7425
+            ],
+            "wall_us_median": 15.4476,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              105.3948,
+              105.30595,
+              105.32285,
+              105.30335000000001,
+              105.22005
+            ],
+            "wall_us_median": 105.30595,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              15.65625,
+              15.437100000000001,
+              15.54725,
+              15.420399999999999,
+              15.41385
+            ],
+            "wall_us_median": 15.437100000000001,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 2
+      }
+    ],
+    "references": [
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "default",
+        "role": "reference",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/screen_01/reference_default/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              80.62644999999999,
+              76.30560000000001,
+              75.70855,
+              74.8814,
+              74.20055
+            ],
+            "wall_us_median": 75.70855,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              101.22095,
+              99.602,
+              97.91155,
+              97.98910000000001,
+              97.651
+            ],
+            "wall_us_median": 97.98910000000001,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              90.63080000000001,
+              90.19035000000001,
+              90.69839999999999,
+              90.6661,
+              90.25245
+            ],
+            "wall_us_median": 90.63080000000001,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              234.1834,
+              233.9564,
+              233.90895,
+              234.18855,
+              233.95415
+            ],
+            "wall_us_median": 233.9564,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              98.84135,
+              98.29325,
+              99.00135,
+              98.68289999999999,
+              98.375
+            ],
+            "wall_us_median": 98.68289999999999,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              85.9966,
+              86.32235,
+              85.90944999999999,
+              86.2607,
+              86.00405
+            ],
+            "wall_us_median": 86.00405,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              98.3883,
+              98.2226,
+              98.87915,
+              98.09219999999999,
+              98.5561
+            ],
+            "wall_us_median": 98.3883,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              91.34425,
+              91.89125,
+              90.84225,
+              90.90425,
+              91.5421
+            ],
+            "wall_us_median": 91.34425,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              234.03245,
+              233.86895,
+              233.76735,
+              233.7717,
+              233.6189
+            ],
+            "wall_us_median": 233.7717,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              99.89160000000001,
+              99.326,
+              99.2753,
+              99.03845,
+              99.72735
+            ],
+            "wall_us_median": 99.326,
+            "max_wall_us": 29
+          }
+        ]
+      },
+      {
+        "candidate": "c34_aligned_triple_history",
+        "allocator": "page1g",
+        "role": "reference",
+        "report": "/workspace/t5qkv-aligned-triple-20261114-01/screen_01/reference_page1g/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              80.91055,
+              76.6154,
+              110.5024,
+              82.61375,
+              75.358
+            ],
+            "wall_us_median": 80.91055,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              85.7392,
+              83.13025,
+              82.22439999999999,
+              82.20385,
+              82.07995
+            ],
+            "wall_us_median": 82.22439999999999,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              74.14385,
+              74.09530000000001,
+              73.43645,
+              73.9568,
+              74.3253
+            ],
+            "wall_us_median": 74.09530000000001,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              238.72979999999998,
+              238.6181,
+              238.57305,
+              238.55939999999998,
+              238.5999
+            ],
+            "wall_us_median": 238.5999,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              99.00845,
+              98.60735000000001,
+              98.66305,
+              98.70625,
+              98.6254
+            ],
+            "wall_us_median": 98.66305,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              88.0605,
+              88.2427,
+              87.99685000000001,
+              87.96719999999999,
+              87.9132
+            ],
+            "wall_us_median": 87.99685000000001,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              97.66235,
+              97.9737,
+              97.8982,
+              97.8042,
+              98.0476
+            ],
+            "wall_us_median": 97.8982,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              90.86510000000001,
+              90.66794999999999,
+              90.388,
+              90.43265,
+              90.79910000000001
+            ],
+            "wall_us_median": 90.66794999999999,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              238.95625,
+              238.90804999999997,
+              239.0197,
+              238.8455,
+              238.72815
+            ],
+            "wall_us_median": 238.90804999999997,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              86.0149,
+              85.89645,
+              85.97395,
+              85.97064999999999,
+              85.14880000000001
+            ],
+            "wall_us_median": 85.97064999999999,
+            "max_wall_us": 29
+          }
+        ]
+      }
+    ],
+    "full_acceptance": false,
+    "post_identity": true,
+    "source_and_artifacts_unchanged": true
+  },
+  "promoted": false,
+  "driver": {
+    "status": "failed_stage_1",
+    "plan": [
+      [
+        "/workspace/t5qkv-dev-20261029/env/venv/bin/python",
+        "/workspace/t5qkv-aligned-triple-20261114-01/runner02/run_functional.py",
+        "--prepared-root",
+        "/workspace/t5qkv-aligned-triple-20261114-01",
+        "--report-dir",
+        "/workspace/t5qkv-aligned-triple-20261114-01/functional_full_02",
+        "--candidates",
+        "c34_aligned_triple_history",
+        "--full"
+      ],
+      [
+        "/workspace/t5qkv-dev-20261029/env/venv/bin/python",
+        "/workspace/t5qkv-aligned-triple-20261114-01/runner02/run_matrix.py",
+        "--prepared-root",
+        "/workspace/t5qkv-aligned-triple-20261114-01",
+        "--report-dir",
+        "/workspace/t5qkv-aligned-triple-20261114-01/screen_01",
+        "--candidates",
+        "c34_aligned_triple_history",
+        "--phase",
+        "screen",
+        "--post-identity"
+      ]
+    ],
+    "stages": [
+      {
+        "index": 0,
+        "exit_code": 0
+      },
+      {
+        "index": 1,
+        "exit_code": 1
+      }
+    ],
+    "product_revision": "b7d7b7a673b15b0cca0563e1db502f19c667ad32",
+    "runner_revision": "8366f6f1df9374d50b5eda4d9bb1ba012a13ca1d",
+    "runner_transfer_verified": true
+  }
+}

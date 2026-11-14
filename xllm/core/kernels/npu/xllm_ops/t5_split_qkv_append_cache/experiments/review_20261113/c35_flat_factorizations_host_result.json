@@ -1,0 +1,11 @@
+{
+  "scope": "CPU_flat_guard_all_batch_head_factorizations",
+  "npu_executed": false,
+  "status": "passed",
+  "shapes": 6,
+  "rejected_shapes": 2,
+  "append_address_checks": 3072,
+  "query_task_checks": 126,
+  "checker_sha256": "43f7c2a7ca5ecc4f15629e7a1d5738c844c438897a90a35568178f2ba5327705",
+  "header_sha256": "2f6b1d840869d38f47f5c9481a50731b5fe28c9d78591e9dda6d4ddaea37a605"
+}

@@ -303,3 +303,9 @@ C35首个目标构建在SDK编译阶段失败，未执行NPU：init和store仍�
 C35新目录构建、22完整功能全部通过，6批原协议筛选完成且source/artifact/post-identity均成功。default 007=73.874/76.049/74.294µs，只有2/3通过；017=73.978/75.962/73.896µs，3/3通过。page1g两case三批均通过、约73.5–74.0µs。不晋升、不确认。两次独立Pipe/history诊断default007 task75.785µs、Scalar6.100、MTE268.510、MTE366.354；page1g73.218/6.141/67.170/65.021。诊断计时不作为验收。389文件（含初始失败构建源和日志、两份原始CSV/trace）归档3a90e309a07cd9c22b79f96e7fcd1a2080bcfef347f668193649b0b3225ccb08逐SHA核验，见normal_paired_triple_screen_results.json。
 
 C36只优化受既有Flat guard保护的地址计算：L2048/D64/256行下使用固定131072/131136元素行长，合法H均为2的幂且在4–128，预先计算一次head shift，QKV位置用移位/掩码替代动态除余；输出总量和QKV pitch也显式使用该域常量。输入/输出顺序、缓存hint、总读写字节、三槽186KiB、52字节POD、事件及Query分配完全沿用C35，其他路径不变。CPU实际新helper全67M元素及46080项6种合法B/H×两角色×边界/分段长度与原helper等价检查通过；单候选通用mapper104/171584及10项driver检查通过。此时无NPU结果，不预先声称编译器或延迟已改善。预算一套构建→22完整功能→6原协议筛选，通过才20新进程确认。
+
+C36构建和22完整功能通过，6批筛选完成。default007=73.695/95.609/73.780µs、017=73.664/96.174/73.652µs，仍有明显超限；page1g全部约73.5–73.8µs通过。source/artifact/post-identity检查成功。SDK两dtype .text同源一致，C35=10648B、C36=10768B且SHA不同，机器码变化未闭合默认策略问题。336原件归档a72030c836c753ce670e00585699fffe2a94b877966f24c0e5be945b38d9ca60，逐SHA核验，见fixed_pair_address_screen_results.json。不晋升/不确认。
+
+C37以C35为父，按字节而非完整frame数分核：每核每个输出699392元素，44个15872-element frame及两个512-element尾frame，46帧/核。每核历史输出2797568B、旁路写2098176B完全相同；Key正常/旁路各占其一半，历史输入继续全normal。总正常Key写33570816B/旁路100712448B，与C35仅因边界切分相差14KiB。CPU新实际helper全67M元素、2208帧/2704读DMA/4416 store、每核字节一致性/源与UB边界/槽复用检查通过。
+
+H≤32的合法Flat形状把分到该核的Query在历史前预取，三帧初始预取后先写Query，再执行历史store；Query使用额外独立4KiB UB，不复用该区。MTE3 FIFO中所有后续历史W均在Query store之后，末尾历史W排空保证Query完成；多分配一个MTE2_MTE3事件，总4R/3W仍在A3 ID0–7范围，空Query核不发布/等待该事件。UB最高190KiB，H>32只用186KiB并原样后处理Query，非Flat沿用184KiB双槽。QKV 2D预取在六种合法B/H下的源/目的/4KiB范围已检查，其他指针/shape guard不变。单候选CPU mapper104/171584和10项driver检查通过；尚未目标构建。预算构建→22完整功能→6原协议筛选，全部通过才20确认，正式报告/XLSX/交付件继续保持原件。

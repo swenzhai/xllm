@@ -656,6 +656,40 @@
       "actual_normal_key_write_bytes": 33585152,
       "actual_bypass_write_bytes": 100698112,
       "fixed_flat_address_math": true
+    },
+    {
+      "name": "c37_byte_balanced_pair",
+      "budget_mib": 190,
+      "policy": "input_priority",
+      "normal_key_rows": 240,
+      "normal_value_rows": 256,
+      "patch": "patches/c37_byte_balanced_pair.patch",
+      "allowed_patch_files": [
+        "common/t5_split_qkv_append_cache_tiling.h",
+        "op_kernel/t5_split_qkv_append_cache_kernel.h"
+      ],
+      "kernel_policy": "paired_history",
+      "normal_output_slots": 1,
+      "output_slot_period": 2,
+      "bypass_output_slots": [
+        1
+      ],
+      "last_partial_period_normal": false,
+      "actual_normal_key_input_rows": 256,
+      "actual_normal_value_input_rows": 256,
+      "supplied_outputs_plan": "c37_byte_balanced_pair_host_result.json",
+      "expected_supplied_outputs": 8,
+      "parent_candidate": "c35_normal_paired_triple",
+      "complementary_key_read_write_hints": false,
+      "normal_footprint_note": "both history inputs normal128MiB, Key output normal approximately32MiB, Value output bypass",
+      "flat_tile_elements": 31744,
+      "history_slots": 3,
+      "query_on_short_history_cores": false,
+      "paired_plane_elements": 15872,
+      "actual_normal_key_write_bytes": 33570816,
+      "actual_bypass_write_bytes": 100712448,
+      "byte_balanced_core_ranges": true,
+      "fused_query_prefetch": true
     }
   ]
 }

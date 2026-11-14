@@ -1,0 +1,1459 @@
+{
+  "scope": "fixed_pair_address_screen_NOT_ACCEPTANCE_NOT_ACCEPTANCE",
+  "archive": {
+    "remote_archive": "/workspace/t5qkv-fixed-pair-address-20261114-01/fixed_pair_address_evidence.tar.gz",
+    "sha256": "a72030c836c753ce670e00585699fffe2a94b877966f24c0e5be945b38d9ca60",
+    "files": 336,
+    "bytes": 616973
+  },
+  "functional": {
+    "scope": "functional_regression",
+    "status": "passed",
+    "npu_executed": true,
+    "records": [
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "default",
+        "test": "public_accuracy",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_default/public_accuracy.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "default",
+        "test": "extended",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_default/extended.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "default",
+        "test": "cache_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_default/cache_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "default",
+        "test": "cache_no_admission",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_default/cache_no_admission.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "default",
+        "test": "dispersed_key_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_default/dispersed_key_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "default",
+        "test": "supplied_outputs",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_default/supplied_outputs.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "default",
+        "test": "source_layouts",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_default/source_layouts.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "default",
+        "test": "queue_stress",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_default/queue_stress.json",
+        "npu_execution_verified": true,
+        "execution_evidence": "A3 runtime/source guard plus both entries: 8192 queued calls, 100 cross-stream release rounds, positive allocation recovery"
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "default",
+        "test": "tail_fusion_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_default/tail_fusion_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "default",
+        "test": "hot_geometry_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_default/hot_geometry_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "default",
+        "test": "large_queue_stress",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_default/large_queue_stress.json",
+        "npu_execution_verified": true,
+        "execution_evidence": "A3 runtime/source guard plus both entries: 8192 queued calls, 100 cross-stream release rounds, positive allocation recovery"
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "page1g",
+        "test": "public_accuracy",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_page1g/public_accuracy.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "page1g",
+        "test": "extended",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_page1g/extended.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "page1g",
+        "test": "cache_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_page1g/cache_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "page1g",
+        "test": "cache_no_admission",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_page1g/cache_no_admission.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "page1g",
+        "test": "dispersed_key_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_page1g/dispersed_key_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "page1g",
+        "test": "supplied_outputs",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_page1g/supplied_outputs.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "page1g",
+        "test": "source_layouts",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_page1g/source_layouts.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "page1g",
+        "test": "queue_stress",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_page1g/queue_stress.json",
+        "npu_execution_verified": true,
+        "execution_evidence": "A3 runtime/source guard plus both entries: 8192 queued calls, 100 cross-stream release rounds, positive allocation recovery"
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "page1g",
+        "test": "tail_fusion_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_page1g/tail_fusion_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "page1g",
+        "test": "hot_geometry_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_page1g/hot_geometry_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "page1g",
+        "test": "large_queue_stress",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01/c36_fixed_pair_addressing_page1g/large_queue_stress.json",
+        "npu_execution_verified": true,
+        "execution_evidence": "A3 runtime/source guard plus both entries: 8192 queued calls, 100 cross-stream release rounds, positive allocation recovery"
+      }
+    ],
+    "source_and_artifacts_unchanged": true
+  },
+  "performance": {
+    "scope": "performance_only",
+    "phase": "screen",
+    "status": "failed",
+    "npu_executed": true,
+    "records": [
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/screen_01/000_c36_fixed_pair_addressing_default/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-fixed-pair-address-20261114-01/screen_01/000_c36_fixed_pair_addressing_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.5792,
+              16.72835,
+              16.01285,
+              15.87975,
+              15.7627
+            ],
+            "wall_us_median": 16.01285,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.392,
+              16.3975,
+              16.57815,
+              16.4635,
+              16.18205
+            ],
+            "wall_us_median": 16.3975,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.848,
+              16.1083,
+              16.2104,
+              16.1445,
+              16.13535
+            ],
+            "wall_us_median": 16.1445,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.84455,
+              73.64185,
+              73.7027,
+              73.69535,
+              73.68655
+            ],
+            "wall_us_median": 73.69535,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.51725,
+              18.33915,
+              18.60355,
+              18.438299999999998,
+              18.3669
+            ],
+            "wall_us_median": 18.438299999999998,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.7059,
+              17.97375,
+              17.5476,
+              17.533849999999997,
+              17.4422
+            ],
+            "wall_us_median": 17.5476,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.559549999999998,
+              18.4756,
+              18.23005,
+              18.61705,
+              18.303849999999997
+            ],
+            "wall_us_median": 18.4756,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.621,
+              18.138900000000003,
+              18.6881,
+              19.266299999999998,
+              18.72375
+            ],
+            "wall_us_median": 18.6881,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.7355,
+              73.65975,
+              73.5897,
+              73.69805000000001,
+              73.6641
+            ],
+            "wall_us_median": 73.6641,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.63015,
+              19.04955,
+              18.432650000000002,
+              18.3564,
+              18.605700000000002
+            ],
+            "wall_us_median": 18.605700000000002,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 0
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/screen_01/001_c36_fixed_pair_addressing_page1g/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-fixed-pair-address-20261114-01/screen_01/001_c36_fixed_pair_addressing_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.528950000000002,
+              17.189349999999997,
+              17.450599999999998,
+              17.14895,
+              17.0409
+            ],
+            "wall_us_median": 17.189349999999997,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.505599999999998,
+              17.7769,
+              17.5748,
+              17.5596,
+              17.544349999999998
+            ],
+            "wall_us_median": 17.5596,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.9039,
+              17.77915,
+              19.185299999999998,
+              17.3601,
+              17.677599999999998
+            ],
+            "wall_us_median": 17.77915,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.83865,
+              73.82825,
+              73.6839,
+              73.75255,
+              73.6477
+            ],
+            "wall_us_median": 73.75255,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.389599999999998,
+              18.5446,
+              18.29205,
+              18.49655,
+              18.3266
+            ],
+            "wall_us_median": 18.389599999999998,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.9755,
+              18.0611,
+              17.55695,
+              17.9302,
+              17.770049999999998
+            ],
+            "wall_us_median": 17.9302,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.576400000000003,
+              18.9866,
+              18.421650000000003,
+              17.9771,
+              17.8371
+            ],
+            "wall_us_median": 18.421650000000003,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.183,
+              18.3198,
+              18.17655,
+              19.37635,
+              19.09095
+            ],
+            "wall_us_median": 18.3198,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.68835,
+              73.65885,
+              73.5778,
+              73.6512,
+              73.59235000000001
+            ],
+            "wall_us_median": 73.6512,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.49225,
+              18.1797,
+              18.361,
+              19.33225,
+              18.35565
+            ],
+            "wall_us_median": 18.361,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 0
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/screen_01/002_c36_fixed_pair_addressing_page1g/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-fixed-pair-address-20261114-01/screen_01/002_c36_fixed_pair_addressing_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.07585,
+              17.05095,
+              17.0039,
+              17.1129,
+              17.26115
+            ],
+            "wall_us_median": 17.1129,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.5634,
+              17.7074,
+              17.6131,
+              17.687150000000003,
+              17.2254
+            ],
+            "wall_us_median": 17.6131,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.29085,
+              17.5506,
+              17.453349999999997,
+              18.0367,
+              17.614900000000002
+            ],
+            "wall_us_median": 17.614900000000002,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.72625,
+              73.57169999999999,
+              73.4911,
+              73.594,
+              73.51875
+            ],
+            "wall_us_median": 73.57169999999999,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.373150000000003,
+              18.70405,
+              18.42675,
+              18.616,
+              18.328799999999998
+            ],
+            "wall_us_median": 18.42675,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.92925,
+              18.3362,
+              17.73595,
+              17.81055,
+              18.615099999999998
+            ],
+            "wall_us_median": 17.92925,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.54685,
+              18.6621,
+              18.76995,
+              18.203599999999998,
+              18.17805
+            ],
+            "wall_us_median": 18.54685,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.44185,
+              18.68975,
+              18.381400000000003,
+              19.2382,
+              18.52925
+            ],
+            "wall_us_median": 18.52925,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.79960000000001,
+              73.61695,
+              73.59994999999999,
+              73.6268,
+              73.6214
+            ],
+            "wall_us_median": 73.6214,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.74935,
+              19.088099999999997,
+              18.6878,
+              18.728650000000002,
+              18.6107
+            ],
+            "wall_us_median": 18.728650000000002,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 1
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/screen_01/003_c36_fixed_pair_addressing_default/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "runtime_identity": "/workspace/t5qkv-fixed-pair-address-20261114-01/screen_01/003_c36_fixed_pair_addressing_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              20.82975,
+              16.688950000000002,
+              16.6152,
+              16.663,
+              16.71415
+            ],
+            "wall_us_median": 16.688950000000002,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.27225,
+              17.121599999999997,
+              17.155549999999998,
+              17.20255,
+              16.9213
+            ],
+            "wall_us_median": 17.155549999999998,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.617150000000002,
+              17.2245,
+              17.0128,
+              17.40595,
+              17.3274
+            ],
+            "wall_us_median": 17.3274,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              96.8816,
+              96.04205,
+              95.6092,
+              95.178,
+              95.31835000000001
+            ],
+            "wall_us_median": 95.6092,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.53785,
+              17.0957,
+              17.489349999999998,
+              17.64545,
+              17.44405
+            ],
+            "wall_us_median": 17.489349999999998,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.075599999999998,
+              18.376,
+              18.0337,
+              18.15445,
+              18.191
+            ],
+            "wall_us_median": 18.15445,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.70385,
+              18.853,
+              18.7016,
+              18.6341,
+              18.440099999999997
+            ],
+            "wall_us_median": 18.7016,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.8474,
+              19.674,
+              19.749,
+              19.8796,
+              18.87175
+            ],
+            "wall_us_median": 19.674,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              96.33275,
+              96.35795,
+              96.13035,
+              96.17389999999999,
+              96.01295
+            ],
+            "wall_us_median": 96.17389999999999,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.3089,
+              19.784650000000003,
+              19.28155,
+              18.9799,
+              19.7705
+            ],
+            "wall_us_median": 19.3089,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 1
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/screen_01/004_c36_fixed_pair_addressing_default/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-fixed-pair-address-20261114-01/screen_01/004_c36_fixed_pair_addressing_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.74835,
+              16.413,
+              16.148,
+              16.09485,
+              16.29935
+            ],
+            "wall_us_median": 16.29935,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              15.94735,
+              17.467599999999997,
+              18.6189,
+              18.281200000000002,
+              18.2547
+            ],
+            "wall_us_median": 18.2547,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.5622,
+              16.03855,
+              15.9361,
+              16.113049999999998,
+              15.9301
+            ],
+            "wall_us_median": 16.03855,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.9518,
+              73.78045,
+              73.8062,
+              73.76685,
+              73.7314
+            ],
+            "wall_us_median": 73.78045,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.6286,
+              18.3,
+              18.408,
+              18.42205,
+              17.869400000000002
+            ],
+            "wall_us_median": 18.408,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.2577,
+              17.182,
+              16.646,
+              16.54155,
+              16.83795
+            ],
+            "wall_us_median": 16.83795,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.74545,
+              18.273049999999998,
+              17.82855,
+              17.4106,
+              17.40055
+            ],
+            "wall_us_median": 17.74545,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.315150000000003,
+              17.5228,
+              17.446,
+              18.5502,
+              18.560599999999997
+            ],
+            "wall_us_median": 17.5228,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.761,
+              73.6523,
+              73.6595,
+              73.62875,
+              73.63105
+            ],
+            "wall_us_median": 73.6523,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.00985,
+              17.67125,
+              17.57855,
+              17.05415,
+              16.95525
+            ],
+            "wall_us_median": 17.57855,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 2
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/screen_01/005_c36_fixed_pair_addressing_page1g/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-fixed-pair-address-20261114-01/screen_01/005_c36_fixed_pair_addressing_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              30.1372,
+              16.5884,
+              16.4561,
+              16.861849999999997,
+              16.415950000000002
+            ],
+            "wall_us_median": 16.5884,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.94105,
+              17.31505,
+              16.99005,
+              16.94415,
+              17.06275
+            ],
+            "wall_us_median": 16.99005,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.658450000000002,
+              16.54175,
+              16.52285,
+              16.60155,
+              16.63235
+            ],
+            "wall_us_median": 16.60155,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.68375,
+              73.48335,
+              73.48864999999999,
+              73.4092,
+              73.516
+            ],
+            "wall_us_median": 73.48864999999999,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              15.7467,
+              15.7418,
+              15.71365,
+              15.84075,
+              15.624799999999999
+            ],
+            "wall_us_median": 15.7418,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              15.56185,
+              15.360899999999999,
+              15.454,
+              15.38925,
+              15.3885
+            ],
+            "wall_us_median": 15.38925,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.061799999999998,
+              16.1232,
+              16.157,
+              15.794799999999999,
+              15.7479
+            ],
+            "wall_us_median": 16.061799999999998,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              15.5193,
+              15.403649999999999,
+              15.445350000000001,
+              15.820200000000002,
+              15.73575
+            ],
+            "wall_us_median": 15.5193,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.61595,
+              73.656,
+              73.5643,
+              73.48,
+              73.62065
+            ],
+            "wall_us_median": 73.61595,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.32205,
+              16.38305,
+              16.30065,
+              16.3835,
+              16.24165
+            ],
+            "wall_us_median": 16.32205,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 2
+      }
+    ],
+    "references": [
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "default",
+        "role": "reference",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/screen_01/reference_default/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              80.71215,
+              76.50564999999999,
+              76.629,
+              75.9174,
+              75.9291
+            ],
+            "wall_us_median": 76.50564999999999,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              87.1088,
+              85.7703,
+              84.72935000000001,
+              84.8594,
+              84.80664999999999
+            ],
+            "wall_us_median": 84.8594,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              77.23775,
+              76.9052,
+              76.95989999999999,
+              77.223,
+              77.27789999999999
+            ],
+            "wall_us_median": 77.223,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              235.55255,
+              235.5333,
+              235.46079999999998,
+              235.41125,
+              235.67204999999998
+            ],
+            "wall_us_median": 235.5333,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              82.82169999999999,
+              82.75335000000001,
+              82.65660000000001,
+              82.5321,
+              82.59405000000001
+            ],
+            "wall_us_median": 82.65660000000001,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              74.706,
+              74.8251,
+              74.54114999999999,
+              74.60445,
+              74.4308
+            ],
+            "wall_us_median": 74.60445,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              82.75275,
+              113.62219999999999,
+              84.09660000000001,
+              83.3048,
+              83.0197
+            ],
+            "wall_us_median": 83.3048,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              76.11765,
+              76.5942,
+              76.4681,
+              76.1853,
+              75.1232
+            ],
+            "wall_us_median": 76.1853,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              236.03125,
+              236.05929999999998,
+              235.85475,
+              235.7142,
+              235.7615
+            ],
+            "wall_us_median": 235.85475,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              82.32515,
+              82.4225,
+              82.47194999999999,
+              82.44760000000001,
+              82.33305
+            ],
+            "wall_us_median": 82.4225,
+            "max_wall_us": 29
+          }
+        ]
+      },
+      {
+        "candidate": "c36_fixed_pair_addressing",
+        "allocator": "page1g",
+        "role": "reference",
+        "report": "/workspace/t5qkv-fixed-pair-address-20261114-01/screen_01/reference_page1g/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              82.17195,
+              77.13575,
+              83.55155,
+              89.6166,
+              89.194
+            ],
+            "wall_us_median": 83.55155,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              100.67355,
+              98.83930000000001,
+              97.86564999999999,
+              97.5979,
+              97.4787
+            ],
+            "wall_us_median": 97.86564999999999,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              88.57495,
+              89.39905,
+              89.56555,
+              89.78885000000001,
+              89.59475
+            ],
+            "wall_us_median": 89.56555,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              238.96110000000002,
+              239.0194,
+              238.84005,
+              238.88835,
+              238.8797
+            ],
+            "wall_us_median": 238.88835,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              98.19585000000001,
+              98.31405000000001,
+              97.92014999999999,
+              97.7166,
+              97.9392
+            ],
+            "wall_us_median": 97.9392,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              86.8218,
+              87.6377,
+              87.08775,
+              87.25175,
+              86.63335000000001
+            ],
+            "wall_us_median": 87.08775,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              97.74714999999999,
+              97.5998,
+              98.09989999999999,
+              97.84235000000001,
+              98.01145
+            ],
+            "wall_us_median": 97.84235000000001,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              89.265,
+              89.08875,
+              88.98735,
+              88.56405000000001,
+              89.53965
+            ],
+            "wall_us_median": 89.08875,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              239.02105,
+              238.8441,
+              239.40879999999999,
+              238.9626,
+              238.9478
+            ],
+            "wall_us_median": 238.9626,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              98.60915,
+              96.2613,
+              86.73665,
+              85.946,
+              86.0125
+            ],
+            "wall_us_median": 86.73665,
+            "max_wall_us": 29
+          }
+        ]
+      }
+    ],
+    "full_acceptance": false,
+    "post_identity": true,
+    "source_and_artifacts_unchanged": true
+  },
+  "promoted": false,
+  "kernel_elf": [
+    {
+      "candidate": "C35",
+      "file": "install/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_ba622cb6093a49cfc48862fe44bfa0d5.o",
+      "object_sha256": "70c98dd9e9b71b96f5b6356b4b19435d14e6e4152d46b47535b51a884c560c92",
+      "text_bytes": 10648,
+      "text_sha256": "3547c8874ff0ffeb9180d395525731542ecb4378983384531508250b45fdff0d"
+    },
+    {
+      "candidate": "C35",
+      "file": "install/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_dfce17a2d31b6ad704bb93881621342e.o",
+      "object_sha256": "921df7070eb586f095e42c8e649f4997c8ea681ca394df06152dbcf3564e4a12",
+      "text_bytes": 10648,
+      "text_sha256": "3547c8874ff0ffeb9180d395525731542ecb4378983384531508250b45fdff0d"
+    },
+    {
+      "candidate": "C36",
+      "file": "install/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_ba622cb6093a49cfc48862fe44bfa0d5.o",
+      "object_sha256": "6c38a6e926a42f9e5a3039ed8bc521e393fd8bbdfe8d3107db1ea6b509b7c9e8",
+      "text_bytes": 10768,
+      "text_sha256": "0b4915459994eb2e0a5d97a67325acfc376774eea22847966746ab647e5fb47b"
+    },
+    {
+      "candidate": "C36",
+      "file": "install/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_dfce17a2d31b6ad704bb93881621342e.o",
+      "object_sha256": "45f169d704e3d755364fdd7105f8c1982c60da0871d23f251c05ca84bbc7bf12",
+      "text_bytes": 10768,
+      "text_sha256": "0b4915459994eb2e0a5d97a67325acfc376774eea22847966746ab647e5fb47b"
+    }
+  ],
+  "driver": {
+    "source_revision": "5cb86bf04248ce159c44b509abc5cb162809e2a9",
+    "bundle_sha256": "05a033cfa3cfbff115c612c3f8fc844ca227615988782dfe5d54ebf1e69177d9",
+    "status": "failed_stage_2",
+    "plan": [
+      [
+        "/workspace/t5qkv-dev-20261029/env/venv/bin/python",
+        "/workspace/t5qkv-fixed-pair-address-20261114-01/runner/build.py",
+        "--prepared-root",
+        "/workspace/t5qkv-fixed-pair-address-20261114-01",
+        "--candidate",
+        "c36_fixed_pair_addressing"
+      ],
+      [
+        "/workspace/t5qkv-dev-20261029/env/venv/bin/python",
+        "/workspace/t5qkv-fixed-pair-address-20261114-01/runner/run_functional.py",
+        "--prepared-root",
+        "/workspace/t5qkv-fixed-pair-address-20261114-01",
+        "--report-dir",
+        "/workspace/t5qkv-fixed-pair-address-20261114-01/functional_full_01",
+        "--candidates",
+        "c36_fixed_pair_addressing",
+        "--full"
+      ],
+      [
+        "/workspace/t5qkv-dev-20261029/env/venv/bin/python",
+        "/workspace/t5qkv-fixed-pair-address-20261114-01/runner/run_matrix.py",
+        "--prepared-root",
+        "/workspace/t5qkv-fixed-pair-address-20261114-01",
+        "--report-dir",
+        "/workspace/t5qkv-fixed-pair-address-20261114-01/screen_01",
+        "--candidates",
+        "c36_fixed_pair_addressing",
+        "--phase",
+        "screen",
+        "--post-identity"
+      ]
+    ],
+    "stages": [
+      {
+        "index": 0,
+        "exit_code": 0
+      },
+      {
+        "index": 1,
+        "exit_code": 0
+      },
+      {
+        "index": 2,
+        "exit_code": 1
+      }
+    ],
+    "confirmation_eligible_candidates": [
+      "c36_fixed_pair_addressing"
+    ]
+  }
+}

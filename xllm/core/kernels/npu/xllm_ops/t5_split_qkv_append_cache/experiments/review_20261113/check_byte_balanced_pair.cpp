@@ -1,0 +1,231 @@
+/* Copyright 2026 The xLLM Authors.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+https://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+==============================================================================*/
+#include <algorithm>
+#include <array>
+#include <cassert>
+#include <cstdint>
+#include <cstring>
+#include <iostream>
+#include <vector>
+
+#include "common/t5_split_qkv_append_cache_tiling.h"
+
+int32_t main() {
+  T5SplitQkvAppendCacheTilingData tiling{};
+  assert(t5qkv::make_tiling(/*batch=*/16,
+                            /*head_num=*/16,
+                            /*past_length=*/2048,
+                            /*head_dim=*/64,
+                            /*available_vector_cores=*/48,
+                            tiling));
+  constexpr uint64_t kBase = 0x100000000ULL;
+  constexpr uint64_t kOutputKey = 0x300000000ULL;
+  constexpr uint64_t kOutputValue = 0x400000000ULL;
+  for (const uint64_t gap :
+       {uint64_t{69206016}, uint64_t{67108866}, uint64_t{0xfffffffe}}) {
+    assert(t5qkv::can_pair_history_sources(
+        tiling, kBase, kBase + gap, kOutputKey, kOutputValue));
+  }
+  assert(t5qkv::can_pair_history_sources(
+      tiling, kBase + 2, kBase + 69206018, kOutputKey, kOutputValue));
+  assert(!t5qkv::can_pair_history_sources(
+      tiling, kBase, kBase, kOutputKey, kOutputValue));
+  assert(!t5qkv::can_pair_history_sources(
+      tiling, kBase, kBase - 2, kOutputKey, kOutputValue));
+  assert(!t5qkv::can_pair_history_sources(
+      tiling, kBase, kBase + 31742, kOutputKey, kOutputValue));
+  assert(!t5qkv::can_pair_history_sources(
+      tiling, kBase, kBase + 0x100000000ULL, kOutputKey, kOutputValue));
+  assert(!t5qkv::can_pair_history_sources(
+      tiling, kBase + 1, kBase + 69206017, kOutputKey, kOutputValue));
+  assert(!t5qkv::can_pair_history_sources(
+      tiling, kBase, kBase + 69206016, kOutputKey + 2, kOutputValue));
+  assert(!t5qkv::can_pair_history_sources(
+      tiling, kBase, kBase + 69206016, kOutputKey, kOutputValue + 2));
+  const uint32_t output_elements = 256 * 2049 * 64;
+  std::array<uint32_t, 2208> seen{};
+  std::vector<uint8_t> key_seen(output_elements, 0);
+  std::vector<uint8_t> value_seen(output_elements, 0);
+  uint64_t normal_write = 0;
+  uint64_t bypass_write = 0;
+  uint64_t history_read = 0;
+  uint32_t reads = 0;
+  uint32_t stores = 0;
+  for (uint32_t core = 0; core < 48; ++core) {
+    uint32_t core_tasks = 0;
+    uint64_t core_write = 0, core_bypass = 0;
+    for (uint32_t phase = 0; phase < 1; ++phase) {
+      const auto range = t5qkv::balanced_stream_range(core);
+      uint32_t physical = range.begin;
+      for (uint32_t rank = range.begin; rank < range.end; ++rank) {
+        assert(physical == rank && physical < seen.size());
+        ++seen[physical];
+        const bool normal = physical % 2 == 0;
+        assert(normal == t5qkv::interleaved_key_normal(physical));
+        const auto block =
+            t5qkv::balanced_pair_piece(core, physical - range.begin);
+        const uint32_t offset = block.offset;
+        const uint32_t count = block.count;
+        assert(offset >= core * 699392 &&
+               offset + count <= (core + 1) * 699392);
+        assert(offset % 256 == 0 && count % 256 == 0 && count > 0);
+        normal_write += normal ? count * 2 : 0;
+        bypass_write += count * 2 + (!normal ? count * 2 : 0);
+        stores += 2;
+        core_write += count * 4;
+        core_bypass += count * 2 + (!normal ? count * 2 : 0);
+        uint32_t done = 0;
+        while (done < count) {
+          const auto piece = t5qkv::flat_history_piece(
+              tiling, offset + done, count - done, false);
+          assert(piece.count > 0 &&
+                 piece.count <= t5qkv::kPairedPlaneElements &&
+                 piece.count % 16 == 0 && done % 16 == 0);
+          const uint32_t bytes = piece.count * 2;
+          const uint32_t destination_stride =
+              (t5qkv::kPairedPlaneElements - piece.count) / 16;
+          const uint32_t local =
+              (core_tasks % 3 * t5qkv::kStreamingSlotElements + done) * 2;
+          const uint32_t second_local = local + bytes + destination_stride * 32;
+          assert(second_local == local + t5qkv::kPairedPlaneElements * 2);
+          assert(second_local + bytes <=
+                 (core_tasks % 3 + 1) * t5qkv::kStreamingSlotElements * 2);
+          for (const uint64_t gap :
+               {uint64_t{69206016}, uint64_t{67108866}, uint64_t{0xfffffffe}}) {
+            const uint64_t pitch = piece.qkv ? 16 * 64 * 2 : gap;
+            assert(pitch >= bytes && pitch - bytes <= 0xffffffffULL);
+            const uint64_t first = kBase + piece.source_offset * 2;
+            const uint64_t second = first + bytes + (pitch - bytes);
+            const uint64_t wanted =
+                piece.qkv ? kBase + (piece.source_offset + 16 * 64) * 2
+                          : kBase + gap + piece.source_offset * 2;
+            assert(second == wanted);
+          }
+          for (uint32_t i = 0; i < piece.count; ++i) {
+            const uint32_t destination = offset + done + i;
+            const uint32_t row = destination / (2049 * 64);
+            const uint32_t column = destination % (2049 * 64);
+            const bool qkv = column >= 2048 * 64;
+            const uint32_t key_expected = qkv ? row / 16 * 3 * 16 * 64 +
+                                                    16 * 64 + row % 16 * 64 +
+                                                    column - 2048 * 64
+                                              : row * 2048 * 64 + column;
+            const uint32_t value_expected =
+                qkv ? row / 16 * 3 * 16 * 64 + 2 * 16 * 64 + row % 16 * 64 +
+                          column - 2048 * 64
+                    : row * 2048 * 64 + column;
+            assert(piece.qkv == qkv && piece.source_offset + i == key_expected);
+            assert(piece.source_offset + i + (qkv ? 16 * 64 : 0) ==
+                   value_expected);
+            assert(key_expected < (qkv ? 3 * 256 * 64 : 256 * 2048 * 64));
+            assert(value_expected < (qkv ? 3 * 256 * 64 : 256 * 2048 * 64));
+            ++key_seen[destination];
+            ++value_seen[destination];
+          }
+          history_read += piece.qkv ? 0 : piece.count * 4;
+          done += piece.count;
+          ++reads;
+        }
+        ++core_tasks;
+        if (rank + 1 < range.end) {
+          ++physical;
+        }
+      }
+    }
+    assert(core_tasks == 46 && core_write == 2797568 && core_bypass == 2098176);
+  }
+  for (const uint32_t count : seen) {
+    assert(count == 1);
+  }
+  for (const uint8_t count : key_seen) {
+    assert(count == 1);
+  }
+  for (const uint8_t count : value_seen) {
+    assert(count == 1);
+  }
+  assert(normal_write == 33570816 && bypass_write == 100712448 &&
+         history_read == 134217728);
+  std::array<uint32_t, 16> query_seen{};
+  for (uint32_t core = 0; core < 48; ++core) {
+    const auto range = t5qkv::balanced_query_range(tiling, core);
+    const auto history = t5qkv::balanced_stream_range(core);
+    if (range.begin != range.end) {
+      assert(core < 16 && history.end - history.begin == 46);
+    }
+    for (uint32_t q = range.begin; q < range.end; ++q) {
+      assert(q < 16);
+      ++query_seen[q];
+      const auto task = t5qkv::decode_task(tiling, 1536 + q);
+      assert(task.output == t5qkv::Output::QUERY && task.count == 1024 &&
+             task.source_offset == q * 3072 &&
+             task.destination_offset == q * 1024);
+    }
+    const uint32_t total = history.end - history.begin;
+    std::array<uint32_t, 3> pending{0, 1, 2};
+    uint32_t reads = 3, stores = 0;
+    for (uint32_t i = 0; i < total; ++i) {
+      const uint32_t slot = i % 3;
+      assert(pending[slot] == i);
+      ++stores;
+      if (i + 3 < total) {
+        pending[slot] = i + 3;
+        ++reads;
+      }
+    }
+    assert(reads == total && stores == total);
+  }
+  for (uint32_t n : query_seen) {
+    assert(n == 1);
+  }
+  assert(3 * t5qkv::kStreamingSlotElements * 2 == 186 * 1024);
+  assert(3 * t5qkv::kStreamingSlotElements * 2 + 4096 == 190 * 1024);
+  for (uint32_t heads = 4; heads <= 128; heads *= 2) {
+    T5SplitQkvAppendCacheTilingData other{};
+    assert(t5qkv::make_tiling(256 / heads, heads, 2048, 64, 48, other));
+    for (uint32_t core = 0; core < 48; ++core) {
+      const auto q = t5qkv::balanced_query_range(other, core);
+      if (heads <= 32) {
+        const uint32_t hd = heads * 64, blocks = q.end - q.begin;
+        assert(blocks <= 2 && blocks * hd <= 2048);
+        for (uint32_t block = 0; block < blocks; ++block) {
+          for (uint32_t i = 0; i < hd; ++i) {
+            const uint32_t source = q.begin * 3 * hd + block * 3 * hd + i;
+            assert(source < (3 * 256 * 64) &&
+                   source == (q.begin + block) * 3 * hd + i);
+            assert(3 * t5qkv::kStreamingSlotElements + block * hd + i <
+                   3 * t5qkv::kStreamingSlotElements + 2048);
+          }
+        }
+      }
+    }
+  }
+  std::array<uint32_t, 13> words{};
+  std::memcpy(words.data(), &tiling, sizeof(tiling));
+  tiling.past_length = 2047;
+  assert(!t5qkv::can_pair_history_sources(
+      tiling, kBase, kBase + 69206016, kOutputKey, kOutputValue));
+  std::cout << "{\"scope\":\"byte_balanced_pair_CPU_mapping_only\",\"npu_"
+               "executed\":"
+               "false,\"status\":\"passed\",\"paired_tasks\":2208,\"elements_"
+               "checked\":67141632,\"read_DMA_instructions\":"
+            << reads << ",\"write_DMA_instructions\":" << stores
+            << ",\"normal_key_write_bytes\":" << normal_write
+            << ",\"bypass_write_bytes\":" << bypass_write
+            << ",\"normal_history_read_bytes\":" << history_read
+            << ",\"aligned_store_variant\":"
+            << (t5qkv::kPairedAlignedStores ? "true" : "false")
+            << ",\"tiling_words\":[";
+  for (uint32_t i = 0; i < words.size(); ++i) {
+    std::cout << (i ? "," : "") << words[i];
+  }
+  std::cout << "]}\n";
+}

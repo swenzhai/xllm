@@ -1,0 +1,14 @@
+{
+  "scope": "target_build_failed_before_any_NPU_execution",
+  "remote_root": "/workspace/t5qkv-normal-paired-triple-20261114-01",
+  "source_revision": "d7ad87655760377c3e29e3b758f3050e724c21b6",
+  "failed_command": 0,
+  "compiler_errors": [
+    "undeclared aligned_key_read_ left in init",
+    "undeclared kStreamingPrefixElements left in store offset"
+  ],
+  "kernel_before_sha256": "01ec17cefdddf7fe383f2fb67bd2b7089d6851535644592b2dc0f73db4b183f5",
+  "kernel_after_sha256": "5fb54f784f217bd7134b5ab441691b64094104324be01ce447da4d3c11eff567",
+  "status": "fixed_source_not_yet_rebuilt",
+  "npu_executed": false
+}

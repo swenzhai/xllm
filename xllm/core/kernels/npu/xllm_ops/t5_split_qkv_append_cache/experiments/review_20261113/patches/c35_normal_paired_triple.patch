@@ -254,7 +254,7 @@
  }  // namespace t5qkv
 --- a/op_kernel/t5_split_qkv_append_cache_kernel.h
 +++ b/op_kernel/t5_split_qkv_append_cache_kernel.h
-@@ -32,8 +32,32 @@
+@@ -32,8 +32,30 @@
      const ReadBalancePolicy read_policy = make_read_balance_policy(tiling);
      balanced_ = read_policy.enabled;
      normal_value_tasks_ = read_policy.value_tasks;
@@ -271,8 +271,6 @@
 +                                     reinterpret_cast<uint64_t>(key),
 +                                     reinterpret_cast<uint64_t>(value));
 +    history_slots_ = flat_ ? 3 : 2;
-+    aligned_key_read_ =
-+        flat_ && reinterpret_cast<uint64_t>(past_key) % 512 == 0;
      const uint32_t query_elements =
          tiling.batch * tiling.head_num * tiling.head_dim;
 +    if (flat_) {
@@ -287,7 +285,7 @@
      qkv_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(qkv),
                           3 * query_elements);
      if (tiling.past_length != 0) {
-@@ -69,8 +93,11 @@
+@@ -69,8 +91,11 @@
      if (tiling.bypass_value_cache != 0) {
        value_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
      }
@@ -301,7 +299,7 @@
        read_events_[slot] = static_cast<int32_t>(
            pipe_.AllocEventID<AscendC::HardEvent::MTE2_MTE3>());
        write_events_[slot] = static_cast<int32_t>(
-@@ -83,7 +110,11 @@
+@@ -83,7 +108,11 @@
      const uint32_t append_tasks =
          fuses_append(tiling_) ? 0 : 2 * tiling_.batch * tiling_.head_num;
      const uint32_t core = AscendC::GetBlockIdx();
@@ -314,7 +312,7 @@
        ranges_[0] = partition_tasks(
            0, tiling_.cache_tasks_per_tensor, tiling_.block_dim, core);
        ranges_[1] =
-@@ -104,10 +135,21 @@
+@@ -104,10 +133,21 @@
        ranges_[2] = partition_tasks(
            0, tiling_.cache_tasks_per_tensor, tiling_.block_dim, core);
      }
@@ -339,7 +337,7 @@
        pipe_.ReleaseEventID<AscendC::HardEvent::MTE2_MTE3>(read_events_[slot]);
        pipe_.ReleaseEventID<AscendC::HardEvent::MTE3_MTE2>(write_events_[slot]);
      }
-@@ -129,6 +171,7 @@
+@@ -129,6 +169,7 @@
      uint32_t tile;
    };
  
@@ -347,7 +345,7 @@
    __aicore__ inline void enter_phase(Cursor& cursor) {
      while (cursor.phase < 3 &&
             ranges_[cursor.phase].begin == ranges_[cursor.phase].end) {
-@@ -136,26 +179,72 @@
+@@ -136,26 +177,72 @@
      }
      if (cursor.phase < 3) {
        cursor.task = ranges_[cursor.phase].begin;
@@ -430,7 +428,7 @@
      const bool value = balanced_ ? cursor.phase != 0 : cursor.phase == 2;
      const auto& source =
          !value ? past_key_
-@@ -189,6 +278,51 @@
+@@ -189,6 +276,50 @@
                        : static_cast<HistoryOutput>(cursor.phase)};
    }
  
@@ -451,8 +449,7 @@
 +      const uint32_t slot = index % 3;
 +      const HistoryWrite current = pending[slot];
 +      AscendC::WaitFlag<AscendC::HardEvent::MTE2_MTE3>(read_events_[slot]);
-+      auto local = buffer_.Get<uint16_t>()[slot * kStreamingSlotElements +
-+                                           kStreamingPrefixElements];
++      auto local = buffer_.Get<uint16_t>()[slot * kStreamingSlotElements];
 +      auto& destination =
 +          current.output == HistoryOutput::KEY
 +              ? key_
@@ -482,7 +479,7 @@
    __aicore__ inline void process_history_pipeline() {
      uint32_t total = 0;
      for (uint32_t phase = 0; phase < 3; ++phase) {
-@@ -198,13 +332,13 @@
+@@ -198,13 +329,13 @@
        return;
      }
      Cursor cursor{};
@@ -499,7 +496,7 @@
      for (uint32_t index = 0; index < total; ++index) {
        HistoryWrite next{};
        const uint32_t next_slot = slot ^ 1;
-@@ -213,9 +347,9 @@
+@@ -213,9 +344,9 @@
            AscendC::WaitFlag<AscendC::HardEvent::MTE3_MTE2>(
                write_events_[next_slot]);
          }
@@ -511,7 +508,7 @@
        }
        AscendC::WaitFlag<AscendC::HardEvent::MTE2_MTE3>(read_events_[slot]);
        auto local = buffer_.Get<uint16_t>()[slot * tiling_.tile_elements];
-@@ -302,6 +436,9 @@
+@@ -302,6 +433,9 @@
      AscendC::WaitFlag<AscendC::HardEvent::MTE3_MTE2>(write_events_[0]);
    }
  
@@ -521,7 +518,7 @@
    bool balanced_ = false;
    uint32_t normal_value_tasks_ = 0;
    uint32_t cacheable_key_elements_ = 0;
-@@ -309,10 +446,10 @@
+@@ -309,10 +443,10 @@
    T5SplitQkvAppendCacheTilingData tiling_{};
    AscendC::TPipe pipe_;
    AscendC::TBuf<AscendC::TPosition::VECCALC> buffer_;

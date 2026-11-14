@@ -54,6 +54,17 @@ def _boundary_source(text: str, entry: dict[str, Any], no_admission: bool = Fals
     return text
 
 
+def _distributed_source(text: str, entry: dict[str, Any]) -> str:
+    derived = _boundary_source(text, entry).replace("4, 128, 1024, 65", "16, 16, 2048, 64")
+    derived = derived.replace("normal_value_rows=cache_rows", "equivalent_normal_value_rows=cache_rows, value_tile_pattern=\"15-normal-1-bypass\"")
+    derived = derived.replace("input_boundary_mod32=(cache_rows * row_bytes + 2 * offset) % 32", "tile_period=16, normal_value_tiles=720, bypass_value_tiles=48")
+    derived = derived.replace("    qkv = arrays[0].reshape",
+        "    for index in (1, 2):\n"
+        "        arrays[index] ^= (np.arange(batch * heads, dtype=np.uint16).reshape(batch, heads, 1, 1) * np.uint16(257))\n"
+        "    qkv = arrays[0].reshape")
+    return derived
+
+
 def _main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--prepared-root", type=Path, required=True)
@@ -76,6 +87,11 @@ def _main() -> int:
         if entry.get("policy") == "input_priority":
             path = reports / (name + "_executed_cache_no_admission.py")
             path.write_text(_boundary_source(text, entry, no_admission=True))
+            files.append(str(path))
+        if entry.get("kernel_policy") == "distributed_value_input":
+            path = reports / (name + "_executed_distributed_value.py")
+            derived = _distributed_source(text, entry)
+            path.write_text(derived)
             files.append(str(path))
     before = _snapshot(files)
     _write(reports / "pretest_manifest.json", before)
@@ -101,6 +117,8 @@ def _main() -> int:
                 ]
                 if _candidate(root, name).get("policy") == "input_priority":
                     commands.append(("cache_no_admission", reports / (name + "_executed_cache_no_admission.py"), []))
+                if _candidate(root, name).get("kernel_policy") == "distributed_value_input":
+                    commands.append(("distributed_value_boundary", reports / (name + "_executed_distributed_value.py"), []))
                 if args.full:
                     commands += [
                         ("queue_stress", project / "tests/queue_stress.py", ["--package-dir", str(package)]),
@@ -122,7 +140,7 @@ def _main() -> int:
                     _write(reports / "summary.json", summary)
                     if rc != 0 or result.get("status") != "passed" or result.get("npu_executed") is not True:
                         raise ValueError("Candidate functional check failed; inspect original records")
-                    expected = {"public_accuracy": 35, "extended": 206, "cache_boundary": 8, "cache_no_admission": 8}
+                    expected = {"public_accuracy": 35, "extended": 206, "cache_boundary": 8, "cache_no_admission": 8, "distributed_value_boundary": 8}
                     if label in expected and len(result.get("cases", result.get("records", []))) != expected[label]:
                         raise ValueError("Unexpected functional record count")
         summary["status"] = "passed"

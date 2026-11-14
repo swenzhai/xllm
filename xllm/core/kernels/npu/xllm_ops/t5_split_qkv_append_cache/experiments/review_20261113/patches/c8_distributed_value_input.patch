@@ -1,0 +1,46 @@
+--- a/common/t5_split_qkv_append_cache_tiling.h
++++ b/common/t5_split_qkv_append_cache_tiling.h
+@@ -111,6 +111,25 @@
+   return {true,
+           static_cast<uint32_t>(cached_rows),
+           static_cast<uint32_t>(cached_rows) * tiling.cache_tiles_per_head};
++}
++
++// For a balanced 16-tile/core history, keep 15 contiguous Value tiles per
++// core and bypass its last tile. C=3 and a multiple of three cores preserve
++// exactly the same full/tail tile bytes as the original 15/16 row prefix.
++// Only phase entry changes; the inner incrementing cursor is unchanged.
++T5QKV_MAPPING_INLINE uint32_t
++read_balance_phase_task_start(const T5SplitQkvAppendCacheTilingData& tiling,
++                              uint32_t normal_value_tasks,
++                              uint32_t phase,
++                              uint32_t dense_task) {
++  if (phase == 0 || tiling.cache_tiles_per_head != 3 ||
++      tiling.block_dim % 3 != 0 ||
++      tiling.cache_tasks_per_tensor != 16 * tiling.block_dim ||
++      normal_value_tasks != 15 * tiling.block_dim) {
++    return dense_task;
++  }
++  return phase == 1 ? (dense_task / 15) * 16 + dense_task % 15
++                    : (dense_task - normal_value_tasks) * 16 + 15;
+ }
+ 
+ inline bool can_fuse_append(const T5SplitQkvAppendCacheTilingData& tiling) {
+--- a/op_kernel/t5_split_qkv_append_cache_kernel.h
++++ b/op_kernel/t5_split_qkv_append_cache_kernel.h
+@@ -136,8 +136,13 @@
+     }
+     if (cursor.phase < 3) {
+       cursor.task = ranges_[cursor.phase].begin;
+-      cursor.row = cursor.task / tiling_.cache_tiles_per_head;
+-      cursor.tile = cursor.task % tiling_.cache_tiles_per_head;
++      const uint32_t physical_task =
++          balanced_
++              ? read_balance_phase_task_start(
++                    tiling_, normal_value_tasks_, cursor.phase, cursor.task)
++              : cursor.task;
++      cursor.row = physical_task / tiling_.cache_tiles_per_head;
++      cursor.tile = physical_task % tiling_.cache_tiles_per_head;
+     }
+   }
+ 

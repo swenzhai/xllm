@@ -65,3 +65,27 @@ Retained archives (individually SHA-verified): crossover 139 files,
 560f3e544a17ba304bca98d1994f01cd38611f26f5dbfd2bad5d9c7e0f76cd68;
 address/PMU 86 files,
 cfa8b6d204d31e049d058beef289150da50005f3f784efd257d1d15b16fc920e.
+
+
+## Distributed Value-input candidate (C8)
+
+C6/C7 did not pass default allocator timing. C8 changes neither output allocation
+nor the 190MiB admission budget. At C=3, 16 history tasks/core and 15 admitted
+Value tasks/core, it maps each core's normal Value phase to the first 15 tiles
+of that core's corresponding 16-tile Key interval; the bypass phase copies its
+last tile. Only phase entry changes. Existing incremental cursors, buffer events,
+append fusion and all other geometries retain their behavior. 48 bypass tiles
+contain 16 of each tile position, so admitted/bypassed read bytes remain exactly
+60MiB/4MiB. No extra hot-loop branch is added.
+
+This is distributed **Value input** admission, distinct from historical rejected
+172/176MiB striped **Key output** admission. The hypothesis is that removing the
+small quota uniformly, and aligning K/V core affinity, reduces concentrated
+cache pressure; lower same-process read-miss counts/default time are required.
+`check_distributed_mapping.cpp` compiles the actual candidate helper and proves
+768 tasks covered once, 256 unique append tiles and unchanged byte counts;
+this is host-only evidence. A new eight-record NPU case uses row-tagged uint16
+patterns across all 256 rows, both dtypes, entries and input offsets. Its metadata
+uses equivalent cached-row count because whole rows are no longer the unit of
+admission. Existing public tests and timing cases remain unchanged. This candidate
+has not passed A3 performance screening and must not replace the product yet.

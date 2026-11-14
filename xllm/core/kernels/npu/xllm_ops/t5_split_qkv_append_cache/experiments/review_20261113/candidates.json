@@ -93,6 +93,20 @@
       "kernel_policy": "key_output_placement",
       "key_output_offset_elements": 0,
       "key_output_slack_bytes": 2048
+    },
+    {
+      "name": "c8_distributed_value_input",
+      "budget_mib": 190,
+      "large_value_rows": 240,
+      "policy": "read_balance",
+      "normal_key_rows": 256,
+      "normal_value_rows": 240,
+      "patch": "patches/c8_distributed_value_input.patch",
+      "allowed_patch_files": [
+        "common/t5_split_qkv_append_cache_tiling.h",
+        "op_kernel/t5_split_qkv_append_cache_kernel.h"
+      ],
+      "kernel_policy": "distributed_value_input"
     }
   ]
 }

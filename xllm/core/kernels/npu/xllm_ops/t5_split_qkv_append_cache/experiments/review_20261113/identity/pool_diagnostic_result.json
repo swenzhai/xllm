@@ -1,0 +1,2127 @@
+{
+  "scope": "external_pool_conditioning_NOT_ACCEPTANCE",
+  "archive": {
+    "label": "pooldiag",
+    "path": "/workspace/t5qkv-pooldiag-20261114-01/pooldiag_evidence.tar.gz",
+    "sha256": "fc8fdd8e8a5c5ab057eaa1878f5ceb64666bc2ecb221759704b344cef4a1d393",
+    "files": 91,
+    "local": "/Users/swen/Documents/Code/cann/operator_development_workspace/T5QKV_wsp/development_evidence/20261114_pooldiag_evidence.tar.gz",
+    "verified": true
+  },
+  "diagnostic": {
+    "scope": "external_pool_conditioning_diagnostic_NOT_ACCEPTANCE",
+    "status": "completed_diagnostic_NOT_ACCEPTANCE",
+    "records": [
+      {
+        "batch": 0,
+        "visible_device": "0",
+        "primer_bytes": 0,
+        "directory": "/workspace/t5qkv-pooldiag-20261114-01/diagnostic_01/batch0_chip0_primer0",
+        "instrumented_conditioned_checks": {
+          "status": "failed",
+          "checks": [
+            {
+              "case_name": "T5SplitQkvAppendCache_001_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                20.96375,
+                16.275850000000002,
+                16.17605,
+                16.2683,
+                16.00395
+              ],
+              "wall_us_median": 16.2683,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_005_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.6214,
+                16.8339,
+                45.585699999999996,
+                16.6728,
+                16.18835
+              ],
+              "wall_us_median": 16.6728,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_006_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.394849999999998,
+                15.773200000000001,
+                15.91715,
+                15.745049999999999,
+                15.6346
+              ],
+              "wall_us_median": 15.773200000000001,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_007_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                158.47225,
+                158.7413,
+                158.53879999999998,
+                158.45839999999998,
+                158.26895000000002
+              ],
+              "wall_us_median": 158.47225,
+              "max_wall_us": 75
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_008_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.8138,
+                18.7931,
+                18.64625,
+                18.94215,
+                18.6978
+              ],
+              "wall_us_median": 18.7931,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.178099999999997,
+                18.734299999999998,
+                17.9561,
+                18.08045,
+                18.061799999999998
+              ],
+              "wall_us_median": 18.08045,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.4964,
+                18.6837,
+                18.48435,
+                18.0962,
+                18.246650000000002
+              ],
+              "wall_us_median": 18.48435,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.49575,
+                19.01675,
+                18.7093,
+                19.2593,
+                19.1553
+              ],
+              "wall_us_median": 19.01675,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                158.73020000000002,
+                158.59475,
+                158.60745,
+                159.30635,
+                158.2767
+              ],
+              "wall_us_median": 158.60745,
+              "max_wall_us": 77
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.82535,
+                19.817349999999998,
+                19.25915,
+                19.508200000000002,
+                18.808
+              ],
+              "wall_us_median": 19.25915,
+              "max_wall_us": 29
+            }
+          ]
+        },
+        "allocator_env": null,
+        "after_priming": {
+          "allocated": 0,
+          "reserved": 0,
+          "peak_allocated": 0
+        },
+        "segments_before_benchmark": [],
+        "segments_after_benchmark": [
+          {
+            "address": 20618009378816,
+            "bytes": 2097152,
+            "type": "small"
+          },
+          {
+            "address": 20618013573120,
+            "bytes": 20971520,
+            "type": "large"
+          },
+          {
+            "address": 20618034544640,
+            "bytes": 20971520,
+            "type": "large"
+          },
+          {
+            "address": 20618055516160,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618124722176,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618193928192,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618263134208,
+            "bytes": 69206016,
+            "type": "large"
+          }
+        ]
+      },
+      {
+        "batch": 0,
+        "visible_device": "0",
+        "primer_bytes": 1073741312,
+        "directory": "/workspace/t5qkv-pooldiag-20261114-01/diagnostic_01/batch0_chip0_primer1073741312",
+        "instrumented_conditioned_checks": {
+          "status": "failed",
+          "checks": [
+            {
+              "case_name": "T5SplitQkvAppendCache_001_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                21.3197,
+                17.014599999999998,
+                16.71275,
+                16.73205,
+                16.83
+              ],
+              "wall_us_median": 16.83,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_005_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                17.38985,
+                17.281299999999998,
+                17.483849999999997,
+                17.25535,
+                17.278950000000002
+              ],
+              "wall_us_median": 17.281299999999998,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_006_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                17.428150000000002,
+                17.0126,
+                16.77435,
+                16.7978,
+                16.75855
+              ],
+              "wall_us_median": 16.7978,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_007_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                87.81689999999999,
+                87.09385,
+                86.9201,
+                86.6812,
+                86.8719
+              ],
+              "wall_us_median": 86.9201,
+              "max_wall_us": 75
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_008_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                19.06125,
+                18.65235,
+                18.4697,
+                18.65875,
+                18.501549999999998
+              ],
+              "wall_us_median": 18.65235,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.38465,
+                18.4612,
+                18.2348,
+                18.1445,
+                17.9965
+              ],
+              "wall_us_median": 18.2348,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.77395,
+                19.4049,
+                18.54005,
+                18.6037,
+                18.0909
+              ],
+              "wall_us_median": 18.6037,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.250400000000003,
+                18.23225,
+                18.70025,
+                18.81685,
+                18.77445
+              ],
+              "wall_us_median": 18.70025,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                87.62710000000001,
+                87.61739999999999,
+                87.6317,
+                87.43445,
+                87.50645
+              ],
+              "wall_us_median": 87.61739999999999,
+              "max_wall_us": 77
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.942700000000002,
+                18.75835,
+                18.907049999999998,
+                18.96895,
+                18.685
+              ],
+              "wall_us_median": 18.907049999999998,
+              "max_wall_us": 29
+            }
+          ]
+        },
+        "allocator_env": null,
+        "after_priming": {
+          "allocated": 0,
+          "reserved": 1073741824,
+          "peak_allocated": 1073741824
+        },
+        "segments_before_benchmark": [
+          {
+            "address": 20622285471744,
+            "bytes": 1073741824,
+            "type": "large"
+          }
+        ],
+        "segments_after_benchmark": [
+          {
+            "address": 20618009378816,
+            "bytes": 2097152,
+            "type": "small"
+          },
+          {
+            "address": 20622285471744,
+            "bytes": 1073741824,
+            "type": "large"
+          }
+        ]
+      },
+      {
+        "batch": 0,
+        "visible_device": "1",
+        "primer_bytes": 1073741312,
+        "directory": "/workspace/t5qkv-pooldiag-20261114-01/diagnostic_01/batch0_chip1_primer1073741312",
+        "instrumented_conditioned_checks": {
+          "status": "failed",
+          "checks": [
+            {
+              "case_name": "T5SplitQkvAppendCache_001_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                20.5897,
+                15.8369,
+                15.7999,
+                15.499450000000001,
+                15.74435
+              ],
+              "wall_us_median": 15.7999,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_005_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.02955,
+                16.0323,
+                16.1039,
+                16.125899999999998,
+                15.8156
+              ],
+              "wall_us_median": 16.0323,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_006_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                15.8167,
+                15.609350000000001,
+                15.52615,
+                15.648299999999999,
+                15.708
+              ],
+              "wall_us_median": 15.648299999999999,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_007_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                120.1199,
+                117.1143,
+                119.047,
+                118.9738,
+                119.0308
+              ],
+              "wall_us_median": 119.0308,
+              "max_wall_us": 75
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_008_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                15.935450000000001,
+                15.825299999999999,
+                15.8425,
+                15.610299999999999,
+                15.46225
+              ],
+              "wall_us_median": 15.825299999999999,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                15.1914,
+                15.0494,
+                15.15435,
+                15.184899999999999,
+                15.0975
+              ],
+              "wall_us_median": 15.15435,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                15.56635,
+                15.64825,
+                15.5414,
+                15.52005,
+                15.3081
+              ],
+              "wall_us_median": 15.5414,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                15.736600000000001,
+                15.207600000000001,
+                15.33265,
+                15.28045,
+                15.36035
+              ],
+              "wall_us_median": 15.33265,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                119.48885,
+                118.83330000000001,
+                120.955,
+                120.27805000000001,
+                119.4693
+              ],
+              "wall_us_median": 119.48885,
+              "max_wall_us": 77
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                17.268549999999998,
+                16.6092,
+                16.60025,
+                16.3753,
+                16.63975
+              ],
+              "wall_us_median": 16.6092,
+              "max_wall_us": 29
+            }
+          ]
+        },
+        "allocator_env": null,
+        "after_priming": {
+          "allocated": 0,
+          "reserved": 1073741824,
+          "peak_allocated": 1073741824
+        },
+        "segments_before_benchmark": [
+          {
+            "address": 20622285471744,
+            "bytes": 1073741824,
+            "type": "large"
+          }
+        ],
+        "segments_after_benchmark": [
+          {
+            "address": 20618009378816,
+            "bytes": 2097152,
+            "type": "small"
+          },
+          {
+            "address": 20622285471744,
+            "bytes": 1073741824,
+            "type": "large"
+          }
+        ]
+      },
+      {
+        "batch": 0,
+        "visible_device": "1",
+        "primer_bytes": 0,
+        "directory": "/workspace/t5qkv-pooldiag-20261114-01/diagnostic_01/batch0_chip1_primer0",
+        "instrumented_conditioned_checks": {
+          "status": "failed",
+          "checks": [
+            {
+              "case_name": "T5SplitQkvAppendCache_001_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                33.278349999999996,
+                30.35185,
+                30.0571,
+                30.2751,
+                30.32575
+              ],
+              "wall_us_median": 30.32575,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_005_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                30.57285,
+                30.7084,
+                30.6094,
+                30.510900000000003,
+                30.50455
+              ],
+              "wall_us_median": 30.57285,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_006_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                32.139,
+                31.417450000000002,
+                31.3642,
+                31.35895,
+                31.49825
+              ],
+              "wall_us_median": 31.417450000000002,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_007_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                80.90995,
+                80.77114999999999,
+                80.76660000000001,
+                80.76405,
+                80.71355
+              ],
+              "wall_us_median": 80.76660000000001,
+              "max_wall_us": 75
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_008_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.713849999999997,
+                16.865299999999998,
+                16.758950000000002,
+                16.69665,
+                16.77
+              ],
+              "wall_us_median": 16.758950000000002,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.313950000000002,
+                16.50815,
+                16.1839,
+                16.026,
+                15.909049999999999
+              ],
+              "wall_us_median": 16.1839,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.66435,
+                16.560599999999997,
+                16.696,
+                16.532700000000002,
+                16.42655
+              ],
+              "wall_us_median": 16.560599999999997,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.70625,
+                16.56375,
+                16.6832,
+                16.815,
+                16.948
+              ],
+              "wall_us_median": 16.70625,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                79.6571,
+                79.70875,
+                79.673,
+                79.81845,
+                79.97305
+              ],
+              "wall_us_median": 79.70875,
+              "max_wall_us": 77
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.9961,
+                16.89295,
+                16.86955,
+                17.158150000000003,
+                16.8283
+              ],
+              "wall_us_median": 16.89295,
+              "max_wall_us": 29
+            }
+          ]
+        },
+        "allocator_env": null,
+        "after_priming": {
+          "allocated": 0,
+          "reserved": 0,
+          "peak_allocated": 0
+        },
+        "segments_before_benchmark": [],
+        "segments_after_benchmark": [
+          {
+            "address": 20618009378816,
+            "bytes": 2097152,
+            "type": "small"
+          },
+          {
+            "address": 20618013573120,
+            "bytes": 20971520,
+            "type": "large"
+          },
+          {
+            "address": 20618034544640,
+            "bytes": 20971520,
+            "type": "large"
+          },
+          {
+            "address": 20618055516160,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618124722176,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618193928192,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618263134208,
+            "bytes": 69206016,
+            "type": "large"
+          }
+        ]
+      },
+      {
+        "batch": 1,
+        "visible_device": "1",
+        "primer_bytes": 0,
+        "directory": "/workspace/t5qkv-pooldiag-20261114-01/diagnostic_01/batch1_chip1_primer0",
+        "instrumented_conditioned_checks": {
+          "status": "failed",
+          "checks": [
+            {
+              "case_name": "T5SplitQkvAppendCache_001_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                20.676,
+                17.685599999999997,
+                17.565900000000003,
+                17.4497,
+                17.423849999999998
+              ],
+              "wall_us_median": 17.565900000000003,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_005_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                17.49425,
+                17.286900000000003,
+                17.377650000000003,
+                17.247349999999997,
+                17.0105
+              ],
+              "wall_us_median": 17.286900000000003,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_006_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                17.72655,
+                17.263650000000002,
+                17.0946,
+                17.28625,
+                17.16535
+              ],
+              "wall_us_median": 17.263650000000002,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_007_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                93.51769999999999,
+                92.41265,
+                92.38505,
+                92.137,
+                91.8342
+              ],
+              "wall_us_median": 92.38505,
+              "max_wall_us": 75
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_008_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.327450000000002,
+                18.805799999999998,
+                18.089299999999998,
+                18.44705,
+                18.13115
+              ],
+              "wall_us_median": 18.327450000000002,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                17.8112,
+                17.52545,
+                17.5563,
+                17.623,
+                17.6412
+              ],
+              "wall_us_median": 17.623,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.20185,
+                18.662200000000002,
+                18.3221,
+                17.7432,
+                17.899
+              ],
+              "wall_us_median": 18.20185,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.12485,
+                18.525650000000002,
+                18.4816,
+                18.9934,
+                18.62595
+              ],
+              "wall_us_median": 18.525650000000002,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                90.15814999999999,
+                89.90725,
+                89.74605,
+                89.60625,
+                89.72295
+              ],
+              "wall_us_median": 89.74605,
+              "max_wall_us": 77
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.8229,
+                18.4572,
+                18.3756,
+                19.02995,
+                18.37265
+              ],
+              "wall_us_median": 18.4572,
+              "max_wall_us": 29
+            }
+          ]
+        },
+        "allocator_env": null,
+        "after_priming": {
+          "allocated": 0,
+          "reserved": 0,
+          "peak_allocated": 0
+        },
+        "segments_before_benchmark": [],
+        "segments_after_benchmark": [
+          {
+            "address": 20618009378816,
+            "bytes": 2097152,
+            "type": "small"
+          },
+          {
+            "address": 20618013573120,
+            "bytes": 20971520,
+            "type": "large"
+          },
+          {
+            "address": 20618034544640,
+            "bytes": 20971520,
+            "type": "large"
+          },
+          {
+            "address": 20618055516160,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618124722176,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618193928192,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618263134208,
+            "bytes": 69206016,
+            "type": "large"
+          }
+        ]
+      },
+      {
+        "batch": 1,
+        "visible_device": "1",
+        "primer_bytes": 1073741312,
+        "directory": "/workspace/t5qkv-pooldiag-20261114-01/diagnostic_01/batch1_chip1_primer1073741312",
+        "instrumented_conditioned_checks": {
+          "status": "failed",
+          "checks": [
+            {
+              "case_name": "T5SplitQkvAppendCache_001_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                23.54645,
+                19.30875,
+                18.906,
+                19.329900000000002,
+                18.96585
+              ],
+              "wall_us_median": 19.30875,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_005_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                19.8513,
+                19.9146,
+                43.66035,
+                19.9178,
+                19.828650000000003
+              ],
+              "wall_us_median": 19.9146,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_006_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                19.50585,
+                19.34365,
+                19.50625,
+                19.312450000000002,
+                19.3979
+              ],
+              "wall_us_median": 19.3979,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_007_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                82.20355,
+                82.12595,
+                81.89215,
+                81.87755,
+                82.12939999999999
+              ],
+              "wall_us_median": 82.12595,
+              "max_wall_us": 75
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_008_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.65375,
+                18.417849999999998,
+                18.6247,
+                18.4135,
+                18.29485
+              ],
+              "wall_us_median": 18.417849999999998,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.076400000000003,
+                17.95465,
+                17.985400000000002,
+                17.98905,
+                17.98435
+              ],
+              "wall_us_median": 17.985400000000002,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.42355,
+                18.7984,
+                18.80345,
+                18.69825,
+                18.59325
+              ],
+              "wall_us_median": 18.69825,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                17.900650000000002,
+                18.07305,
+                18.8364,
+                18.9075,
+                18.8198
+              ],
+              "wall_us_median": 18.8198,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                83.372,
+                83.12875,
+                83.16105,
+                83.13535,
+                83.1194
+              ],
+              "wall_us_median": 83.13535,
+              "max_wall_us": 77
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.209349999999997,
+                18.246650000000002,
+                18.03555,
+                18.31875,
+                18.33525
+              ],
+              "wall_us_median": 18.246650000000002,
+              "max_wall_us": 29
+            }
+          ]
+        },
+        "allocator_env": null,
+        "after_priming": {
+          "allocated": 0,
+          "reserved": 1073741824,
+          "peak_allocated": 1073741824
+        },
+        "segments_before_benchmark": [
+          {
+            "address": 20622285471744,
+            "bytes": 1073741824,
+            "type": "large"
+          }
+        ],
+        "segments_after_benchmark": [
+          {
+            "address": 20618009378816,
+            "bytes": 2097152,
+            "type": "small"
+          },
+          {
+            "address": 20622285471744,
+            "bytes": 1073741824,
+            "type": "large"
+          }
+        ]
+      },
+      {
+        "batch": 1,
+        "visible_device": "0",
+        "primer_bytes": 1073741312,
+        "directory": "/workspace/t5qkv-pooldiag-20261114-01/diagnostic_01/batch1_chip0_primer1073741312",
+        "instrumented_conditioned_checks": {
+          "status": "failed",
+          "checks": [
+            {
+              "case_name": "T5SplitQkvAppendCache_001_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                20.683349999999997,
+                16.092100000000002,
+                15.6729,
+                15.547049999999999,
+                15.4037
+              ],
+              "wall_us_median": 15.6729,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_005_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.0778,
+                16.20695,
+                16.2685,
+                16.3062,
+                49.85075
+              ],
+              "wall_us_median": 16.2685,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_006_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                15.969299999999999,
+                15.80325,
+                15.67555,
+                15.8051,
+                15.78375
+              ],
+              "wall_us_median": 15.80325,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_007_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                87.7247,
+                87.41185,
+                87.55205000000001,
+                87.55210000000001,
+                87.63585
+              ],
+              "wall_us_median": 87.55210000000001,
+              "max_wall_us": 75
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_008_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.8392,
+                18.87075,
+                18.79005,
+                18.934099999999997,
+                18.38315
+              ],
+              "wall_us_median": 18.8392,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.2048,
+                18.16515,
+                18.1071,
+                18.2328,
+                18.0902
+              ],
+              "wall_us_median": 18.16515,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.5485,
+                18.619049999999998,
+                18.54655,
+                19.3492,
+                18.7632
+              ],
+              "wall_us_median": 18.619049999999998,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.1367,
+                17.6638,
+                18.0773,
+                18.18475,
+                18.16685
+              ],
+              "wall_us_median": 18.1367,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                87.78410000000001,
+                87.42985,
+                87.52495,
+                87.51639999999999,
+                87.65039999999999
+              ],
+              "wall_us_median": 87.52495,
+              "max_wall_us": 77
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.77445,
+                19.125700000000002,
+                18.9154,
+                18.7528,
+                18.6278
+              ],
+              "wall_us_median": 18.77445,
+              "max_wall_us": 29
+            }
+          ]
+        },
+        "allocator_env": null,
+        "after_priming": {
+          "allocated": 0,
+          "reserved": 1073741824,
+          "peak_allocated": 1073741824
+        },
+        "segments_before_benchmark": [
+          {
+            "address": 20622285471744,
+            "bytes": 1073741824,
+            "type": "large"
+          }
+        ],
+        "segments_after_benchmark": [
+          {
+            "address": 20618009378816,
+            "bytes": 2097152,
+            "type": "small"
+          },
+          {
+            "address": 20622285471744,
+            "bytes": 1073741824,
+            "type": "large"
+          }
+        ]
+      },
+      {
+        "batch": 1,
+        "visible_device": "0",
+        "primer_bytes": 0,
+        "directory": "/workspace/t5qkv-pooldiag-20261114-01/diagnostic_01/batch1_chip0_primer0",
+        "instrumented_conditioned_checks": {
+          "status": "failed",
+          "checks": [
+            {
+              "case_name": "T5SplitQkvAppendCache_001_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                20.329150000000002,
+                16.004,
+                15.785549999999999,
+                15.95795,
+                15.89245
+              ],
+              "wall_us_median": 15.95795,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_005_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.678150000000002,
+                16.4146,
+                16.3751,
+                16.5254,
+                16.1978
+              ],
+              "wall_us_median": 16.4146,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_006_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.35405,
+                15.950700000000001,
+                15.92455,
+                16.0743,
+                15.66085
+              ],
+              "wall_us_median": 15.950700000000001,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_007_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                112.781,
+                112.48310000000001,
+                112.53744999999999,
+                112.59514999999999,
+                112.47794999999999
+              ],
+              "wall_us_median": 112.53744999999999,
+              "max_wall_us": 75
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_008_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.46285,
+                18.2715,
+                18.3197,
+                18.4432,
+                18.09695
+              ],
+              "wall_us_median": 18.3197,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.5424,
+                17.6262,
+                17.69245,
+                18.0005,
+                18.190150000000003
+              ],
+              "wall_us_median": 18.0005,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.18955,
+                18.7922,
+                18.353099999999998,
+                18.135650000000002,
+                18.47415
+              ],
+              "wall_us_median": 18.353099999999998,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.68805,
+                19.5311,
+                18.8525,
+                19.3184,
+                18.80305
+              ],
+              "wall_us_median": 18.8525,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                112.86705,
+                112.69839999999999,
+                112.76905000000001,
+                112.71119999999999,
+                112.83995
+              ],
+              "wall_us_median": 112.76905000000001,
+              "max_wall_us": 77
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.9204,
+                19.598599999999998,
+                19.26795,
+                19.2635,
+                18.673299999999998
+              ],
+              "wall_us_median": 19.2635,
+              "max_wall_us": 29
+            }
+          ]
+        },
+        "allocator_env": null,
+        "after_priming": {
+          "allocated": 0,
+          "reserved": 0,
+          "peak_allocated": 0
+        },
+        "segments_before_benchmark": [],
+        "segments_after_benchmark": [
+          {
+            "address": 20618009378816,
+            "bytes": 2097152,
+            "type": "small"
+          },
+          {
+            "address": 20618013573120,
+            "bytes": 20971520,
+            "type": "large"
+          },
+          {
+            "address": 20618034544640,
+            "bytes": 20971520,
+            "type": "large"
+          },
+          {
+            "address": 20618055516160,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618124722176,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618193928192,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618263134208,
+            "bytes": 69206016,
+            "type": "large"
+          }
+        ]
+      },
+      {
+        "batch": 2,
+        "visible_device": "0",
+        "primer_bytes": 0,
+        "directory": "/workspace/t5qkv-pooldiag-20261114-01/diagnostic_01/batch2_chip0_primer0",
+        "instrumented_conditioned_checks": {
+          "status": "failed",
+          "checks": [
+            {
+              "case_name": "T5SplitQkvAppendCache_001_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                23.4533,
+                19.424599999999998,
+                18.93315,
+                18.7903,
+                19.1627
+              ],
+              "wall_us_median": 19.1627,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_005_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                19.3771,
+                49.8679,
+                19.351,
+                19.329150000000002,
+                18.74305
+              ],
+              "wall_us_median": 19.351,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_006_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.8846,
+                18.875400000000003,
+                19.55285,
+                19.27775,
+                19.4776
+              ],
+              "wall_us_median": 19.27775,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_007_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                159.08575,
+                159.00654999999998,
+                158.71220000000002,
+                158.62845000000002,
+                158.5588
+              ],
+              "wall_us_median": 158.71220000000002,
+              "max_wall_us": 75
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_008_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                19.3312,
+                19.976950000000002,
+                19.29985,
+                19.548,
+                19.089599999999997
+              ],
+              "wall_us_median": 19.3312,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.01975,
+                17.73675,
+                18.15085,
+                17.605900000000002,
+                18.00875
+              ],
+              "wall_us_median": 18.00875,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.64445,
+                19.739150000000002,
+                18.7814,
+                18.8992,
+                18.015
+              ],
+              "wall_us_median": 18.7814,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.88975,
+                20.4738,
+                20.1177,
+                20.16725,
+                19.446
+              ],
+              "wall_us_median": 20.1177,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                158.47325,
+                158.48305,
+                158.574,
+                158.64665,
+                158.55385
+              ],
+              "wall_us_median": 158.55385,
+              "max_wall_us": 77
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                19.19305,
+                19.25355,
+                19.1583,
+                20.29955,
+                20.59645
+              ],
+              "wall_us_median": 19.25355,
+              "max_wall_us": 29
+            }
+          ]
+        },
+        "allocator_env": null,
+        "after_priming": {
+          "allocated": 0,
+          "reserved": 0,
+          "peak_allocated": 0
+        },
+        "segments_before_benchmark": [],
+        "segments_after_benchmark": [
+          {
+            "address": 20618009378816,
+            "bytes": 2097152,
+            "type": "small"
+          },
+          {
+            "address": 20618013573120,
+            "bytes": 20971520,
+            "type": "large"
+          },
+          {
+            "address": 20618034544640,
+            "bytes": 20971520,
+            "type": "large"
+          },
+          {
+            "address": 20618055516160,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618124722176,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618193928192,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618263134208,
+            "bytes": 69206016,
+            "type": "large"
+          }
+        ]
+      },
+      {
+        "batch": 2,
+        "visible_device": "0",
+        "primer_bytes": 1073741312,
+        "directory": "/workspace/t5qkv-pooldiag-20261114-01/diagnostic_01/batch2_chip0_primer1073741312",
+        "instrumented_conditioned_checks": {
+          "status": "failed",
+          "checks": [
+            {
+              "case_name": "T5SplitQkvAppendCache_001_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                20.82245,
+                15.58925,
+                15.628350000000001,
+                15.7035,
+                15.78245
+              ],
+              "wall_us_median": 15.7035,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_005_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.3068,
+                16.1601,
+                16.2996,
+                16.284299999999998,
+                16.01675
+              ],
+              "wall_us_median": 16.284299999999998,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_006_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.36185,
+                15.587200000000001,
+                15.68225,
+                15.57925,
+                15.67225
+              ],
+              "wall_us_median": 15.67225,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_007_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                87.54485000000001,
+                87.3539,
+                88.04910000000001,
+                87.40535000000001,
+                87.2398
+              ],
+              "wall_us_median": 87.40535000000001,
+              "max_wall_us": 75
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_008_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                17.756700000000002,
+                17.7067,
+                17.6595,
+                17.8529,
+                17.4779
+              ],
+              "wall_us_median": 17.7067,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                17.29595,
+                17.573700000000002,
+                17.013849999999998,
+                16.91585,
+                17.04185
+              ],
+              "wall_us_median": 17.04185,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                17.89395,
+                18.2896,
+                18.2694,
+                18.2501,
+                18.1422
+              ],
+              "wall_us_median": 18.2501,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                17.70875,
+                17.8613,
+                17.662,
+                18.42605,
+                18.754849999999998
+              ],
+              "wall_us_median": 17.8613,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                88.0689,
+                87.32015,
+                87.19760000000001,
+                87.3154,
+                87.2975
+              ],
+              "wall_us_median": 87.3154,
+              "max_wall_us": 77
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.10095,
+                18.225849999999998,
+                18.28565,
+                18.57175,
+                18.700950000000002
+              ],
+              "wall_us_median": 18.28565,
+              "max_wall_us": 29
+            }
+          ]
+        },
+        "allocator_env": null,
+        "after_priming": {
+          "allocated": 0,
+          "reserved": 1073741824,
+          "peak_allocated": 1073741824
+        },
+        "segments_before_benchmark": [
+          {
+            "address": 20622285471744,
+            "bytes": 1073741824,
+            "type": "large"
+          }
+        ],
+        "segments_after_benchmark": [
+          {
+            "address": 20618009378816,
+            "bytes": 2097152,
+            "type": "small"
+          },
+          {
+            "address": 20622285471744,
+            "bytes": 1073741824,
+            "type": "large"
+          }
+        ]
+      },
+      {
+        "batch": 2,
+        "visible_device": "1",
+        "primer_bytes": 1073741312,
+        "directory": "/workspace/t5qkv-pooldiag-20261114-01/diagnostic_01/batch2_chip1_primer1073741312",
+        "instrumented_conditioned_checks": {
+          "status": "failed",
+          "checks": [
+            {
+              "case_name": "T5SplitQkvAppendCache_001_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                49.71245,
+                29.79025,
+                29.7315,
+                29.60525,
+                29.534650000000003
+              ],
+              "wall_us_median": 29.7315,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_005_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                30.2894,
+                30.1599,
+                30.2497,
+                30.0888,
+                30.07405
+              ],
+              "wall_us_median": 30.1599,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_006_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                31.3568,
+                30.32905,
+                30.3932,
+                30.444950000000002,
+                30.44365
+              ],
+              "wall_us_median": 30.44365,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_007_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                119.50965,
+                119.21735000000001,
+                119.34585000000001,
+                118.5769,
+                118.42745
+              ],
+              "wall_us_median": 119.21735000000001,
+              "max_wall_us": 75
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_008_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                18.6754,
+                18.44625,
+                18.45815,
+                18.3392,
+                18.30665
+              ],
+              "wall_us_median": 18.44625,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.4753,
+                16.46305,
+                16.40905,
+                16.31645,
+                16.118299999999998
+              ],
+              "wall_us_median": 16.40905,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.6917,
+                16.8533,
+                16.646849999999997,
+                16.59245,
+                16.59675
+              ],
+              "wall_us_median": 16.646849999999997,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.42445,
+                16.41125,
+                16.62695,
+                16.6003,
+                16.91945
+              ],
+              "wall_us_median": 16.6003,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                106.8827,
+                109.66625,
+                110.6514,
+                112.38015,
+                114.18430000000001
+              ],
+              "wall_us_median": 110.6514,
+              "max_wall_us": 77
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.9625,
+                16.78935,
+                16.8158,
+                16.9206,
+                16.92275
+              ],
+              "wall_us_median": 16.9206,
+              "max_wall_us": 29
+            }
+          ]
+        },
+        "allocator_env": null,
+        "after_priming": {
+          "allocated": 0,
+          "reserved": 1073741824,
+          "peak_allocated": 1073741824
+        },
+        "segments_before_benchmark": [
+          {
+            "address": 20622285471744,
+            "bytes": 1073741824,
+            "type": "large"
+          }
+        ],
+        "segments_after_benchmark": [
+          {
+            "address": 20618009378816,
+            "bytes": 2097152,
+            "type": "small"
+          },
+          {
+            "address": 20622285471744,
+            "bytes": 1073741824,
+            "type": "large"
+          }
+        ]
+      },
+      {
+        "batch": 2,
+        "visible_device": "1",
+        "primer_bytes": 0,
+        "directory": "/workspace/t5qkv-pooldiag-20261114-01/diagnostic_01/batch2_chip1_primer0",
+        "instrumented_conditioned_checks": {
+          "status": "failed",
+          "checks": [
+            {
+              "case_name": "T5SplitQkvAppendCache_001_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                20.516,
+                15.63605,
+                15.5166,
+                15.6006,
+                15.4999
+              ],
+              "wall_us_median": 15.6006,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_005_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.27185,
+                16.0272,
+                16.062549999999998,
+                16.47915,
+                16.35935
+              ],
+              "wall_us_median": 16.27185,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_006_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                16.8888,
+                16.4513,
+                16.5392,
+                16.4547,
+                16.58185
+              ],
+              "wall_us_median": 16.5392,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_007_float16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                80.63095,
+                80.51855,
+                80.50375,
+                80.44330000000001,
+                80.55325
+              ],
+              "wall_us_median": 80.51855,
+              "max_wall_us": 75
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_008_float16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                17.3759,
+                17.48045,
+                17.1914,
+                17.783,
+                17.33985
+              ],
+              "wall_us_median": 17.3759,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                17.200400000000002,
+                16.38795,
+                16.47575,
+                16.713150000000002,
+                16.484650000000002
+              ],
+              "wall_us_median": 16.484650000000002,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                17.395400000000002,
+                17.38175,
+                17.31205,
+                16.93925,
+                17.027099999999997
+              ],
+              "wall_us_median": 17.31205,
+              "max_wall_us": 28
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                17.07225,
+                17.1251,
+                16.99265,
+                17.1466,
+                17.19705
+              ],
+              "wall_us_median": 17.1251,
+              "max_wall_us": 29
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+              "status": "failed",
+              "wall_us_rounds": [
+                80.97210000000001,
+                80.851,
+                80.73595,
+                80.71289999999999,
+                80.71164999999999
+              ],
+              "wall_us_median": 80.73595,
+              "max_wall_us": 77
+            },
+            {
+              "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+              "status": "passed",
+              "wall_us_rounds": [
+                19.05665,
+                19.0027,
+                19.1181,
+                19.14755,
+                19.11
+              ],
+              "wall_us_median": 19.11,
+              "max_wall_us": 29
+            }
+          ]
+        },
+        "allocator_env": null,
+        "after_priming": {
+          "allocated": 0,
+          "reserved": 0,
+          "peak_allocated": 0
+        },
+        "segments_before_benchmark": [],
+        "segments_after_benchmark": [
+          {
+            "address": 20618009378816,
+            "bytes": 2097152,
+            "type": "small"
+          },
+          {
+            "address": 20618013573120,
+            "bytes": 20971520,
+            "type": "large"
+          },
+          {
+            "address": 20618034544640,
+            "bytes": 20971520,
+            "type": "large"
+          },
+          {
+            "address": 20618055516160,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618124722176,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618193928192,
+            "bytes": 69206016,
+            "type": "large"
+          },
+          {
+            "address": 20618263134208,
+            "bytes": 69206016,
+            "type": "large"
+          }
+        ]
+      }
+    ],
+    "full_acceptance": false,
+    "source_and_artifacts_unchanged": true
+  },
+  "production_change": false,
+  "conclusion": "One 1GiB segment changes timing but is not sufficient for stable success; improvement differs between physical chips and processes. Physical mapping and L2 hash remain unobserved."
+}

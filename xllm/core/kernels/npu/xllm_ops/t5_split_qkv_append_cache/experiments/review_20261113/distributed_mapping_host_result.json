@@ -1,0 +1,11 @@
+{
+  "scope": "host_distributed_cursor_coverage_only",
+  "npu_executed": false,
+  "tasks": 768,
+  "unique_appends": 256,
+  "normal_bytes": 62914560,
+  "bypass_bytes": 4194304,
+  "status": "passed",
+  "checker_source_sha256": "7df476340ab8157c6495115e2964516489e998d2a71267f5a4dd311fca2101a6",
+  "header_sha256": "14b7e06359b3b359292859d3dd046d09a9982ef2345aa6b857f7f89d7c426bf9"
+}

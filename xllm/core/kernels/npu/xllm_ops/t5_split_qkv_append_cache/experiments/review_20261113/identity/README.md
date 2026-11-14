@@ -131,3 +131,26 @@ option or extra workspace. Small shapes retain their original order. Any gain
 must survive complete independent-process tests; output addresses are recorded
 rather than assuming the allocator follows a particular order. The new screen
 will also use --post-identity to verify actually mapped libraries per process.
+
+
+## C17 write-admission distribution
+
+C15 failed default timing despite actual mapped-library identity matching every
+process. C17 preserves C4's full history-input caching and 240 normally cached
+Key rows, but redistributes normal Key rows to [4,84), [88,168), [172,252).
+The four remaining four-row regions bypass. Each boundary is 512B aligned for
+an aligned Key base; the 48-core/C3/fused domain makes each phase's per-core
+range contiguous, preserving the copy loop and all event ownership. Other shapes
+retain the prefix. An unaligned Key base selects the previously validated
+zero-Value-quota Key-chain phase plan to avoid mixed-hint write boundaries.
+Host proof covers 768 unique tasks, unchanged normal/bypass bytes and all class
+boundaries. Extra NPU tests include row-tagged raw bits and direct launches into
+supplied aligned/offset-one outputs, checking surrounding guard words. This is
+unvalidated on A3 until those checks and complete timing finish.
+
+An external pool-priming diagnostic tool is also prepared, explicitly marked
+NOT ACCEPTANCE. It compares an unchanged control under default environment with
+and without an external large allocate/free before the benchmark, to isolate
+pool geometry. This is never an operator implementation or a passing default
+allocator delivery, and its temporary active allocation is not zero-workspace
+qualification. No such conditioning is used in normal candidate screens.

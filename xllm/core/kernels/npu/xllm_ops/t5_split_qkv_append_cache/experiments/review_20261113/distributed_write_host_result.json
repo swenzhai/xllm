@@ -1,0 +1,26 @@
+{
+  "scope": "host_write_mapping_only",
+  "npu_executed": false,
+  "tasks": 768,
+  "class_boundaries_aligned_bytes": 512,
+  "normal_key_write_bytes": 62945280,
+  "bypass_key_write_bytes": 4196352,
+  "tiling_words": [
+    16,
+    16,
+    2048,
+    64,
+    47104,
+    3,
+    1,
+    768,
+    16,
+    1552,
+    48,
+    240,
+    1
+  ],
+  "status": "passed",
+  "header_sha256": "9e90e3f17cd7c8591be3eafa3478f17301d6c182d545c0cddde3b4b1091f2fb5",
+  "checker_source_sha256": "06fedd2886c63bf3383542ebbe5c995e3bab89e657fd662c8c7698b77bebcf1e"
+}

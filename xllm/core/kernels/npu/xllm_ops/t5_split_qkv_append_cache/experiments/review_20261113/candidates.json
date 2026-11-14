@@ -158,6 +158,19 @@
         "framework/binding.cpp"
       ],
       "kernel_policy": "reversed_output_allocation"
+    },
+    {
+      "name": "c17_distributed_key_output",
+      "budget_mib": 190,
+      "policy": "input_priority",
+      "normal_key_rows": 240,
+      "normal_value_rows": 256,
+      "patch": "patches/c17_distributed_key_output.patch",
+      "allowed_patch_files": [
+        "common/t5_split_qkv_append_cache_tiling.h",
+        "op_kernel/t5_split_qkv_append_cache_kernel.h"
+      ],
+      "kernel_policy": "distributed_key_output"
     }
   ]
 }

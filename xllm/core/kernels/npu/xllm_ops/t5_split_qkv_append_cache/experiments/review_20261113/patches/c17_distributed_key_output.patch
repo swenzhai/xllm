@@ -1,0 +1,147 @@
+--- a/common/t5_split_qkv_append_cache_tiling.h
++++ b/common/t5_split_qkv_append_cache_tiling.h
+@@ -47,7 +47,7 @@
+ #define T5QKV_MAPPING_INLINE inline
+ #endif
+ 
+-constexpr uint64_t kL2BudgetBytes = uint64_t{172} * 1024 * 1024;
++constexpr uint64_t kL2BudgetBytes = uint64_t{190} * 1024 * 1024;
+ constexpr uint64_t kReadBalanceBudgetBytes = uint64_t{190} * 1024 * 1024;
+ 
+ struct CachePolicy {
+@@ -55,6 +55,16 @@
+   uint32_t key_tasks;
+   bool bypass_value;
+ };
++
++T5QKV_MAPPING_INLINE uint32_t cache_policy_gcd(uint32_t first,
++                                               uint32_t second) {
++  while (second != 0) {
++    const uint32_t remainder = first % second;
++    first = second;
++    second = remainder;
++  }
++  return first;
++}
+ 
+ // Software admission budget, not a reservation or a residency guarantee.
+ T5QKV_MAPPING_INLINE CachePolicy
+@@ -71,7 +81,18 @@
+   const uint64_t base = 4 * n * (tiling.past_length + 2);
+   const uint64_t remaining = kL2BudgetBytes > base ? kL2BudgetBytes - base : 0;
+   const uint64_t candidate_rows = remaining / (2 * row_elements);
+-  const uint64_t admitted_rows = candidate_rows < rows ? candidate_rows : rows;
++  const uint64_t limited_rows = candidate_rows < rows ? candidate_rows : rows;
++  // Balance each history cache class and keep its output boundary 512B aligned
++  // relative to the fresh allocator-aligned output base.
++  const uint32_t core_group =
++      tiling.block_dim /
++      cache_policy_gcd(tiling.cache_tiles_per_head, tiling.block_dim);
++  const uint32_t alignment_group =
++      256 / cache_policy_gcd(static_cast<uint32_t>(row_elements % 256),
++                             /*second=*/256);
++  const uint32_t row_group = core_group * alignment_group /
++                             cache_policy_gcd(core_group, alignment_group);
++  const uint64_t admitted_rows = limited_rows - limited_rows % row_group;
+   return {static_cast<uint32_t>(admitted_rows * row_elements),
+           static_cast<uint32_t>(admitted_rows * tiling.cache_tiles_per_head),
+           true};
+@@ -83,34 +104,12 @@
+   uint32_t value_tasks;
+ };
+ 
+-// Retain Key input/output and admit only a bounded prefix of Value input.
+-// Value output uses the bypass hint. This budget is not a cache reservation.
++// Experimental input-priority plan: retain all history reads and spend the
++// remaining budget on a bounded Key-output prefix. Use the existing balanced
++// cached-Key / bypass-Key / Value phase scheduler; Value output still bypasses.
+ T5QKV_MAPPING_INLINE ReadBalancePolicy
+-make_read_balance_policy(const T5SplitQkvAppendCacheTilingData& tiling) {
+-  const uint64_t n = uint64_t{tiling.batch} * tiling.head_num * tiling.head_dim;
+-  const uint64_t base = 2 * n * (2 * uint64_t{tiling.past_length} + 5);
+-  if (tiling.bypass_value_cache == 0 || tiling.past_length == 0 ||
+-      base >= kReadBalanceBudgetBytes) {
+-    return {};
+-  }
+-  const uint64_t rows = uint64_t{tiling.batch} * tiling.head_num;
+-  uint64_t cached_rows = (kReadBalanceBudgetBytes - base) /
+-                         (2 * uint64_t{tiling.past_length} * tiling.head_dim);
+-  cached_rows = cached_rows < rows ? cached_rows : rows;
+-  uint32_t divisor = tiling.cache_tiles_per_head;
+-  uint32_t cores = tiling.block_dim;
+-  while (cores != 0) {
+-    const uint32_t remainder = divisor % cores;
+-    divisor = cores;
+-    cores = remainder;
+-  }
+-  const uint32_t group = tiling.block_dim / divisor;
+-  if (cached_rows >= group) {
+-    cached_rows -= cached_rows % group;
+-  }
+-  return {true,
+-          static_cast<uint32_t>(cached_rows),
+-          static_cast<uint32_t>(cached_rows) * tiling.cache_tiles_per_head};
++make_read_balance_policy(const T5SplitQkvAppendCacheTilingData& /*tiling*/) {
++  return {};
+ }
+ 
+ inline bool can_fuse_append(const T5SplitQkvAppendCacheTilingData& tiling) {
+@@ -272,5 +271,27 @@
+   }
+   return task;
+ }
++// Distribute the 16 bypassed Key rows as four four-row regions. Normal
++// regions contain 80 rows, divisible by each core's five normal rows, so the
++// existing incremental copy loop never crosses a gap. Every class boundary is
++// 512B aligned relative to an aligned output base. Non-fused shapes stay
++// prefix.
++T5QKV_MAPPING_INLINE uint32_t
++cache_write_phase_task_start(const T5SplitQkvAppendCacheTilingData& tiling,
++                             uint32_t phase,
++                             uint32_t dense_task) {
++  if (phase > 1 || tiling.block_dim != 48 || tiling.cache_tiles_per_head != 3 ||
++      tiling.cache_tasks_per_tensor != 768 ||
++      tiling.cacheable_key_rows != 240 || !fuses_append(tiling) ||
++      (uint64_t{tiling.past_length + 1} * tiling.head_dim * 8) % 512 != 0) {
++    return dense_task;
++  }
++  if (phase == 0) {
++    return dense_task + 12 * (1 + dense_task / 240);
++  }
++  const uint32_t rank = dense_task - 720;
++  return (rank / 12) * 252 + rank % 12;
++}
++
+ #undef T5QKV_MAPPING_INLINE
+ }  // namespace t5qkv
+--- a/op_kernel/t5_split_qkv_append_cache_kernel.h
++++ b/op_kernel/t5_split_qkv_append_cache_kernel.h
+@@ -32,6 +32,13 @@
+     const ReadBalancePolicy read_policy = make_read_balance_policy(tiling);
+     balanced_ = read_policy.enabled;
+     normal_value_tasks_ = read_policy.value_tasks;
++    // Mixed normal/bypass stores require an aligned Key base. Select the
++    // already supported zero-Value-quota Key-chain plan for unaligned outputs.
++    if (tiling.bypass_value_cache != 0 &&
++        reinterpret_cast<uint64_t>(key) % 512 != 0) {
++      balanced_ = true;
++      normal_value_tasks_ = 0;
++    }
+     const uint32_t query_elements =
+         tiling.batch * tiling.head_num * tiling.head_dim;
+     qkv_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(qkv),
+@@ -136,8 +143,12 @@
+     }
+     if (cursor.phase < 3) {
+       cursor.task = ranges_[cursor.phase].begin;
+-      cursor.row = cursor.task / tiling_.cache_tiles_per_head;
+-      cursor.tile = cursor.task % tiling_.cache_tiles_per_head;
++      const uint32_t physical_task =
++          balanced_ ? cursor.task
++                    : cache_write_phase_task_start(
++                          tiling_, cursor.phase, cursor.task);
++      cursor.row = physical_task / tiling_.cache_tiles_per_head;
++      cursor.tile = physical_task % tiling_.cache_tiles_per_head;
+     }
+   }
+ 

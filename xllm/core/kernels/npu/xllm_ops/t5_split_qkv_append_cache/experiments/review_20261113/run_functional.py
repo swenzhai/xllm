@@ -83,6 +83,19 @@ def _distributed_source(text: str, entry: dict[str, Any]) -> str:
     return derived
 
 
+def _distributed_key_source(text: str) -> str:
+    text = text.replace("4, 128, 1024, 65", "16, 16, 2048, 64")
+    begin, end = text.index("    row_bytes ="), text.index("    shapes =")
+    text = text[:begin] + "    cache_rows = 240\n" + text[end:]
+    text = text.replace("normal_value_rows=cache_rows", "normal_key_rows=cache_rows")
+    text = text.replace("input_boundary_mod32=(cache_rows * row_bytes + 2 * offset) % 32", "normal_key_regions=[[4,84],[88,168],[172,252]], class_alignment=512")
+    text = text.replace("    qkv = arrays[0].reshape",
+        "    for index in (1, 2):\n"
+        "        arrays[index] ^= (np.arange(batch * heads, dtype=np.uint16).reshape(batch, heads, 1, 1) * np.uint16(257))\n"
+        "    qkv = arrays[0].reshape")
+    return text
+
+
 def _main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--prepared-root", type=Path, required=True)
@@ -111,6 +124,12 @@ def _main() -> int:
             derived = _distributed_source(text, entry)
             path.write_text(derived)
             files.append(str(path))
+        if entry.get("kernel_policy") == "distributed_key_output":
+            path = reports / (name + "_executed_distributed_key.py")
+            path.write_text(_distributed_key_source(text))
+            files.append(str(path))
+    if any(_candidate(root, n).get("kernel_policy") == "distributed_key_output" for n in args.candidates):
+        files += [str(HERE / "identity/check_supplied_outputs.py"), str(HERE / "distributed_write_host_result.json")]
     before = _snapshot(files)
     _write(reports / "pretest_manifest.json", before)
     summary = {"scope": "functional_pre_screen" if not args.full else "functional_regression",
@@ -137,6 +156,11 @@ def _main() -> int:
                     commands.append(("cache_no_admission", reports / (name + "_executed_cache_no_admission.py"), []))
                 if _candidate(root, name).get("kernel_policy") == "distributed_value_input":
                     commands.append(("distributed_value_boundary", reports / (name + "_executed_distributed_value.py"), []))
+                if _candidate(root, name).get("kernel_policy") == "distributed_key_output":
+                    commands += [
+                        ("distributed_key_boundary", reports / (name + "_executed_distributed_key.py"), []),
+                        ("supplied_outputs", HERE / "identity/check_supplied_outputs.py", ["--tiling-words", str(HERE / "distributed_write_host_result.json")]),
+                    ]
                 if args.full:
                     commands += [
                         ("queue_stress", project / "tests/queue_stress.py", ["--package-dir", str(package)]),
@@ -158,7 +182,7 @@ def _main() -> int:
                     _write(reports / "summary.json", summary)
                     if rc != 0 or result.get("status") != "passed" or result.get("npu_executed") is not True:
                         raise ValueError("Candidate functional check failed; inspect original records")
-                    expected = {"public_accuracy": 35, "extended": 206, "cache_boundary": 8, "cache_no_admission": 8, "distributed_value_boundary": 8}
+                    expected = {"public_accuracy": 35, "extended": 206, "cache_boundary": 8, "cache_no_admission": 8, "distributed_value_boundary": 8, "distributed_key_boundary": 8, "supplied_outputs": 4}
                     if label in expected and len(result.get("cases", result.get("records", []))) != expected[label]:
                         raise ValueError("Unexpected functional record count")
         summary["status"] = "passed"

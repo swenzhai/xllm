@@ -1,0 +1,29 @@
+--- a/common/t5_split_qkv_append_cache_tiling.h
++++ b/common/t5_split_qkv_append_cache_tiling.h
+@@ -93,24 +93,8 @@
+       base >= kReadBalanceBudgetBytes) {
+     return {};
+   }
+-  const uint64_t rows = uint64_t{tiling.batch} * tiling.head_num;
+-  uint64_t cached_rows = (kReadBalanceBudgetBytes - base) /
+-                         (2 * uint64_t{tiling.past_length} * tiling.head_dim);
+-  cached_rows = cached_rows < rows ? cached_rows : rows;
+-  uint32_t divisor = tiling.cache_tiles_per_head;
+-  uint32_t cores = tiling.block_dim;
+-  while (cores != 0) {
+-    const uint32_t remainder = divisor % cores;
+-    divisor = cores;
+-    cores = remainder;
+-  }
+-  const uint32_t group = tiling.block_dim / divisor;
+-  if (cached_rows >= group) {
+-    cached_rows -= cached_rows % group;
+-  }
+-  return {true,
+-          static_cast<uint32_t>(cached_rows),
+-          static_cast<uint32_t>(cached_rows) * tiling.cache_tiles_per_head};
++  // Compare two-plane cache residency without admitting a third history plane.
++  return {true, 0, 0};
+ }
+ 
+ inline bool can_fuse_append(const T5SplitQkvAppendCacheTilingData& tiling) {

@@ -1,0 +1,53 @@
+--- a/common/t5_split_qkv_append_cache_tiling.h
++++ b/common/t5_split_qkv_append_cache_tiling.h
+@@ -68,13 +68,9 @@
+             tiling.cache_tasks_per_tensor,
+             false};
+   }
+-  const uint64_t base = 4 * n * (tiling.past_length + 2);
+-  const uint64_t remaining = kL2BudgetBytes > base ? kL2BudgetBytes - base : 0;
+-  const uint64_t candidate_rows = remaining / (2 * row_elements);
+-  const uint64_t admitted_rows = candidate_rows < rows ? candidate_rows : rows;
+-  return {static_cast<uint32_t>(admitted_rows * row_elements),
+-          static_cast<uint32_t>(admitted_rows * tiling.cache_tiles_per_head),
+-          true};
++  // Input-only experiment: prevent large outputs from allocating cache lines.
++  // Retain the original small-working-set policy and normal history reads.
++  return {0, 0, true};
+ }
+ 
+ struct ReadBalancePolicy {
+@@ -86,31 +82,8 @@
+ // Retain Key input/output and admit only a bounded prefix of Value input.
+ // Value output uses the bypass hint. This budget is not a cache reservation.
+ T5QKV_MAPPING_INLINE ReadBalancePolicy
+-make_read_balance_policy(const T5SplitQkvAppendCacheTilingData& tiling) {
+-  const uint64_t n = uint64_t{tiling.batch} * tiling.head_num * tiling.head_dim;
+-  const uint64_t base = 2 * n * (2 * uint64_t{tiling.past_length} + 5);
+-  if (tiling.bypass_value_cache == 0 || tiling.past_length == 0 ||
+-      base >= kReadBalanceBudgetBytes) {
+-    return {};
+-  }
+-  const uint64_t rows = uint64_t{tiling.batch} * tiling.head_num;
+-  uint64_t cached_rows = (kReadBalanceBudgetBytes - base) /
+-                         (2 * uint64_t{tiling.past_length} * tiling.head_dim);
+-  cached_rows = cached_rows < rows ? cached_rows : rows;
+-  uint32_t divisor = tiling.cache_tiles_per_head;
+-  uint32_t cores = tiling.block_dim;
+-  while (cores != 0) {
+-    const uint32_t remainder = divisor % cores;
+-    divisor = cores;
+-    cores = remainder;
+-  }
+-  const uint32_t group = tiling.block_dim / divisor;
+-  if (cached_rows >= group) {
+-    cached_rows -= cached_rows % group;
+-  }
+-  return {true,
+-          static_cast<uint32_t>(cached_rows),
+-          static_cast<uint32_t>(cached_rows) * tiling.cache_tiles_per_head};
++make_read_balance_policy(const T5SplitQkvAppendCacheTilingData& /*tiling*/) {
++  return {};
+ }
+ 
+ inline bool can_fuse_append(const T5SplitQkvAppendCacheTilingData& tiling) {

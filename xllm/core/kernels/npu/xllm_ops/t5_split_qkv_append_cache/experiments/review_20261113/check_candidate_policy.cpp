@@ -49,7 +49,9 @@ int32_t main() {
   for (const uint32_t count : phase_counts) {
     assert(count % tiling.block_dim == 0);
   }
-  if (!policy.enabled) {
+  if (!policy.enabled && t5qkv::kL2BudgetBytes == uint64_t{172} * 1024 * 1024) {
+    assert(tiling.cacheable_key_rows == 0 && cache_policy.key_tasks == 0);
+  } else if (!policy.enabled) {
     T5SplitQkvAppendCacheTilingData boundary{};
     assert(t5qkv::make_tiling(/*batch=*/4,
                               /*head_num=*/128,

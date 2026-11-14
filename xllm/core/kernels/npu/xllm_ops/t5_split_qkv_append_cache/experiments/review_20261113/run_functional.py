@@ -35,6 +35,19 @@ def _boundary_source(text: str, entry: dict[str, Any], no_admission: bool = Fals
             text = text.replace("if not 0 < cache_rows < batch * heads:", "if cache_rows != 0:")
             text = text.replace("case must cross the Key-output cache admission boundary",
                                 "case must admit zero Key-output rows")
+    elif entry.get("kernel_policy") in ("key_chain_only", "outputs_only"):
+        begin = text.index("    row_bytes =")
+        end = text.index("    shapes =", begin)
+        text = text[:begin] + "    cache_rows = 0\n" + text[end:]
+        text = text.replace("input_boundary_mod32=(cache_rows * row_bytes + 2 * offset) % 32", "value_input_bypass=True, key_output_normal=True")
+        text = text.replace("across the Value-input admission boundary", "under the two-plane cache plan")
+    elif entry.get("policy") == "input_only":
+        begin = text.index("    row_bytes =")
+        end = text.index("    shapes =", begin)
+        text = text[:begin] + "    cache_rows = 0\n" + text[end:]
+        text = text.replace("normal_value_rows=cache_rows", "normal_key_output_rows=cache_rows")
+        text = text.replace("input_boundary_mod32=(cache_rows * row_bytes + 2 * offset) % 32", "history_inputs_normal=True, all_outputs_bypass=True")
+        text = text.replace("across the Value-input admission boundary", "under the input-only cache plan")
     elif no_admission:
         raise ValueError("No-admission boundary belongs only to the input-priority candidates")
     if entry.get("kernel_policy") == "mirror_key_value":

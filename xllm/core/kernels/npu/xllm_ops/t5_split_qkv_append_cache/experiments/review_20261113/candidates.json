@@ -107,6 +107,44 @@
         "op_kernel/t5_split_qkv_append_cache_kernel.h"
       ],
       "kernel_policy": "distributed_value_input"
+    },
+    {
+      "name": "c9_input_only",
+      "budget_mib": 172,
+      "policy": "input_only",
+      "normal_key_rows": 0,
+      "normal_value_rows": 256,
+      "patch": "patches/c9_input_only.patch",
+      "kernel_policy": "input_only"
+    },
+    {
+      "name": "c10_key_chain_only",
+      "budget_mib": 190,
+      "policy": "read_balance",
+      "normal_key_rows": 256,
+      "normal_value_rows": 0,
+      "patch": "patches/c10_key_chain_only.patch",
+      "allowed_patch_files": [
+        "common/t5_split_qkv_append_cache_tiling.h"
+      ],
+      "kernel_policy": "key_chain_only"
+    },
+    {
+      "name": "c14_outputs_only",
+      "budget_mib": 190,
+      "policy": "read_balance",
+      "normal_key_rows": 256,
+      "normal_value_rows": 0,
+      "patch": "patches/c14_outputs_only.patch",
+      "allowed_patch_files": [
+        "common/t5_split_qkv_append_cache_tiling.h",
+        "op_kernel/t5_split_qkv_append_cache_kernel.h"
+      ],
+      "kernel_policy": "outputs_only",
+      "actual_normal_key_input_rows": 0,
+      "actual_normal_value_input_rows": 0,
+      "actual_normal_key_output_rows": 256,
+      "actual_normal_value_output_rows": 256
     }
   ]
 }

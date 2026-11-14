@@ -1,0 +1,58 @@
+--- a/common/t5_split_qkv_append_cache_tiling.h
++++ b/common/t5_split_qkv_append_cache_tiling.h
+@@ -88,29 +88,13 @@
+ T5QKV_MAPPING_INLINE ReadBalancePolicy
+ make_read_balance_policy(const T5SplitQkvAppendCacheTilingData& tiling) {
+   const uint64_t n = uint64_t{tiling.batch} * tiling.head_num * tiling.head_dim;
+-  const uint64_t base = 2 * n * (2 * uint64_t{tiling.past_length} + 5);
++  const uint64_t base = 4 * n * (uint64_t{tiling.past_length} + 3);
+   if (tiling.bypass_value_cache == 0 || tiling.past_length == 0 ||
+       base >= kReadBalanceBudgetBytes) {
+     return {};
+   }
+-  const uint64_t rows = uint64_t{tiling.batch} * tiling.head_num;
+-  uint64_t cached_rows = (kReadBalanceBudgetBytes - base) /
+-                         (2 * uint64_t{tiling.past_length} * tiling.head_dim);
+-  cached_rows = cached_rows < rows ? cached_rows : rows;
+-  uint32_t divisor = tiling.cache_tiles_per_head;
+-  uint32_t cores = tiling.block_dim;
+-  while (cores != 0) {
+-    const uint32_t remainder = divisor % cores;
+-    divisor = cores;
+-    cores = remainder;
+-  }
+-  const uint32_t group = tiling.block_dim / divisor;
+-  if (cached_rows >= group) {
+-    cached_rows -= cached_rows % group;
+-  }
+-  return {true,
+-          static_cast<uint32_t>(cached_rows),
+-          static_cast<uint32_t>(cached_rows) * tiling.cache_tiles_per_head};
++  // Compare two-plane cache residency without admitting a third history plane.
++  return {true, 0, 0};
+ }
+ 
+ inline bool can_fuse_append(const T5SplitQkvAppendCacheTilingData& tiling) {
+--- a/op_kernel/t5_split_qkv_append_cache_kernel.h
++++ b/op_kernel/t5_split_qkv_append_cache_kernel.h
+@@ -39,6 +39,9 @@
+     if (tiling.past_length != 0) {
+       past_key_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(past_key),
+                                 query_elements * tiling.past_length);
++      if (balanced_) {
++        past_key_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
++      }
+       past_value_bypass_.SetGlobalBuffer(
+           reinterpret_cast<__gm__ uint16_t*>(past_value),
+           query_elements * tiling.past_length);
+@@ -66,7 +69,9 @@
+         tiling.cacheable_key_rows * (tiling.past_length + 1) * tiling.head_dim;
+     cacheable_key_tasks_ =
+         tiling.cacheable_key_rows * tiling.cache_tiles_per_head;
+-    if (tiling.bypass_value_cache != 0) {
++    // Output-only experiment: large Value input uses its existing bypass
++    // view, while both fresh outputs retain normal write caching.
++    if (tiling.bypass_value_cache != 0 && !balanced_) {
+       value_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+     }
+     pipe_.InitBuffer(buffer_, 2 * tiling.tile_elements * sizeof(uint16_t));

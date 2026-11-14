@@ -89,3 +89,32 @@ patterns across all 256 rows, both dtypes, entries and input offsets. Its metada
 uses equivalent cached-row count because whole rows are no longer the unit of
 admission. Existing public tests and timing cases remain unchanged. This candidate
 has not passed A3 performance screening and must not replace the product yet.
+
+
+## Two-plane residency controls
+
+C8 completed its functional checks but failed default timing. The next bounded
+comparison removes the third large cached plane rather than shifting addresses
+or sweeping a near-capacity budget:
+
+| Candidate | Normally cached history | Normally cached large outputs |
+| --- | --- | --- |
+| C9 input-only | Key and Value | neither |
+| C10 Key chain | Key | Key |
+| C14 output-only | neither | Key and Value |
+
+At the large public geometry, normal logical working bytes including QKV/Query
+are approximately 128.125/128.156/128.188 MiB. Hints are not residency guarantees.
+All plans still copy every output, allocate fresh independent tensors, and retain
+52-byte tiling/184KiB UB/manual events. Small shapes keep the original policy;
+C10/C14 retain the working-set guard and original fallback outside their domain.
+C14's legacy host quota-helper fields do not describe its overridden input/output
+hints; its actual_normal_* fields document the intended output-only plan. An
+initial CPU check caught a missing large-shape budget guard before any target
+build; the failing preparation/logs were retained and the guard corrected.
+
+C9 trades cached outputs for normally cached reads; C10/C14 compare cache roles
+at similar total working size. Extra HBM traffic can outweigh any residency gain.
+The additional eight-case fixture explicitly checks each cache plan, not a
+nonexistent partial-admission boundary. None is a performance-qualified version
+until full real pre-screen and independent original-protocol timing finish.

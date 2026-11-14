@@ -17,6 +17,7 @@ def _main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--site-packages", required=True)
     parser.add_argument("--benchmark", required=True, type=Path)
+    parser.add_argument("--primer-bytes", type=int, choices=[0, 1073741312], default=0)
     parser.add_argument("--trace", required=True, type=Path)
     parser.add_argument("--identity", required=True, type=Path)
     parser.add_argument("args", nargs=argparse.REMAINDER)
@@ -30,6 +31,13 @@ def _main() -> int:
     torch.npu.set_device(0)
     if torch.npu.get_device_name(0) != "Ascend910_9382" or torch.npu.device_count() != 1:
         raise ValueError("Require one visible target A3 chip")
+    if args.primer_bytes:
+        temporary = torch.empty(args.primer_bytes, dtype=torch.uint8, device="npu:0")
+        del temporary
+        torch.npu.synchronize()
+    after_priming = {"allocated": torch.npu.memory_allocated(), "reserved": torch.npu.memory_reserved()}
+    if after_priming["allocated"] != 0:
+        raise ValueError("Unexpected active tensor before history collection")
     # The installed torch_npu implementation was checked: context=None records
     # alloc/free events without stack collection. Instrumented timings are never
     # used as acceptance samples, even though the public script is unchanged.
@@ -54,6 +62,7 @@ def _main() -> int:
         smi = subprocess.run(["npu-smi", "info"], capture_output=True, text=True)
         implementation = Path(torch_npu.npu.memory.__file__)
         identity = {"scope": "instrumented_memory_history_diagnostic_not_acceptance",
+            "primer_bytes": args.primer_bytes, "after_priming": after_priming,
             "pid": os.getpid(), "device_name": torch.npu.get_device_name(0),
             "visible_devices": torch.npu.device_count(),
             "visible_device_env": os.environ.get("ASCEND_RT_VISIBLE_DEVICES"),

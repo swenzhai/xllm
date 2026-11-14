@@ -162,7 +162,7 @@ def _main() -> int:
                 if _candidate(root, name).get("kernel_policy") in ("distributed_key_output", "flat_output_tiles"):
                     commands += [
                         ("distributed_key_boundary", reports / (name + "_executed_distributed_key.py"), []),
-                        ("supplied_outputs", HERE / "identity/check_supplied_outputs.py", ["--tiling-words", str(HERE / "distributed_write_host_result.json"), str(HERE / "flat_mapping_host_result.json")]),
+                        ("supplied_outputs", HERE / "identity/check_supplied_outputs.py", ["--tiling-words", str(HERE / ("flat_mapping_host_result.json" if _candidate(root, name).get("kernel_policy") == "flat_output_tiles" else "distributed_write_host_result.json"))]),
                     ]
                 if args.full:
                     commands += [

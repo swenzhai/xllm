@@ -224,6 +224,44 @@
       "actual_normal_key_output_rows": 176,
       "actual_normal_value_output_rows": 176,
       "supplied_outputs_plan": "c20_four_plane_176_host_result.json"
+    },
+    {
+      "name": "c21_dispersed_write_13",
+      "budget_mib": 190,
+      "policy": "input_priority",
+      "normal_key_rows": 240,
+      "normal_value_rows": 256,
+      "patch": "patches/c21_dispersed_write_13.patch",
+      "allowed_patch_files": [
+        "common/t5_split_qkv_append_cache_tiling.h",
+        "op_kernel/t5_split_qkv_append_cache_kernel.h"
+      ],
+      "kernel_policy": "dispersed_key_output",
+      "normal_output_slots": 13,
+      "output_slot_period": 16,
+      "actual_normal_key_input_rows": 256,
+      "actual_normal_value_input_rows": 256,
+      "supplied_outputs_plan": "c21_dispersed_write_13_host_result.json",
+      "expected_supplied_outputs": 8
+    },
+    {
+      "name": "c22_dispersed_write_12",
+      "budget_mib": 190,
+      "policy": "input_priority",
+      "normal_key_rows": 240,
+      "normal_value_rows": 256,
+      "patch": "patches/c22_dispersed_write_12.patch",
+      "allowed_patch_files": [
+        "common/t5_split_qkv_append_cache_tiling.h",
+        "op_kernel/t5_split_qkv_append_cache_kernel.h"
+      ],
+      "kernel_policy": "dispersed_key_output",
+      "normal_output_slots": 12,
+      "output_slot_period": 16,
+      "actual_normal_key_input_rows": 256,
+      "actual_normal_value_input_rows": 256,
+      "supplied_outputs_plan": "c22_dispersed_write_12_host_result.json",
+      "expected_supplied_outputs": 8
     }
   ]
 }

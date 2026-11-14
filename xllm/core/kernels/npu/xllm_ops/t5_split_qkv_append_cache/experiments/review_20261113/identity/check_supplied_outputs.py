@@ -5,19 +5,26 @@ import argparse
 import ctypes
 import hashlib
 import json
+import itertools
 from pathlib import Path
+from typing import Optional
 
 
 class _Tiling(ctypes.Structure):
     _fields_ = [("word" + str(i), ctypes.c_uint32) for i in range(13)]
 
 
-def _main() -> int:
+def _parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--solution-file", type=Path, required=True)
     parser.add_argument("--tiling-words", type=Path, required=True)
     parser.add_argument("--report", type=Path, required=True)
-    args = parser.parse_args()
+    parser.add_argument("--value-offsets", type=int, nargs="+", choices=[0, 1], default=[0])
+    return parser.parse_args(argv)
+
+
+def _main() -> int:
+    args = _parse_args()
     if args.report.exists():
         parser.error("Preserve prior results")
     import numpy as np
@@ -61,14 +68,16 @@ def _main() -> int:
             np.concatenate((arrays[1], qkv[:, 1, :, None, :]), axis=2),
             np.concatenate((arrays[2], qkv[:, 2, :, None, :]), axis=2)]
         for dtype in (torch.float16, torch.bfloat16):
-            for offset in (0, 1):
+            for offset, value_offset in itertools.product((0, 1), args.value_offsets):
                 inputs = [torch.from_numpy(a.view(np.int16)).to("npu:0").view(dtype) for a in arrays]
                 guards = [torch.full((a.size + 33,), 21930, dtype=torch.int16, device="npu:0") for a in expected]
-                offsets = [0, offset, 0]
+                offsets = [0, offset, value_offset]
                 outputs = [raw[o:o + a.size].reshape(a.shape).view(dtype)
                            for raw, o, a in zip(guards, offsets, expected)]
                 if (outputs[1].data_ptr() % 512 == 0) != (offset == 0):
                     raise AssertionError("Test did not exercise the intended output alignment")
+                if (outputs[2].data_ptr() % 512 == 0) != (value_offset == 0):
+                    raise AssertionError("Value output alignment differs from requested offset")
                 torch.npu.synchronize()
                 rc = launch(48, stream, *[ctypes.c_void_p(t.data_ptr()) for t in (*inputs, *outputs)], tiling)
                 if rc != 0 or acl.aclrtSynchronizeStream(stream) != 0:
@@ -87,6 +96,7 @@ def _main() -> int:
                         raise AssertionError("Output guard overwritten")
                 report["records"].append({"dtype": str(dtype), "key_output_offset_elements": offset,
                     "key_data_mod512": outputs[1].data_ptr() % 512, "status": "passed",
+                    "value_output_offset_elements": value_offset, "value_data_mod512": outputs[2].data_ptr() % 512,
                     "raw_bits_equal": True, "guard_words_preserved": True})
                 args.report.write_text(json.dumps(report, indent=2) + "\n")
                 del inputs, outputs, guards, raw, output

@@ -230,3 +230,10 @@ R5：基于实测ACL policy0/6差异，单独试验四平面准入C19/C20。C19�
 仅256行/L2048/D64/48核/C3且输出Key/Value基址均512B对齐启用，其余走原C0。四段normal/bypass的prefix边界按4行对齐至512B，旁路核分区旋转抵消normal余数，48核每核32任务，1536任务/512追加全部恰好一次。新GlobalTensor只是同一GM的cache hint视图；52字节POD/184KiB UB/双槽事件发布与消费顺序保持，输出分配/接口/数值/工作区均不变。CPU实际helper覆盖字节数、512B边界、任务均衡、退化域及tiling words，不能替代新kernel的NPU验证；actual_normal_*字段表示新hint计划，原normal_*字段仅描述未改动的C0 helper和fallback。
 
 R5首轮预算：新根独立构建control/C19/C20→26功能子检查（含35/206、8项row-tagged四平面边界及4项提供输出guard）→18批原完整10项50/200/5协议、post-identity五库检查。所有批失败原样保留；若初筛通过，再至少每allocator10个新进程确认及full回归/C++示例，之后才更新正式报告/交付件。若失败，先采集相同源码的L2/Pipe诊断，再据瓶颈决定结构变化，不盲扫准入参数、不更换全局allocator。
+
+
+R5首轮26功能通过、18批性能完成但C19/C20失败，12组独立Pipe/L2诊断完成，原源码/产物不变。C19默认Pipe的MTE2约72–76µs（C0约56µs）、Scalar约4.7–4.8µs（C0约4.95µs），MTE3约42–44µs（C0约55µs）；1g原协议约83–84µs（C0约72µs）。缩小输入缓存造成的读代价没有换来足够的写收益；Pipe和L2分开进程，不将两个计数组合成同一次测量，均不作为验收时间。完整指标和失败批见four_plane_screen_results.json。
+
+R5第二轮C21/C22保留C4的两历史输入正常缓存、Value输出全旁路，只把Key输出正常写入分散至每16个连续47104元素tile中的前13或12个。与C18不同：不再是前240行正常Key写入；常驻Key写入分别54706176/50561024字节，含两输入+小张量总正常驻留约180.3/176.3MiB，旁路写79577088/83722240字节。输出512B整块写，跨head最多三段gather，不增加GM/UB/POD/事件/输出存储、不设置全局allocator。48核各29或30任务，CPU逐元素检查67141632元素、1426写tile/全部history读取完整覆盖，实际dense起始与增量跳转一致。输出Key非512对齐时预先选择已支持的Key-chain路径；其他非目标域沿用C4。
+
+C21/C22每allocator须先35/206/legacy8/no-admission8/row-tagged8及supplied-output8（两dtype×Key/Value各offset0/1）真实通过，才跑原完整10项3批筛选。首轮control功能已独立完整通过；新轮control重新构建并每批交错计时，不重复计数旧功能。通过才10批/allocator确认、full回归和正式报告/交付更新。两个固定余量用于检验分散写入及读优先，不做同参数无限扫描。新CLI CPU回归实际解析每套候选的supplied-output命令，防止CPU plan重复实参问题再次发生；host检查不宣称NPU成功。

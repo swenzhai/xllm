@@ -15,7 +15,7 @@ from typing import Any
 
 from evidence import _read, _write
 from run_matrix import _evaluate, _execute, _schedule
-from run_functional import _boundary_source
+from run_functional import _boundary_source, _supplied_args
 
 
 def _targets() -> dict[str, Any]:
@@ -39,6 +39,19 @@ def _report(slow: bool = False) -> dict[str, Any]:
 
 
 class DriverTest(unittest.TestCase):
+    def test_supplied_output_commands_parse_actual_cli(self) -> None:
+        from identity.check_supplied_outputs import _parse_args
+        root = Path(__file__).resolve().parent
+        entries = _read(root / "candidates.json")["candidates"]
+        for entry in entries:
+            if entry.get("kernel_policy") not in {"distributed_key_output", "flat_output_tiles", "four_plane", "dispersed_key_output"}:
+                continue
+            with self.subTest(candidate=entry["name"]):
+                parsed = _parse_args(["--solution-file", "synthetic_solution.py",
+                                      "--report", "not_executed.json", *_supplied_args(entry)])
+                self.assertEqual(len(_read(parsed.tiling_words)["tiling_words"]), 13)
+                self.assertEqual(4 * len(parsed.value_offsets), entry.get("expected_supplied_outputs", 4))
+
     def test_loaded_library_guard_requires_every_actual_hash(self) -> None:
         from identity.run_crossover import _identity
         with tempfile.TemporaryDirectory(prefix="t5qkv-library-guard-") as temporary:

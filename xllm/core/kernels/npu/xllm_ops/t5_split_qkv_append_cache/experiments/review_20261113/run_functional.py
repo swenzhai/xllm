@@ -22,6 +22,13 @@ def _supplied_plan(entry: dict[str, Any]) -> Path:
                    else "distributed_write_host_result.json")
 
 
+def _supplied_args(entry: dict[str, Any]) -> list[str]:
+    result = ["--tiling-words", str(_supplied_plan(entry))]
+    if entry.get("expected_supplied_outputs", 4) == 8:
+        result += ["--value-offsets", "0", "1"]
+    return result
+
+
 def _boundary_source(text: str, entry: dict[str, Any], no_admission: bool = False) -> str:
     if text.count("190 * 1024**2") != 1:
         raise ValueError("Unexpected boundary-test source; inspect before adapting")
@@ -134,13 +141,17 @@ def _main() -> int:
             derived = _distributed_source(text, entry)
             path.write_text(derived)
             files.append(str(path))
-        if entry.get("kernel_policy") in ("distributed_key_output", "flat_output_tiles"):
+        if entry.get("kernel_policy") in ("distributed_key_output", "flat_output_tiles", "dispersed_key_output"):
             path = reports / (name + "_executed_distributed_key.py")
             derived = _distributed_key_source(text)
             if entry.get("kernel_policy") == "flat_output_tiles":
                 derived = derived.replace("normal_key_regions=[[4,84],[88,168],[172,252]]", "normal_key_regions=[[0,240]], output_tile_elements=47104")
+            if entry.get("kernel_policy") == "dispersed_key_output":
+                derived = derived.replace("normal_key_rows=cache_rows", "legacy_key_quota_rows=cache_rows")
+                derived = derived.replace("normal_key_regions=[[4,84],[88,168],[172,252]]",
+                    "normal_write_slots=" + str(entry["normal_output_slots"]) + ", slot_period=16, output_tile_elements=47104")
             path.write_text(derived)
-            files.append(str(path))
+            files += [str(path), str(_supplied_plan(entry))]
         if entry.get("kernel_policy") == "four_plane":
             path = reports / (name + "_executed_four_plane.py")
             derived = _distributed_key_source(text)
@@ -149,7 +160,7 @@ def _main() -> int:
                                       "normal_rows_per_plane=cache_rows, planes=4")
             path.write_text(derived)
             files += [str(path), str(_supplied_plan(entry)), str(HERE / "identity/check_supplied_outputs.py")]
-    if any(_candidate(root, n).get("kernel_policy") in ("distributed_key_output", "flat_output_tiles") for n in args.candidates):
+    if any(_candidate(root, n).get("kernel_policy") in ("distributed_key_output", "flat_output_tiles", "dispersed_key_output") for n in args.candidates):
         files += [str(HERE / "identity/check_supplied_outputs.py"), str(HERE / "distributed_write_host_result.json"), str(HERE / "flat_mapping_host_result.json")]
     before = _snapshot(files)
     _write(reports / "pretest_manifest.json", before)
@@ -177,15 +188,15 @@ def _main() -> int:
                     commands.append(("cache_no_admission", reports / (name + "_executed_cache_no_admission.py"), []))
                 if _candidate(root, name).get("kernel_policy") == "distributed_value_input":
                     commands.append(("distributed_value_boundary", reports / (name + "_executed_distributed_value.py"), []))
-                if _candidate(root, name).get("kernel_policy") in ("distributed_key_output", "flat_output_tiles"):
+                if _candidate(root, name).get("kernel_policy") in ("distributed_key_output", "flat_output_tiles", "dispersed_key_output"):
                     commands += [
-                        ("distributed_key_boundary", reports / (name + "_executed_distributed_key.py"), []),
-                        ("supplied_outputs", HERE / "identity/check_supplied_outputs.py", ["--tiling-words", str(_supplied_plan(_candidate(root, name)))]),
+                        ("dispersed_key_boundary" if _candidate(root, name).get("kernel_policy") == "dispersed_key_output" else "distributed_key_boundary", reports / (name + "_executed_distributed_key.py"), []),
+                        ("supplied_outputs", HERE / "identity/check_supplied_outputs.py", _supplied_args(_candidate(root, name))),
                     ]
                 if _candidate(root, name).get("kernel_policy") == "four_plane":
                     commands += [
                         ("four_plane_boundary", reports / (name + "_executed_four_plane.py"), []),
-                        ("supplied_outputs", HERE / "identity/check_supplied_outputs.py", ["--tiling-words", str(_supplied_plan(_candidate(root, name)))]),
+                        ("supplied_outputs", HERE / "identity/check_supplied_outputs.py", _supplied_args(_candidate(root, name))),
                     ]
                 if args.full:
                     commands += [
@@ -209,6 +220,8 @@ def _main() -> int:
                     if rc != 0 or result.get("status") != "passed" or result.get("npu_executed") is not True:
                         raise ValueError("Candidate functional check failed; inspect original records")
                     expected = {"public_accuracy": 35, "extended": 206, "cache_boundary": 8, "cache_no_admission": 8, "distributed_value_boundary": 8, "distributed_key_boundary": 8, "four_plane_boundary": 8, "supplied_outputs": 4}
+                    expected["dispersed_key_boundary"] = 8
+                    expected["supplied_outputs"] = _candidate(root, name).get("expected_supplied_outputs", 4)
                     if label in expected and len(result.get("cases", result.get("records", []))) != expected[label]:
                         raise ValueError("Unexpected functional record count")
         summary["status"] = "passed"

@@ -281,3 +281,9 @@ C32沿用C29单平面双槽、交替K/V完整块调度及2448读取piece/1426写
 第七轮原等待控制器在任何build/NPU操作前终止并保留；独立driver02仅允许新C32确认，新的gate/plan/log文件避免覆写原件。C29/C32目标构建已完成，正在28功能，随后12筛选；C32全部六批通过才20确认/full。根/workspace/t5qkv-complementary-cache-20261114-01，bundle8f3dfc261d575cae16b9a4242948a9f5bfe825caa31051da25a0cb94f63ec7aa。
 
 备用C33仅CPU准备：保持C32全部hint/数据量/184KiB UB/事件，将16个Query块从历史任务较多的前16核，分配到只处理14对而非15对K/V块的第41–47核，每核2或3个Query块。仍使用原decode_task/copy_segment，其他路径原Query分配。CPU全67M历史元素与16个Query任务/地址/覆盖检查、30候选通用CPU及9项driver检查通过。只有C32剩余实测差距≤3µs时，才考虑该负载均衡变体的目标测试；它不解决十几微秒的缓存退化，当前没有NPU通过结论。
+
+第七轮28功能全部通过、12原协议筛选完成，C32六批全部失败，default大case约106.6–107.0µs、page1g约105.5–105.8µs，另一次001=31.362µs超28µs。实际加载五库/source/artifact检查成功。C33条件门槛因此未启动任何build/NPU。四个同进程history+PMU诊断完整：default007 L2 task106.632µs/r0 miss-allocate72，page1g105.310µs/r0为0；另两个Pipe进程default task106.560µs、Scalar5.354、MTE286.507、MTE368.277，page1g105.315/5.349/86.113/67.396。低miss不等于没有HBM读取：该计划主动旁路约52MiB Key读取。L2/Pipe各属于自己的进程，不拼接成同一次样本。该计划虽消除主要分配策略差距，计划旁路读的代价未达绝对耗时要求，不晋升。见complementary_cache_screen_results.json及其逐SHA证据归档。
+
+C34以此作一次结构验证，并不声称512B对齐必然提升带宽：改用60KiB逻辑块、三个独立UB槽，每槽前后各512B私有空间，总183KiB。Key输入基址512B对齐时，将历史Key旁路读向512B边界扩展，直接落入槽前缀/后缀；只有首个historical piece可能带前缀，后续head piece前缀为0，后续QKV/head覆盖先前后缀，最终store只写真实有效块。输入总长度512B倍数、向前/向后扩展均在合法只读输入区间内；未对齐输入不扩读。完整CPU local-map模拟覆盖67M元素及所有额外读取边界，额外读取341632B、无额外GM。每核44/46次历史任务，16Query分至37–47短核；52字节POD不变，其余几何/未对齐输出沿用原双槽路径。
+
+三槽各自申请MTE2_MTE3/MTE3_MTE2事件，先预取最多三块，再依次等R/store/setW，只有等对应槽W后才重填；最终全部W消费后才复用UB处理Query并释放事件。A3事件ID范围0–7已核对官方9.1页1120，三份/方向合法，TPipe只有一个TBuf。CPU槽复用依赖/地址/Query覆盖及31候选通用mapper、9项driver测试通过。C34仍待目标构建；先完整20个功能子检查（含queue/tail/hot），再6批原协议筛选，全部通过才20新进程确认。已在前置full中覆盖的相同源码/产物不重复执行full。若失败停止该复合方向，不通过扩大参数扫描或改变分配器来宣布通过。

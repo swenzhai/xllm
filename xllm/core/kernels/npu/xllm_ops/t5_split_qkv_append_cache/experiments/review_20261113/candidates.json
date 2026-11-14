@@ -559,6 +559,38 @@
       "complementary_key_read_write_hints": true,
       "normal_footprint_note": "Value history plus complementary Key-input/Key-output intervals; below130MiB relative512B-line bound",
       "query_on_short_history_cores": true
+    },
+    {
+      "name": "c34_aligned_triple_history",
+      "budget_mib": 190,
+      "policy": "input_priority",
+      "normal_key_rows": 240,
+      "normal_value_rows": 256,
+      "patch": "patches/c34_aligned_triple_history.patch",
+      "allowed_patch_files": [
+        "common/t5_split_qkv_append_cache_tiling.h",
+        "op_kernel/t5_split_qkv_append_cache_kernel.h"
+      ],
+      "kernel_policy": "interleaved_history",
+      "normal_output_slots": 13,
+      "output_slot_period": 16,
+      "bypass_output_slots": [
+        4,
+        9,
+        14
+      ],
+      "last_partial_period_normal": true,
+      "actual_normal_key_input_rows": null,
+      "actual_normal_value_input_rows": 256,
+      "supplied_outputs_plan": "c34_aligned_triple_history_host_result.json",
+      "expected_supplied_outputs": 8,
+      "parent_candidate": "c32_complementary_key_cache",
+      "complementary_key_read_write_hints": true,
+      "normal_footprint_note": "Value history plus complementary Key-input/Key-output intervals; below130MiB relative512B-line bound",
+      "flat_tile_elements": 30720,
+      "history_slots": 3,
+      "aligned_read_only_if_Key_base_512_aligned": true,
+      "query_on_short_history_cores": true
     }
   ]
 }

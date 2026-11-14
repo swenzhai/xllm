@@ -156,6 +156,9 @@ def _main() -> int:
                     derived = derived.replace(period, "bypass_slot_pattern=" + str(entry["bypass_output_slots"]) + ", " + period)
                 if entry.get("kernel_policy") == "paired_history":
                     derived = derived.replace("output_tile_elements=47104", "parent_tile_elements=47104, output_plane_elements=" + str(entry["paired_plane_elements"]))
+                if entry.get("flat_tile_elements"):
+                    derived = derived.replace("output_tile_elements=47104", "serialized_tile_elements=47104, output_tile_elements=" +
+                                              str(entry["flat_tile_elements"]) + ", history_slots=" + str(entry["history_slots"]))
             path.write_text(derived)
             files += [str(path), str(_supplied_plan(entry))]
             if entry.get("kernel_policy") in ("paired_history", "interleaved_history"):

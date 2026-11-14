@@ -15,7 +15,7 @@ import sysconfig
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from evidence import _child, _environment, _read, _write
+from evidence import _candidate, _child, _environment, _read, _write
 from run_matrix import _evaluate, _freeze_files, _snapshot
 from identity.run_crossover import _identity
 
@@ -66,6 +66,7 @@ def _main() -> int:
         parser.error("Require at least one complete diagnostic process")
     root, reports = args.prepared_root.resolve(), args.report_dir.resolve()
     package = root / "official_task_package"
+    entry = _candidate(root, args.candidate)
     files = _freeze_files(root, [args.candidate], package)
     files += [str(Path(__file__).resolve()), str(HERE / "memory_history.py"),
               str(HERE / "run_crossover.py")]
@@ -73,7 +74,8 @@ def _main() -> int:
     cases = [c for c in _read(package / "case.json") if c.get("performance") is True]
     reports.mkdir(parents=True, exist_ok=False)
     _write(reports / "pretest_manifest.json", before)
-    result: dict[str, Any] = {"scope": "paired_read_address_diagnostic_NOT_ACCEPTANCE",
+    result: dict[str, Any] = {"scope": "allocation_history_profile_diagnostic_NOT_ACCEPTANCE",
+                              "candidate": args.candidate, "kernel_policy": entry.get("kernel_policy"),
                               "status": "running", "records": [], "full_acceptance": False}
     _write(reports / "summary.json", result)
     try:
@@ -122,10 +124,16 @@ def _main() -> int:
             if len(events) >= 200000:
                 raise ValueError("Truncated history")
             allocs = [e for e in events if e["action"] == "alloc"]
+            addresses = _address_rows(cases, allocs)
+            if entry.get("kernel_policy") != "paired_history":
+                for row in addresses:
+                    row.pop("branch_observed_on_device")
+                    for triple in row["timed_output_triples"]:
+                        triple.pop("c27_address_guard_expected")
             result["records"].append({"directory": str(directory), "allocations": len(allocs),
                                       "metric": args.metric, "allocator": args.allocator,
                                       "profiler_csv": [str(p) for p in csv],
-                                      "events": len(events), "address_rows": _address_rows(cases, allocs),
+                                      "events": len(events), "address_rows": addresses,
                                       "instrumented_checks_NOT_ACCEPTANCE": checked})
             _write(reports / "summary.json", result)
         result["status"] = "completed_diagnostic_NOT_ACCEPTANCE"

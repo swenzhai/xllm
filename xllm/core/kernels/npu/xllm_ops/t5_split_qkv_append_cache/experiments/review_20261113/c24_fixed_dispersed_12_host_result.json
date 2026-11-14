@@ -1,0 +1,38 @@
+{
+  "scope": "host_dispersed_write_mapping_only",
+  "npu_executed": false,
+  "status": "passed",
+  "tiles": 1426,
+  "elements_checked": 67141632,
+  "normal_write_slots": 12,
+  "pieces": 2448,
+  "normal_history_read_bytes": 134217728,
+  "normal_key_write_bytes": 50561024,
+  "bypass_write_bytes": 83722240,
+  "tiling_words": [
+    16,
+    16,
+    2048,
+    64,
+    47104,
+    3,
+    1,
+    768,
+    16,
+    1552,
+    48,
+    240,
+    1
+  ],
+  "fixed_guard": {
+    "scope": "fixed_tiling_CPU_guard_only",
+    "npu_executed": false,
+    "status": "passed",
+    "tiling_bytes": 52,
+    "single_word_guard_mutations": 13,
+    "other_valid_shapes": 3
+  },
+  "header_sha256": "177ec53a6064e3449f7b32a5d3f6d882cb3a2ccdf1b2b33575f95934529d1c65",
+  "checker_source_sha256": "273e7452cdf513df1c1b9e33a5bc842832ccb7ea1f8b31db8fccec3d8d6ff764",
+  "fixed_guard_checker_sha256": "20857a00bb6738fcb7cf96443a989994dd42670e626b8f32c8ae13ffddd07655"
+}

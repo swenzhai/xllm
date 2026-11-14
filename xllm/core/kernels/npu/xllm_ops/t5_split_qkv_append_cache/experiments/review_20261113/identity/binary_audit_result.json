@@ -1,0 +1,1013 @@
+{
+  "scope": "elf_identity_not_runtime_or_performance",
+  "npu_executed": false,
+  "pinned_artifacts_verified": true,
+  "sources": {
+    "old": {
+      ".gitignore": "cc0791c608530647ce4d263710190c513316fab6151abf9525f56e08e8987acb",
+      "CMakeLists.txt": "9a295d373832034580d7a7f91ce121d9ca4452ebe00f8fe64a0c6d6c98dfa3ac",
+      "README.md": "15f0226e56c5e8fe363de41dd83cdd2040c5fb61ff14d998443f7b927358db0b",
+      "common/t5_split_qkv_append_cache_tiling.h": "47fc97d38ff706a772a1e72cdd06e7aa9566f61c7a2115bfa6cbd83828c3423f",
+      "direct/CMakeLists.txt": "c9966a06efb432fc1b9cf6ea095d813fab60302afe0cde98c57bccf51dada901",
+      "direct/launch.cpp": "4cd1bab09fe425526fd956188e57a4f0d1d329b7c92eb813445fe81ee74f415e",
+      "examples/CMakeLists.txt": "4cb46bb7b275821705d14be1d431188c60cc8d50b57d9f04b22a5f213cbf5824",
+      "examples/aclnn_example.cpp": "9ede2f6391c46c309c8c18c9e2ef2b652cca1f2ff084d536fe68ea534888d401",
+      "framework/binding.cpp": "30aa6a7d654a26008f3f313561e74b1f7f2d5df33df65338fcccdf39abb9b7e3",
+      "framework/setup.py": "876710b252038fa437b6996beabc45349ef47a77852712ca8e60b2a4b49834d9",
+      "op_host/CMakeLists.txt": "64e08dd570b8d410ae28a45d595990d00551517ef2b80f69cb4f35c4f88fc1c2",
+      "op_host/t5_split_qkv_append_cache.cpp": "5f39f1b1c76171903f4e2dea30828baaab398f1bc15daab6a244b66e46045157",
+      "op_kernel/CMakeLists.txt": "ff52c2aca70f6b71e83f353857636dd94e79c456161bce4460f608b2c054c107",
+      "op_kernel/t5_split_qkv_append_cache.cpp": "64edd8c6b84fc520d298351101797d1ef89471763b137554764905195b9071b3",
+      "op_kernel/t5_split_qkv_append_cache_kernel.h": "f72ab7234fb5c39e00da2b564eddefda5bb215ef5d368c97df41cf4fb9acad4c",
+      "scripts/build.sh": "1b6afe803ea2ace763f9b94c74c563efbb7302aa45722b49a41f4dde83ea14cc",
+      "scripts/build_framework.sh": "c503ef364fd0f9acf9a77a9d0d59263e2e0be1cc500fca22b73f3412ce84586e",
+      "scripts/install.sh": "0f7c073e9679fe147e3d19fa28334d1e47d21e2b5a4a9207220c5d1013f6e263",
+      "solution.py": "50cce71c4aceb7d1e94c328f3ba543b2ab33bc04a81d978463c13371502656dc",
+      "tests/acceptance.py": "9cea01e1ca164a9db06bb3fff00b09971c9a3dcf74fdb24a3d569256db77f932",
+      "tests/cache_boundary.py": "149eb4abb09c757c2f9237ab4e26be9ee8b6b2f95319396a5e2d15fc3e4ad95f",
+      "tests/check_task_mapping.cpp": "9e2f38b996945f10a644f1582d0ad7729075eac61a77a6814566b933620fb467",
+      "tests/check_task_mapping.py": "7a01b99478e7f5d5d00f2166cdacf621f5aff309c9bc0750fea057358502ff8c",
+      "tests/compare_same_device.py": "2d7aa259e782c5ffbeaadf4fd3a40666126d8d7d3ee33da5f975d1e4e2966e7b",
+      "tests/hot_geometry_boundary.py": "66e1173f7e197c8cf1a5bdb55f9b4f1067dd68ab9af5dbb6f9657beecfb2d2c1",
+      "tests/queue_stress.py": "231c57675856edcd3552e77e7d3d2f0a51d6eae30af43ebb148d0bdbc0cae3d6",
+      "tests/tail_fusion_boundary.py": "df1751bb7ef9a0b64cc397944b2a45bdeeaf42888b38ef592748b5c5df345b1f",
+      "tests/taskbook_baseline.py": "3924229ab33a6e2f9dbc9a88cdb2e78e1250b27b8179ed666542330712f7fcec"
+    },
+    "new": {
+      ".gitignore": "cc0791c608530647ce4d263710190c513316fab6151abf9525f56e08e8987acb",
+      "CMakeLists.txt": "9a295d373832034580d7a7f91ce121d9ca4452ebe00f8fe64a0c6d6c98dfa3ac",
+      "README.md": "15f0226e56c5e8fe363de41dd83cdd2040c5fb61ff14d998443f7b927358db0b",
+      "common/t5_split_qkv_append_cache_tiling.h": "47fc97d38ff706a772a1e72cdd06e7aa9566f61c7a2115bfa6cbd83828c3423f",
+      "direct/CMakeLists.txt": "c9966a06efb432fc1b9cf6ea095d813fab60302afe0cde98c57bccf51dada901",
+      "direct/launch.cpp": "4cd1bab09fe425526fd956188e57a4f0d1d329b7c92eb813445fe81ee74f415e",
+      "examples/CMakeLists.txt": "4cb46bb7b275821705d14be1d431188c60cc8d50b57d9f04b22a5f213cbf5824",
+      "examples/aclnn_example.cpp": "9ede2f6391c46c309c8c18c9e2ef2b652cca1f2ff084d536fe68ea534888d401",
+      "framework/binding.cpp": "30aa6a7d654a26008f3f313561e74b1f7f2d5df33df65338fcccdf39abb9b7e3",
+      "framework/setup.py": "876710b252038fa437b6996beabc45349ef47a77852712ca8e60b2a4b49834d9",
+      "op_host/CMakeLists.txt": "64e08dd570b8d410ae28a45d595990d00551517ef2b80f69cb4f35c4f88fc1c2",
+      "op_host/t5_split_qkv_append_cache.cpp": "5f39f1b1c76171903f4e2dea30828baaab398f1bc15daab6a244b66e46045157",
+      "op_kernel/CMakeLists.txt": "ff52c2aca70f6b71e83f353857636dd94e79c456161bce4460f608b2c054c107",
+      "op_kernel/t5_split_qkv_append_cache.cpp": "64edd8c6b84fc520d298351101797d1ef89471763b137554764905195b9071b3",
+      "op_kernel/t5_split_qkv_append_cache_kernel.h": "f72ab7234fb5c39e00da2b564eddefda5bb215ef5d368c97df41cf4fb9acad4c",
+      "scripts/build.sh": "1b6afe803ea2ace763f9b94c74c563efbb7302aa45722b49a41f4dde83ea14cc",
+      "scripts/build_framework.sh": "c503ef364fd0f9acf9a77a9d0d59263e2e0be1cc500fca22b73f3412ce84586e",
+      "scripts/install.sh": "0f7c073e9679fe147e3d19fa28334d1e47d21e2b5a4a9207220c5d1013f6e263",
+      "solution.py": "50cce71c4aceb7d1e94c328f3ba543b2ab33bc04a81d978463c13371502656dc",
+      "tests/acceptance.py": "9cea01e1ca164a9db06bb3fff00b09971c9a3dcf74fdb24a3d569256db77f932",
+      "tests/cache_boundary.py": "149eb4abb09c757c2f9237ab4e26be9ee8b6b2f95319396a5e2d15fc3e4ad95f",
+      "tests/check_task_mapping.cpp": "9e2f38b996945f10a644f1582d0ad7729075eac61a77a6814566b933620fb467",
+      "tests/check_task_mapping.py": "7a01b99478e7f5d5d00f2166cdacf621f5aff309c9bc0750fea057358502ff8c",
+      "tests/compare_same_device.py": "2d7aa259e782c5ffbeaadf4fd3a40666126d8d7d3ee33da5f975d1e4e2966e7b",
+      "tests/hot_geometry_boundary.py": "66e1173f7e197c8cf1a5bdb55f9b4f1067dd68ab9af5dbb6f9657beecfb2d2c1",
+      "tests/queue_stress.py": "231c57675856edcd3552e77e7d3d2f0a51d6eae30af43ebb148d0bdbc0cae3d6",
+      "tests/tail_fusion_boundary.py": "df1751bb7ef9a0b64cc397944b2a45bdeeaf42888b38ef592748b5c5df345b1f",
+      "tests/taskbook_baseline.py": "3924229ab33a6e2f9dbc9a88cdb2e78e1250b27b8179ed666542330712f7fcec"
+    }
+  },
+  "source_differences": [],
+  "artifacts": {
+    "old": {
+      "extension": {
+        "path": "/workspace/t5qkv-dev-20261029/project_acceptance_page1g_01/_t5qkv.cpython-312-aarch64-linux-gnu.so",
+        "sha256": "abd1ba2ea4b2d4ce3411bde55ee7dbf7a77d474af7215f5feca24f437f5982fd",
+        "bytes": 10892064,
+        "sections": {
+          ".note.gnu.build-id": {
+            "bytes": 36,
+            "sha256": "65c4403b3df4ce319061e9815eb1a36deca9dd8b0764fea38388cf641b099e36"
+          },
+          ".gnu.hash": {
+            "bytes": 712,
+            "sha256": "fdde5e909ec51fe63c4c1876a939ec68d03e671ab3370588fb5e841fc6afdfaa"
+          },
+          ".dynsym": {
+            "bytes": 8736,
+            "sha256": "1ddea4a80e872e46954adb271a36a84f90e42b51446d45f65937c6e0fcaea904"
+          },
+          ".dynstr": {
+            "bytes": 13804,
+            "sha256": "bb5008eac89a2b00deba9a7114b486624c49113c44f8e0af67dfb673207a075a"
+          },
+          ".gnu.version": {
+            "bytes": 728,
+            "sha256": "2be9e30778d029afeb010c374590f04ecf8b6b4bd7b87575e7728f8f98a50f91"
+          },
+          ".gnu.version_r": {
+            "bytes": 304,
+            "sha256": "c0cbc692465baf9bf8bcdac46ebaa0cd55ec4da391cfcf9c3e85fa8109d8125e"
+          },
+          ".rela.dyn": {
+            "bytes": 4248,
+            "sha256": "a29a9d78ae77a348391cca12db6aff4b88825351f6487caf2c1514ede9916f9b"
+          },
+          ".rela.plt": {
+            "bytes": 6048,
+            "sha256": "a6b5153f29fcdbc8bcb1c1b76703e65424dec3a2df4e2a7f011f910bd4db82a3"
+          },
+          ".init": {
+            "bytes": 24,
+            "sha256": "7d71525fb7462ae297bbf77c627faf446c397b83fd4aec6b1bf872af031991f7"
+          },
+          ".plt": {
+            "bytes": 4064,
+            "sha256": "a7b43ed2f6405f156a0eb78e225c73f54b89d4bb9b761b89979e4c612407125e"
+          },
+          ".text": {
+            "bytes": 90096,
+            "sha256": "4c482a59f581c98fd1888d53e43e9821f519e094ac0b1ee97b981258a2e07e77"
+          },
+          ".fini": {
+            "bytes": 20,
+            "sha256": "7d39706b791b17f4e655c8b38aef56b5aede4b5bb0623dcb65a38d2f90ad64cf"
+          },
+          ".rodata": {
+            "bytes": 10936,
+            "sha256": "e4124c1f287bf33f4a61f2c305241a2918ec10fccd944fe987a4de62f5042ff4"
+          },
+          ".eh_frame_hdr": {
+            "bytes": 1628,
+            "sha256": "a2ec6aa83ad97944c4673661a72f0d75faa9976949ad306bda7df1d2afd90e55"
+          },
+          ".eh_frame": {
+            "bytes": 11676,
+            "sha256": "16ceffbe2fd43f29b2286e43ef64dfeb10b314983a22870ea2c2ab39565620f7"
+          },
+          ".gcc_except_table": {
+            "bytes": 5350,
+            "sha256": "11ab41753f983d972947cd632ad1ef55489be1eb098fbf9196f325552ec3bfbd"
+          },
+          ".init_array": {
+            "bytes": 24,
+            "sha256": "b542a353c8e51c2f546ee32d75eb3bd63b169ca5d99e1290369b3f98a670954f"
+          },
+          ".fini_array": {
+            "bytes": 8,
+            "sha256": "2c2c559e588ced3c47e5f9051edd4f7da32166ee57c1702efd40d4626627e7f1"
+          },
+          ".data.rel.ro": {
+            "bytes": 688,
+            "sha256": "491750f99ca9b3c9af256b13c8b45230e42b9d6599e869b605c00931016316f8"
+          },
+          ".dynamic": {
+            "bytes": 624,
+            "sha256": "2a2794ae703c390dace0dd2be3e8568d5535aeb72f139ee9157e768bebd73842"
+          },
+          ".got": {
+            "bytes": 512,
+            "sha256": "7406ab685e1f9602e65903d87fb70af7cb672fe25df868637f0c700d9ea34fdb"
+          },
+          ".got.plt": {
+            "bytes": 2040,
+            "sha256": "e1eca872b747b1aea223d6c032d734681e88500a7f7d9745ef59767f93fde15e"
+          },
+          ".data": {
+            "bytes": 560,
+            "sha256": "b0b1a9dc8c97753689fcd810c3c716b0d396e1784045cdc23987a8a56c2ef63a"
+          },
+          ".comment": {
+            "bytes": 45,
+            "sha256": "870f2f9d818ee55a81431c961308199a1a9afcbf8de379cc236abf98c80d6f66"
+          },
+          ".debug_aranges": {
+            "bytes": 2784,
+            "sha256": "97f1420d8b2d287a445716922f1e1f6b9c46eece6f75d94c62e95827b6b933bb"
+          },
+          ".debug_info": {
+            "bytes": 3594837,
+            "sha256": "383dc0b36d761bfa27eb1c445efc3854fd4ad0285ec8602e67afe93e00463f67"
+          },
+          ".debug_abbrev": {
+            "bytes": 18527,
+            "sha256": "cadf73f8d2b8b263a5f33c1899f1f78822b0ee82d6d18cc312e5bf94b62b3a37"
+          },
+          ".debug_line": {
+            "bytes": 168348,
+            "sha256": "5a60f043f5ad76d344773b1333840544d38b58afa12286716a27adac9964e1ba"
+          },
+          ".debug_str": {
+            "bytes": 6479766,
+            "sha256": "c65455bc14ec6c72900778d51a6186dce81d9f4fc17748a04a7b46b7a2b86aea"
+          },
+          ".debug_line_str": {
+            "bytes": 12983,
+            "sha256": "51201bc78f14177dcdfe5fc20ee58426ca50a00ca49d1c38600ea6ae18029f2a"
+          },
+          ".debug_loclists": {
+            "bytes": 329097,
+            "sha256": "342ffb99ec923e82e373b2e2b4003a54fbc5f3d8772539c03eeca7fe65ba1882"
+          },
+          ".debug_rnglists": {
+            "bytes": 61116,
+            "sha256": "9b777652b5333787ed5e400c68b78f811e1354c04a6376136669a0e138bf9e4b"
+          },
+          ".symtab": {
+            "bytes": 23688,
+            "sha256": "621e9c97db7c887f3f19570685ed94cbc657a65a231b73bce2713b199a306904"
+          },
+          ".strtab": {
+            "bytes": 31701,
+            "sha256": "317a4e6e3879c16404ecdc19321cad35d0808b187a8a39cfd6eb7b8cf051a71d"
+          },
+          ".shstrtab": {
+            "bytes": 380,
+            "sha256": "7fb762e0246d826c0623f0337a82804a1efc3aebb1fa1ffcf6a5d335cd821d59"
+          }
+        },
+        "embedded_elf": {}
+      },
+      "direct": {
+        "path": "/workspace/t5qkv-dev-20261029/project_acceptance_page1g_01/build_direct/libt5qkv_direct.so",
+        "sha256": "e7ac7766362f38c7500a0cb97daca755e57493836987ac15b52b03eaa6d1468e",
+        "bytes": 383088,
+        "sections": {
+          ".note.gnu.build-id": {
+            "bytes": 36,
+            "sha256": "3d335b337c7da62d1b79a04cba370280bcca9675fc8e89e6c0fe276897fde2e4"
+          },
+          ".gnu.hash": {
+            "bytes": 9484,
+            "sha256": "f3c363d49635e71c9a33dcdba84ea7e173fd8ec2b48573dbbf21e376c600a476"
+          },
+          ".dynsym": {
+            "bytes": 28200,
+            "sha256": "b5f2c2a2efb2896d55f89e5883185183cb556a17698857a6dd1afc6010061b51"
+          },
+          ".dynstr": {
+            "bytes": 97893,
+            "sha256": "78a4d00f8f45858144fb8d63645d0f7b33653e82aa4590a7873c831d4fc87bb1"
+          },
+          ".gnu.version": {
+            "bytes": 2350,
+            "sha256": "99f02ba8f217754cff6f618100697a67cb472d8496a88442467dc170bd4beead"
+          },
+          ".gnu.version_r": {
+            "bytes": 256,
+            "sha256": "7baa96b937cd4ff7124045193452a4806bd6e4899304fd29376451727c9067aa"
+          },
+          ".rela.dyn": {
+            "bytes": 6648,
+            "sha256": "72c0a3e831210794e787372b38e6def74c4af8367e47d57fb3b8965c5d297b3e"
+          },
+          ".rela.plt": {
+            "bytes": 22752,
+            "sha256": "9611172702de8b0c4f95ab4973055a632958a903dda274ca50ce57d2580bfd77"
+          },
+          ".init": {
+            "bytes": 24,
+            "sha256": "bc77a24a433843bc796e978ee4d8d07730f74913466ad4333d4b5fa41f682e7d"
+          },
+          ".plt": {
+            "bytes": 15200,
+            "sha256": "7e14e2123908c088325f97ebbfd0568992a79bd8e853770aaf8eddde18a60545"
+          },
+          ".text": {
+            "bytes": 112344,
+            "sha256": "5a2b5f18ccfabe84adf1630319510806e1025190960ce1ad3eec490c442135d3"
+          },
+          ".fini": {
+            "bytes": 20,
+            "sha256": "7d39706b791b17f4e655c8b38aef56b5aede4b5bb0623dcb65a38d2f90ad64cf"
+          },
+          ".rodata": {
+            "bytes": 13495,
+            "sha256": "4e64dbe28f558b5c3b8ecc168695c9ae19aa2a8042122ba0bea30ca218d18d85"
+          },
+          ".eh_frame_hdr": {
+            "bytes": 8940,
+            "sha256": "a4b1282d4002cfd7ec4b6c6f4c9cfea4e9d7980860622063197213b276b03d6b"
+          },
+          ".eh_frame": {
+            "bytes": 37760,
+            "sha256": "0a6bb0cffc640e71fe7301df1fb8eecdd17f34b78209896107a7dcc5035017d2"
+          },
+          ".gcc_except_table": {
+            "bytes": 3073,
+            "sha256": "b6cc03bece87263bbd3759c2c9abecea264c3178d22845453a4fedf26f807cf7"
+          },
+          ".init_array": {
+            "bytes": 24,
+            "sha256": "084952c934c533c8d174f06876c498c309f918d03e51e4e7a7cd37b48928acbf"
+          },
+          ".fini_array": {
+            "bytes": 8,
+            "sha256": "5ae2aa2c685f9b15512804eaf6eb83e323d4990afca67b79b12eddc7cbb4238f"
+          },
+          ".data.rel.ro": {
+            "bytes": 2048,
+            "sha256": "8ee24bdce3d33d9a7e472572292831bd233893b4544fe17b305a247053ac5458"
+          },
+          ".dynamic": {
+            "bytes": 560,
+            "sha256": "fcf3242e5308711ac669136818382e2fd5cc5713973725ae9da595b0ac512b25"
+          },
+          ".got": {
+            "bytes": 7768,
+            "sha256": "26d4a613e16e67b6fdd1e0e069363a41da95d0f7146e6dfeb884062ec29a2ea0"
+          },
+          ".data": {
+            "bytes": 16,
+            "sha256": "2ea9d1e331592aae48a66ccfd2a3bf4c48c0c450f93ea45a00f8ff87cd16fb3b"
+          },
+          ".ascend.kernel.ascend910_9382.t5qkv_direct": {
+            "bytes": 8164,
+            "sha256": "334ce5bb4950221a4c31bdbd5ba724a04eabf2e1c60132a9269341e070ba363f"
+          },
+          ".comment": {
+            "bytes": 158,
+            "sha256": "1df2cdfd22db918bf76ab7e9b84a7d8420aca95ba66809a714da12e5e4b5621f"
+          },
+          ".shstrtab": {
+            "bytes": 286,
+            "sha256": "cd55617f2154fdc1c0b542637fc78907b3d3901023ba84463cc39f16c11c66a9"
+          }
+        },
+        "embedded_elf": {}
+      },
+      "opapi": {
+        "path": "/workspace/t5qkv-dev-20261029/install_acceptance_page1g_01/vendors/t5qkv/op_api/lib/libcust_opapi.so",
+        "sha256": "b327e4c17e4b714b1a179fb9d5e3d69ef07a5a3c393d12bf2aff0a7f05768f76",
+        "bytes": 14456,
+        "sections": {
+          ".note.gnu.build-id": {
+            "bytes": 36,
+            "sha256": "facd4fa19e3d9fc8b693420bf5dd0b442d31a2905518202e291517778b2e56b9"
+          },
+          ".gnu.hash": {
+            "bytes": 40,
+            "sha256": "6934621717baf25f0e7b5b39bb840364716a1161fb54b60df945536ac3382352"
+          },
+          ".dynsym": {
+            "bytes": 816,
+            "sha256": "6a1db36b8f9f71f3ac5d53093b4f56e51ebbc196ea8561ba35813aeca910a7b0"
+          },
+          ".dynstr": {
+            "bytes": 828,
+            "sha256": "9c43f87cc66785f6d36e7dee0bb0485d9fc511371e063b0ae675a47438ef6a39"
+          },
+          ".gnu.version": {
+            "bytes": 68,
+            "sha256": "9a195c58f8bcc0d2e4abaa7d9d80a755cf281160a72306888361619995b2e064"
+          },
+          ".gnu.version_r": {
+            "bytes": 160,
+            "sha256": "b05d08b1c258142781d75b98a1c88826ec1b620ad5f865d9f247a5c2da23261f"
+          },
+          ".rela.dyn": {
+            "bytes": 576,
+            "sha256": "8a4e5c4b1ba40f50610f74f1ddbdbd7cd6107f862aa5be5ee2fc8c1ee58fcc1f"
+          },
+          ".rela.plt": {
+            "bytes": 624,
+            "sha256": "8f224ae2ac7457a45854a1720d4a96f4ae11f56ed05accd04ee6a6951f65757d"
+          },
+          ".init": {
+            "bytes": 24,
+            "sha256": "69e8cef8c9693c35ebf3d46aa34df8b08a8c45a98e4ee46001b191382ff672ac"
+          },
+          ".plt": {
+            "bytes": 448,
+            "sha256": "964e811aea9a51812117a84b412589044c35dbe62196a6d17b4c6cfc217e3067"
+          },
+          ".text": {
+            "bytes": 2596,
+            "sha256": "0314d3a0078a3b1a8e553c6a17f4b54001fb0ce397fe864d45dfb1fb7e3d9eaf"
+          },
+          ".fini": {
+            "bytes": 20,
+            "sha256": "7d39706b791b17f4e655c8b38aef56b5aede4b5bb0623dcb65a38d2f90ad64cf"
+          },
+          ".rodata": {
+            "bytes": 1665,
+            "sha256": "c92c507bc3eb57a57129b1e20a5c06b921fde09ba7a37d85548b173928345bef"
+          },
+          ".eh_frame_hdr": {
+            "bytes": 84,
+            "sha256": "4ae00d8f9b5984314a4897478f76f90efe319982042f7c91d11458533dab8b45"
+          },
+          ".eh_frame": {
+            "bytes": 424,
+            "sha256": "cfb121fdb4e72558da072f407bf0759cf02ccd2706f7371a61c11627729d243f"
+          },
+          ".gcc_except_table": {
+            "bytes": 14,
+            "sha256": "963885e19368a9a61ed4ba628399b88ecf27e4b40746f84b65f3704daa1b3f2e"
+          },
+          ".init_array": {
+            "bytes": 16,
+            "sha256": "c2be76afec1aa15514a258f00758d6b61d6ffa7d63bf85e40c92a572920aacdb"
+          },
+          ".fini_array": {
+            "bytes": 8,
+            "sha256": "c1f67e48de47fe81801dbe210bc892ec25da16b0370f024327260d7510483864"
+          },
+          ".data.rel.ro": {
+            "bytes": 80,
+            "sha256": "6f3200e1a52fbcdc47ce2380017165e3b4a551d0118959dde8511c7f6059f505"
+          },
+          ".dynamic": {
+            "bytes": 576,
+            "sha256": "d289a231c84febfdec29817059f19e3defc352cd0d0e373d0c653890926a574a"
+          },
+          ".got": {
+            "bytes": 312,
+            "sha256": "ef25c5f9adb7bed2cfb854ece16efeee2147bbfed44650574a504bcf0f05b98b"
+          },
+          ".data": {
+            "bytes": 216,
+            "sha256": "1287f3347dc08e5285ee54f76984d0cb4495ca3ab89ea0eb2ad7ffd3b4335d7c"
+          },
+          ".comment": {
+            "bytes": 45,
+            "sha256": "870f2f9d818ee55a81431c961308199a1a9afcbf8de379cc236abf98c80d6f66"
+          },
+          ".shstrtab": {
+            "bytes": 243,
+            "sha256": "b93e69c9827dbe0d29046df7a00f74806593ab44b3d26f351917edd82e24a25f"
+          }
+        },
+        "embedded_elf": {}
+      },
+      "sdk_T5SplitQkvAppendCache_ba622cb6093a49cfc48862fe44bfa0d5.o": {
+        "path": "/workspace/t5qkv-dev-20261029/install_acceptance_page1g_01/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_ba622cb6093a49cfc48862fe44bfa0d5.o",
+        "sha256": "c53367936f4fb9e032d726c91c6a6e91c943efc71bfca8052cd6995c50f9972f",
+        "bytes": 14064,
+        "sections": {
+          ".text": {
+            "bytes": 6908,
+            "sha256": "4ba18f0351c3806b905a6d402126ac899ffbd97d1e050f499a1d3a017c9bca68"
+          },
+          ".data": {
+            "bytes": 8,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+          },
+          ".rela.text": {
+            "bytes": 72,
+            "sha256": "a99ea782dcad29d9186d11b4f9a12fceda4062b878ceaef75a73ef83a413fbba"
+          },
+          ".ascend.stack.size.record": {
+            "bytes": 8,
+            "sha256": "b54b1a339e9f1b672af88b397362d05c99e30d790835dbfd74fc9117a6de76d3"
+          },
+          ".ascend.meta.T5SplitQkvAppendCache_ba622cb6093a49cfc48862fe44bfa0d5_0": {
+            "bytes": 164,
+            "sha256": "3e70f2724d22abf0b60823d6c3cc6d1bbe0048b6a38c3c8e493af10bcb86c27c"
+          },
+          "__CCE_KernelArgSize": {
+            "bytes": 4,
+            "sha256": "c31425b44a7ed682a3356bf6820141e1584a15c43b6d6793f552e5d4621586f7"
+          },
+          ".comment": {
+            "bytes": 107,
+            "sha256": "bab1d1ce720c8d205a362b1673b955554d1e303d6fb66f8a43d8f88a9961cd7f"
+          },
+          ".symtab": {
+            "bytes": 288,
+            "sha256": "17ccc64207eddbafc0485b560f8d89cb655aa5f43dd1894a0c66343b84dfc545"
+          },
+          ".shstrtab": {
+            "bytes": 180,
+            "sha256": "488a68a86cea3fc34a9b39c32c237a27941d5518f8bc9b7b5de5eaa8fd9bca03"
+          },
+          ".strtab": {
+            "bytes": 171,
+            "sha256": "d7bcd18d93fc7fadbc772b2605265951788776ab2ea57529c9058c701d9047e4"
+          }
+        },
+        "embedded_elf": {}
+      },
+      "sdk_T5SplitQkvAppendCache_dfce17a2d31b6ad704bb93881621342e.o": {
+        "path": "/workspace/t5qkv-dev-20261029/install_acceptance_page1g_01/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_dfce17a2d31b6ad704bb93881621342e.o",
+        "sha256": "7a870fab9912839ed3d8f99836e7b447462190181b0118f97b4f1a3bdc9740ac",
+        "bytes": 14064,
+        "sections": {
+          ".text": {
+            "bytes": 6908,
+            "sha256": "4ba18f0351c3806b905a6d402126ac899ffbd97d1e050f499a1d3a017c9bca68"
+          },
+          ".data": {
+            "bytes": 8,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+          },
+          ".rela.text": {
+            "bytes": 72,
+            "sha256": "a99ea782dcad29d9186d11b4f9a12fceda4062b878ceaef75a73ef83a413fbba"
+          },
+          ".ascend.stack.size.record": {
+            "bytes": 8,
+            "sha256": "b54b1a339e9f1b672af88b397362d05c99e30d790835dbfd74fc9117a6de76d3"
+          },
+          ".ascend.meta.T5SplitQkvAppendCache_dfce17a2d31b6ad704bb93881621342e_0": {
+            "bytes": 164,
+            "sha256": "3e70f2724d22abf0b60823d6c3cc6d1bbe0048b6a38c3c8e493af10bcb86c27c"
+          },
+          "__CCE_KernelArgSize": {
+            "bytes": 4,
+            "sha256": "c31425b44a7ed682a3356bf6820141e1584a15c43b6d6793f552e5d4621586f7"
+          },
+          ".comment": {
+            "bytes": 107,
+            "sha256": "bab1d1ce720c8d205a362b1673b955554d1e303d6fb66f8a43d8f88a9961cd7f"
+          },
+          ".symtab": {
+            "bytes": 288,
+            "sha256": "17ccc64207eddbafc0485b560f8d89cb655aa5f43dd1894a0c66343b84dfc545"
+          },
+          ".shstrtab": {
+            "bytes": 180,
+            "sha256": "b24cd1a29ad772e19288fd9583c900774aa429a0476c8d1f1ec5a16a3e844523"
+          },
+          ".strtab": {
+            "bytes": 171,
+            "sha256": "97db6f047b6917b3d0b242fd8e0c71b3a1c78314a51ecddcf021fddeac43d599"
+          }
+        },
+        "embedded_elf": {}
+      }
+    },
+    "new": {
+      "extension": {
+        "path": "/workspace/t5qkv-review-20261114-04/control/project/_t5qkv.cpython-312-aarch64-linux-gnu.so",
+        "sha256": "cd38cd89267b23dc067f8e7aa90828543ee8497a6f9205a91c7d57459b2bb2b2",
+        "bytes": 10892040,
+        "sections": {
+          ".note.gnu.build-id": {
+            "bytes": 36,
+            "sha256": "6581b25e961991002597887bbab5cd2f57ce04142c5fe36bf4d33ba18ca0dc97"
+          },
+          ".gnu.hash": {
+            "bytes": 712,
+            "sha256": "fdde5e909ec51fe63c4c1876a939ec68d03e671ab3370588fb5e841fc6afdfaa"
+          },
+          ".dynsym": {
+            "bytes": 8736,
+            "sha256": "db6219b3f43f4589389851869fcbd0f5fc07fa2beba6d7c0fe1c6d8f4f223e62"
+          },
+          ".dynstr": {
+            "bytes": 13797,
+            "sha256": "a7bfedba98557a51fc477d41078114af30c97cd88b15ae236177ec312afa3fa1"
+          },
+          ".gnu.version": {
+            "bytes": 728,
+            "sha256": "2be9e30778d029afeb010c374590f04ecf8b6b4bd7b87575e7728f8f98a50f91"
+          },
+          ".gnu.version_r": {
+            "bytes": 304,
+            "sha256": "c0cbc692465baf9bf8bcdac46ebaa0cd55ec4da391cfcf9c3e85fa8109d8125e"
+          },
+          ".rela.dyn": {
+            "bytes": 4248,
+            "sha256": "a29a9d78ae77a348391cca12db6aff4b88825351f6487caf2c1514ede9916f9b"
+          },
+          ".rela.plt": {
+            "bytes": 6048,
+            "sha256": "a6b5153f29fcdbc8bcb1c1b76703e65424dec3a2df4e2a7f011f910bd4db82a3"
+          },
+          ".init": {
+            "bytes": 24,
+            "sha256": "cf67c7f0ff4cbeae91111688efab4f5615a4bdd764cf00e69c13b7097b03dba5"
+          },
+          ".plt": {
+            "bytes": 4064,
+            "sha256": "a7b43ed2f6405f156a0eb78e225c73f54b89d4bb9b761b89979e4c612407125e"
+          },
+          ".text": {
+            "bytes": 90096,
+            "sha256": "4c482a59f581c98fd1888d53e43e9821f519e094ac0b1ee97b981258a2e07e77"
+          },
+          ".fini": {
+            "bytes": 20,
+            "sha256": "7d39706b791b17f4e655c8b38aef56b5aede4b5bb0623dcb65a38d2f90ad64cf"
+          },
+          ".rodata": {
+            "bytes": 10936,
+            "sha256": "e4124c1f287bf33f4a61f2c305241a2918ec10fccd944fe987a4de62f5042ff4"
+          },
+          ".eh_frame_hdr": {
+            "bytes": 1628,
+            "sha256": "a2ec6aa83ad97944c4673661a72f0d75faa9976949ad306bda7df1d2afd90e55"
+          },
+          ".eh_frame": {
+            "bytes": 11676,
+            "sha256": "16ceffbe2fd43f29b2286e43ef64dfeb10b314983a22870ea2c2ab39565620f7"
+          },
+          ".gcc_except_table": {
+            "bytes": 5350,
+            "sha256": "11ab41753f983d972947cd632ad1ef55489be1eb098fbf9196f325552ec3bfbd"
+          },
+          ".init_array": {
+            "bytes": 24,
+            "sha256": "b542a353c8e51c2f546ee32d75eb3bd63b169ca5d99e1290369b3f98a670954f"
+          },
+          ".fini_array": {
+            "bytes": 8,
+            "sha256": "2c2c559e588ced3c47e5f9051edd4f7da32166ee57c1702efd40d4626627e7f1"
+          },
+          ".data.rel.ro": {
+            "bytes": 688,
+            "sha256": "491750f99ca9b3c9af256b13c8b45230e42b9d6599e869b605c00931016316f8"
+          },
+          ".dynamic": {
+            "bytes": 624,
+            "sha256": "32e83c528eb0b5ee1f9d016b8f011d109c0cb5e52ff4306e73341b1e04a58039"
+          },
+          ".got": {
+            "bytes": 512,
+            "sha256": "7406ab685e1f9602e65903d87fb70af7cb672fe25df868637f0c700d9ea34fdb"
+          },
+          ".got.plt": {
+            "bytes": 2040,
+            "sha256": "e1eca872b747b1aea223d6c032d734681e88500a7f7d9745ef59767f93fde15e"
+          },
+          ".data": {
+            "bytes": 560,
+            "sha256": "b0b1a9dc8c97753689fcd810c3c716b0d396e1784045cdc23987a8a56c2ef63a"
+          },
+          ".comment": {
+            "bytes": 45,
+            "sha256": "870f2f9d818ee55a81431c961308199a1a9afcbf8de379cc236abf98c80d6f66"
+          },
+          ".debug_aranges": {
+            "bytes": 2784,
+            "sha256": "97f1420d8b2d287a445716922f1e1f6b9c46eece6f75d94c62e95827b6b933bb"
+          },
+          ".debug_info": {
+            "bytes": 3594837,
+            "sha256": "0f6e98825c20cf890e26ce1df54b1c41d4d8c8f47e635320fa3798ee79965547"
+          },
+          ".debug_abbrev": {
+            "bytes": 18527,
+            "sha256": "cadf73f8d2b8b263a5f33c1899f1f78822b0ee82d6d18cc312e5bf94b62b3a37"
+          },
+          ".debug_line": {
+            "bytes": 168348,
+            "sha256": "ba9abbd8e101e91a1a5b784abb6495f937b62400bc73a8cc167a96cf7ab6af8c"
+          },
+          ".debug_str": {
+            "bytes": 6479766,
+            "sha256": "c65455bc14ec6c72900778d51a6186dce81d9f4fc17748a04a7b46b7a2b86aea"
+          },
+          ".debug_line_str": {
+            "bytes": 12955,
+            "sha256": "7899ad684acb2e35d1069eb1e0d07f3baf83a43ed09481419a03aa50f1916f47"
+          },
+          ".debug_loclists": {
+            "bytes": 329097,
+            "sha256": "342ffb99ec923e82e373b2e2b4003a54fbc5f3d8772539c03eeca7fe65ba1882"
+          },
+          ".debug_rnglists": {
+            "bytes": 61116,
+            "sha256": "9b777652b5333787ed5e400c68b78f811e1354c04a6376136669a0e138bf9e4b"
+          },
+          ".symtab": {
+            "bytes": 23688,
+            "sha256": "e4a2808ded32bb26fe53798cd4b79d96a8e437a573270b0d727b2c3243e57f96"
+          },
+          ".strtab": {
+            "bytes": 31701,
+            "sha256": "317a4e6e3879c16404ecdc19321cad35d0808b187a8a39cfd6eb7b8cf051a71d"
+          },
+          ".shstrtab": {
+            "bytes": 380,
+            "sha256": "7fb762e0246d826c0623f0337a82804a1efc3aebb1fa1ffcf6a5d335cd821d59"
+          }
+        },
+        "embedded_elf": {}
+      },
+      "direct": {
+        "path": "/workspace/t5qkv-review-20261114-04/control/project/build_direct/libt5qkv_direct.so",
+        "sha256": "e7ac7766362f38c7500a0cb97daca755e57493836987ac15b52b03eaa6d1468e",
+        "bytes": 383088,
+        "sections": {
+          ".note.gnu.build-id": {
+            "bytes": 36,
+            "sha256": "3d335b337c7da62d1b79a04cba370280bcca9675fc8e89e6c0fe276897fde2e4"
+          },
+          ".gnu.hash": {
+            "bytes": 9484,
+            "sha256": "f3c363d49635e71c9a33dcdba84ea7e173fd8ec2b48573dbbf21e376c600a476"
+          },
+          ".dynsym": {
+            "bytes": 28200,
+            "sha256": "b5f2c2a2efb2896d55f89e5883185183cb556a17698857a6dd1afc6010061b51"
+          },
+          ".dynstr": {
+            "bytes": 97893,
+            "sha256": "78a4d00f8f45858144fb8d63645d0f7b33653e82aa4590a7873c831d4fc87bb1"
+          },
+          ".gnu.version": {
+            "bytes": 2350,
+            "sha256": "99f02ba8f217754cff6f618100697a67cb472d8496a88442467dc170bd4beead"
+          },
+          ".gnu.version_r": {
+            "bytes": 256,
+            "sha256": "7baa96b937cd4ff7124045193452a4806bd6e4899304fd29376451727c9067aa"
+          },
+          ".rela.dyn": {
+            "bytes": 6648,
+            "sha256": "72c0a3e831210794e787372b38e6def74c4af8367e47d57fb3b8965c5d297b3e"
+          },
+          ".rela.plt": {
+            "bytes": 22752,
+            "sha256": "9611172702de8b0c4f95ab4973055a632958a903dda274ca50ce57d2580bfd77"
+          },
+          ".init": {
+            "bytes": 24,
+            "sha256": "bc77a24a433843bc796e978ee4d8d07730f74913466ad4333d4b5fa41f682e7d"
+          },
+          ".plt": {
+            "bytes": 15200,
+            "sha256": "7e14e2123908c088325f97ebbfd0568992a79bd8e853770aaf8eddde18a60545"
+          },
+          ".text": {
+            "bytes": 112344,
+            "sha256": "5a2b5f18ccfabe84adf1630319510806e1025190960ce1ad3eec490c442135d3"
+          },
+          ".fini": {
+            "bytes": 20,
+            "sha256": "7d39706b791b17f4e655c8b38aef56b5aede4b5bb0623dcb65a38d2f90ad64cf"
+          },
+          ".rodata": {
+            "bytes": 13495,
+            "sha256": "4e64dbe28f558b5c3b8ecc168695c9ae19aa2a8042122ba0bea30ca218d18d85"
+          },
+          ".eh_frame_hdr": {
+            "bytes": 8940,
+            "sha256": "a4b1282d4002cfd7ec4b6c6f4c9cfea4e9d7980860622063197213b276b03d6b"
+          },
+          ".eh_frame": {
+            "bytes": 37760,
+            "sha256": "0a6bb0cffc640e71fe7301df1fb8eecdd17f34b78209896107a7dcc5035017d2"
+          },
+          ".gcc_except_table": {
+            "bytes": 3073,
+            "sha256": "b6cc03bece87263bbd3759c2c9abecea264c3178d22845453a4fedf26f807cf7"
+          },
+          ".init_array": {
+            "bytes": 24,
+            "sha256": "084952c934c533c8d174f06876c498c309f918d03e51e4e7a7cd37b48928acbf"
+          },
+          ".fini_array": {
+            "bytes": 8,
+            "sha256": "5ae2aa2c685f9b15512804eaf6eb83e323d4990afca67b79b12eddc7cbb4238f"
+          },
+          ".data.rel.ro": {
+            "bytes": 2048,
+            "sha256": "8ee24bdce3d33d9a7e472572292831bd233893b4544fe17b305a247053ac5458"
+          },
+          ".dynamic": {
+            "bytes": 560,
+            "sha256": "fcf3242e5308711ac669136818382e2fd5cc5713973725ae9da595b0ac512b25"
+          },
+          ".got": {
+            "bytes": 7768,
+            "sha256": "26d4a613e16e67b6fdd1e0e069363a41da95d0f7146e6dfeb884062ec29a2ea0"
+          },
+          ".data": {
+            "bytes": 16,
+            "sha256": "2ea9d1e331592aae48a66ccfd2a3bf4c48c0c450f93ea45a00f8ff87cd16fb3b"
+          },
+          ".ascend.kernel.ascend910_9382.t5qkv_direct": {
+            "bytes": 8164,
+            "sha256": "334ce5bb4950221a4c31bdbd5ba724a04eabf2e1c60132a9269341e070ba363f"
+          },
+          ".comment": {
+            "bytes": 158,
+            "sha256": "1df2cdfd22db918bf76ab7e9b84a7d8420aca95ba66809a714da12e5e4b5621f"
+          },
+          ".shstrtab": {
+            "bytes": 286,
+            "sha256": "cd55617f2154fdc1c0b542637fc78907b3d3901023ba84463cc39f16c11c66a9"
+          }
+        },
+        "embedded_elf": {}
+      },
+      "opapi": {
+        "path": "/workspace/t5qkv-review-20261114-04/control/install/vendors/t5qkv/op_api/lib/libcust_opapi.so",
+        "sha256": "b327e4c17e4b714b1a179fb9d5e3d69ef07a5a3c393d12bf2aff0a7f05768f76",
+        "bytes": 14456,
+        "sections": {
+          ".note.gnu.build-id": {
+            "bytes": 36,
+            "sha256": "facd4fa19e3d9fc8b693420bf5dd0b442d31a2905518202e291517778b2e56b9"
+          },
+          ".gnu.hash": {
+            "bytes": 40,
+            "sha256": "6934621717baf25f0e7b5b39bb840364716a1161fb54b60df945536ac3382352"
+          },
+          ".dynsym": {
+            "bytes": 816,
+            "sha256": "6a1db36b8f9f71f3ac5d53093b4f56e51ebbc196ea8561ba35813aeca910a7b0"
+          },
+          ".dynstr": {
+            "bytes": 828,
+            "sha256": "9c43f87cc66785f6d36e7dee0bb0485d9fc511371e063b0ae675a47438ef6a39"
+          },
+          ".gnu.version": {
+            "bytes": 68,
+            "sha256": "9a195c58f8bcc0d2e4abaa7d9d80a755cf281160a72306888361619995b2e064"
+          },
+          ".gnu.version_r": {
+            "bytes": 160,
+            "sha256": "b05d08b1c258142781d75b98a1c88826ec1b620ad5f865d9f247a5c2da23261f"
+          },
+          ".rela.dyn": {
+            "bytes": 576,
+            "sha256": "8a4e5c4b1ba40f50610f74f1ddbdbd7cd6107f862aa5be5ee2fc8c1ee58fcc1f"
+          },
+          ".rela.plt": {
+            "bytes": 624,
+            "sha256": "8f224ae2ac7457a45854a1720d4a96f4ae11f56ed05accd04ee6a6951f65757d"
+          },
+          ".init": {
+            "bytes": 24,
+            "sha256": "69e8cef8c9693c35ebf3d46aa34df8b08a8c45a98e4ee46001b191382ff672ac"
+          },
+          ".plt": {
+            "bytes": 448,
+            "sha256": "964e811aea9a51812117a84b412589044c35dbe62196a6d17b4c6cfc217e3067"
+          },
+          ".text": {
+            "bytes": 2596,
+            "sha256": "0314d3a0078a3b1a8e553c6a17f4b54001fb0ce397fe864d45dfb1fb7e3d9eaf"
+          },
+          ".fini": {
+            "bytes": 20,
+            "sha256": "7d39706b791b17f4e655c8b38aef56b5aede4b5bb0623dcb65a38d2f90ad64cf"
+          },
+          ".rodata": {
+            "bytes": 1665,
+            "sha256": "c92c507bc3eb57a57129b1e20a5c06b921fde09ba7a37d85548b173928345bef"
+          },
+          ".eh_frame_hdr": {
+            "bytes": 84,
+            "sha256": "4ae00d8f9b5984314a4897478f76f90efe319982042f7c91d11458533dab8b45"
+          },
+          ".eh_frame": {
+            "bytes": 424,
+            "sha256": "cfb121fdb4e72558da072f407bf0759cf02ccd2706f7371a61c11627729d243f"
+          },
+          ".gcc_except_table": {
+            "bytes": 14,
+            "sha256": "963885e19368a9a61ed4ba628399b88ecf27e4b40746f84b65f3704daa1b3f2e"
+          },
+          ".init_array": {
+            "bytes": 16,
+            "sha256": "c2be76afec1aa15514a258f00758d6b61d6ffa7d63bf85e40c92a572920aacdb"
+          },
+          ".fini_array": {
+            "bytes": 8,
+            "sha256": "c1f67e48de47fe81801dbe210bc892ec25da16b0370f024327260d7510483864"
+          },
+          ".data.rel.ro": {
+            "bytes": 80,
+            "sha256": "6f3200e1a52fbcdc47ce2380017165e3b4a551d0118959dde8511c7f6059f505"
+          },
+          ".dynamic": {
+            "bytes": 576,
+            "sha256": "d289a231c84febfdec29817059f19e3defc352cd0d0e373d0c653890926a574a"
+          },
+          ".got": {
+            "bytes": 312,
+            "sha256": "ef25c5f9adb7bed2cfb854ece16efeee2147bbfed44650574a504bcf0f05b98b"
+          },
+          ".data": {
+            "bytes": 216,
+            "sha256": "1287f3347dc08e5285ee54f76984d0cb4495ca3ab89ea0eb2ad7ffd3b4335d7c"
+          },
+          ".comment": {
+            "bytes": 45,
+            "sha256": "870f2f9d818ee55a81431c961308199a1a9afcbf8de379cc236abf98c80d6f66"
+          },
+          ".shstrtab": {
+            "bytes": 243,
+            "sha256": "b93e69c9827dbe0d29046df7a00f74806593ab44b3d26f351917edd82e24a25f"
+          }
+        },
+        "embedded_elf": {}
+      },
+      "sdk_T5SplitQkvAppendCache_ba622cb6093a49cfc48862fe44bfa0d5.o": {
+        "path": "/workspace/t5qkv-review-20261114-04/control/install/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_ba622cb6093a49cfc48862fe44bfa0d5.o",
+        "sha256": "c53367936f4fb9e032d726c91c6a6e91c943efc71bfca8052cd6995c50f9972f",
+        "bytes": 14064,
+        "sections": {
+          ".text": {
+            "bytes": 6908,
+            "sha256": "4ba18f0351c3806b905a6d402126ac899ffbd97d1e050f499a1d3a017c9bca68"
+          },
+          ".data": {
+            "bytes": 8,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+          },
+          ".rela.text": {
+            "bytes": 72,
+            "sha256": "a99ea782dcad29d9186d11b4f9a12fceda4062b878ceaef75a73ef83a413fbba"
+          },
+          ".ascend.stack.size.record": {
+            "bytes": 8,
+            "sha256": "b54b1a339e9f1b672af88b397362d05c99e30d790835dbfd74fc9117a6de76d3"
+          },
+          ".ascend.meta.T5SplitQkvAppendCache_ba622cb6093a49cfc48862fe44bfa0d5_0": {
+            "bytes": 164,
+            "sha256": "3e70f2724d22abf0b60823d6c3cc6d1bbe0048b6a38c3c8e493af10bcb86c27c"
+          },
+          "__CCE_KernelArgSize": {
+            "bytes": 4,
+            "sha256": "c31425b44a7ed682a3356bf6820141e1584a15c43b6d6793f552e5d4621586f7"
+          },
+          ".comment": {
+            "bytes": 107,
+            "sha256": "bab1d1ce720c8d205a362b1673b955554d1e303d6fb66f8a43d8f88a9961cd7f"
+          },
+          ".symtab": {
+            "bytes": 288,
+            "sha256": "17ccc64207eddbafc0485b560f8d89cb655aa5f43dd1894a0c66343b84dfc545"
+          },
+          ".shstrtab": {
+            "bytes": 180,
+            "sha256": "488a68a86cea3fc34a9b39c32c237a27941d5518f8bc9b7b5de5eaa8fd9bca03"
+          },
+          ".strtab": {
+            "bytes": 171,
+            "sha256": "d7bcd18d93fc7fadbc772b2605265951788776ab2ea57529c9058c701d9047e4"
+          }
+        },
+        "embedded_elf": {}
+      },
+      "sdk_T5SplitQkvAppendCache_dfce17a2d31b6ad704bb93881621342e.o": {
+        "path": "/workspace/t5qkv-review-20261114-04/control/install/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_dfce17a2d31b6ad704bb93881621342e.o",
+        "sha256": "7a870fab9912839ed3d8f99836e7b447462190181b0118f97b4f1a3bdc9740ac",
+        "bytes": 14064,
+        "sections": {
+          ".text": {
+            "bytes": 6908,
+            "sha256": "4ba18f0351c3806b905a6d402126ac899ffbd97d1e050f499a1d3a017c9bca68"
+          },
+          ".data": {
+            "bytes": 8,
+            "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+          },
+          ".rela.text": {
+            "bytes": 72,
+            "sha256": "a99ea782dcad29d9186d11b4f9a12fceda4062b878ceaef75a73ef83a413fbba"
+          },
+          ".ascend.stack.size.record": {
+            "bytes": 8,
+            "sha256": "b54b1a339e9f1b672af88b397362d05c99e30d790835dbfd74fc9117a6de76d3"
+          },
+          ".ascend.meta.T5SplitQkvAppendCache_dfce17a2d31b6ad704bb93881621342e_0": {
+            "bytes": 164,
+            "sha256": "3e70f2724d22abf0b60823d6c3cc6d1bbe0048b6a38c3c8e493af10bcb86c27c"
+          },
+          "__CCE_KernelArgSize": {
+            "bytes": 4,
+            "sha256": "c31425b44a7ed682a3356bf6820141e1584a15c43b6d6793f552e5d4621586f7"
+          },
+          ".comment": {
+            "bytes": 107,
+            "sha256": "bab1d1ce720c8d205a362b1673b955554d1e303d6fb66f8a43d8f88a9961cd7f"
+          },
+          ".symtab": {
+            "bytes": 288,
+            "sha256": "17ccc64207eddbafc0485b560f8d89cb655aa5f43dd1894a0c66343b84dfc545"
+          },
+          ".shstrtab": {
+            "bytes": 180,
+            "sha256": "b24cd1a29ad772e19288fd9583c900774aa429a0476c8d1f1ec5a16a3e844523"
+          },
+          ".strtab": {
+            "bytes": 171,
+            "sha256": "97db6f047b6917b3d0b242fd8e0c71b3a1c78314a51ecddcf021fddeac43d599"
+          }
+        },
+        "embedded_elf": {}
+      }
+    }
+  },
+  "comparisons": {
+    "extension": {
+      "whole_file_equal": false,
+      "text_equal": true,
+      "embedded_text": {}
+    },
+    "direct": {
+      "whole_file_equal": true,
+      "text_equal": true,
+      "embedded_text": {}
+    },
+    "opapi": {
+      "whole_file_equal": true,
+      "text_equal": true,
+      "embedded_text": {}
+    },
+    "sdk_T5SplitQkvAppendCache_ba622cb6093a49cfc48862fe44bfa0d5.o": {
+      "whole_file_equal": true,
+      "text_equal": true,
+      "embedded_text": {}
+    },
+    "sdk_T5SplitQkvAppendCache_dfce17a2d31b6ad704bb93881621342e.o": {
+      "whole_file_equal": true,
+      "text_equal": true,
+      "embedded_text": {}
+    }
+  }
+}

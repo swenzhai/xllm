@@ -1,0 +1,29 @@
+{
+  "old": {
+    "project": "/workspace/t5qkv-dev-20261029/project_acceptance_page1g_01",
+    "prefix": "/workspace/t5qkv-dev-20261029/install_acceptance_page1g_01/vendors/t5qkv",
+    "expected_artifacts": {
+      "/workspace/t5qkv-dev-20261029/install_acceptance_page1g_01/vendors/t5qkv/op_api/lib/libcust_opapi.so": "b327e4c17e4b714b1a179fb9d5e3d69ef07a5a3c393d12bf2aff0a7f05768f76",
+      "/workspace/t5qkv-dev-20261029/install_acceptance_page1g_01/vendors/t5qkv/op_impl/ai_core/tbe/op_tiling/lib/linux/aarch64/libcust_opmaster_rt2.0.so": "eb2fe29d5ccfa2e3726fb567c181eb4bea787bf65340998e74641a53d717b705",
+      "/workspace/t5qkv-dev-20261029/install_acceptance_page1g_01/vendors/t5qkv/op_proto/lib/linux/aarch64/libcust_opsproto_rt2.0.so": "5c236dc987534765dcd509346540778bec3a3456ab461c8e7aba6a84941e0b9a",
+      "/workspace/t5qkv-dev-20261029/project_acceptance_page1g_01/_t5qkv.cpython-312-aarch64-linux-gnu.so": "abd1ba2ea4b2d4ce3411bde55ee7dbf7a77d474af7215f5feca24f437f5982fd",
+      "/workspace/t5qkv-dev-20261029/project_acceptance_page1g_01/build_direct/libt5qkv_direct.so": "e7ac7766362f38c7500a0cb97daca755e57493836987ac15b52b03eaa6d1468e",
+      "/workspace/t5qkv-dev-20261029/install_acceptance_page1g_01/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_ba622cb6093a49cfc48862fe44bfa0d5.o": "c53367936f4fb9e032d726c91c6a6e91c943efc71bfca8052cd6995c50f9972f",
+      "/workspace/t5qkv-dev-20261029/install_acceptance_page1g_01/vendors/t5qkv/op_impl/ai_core/tbe/kernel/ascend910_93/t5_split_qkv_append_cache/T5SplitQkvAppendCache_dfce17a2d31b6ad704bb93881621342e.o": "7a870fab9912839ed3d8f99836e7b447462190181b0118f97b4f1a3bdc9740ac"
+    }
+  },
+  "new": {
+    "project": "/workspace/t5qkv-review-20261114-04/control/project",
+    "prefix": "/workspace/t5qkv-review-20261114-04/control/install/vendors/t5qkv",
+    "build_manifest": "/workspace/t5qkv-review-20261114-04/control/build_manifest.json",
+    "source_manifest": "/workspace/t5qkv-review-20261114-04/control/source_manifest.json"
+  },
+  "package": "/workspace/t5qkv-review-20261114-04/official_task_package",
+  "source_commit": "8ea9affaf131b22c8fb786b79da5968ce6724744",
+  "old_evidence": "20261030_page1g_final/raw/reports/acceptance_page1g_final_02/runtime_identity.json",
+  "visible_devices": [
+    "0",
+    "1"
+  ],
+  "batches": 3
+}

@@ -1,0 +1,253 @@
+--- a/common/t5_split_qkv_append_cache_tiling.h
++++ b/common/t5_split_qkv_append_cache_tiling.h
+@@ -272,5 +272,35 @@
+   }
+   return task;
+ }
++// Balance normal admission across both read/write chains. Other geometries
++// retain their original policy; the device also guards output base alignment.
++T5QKV_MAPPING_INLINE uint32_t
++four_plane_rows(const T5SplitQkvAppendCacheTilingData& tiling) {
++  return tiling.batch * tiling.head_num == 256 && tiling.past_length == 2048 &&
++                 tiling.head_dim == 64 && tiling.block_dim == 48 &&
++                 tiling.tile_elements == 47104 &&
++                 tiling.cache_tasks_per_tensor == 768 &&
++                 tiling.cache_tiles_per_head == 3 && fuses_append(tiling) &&
++                 make_read_balance_policy(tiling).enabled
++             ? 176
++             : 0;
++}
++
++T5QKV_MAPPING_INLINE TaskRange
++four_plane_range(const T5SplitQkvAppendCacheTilingData& tiling,
++                 uint32_t phase,
++                 uint32_t core) {
++  const uint32_t normal = four_plane_rows(tiling) * tiling.cache_tiles_per_head;
++  if ((phase & 1) == 0) {
++    return partition_tasks(0, normal, tiling.block_dim, core);
++  }
++  // Complement the normal phase's remainder, avoiding a 17/15-task split.
++  const uint32_t rotated =
++      (core + tiling.block_dim - normal % tiling.block_dim) % tiling.block_dim;
++  return partition_tasks(normal,
++                         tiling.cache_tasks_per_tensor - normal,
++                         tiling.block_dim,
++                         rotated);
++}
+ #undef T5QKV_MAPPING_INLINE
+ }  // namespace t5qkv
+--- a/op_kernel/t5_split_qkv_append_cache_kernel.h
++++ b/op_kernel/t5_split_qkv_append_cache_kernel.h
+@@ -32,6 +32,9 @@
+     const ReadBalancePolicy read_policy = make_read_balance_policy(tiling);
+     balanced_ = read_policy.enabled;
+     normal_value_tasks_ = read_policy.value_tasks;
++    four_plane_ = four_plane_rows(tiling) != 0 &&
++                  reinterpret_cast<uint64_t>(key) % 512 == 0 &&
++                  reinterpret_cast<uint64_t>(value) % 512 == 0;
+     const uint32_t query_elements =
+         tiling.batch * tiling.head_num * tiling.head_dim;
+     qkv_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(qkv),
+@@ -39,6 +42,10 @@
+     if (tiling.past_length != 0) {
+       past_key_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(past_key),
+                                 query_elements * tiling.past_length);
++      past_key_bypass_.SetGlobalBuffer(
++          reinterpret_cast<__gm__ uint16_t*>(past_key),
++          query_elements * tiling.past_length);
++      past_key_bypass_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+       past_value_bypass_.SetGlobalBuffer(
+           reinterpret_cast<__gm__ uint16_t*>(past_value),
+           query_elements * tiling.past_length);
+@@ -55,7 +62,7 @@
+     // rebuilding the hint address and dividing by row size for every task.
+     key_bypass_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(key),
+                                 query_elements * (tiling.past_length + 1));
+-    if (!balanced_) {
++    if (four_plane_ || !balanced_) {
+       key_bypass_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+     }
+     value_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(value),
+@@ -66,7 +73,10 @@
+         tiling.cacheable_key_rows * (tiling.past_length + 1) * tiling.head_dim;
+     cacheable_key_tasks_ =
+         tiling.cacheable_key_rows * tiling.cache_tiles_per_head;
+-    if (tiling.bypass_value_cache != 0) {
++    value_bypass_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(value),
++                                  query_elements * (tiling.past_length + 1));
++    value_bypass_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
++    if (!four_plane_ && tiling.bypass_value_cache != 0) {
+       value_.SetL2CacheHint(AscendC::CacheMode::CACHE_MODE_DISABLE);
+     }
+     pipe_.InitBuffer(buffer_, 2 * tiling.tile_elements * sizeof(uint16_t));
+@@ -83,7 +93,11 @@
+     const uint32_t append_tasks =
+         fuses_append(tiling_) ? 0 : 2 * tiling_.batch * tiling_.head_num;
+     const uint32_t core = AscendC::GetBlockIdx();
+-    if (balanced_) {
++    if (four_plane_) {
++      for (uint32_t phase = 0; phase < 4; ++phase) {
++        ranges_[phase] = four_plane_range(tiling_, phase, core);
++      }
++    } else if (balanced_) {
+       ranges_[0] = partition_tasks(
+           0, tiling_.cache_tasks_per_tensor, tiling_.block_dim, core);
+       ranges_[1] =
+@@ -104,7 +118,11 @@
+       ranges_[2] = partition_tasks(
+           0, tiling_.cache_tasks_per_tensor, tiling_.block_dim, core);
+     }
+-    process_history_pipeline();
++    if (four_plane_) {
++      process_history_pipeline<true>();
++    } else {
++      process_history_pipeline<false>();
++    }
+     process_phase(history_tasks, append_tasks);
+     process_phase(history_tasks + append_tasks, tiling_.query_tasks);
+     for (uint32_t slot = 0; slot < 2; ++slot) {
+@@ -114,7 +132,12 @@
+   }
+ 
+  private:
+-  enum class HistoryOutput : uint32_t { KEY = 0, BYPASS_KEY = 1, VALUE = 2 };
++  enum class HistoryOutput : uint32_t {
++    KEY = 0,
++    BYPASS_KEY = 1,
++    VALUE = 2,
++    BYPASS_VALUE = 3
++  };
+ 
+   struct HistoryWrite {
+     uint32_t destination_offset;
+@@ -129,23 +152,25 @@
+     uint32_t tile;
+   };
+ 
++  template <bool FourPlane>
+   __aicore__ inline void enter_phase(Cursor& cursor) {
+-    while (cursor.phase < 3 &&
++    while (cursor.phase < (FourPlane ? 4 : 3) &&
+            ranges_[cursor.phase].begin == ranges_[cursor.phase].end) {
+       ++cursor.phase;
+     }
+-    if (cursor.phase < 3) {
++    if (cursor.phase < (FourPlane ? 4 : 3)) {
+       cursor.task = ranges_[cursor.phase].begin;
+       cursor.row = cursor.task / tiling_.cache_tiles_per_head;
+       cursor.tile = cursor.task % tiling_.cache_tiles_per_head;
+     }
+   }
+ 
++  template <bool FourPlane>
+   __aicore__ inline void advance(Cursor& cursor) {
+     ++cursor.task;
+     if (cursor.task == ranges_[cursor.phase].end) {
+       ++cursor.phase;
+-      enter_phase(cursor);
++      enter_phase<FourPlane>(cursor);
+     } else {
+       ++cursor.tile;
+       if (cursor.tile == tiling_.cache_tiles_per_head) {
+@@ -155,12 +180,16 @@
+     }
+   }
+ 
++  template <bool FourPlane>
+   __aicore__ inline HistoryWrite prefetch(const Cursor& cursor, uint32_t slot) {
+-    const bool value = balanced_ ? cursor.phase != 0 : cursor.phase == 2;
++    const bool value =
++        FourPlane ? cursor.phase >= 2
++                  : (balanced_ ? cursor.phase != 0 : cursor.phase == 2);
++    const bool bypass =
++        FourPlane ? (cursor.phase & 1) != 0 : (balanced_ && cursor.phase == 2);
+     const auto& source =
+-        !value ? past_key_
+-               : (balanced_ && cursor.phase == 2 ? past_value_bypass_
+-                                                 : past_value_);
++        value ? (bypass ? past_value_bypass_ : past_value_)
++              : (FourPlane && bypass ? past_key_bypass_ : past_key_);
+     const uint32_t history_elements = tiling_.past_length * tiling_.head_dim;
+     const uint32_t tile_offset = cursor.tile * tiling_.tile_elements;
+     const uint32_t remaining = history_elements - tile_offset;
+@@ -185,26 +214,28 @@
+     AscendC::SetFlag<AscendC::HardEvent::MTE2_MTE3>(read_events_[slot]);
+     return {cursor.row * (history_elements + tiling_.head_dim) + tile_offset,
+             count + (append ? tiling_.head_dim : 0),
+-            balanced_ ? (value ? HistoryOutput::VALUE : HistoryOutput::KEY)
+-                      : static_cast<HistoryOutput>(cursor.phase)};
+-  }
+-
++            !FourPlane && balanced_
++                ? (value ? HistoryOutput::VALUE : HistoryOutput::KEY)
++                : static_cast<HistoryOutput>(cursor.phase)};
++  }
++
++  template <bool FourPlane>
+   __aicore__ inline void process_history_pipeline() {
+     uint32_t total = 0;
+-    for (uint32_t phase = 0; phase < 3; ++phase) {
++    for (uint32_t phase = 0; phase < (FourPlane ? 4 : 3); ++phase) {
+       total += ranges_[phase].end - ranges_[phase].begin;
+     }
+     if (total == 0) {
+       return;
+     }
+     Cursor cursor{};
+-    enter_phase(cursor);
++    enter_phase<FourPlane>(cursor);
+     uint32_t slot = 0;
+     // Each slot owns one event in each direction. Consume the prior store
+     // before reusing its UB region, including at cache-class boundaries.
+     bool used[2] = {true, false};
+-    HistoryWrite current = prefetch(cursor, slot);
+-    advance(cursor);
++    HistoryWrite current = prefetch<FourPlane>(cursor, slot);
++    advance<FourPlane>(cursor);
+     for (uint32_t index = 0; index < total; ++index) {
+       HistoryWrite next{};
+       const uint32_t next_slot = slot ^ 1;
+@@ -213,17 +244,20 @@
+           AscendC::WaitFlag<AscendC::HardEvent::MTE3_MTE2>(
+               write_events_[next_slot]);
+         }
+-        next = prefetch(cursor, next_slot);
++        next = prefetch<FourPlane>(cursor, next_slot);
+         used[next_slot] = true;
+-        advance(cursor);
++        advance<FourPlane>(cursor);
+       }
+       AscendC::WaitFlag<AscendC::HardEvent::MTE2_MTE3>(read_events_[slot]);
+       auto local = buffer_.Get<uint16_t>()[slot * tiling_.tile_elements];
+       auto& destination =
+           current.output == HistoryOutput::KEY
+               ? key_
+-              : (current.output == HistoryOutput::BYPASS_KEY ? key_bypass_
+-                                                             : value_);
++              : (current.output == HistoryOutput::BYPASS_KEY
++                     ? key_bypass_
++                     : (current.output == HistoryOutput::BYPASS_VALUE
++                            ? value_bypass_
++                            : value_));
+       const AscendC::DataCopyExtParams copy{1, current.count * 2, 0, 0, 0};
+       AscendC::DataCopyPad(
+           destination[current.destination_offset], local, copy);
+@@ -302,6 +336,7 @@
+     AscendC::WaitFlag<AscendC::HardEvent::MTE3_MTE2>(write_events_[0]);
+   }
+ 
++  bool four_plane_ = false;
+   bool balanced_ = false;
+   uint32_t normal_value_tasks_ = 0;
+   uint32_t cacheable_key_elements_ = 0;
+@@ -311,8 +346,8 @@
+   AscendC::TBuf<AscendC::TPosition::VECCALC> buffer_;
+   int32_t read_events_[2]{};
+   int32_t write_events_[2]{};
+-  TaskRange ranges_[3]{};
++  TaskRange ranges_[4]{};
+   AscendC::GlobalTensor<uint16_t> qkv_, past_key_, past_value_, query_, key_,
+-      key_bypass_, value_, past_value_bypass_;
++      key_bypass_, value_, past_value_bypass_, past_key_bypass_, value_bypass_;
+ };
+ }  // namespace t5qkv

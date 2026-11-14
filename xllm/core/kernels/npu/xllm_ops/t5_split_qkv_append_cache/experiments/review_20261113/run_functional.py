@@ -12,6 +12,16 @@ from run_matrix import _freeze_files, _snapshot
 HERE = Path(__file__).resolve().parent
 
 
+def _supplied_plan(entry: dict[str, Any]) -> Path:
+    name = entry.get("supplied_outputs_plan")
+    if name:
+        if Path(name).name != name:
+            raise ValueError("CPU plan must be a file inside the experiment")
+        return HERE / name
+    return HERE / ("flat_mapping_host_result.json" if entry.get("kernel_policy") == "flat_output_tiles"
+                   else "distributed_write_host_result.json")
+
+
 def _boundary_source(text: str, entry: dict[str, Any], no_admission: bool = False) -> str:
     if text.count("190 * 1024**2") != 1:
         raise ValueError("Unexpected boundary-test source; inspect before adapting")
@@ -131,6 +141,14 @@ def _main() -> int:
                 derived = derived.replace("normal_key_regions=[[4,84],[88,168],[172,252]]", "normal_key_regions=[[0,240]], output_tile_elements=47104")
             path.write_text(derived)
             files.append(str(path))
+        if entry.get("kernel_policy") == "four_plane":
+            path = reports / (name + "_executed_four_plane.py")
+            derived = _distributed_key_source(text)
+            derived = derived.replace("cache_rows = 240", "cache_rows = " + str(entry["four_plane_rows"]))
+            derived = derived.replace("normal_key_regions=[[4,84],[88,168],[172,252]]",
+                                      "normal_rows_per_plane=cache_rows, planes=4")
+            path.write_text(derived)
+            files += [str(path), str(_supplied_plan(entry)), str(HERE / "identity/check_supplied_outputs.py")]
     if any(_candidate(root, n).get("kernel_policy") in ("distributed_key_output", "flat_output_tiles") for n in args.candidates):
         files += [str(HERE / "identity/check_supplied_outputs.py"), str(HERE / "distributed_write_host_result.json"), str(HERE / "flat_mapping_host_result.json")]
     before = _snapshot(files)
@@ -162,7 +180,12 @@ def _main() -> int:
                 if _candidate(root, name).get("kernel_policy") in ("distributed_key_output", "flat_output_tiles"):
                     commands += [
                         ("distributed_key_boundary", reports / (name + "_executed_distributed_key.py"), []),
-                        ("supplied_outputs", HERE / "identity/check_supplied_outputs.py", ["--tiling-words", str(HERE / ("flat_mapping_host_result.json" if _candidate(root, name).get("kernel_policy") == "flat_output_tiles" else "distributed_write_host_result.json"))]),
+                        ("supplied_outputs", HERE / "identity/check_supplied_outputs.py", ["--tiling-words", str(_supplied_plan(_candidate(root, name)))]),
+                    ]
+                if _candidate(root, name).get("kernel_policy") == "four_plane":
+                    commands += [
+                        ("four_plane_boundary", reports / (name + "_executed_four_plane.py"), []),
+                        ("supplied_outputs", HERE / "identity/check_supplied_outputs.py", ["--tiling-words", str(_supplied_plan(_candidate(root, name)))]),
                     ]
                 if args.full:
                     commands += [
@@ -185,7 +208,7 @@ def _main() -> int:
                     _write(reports / "summary.json", summary)
                     if rc != 0 or result.get("status") != "passed" or result.get("npu_executed") is not True:
                         raise ValueError("Candidate functional check failed; inspect original records")
-                    expected = {"public_accuracy": 35, "extended": 206, "cache_boundary": 8, "cache_no_admission": 8, "distributed_value_boundary": 8, "distributed_key_boundary": 8, "supplied_outputs": 4}
+                    expected = {"public_accuracy": 35, "extended": 206, "cache_boundary": 8, "cache_no_admission": 8, "distributed_value_boundary": 8, "distributed_key_boundary": 8, "four_plane_boundary": 8, "supplied_outputs": 4}
                     if label in expected and len(result.get("cases", result.get("records", []))) != expected[label]:
                         raise ValueError("Unexpected functional record count")
         summary["status"] = "passed"

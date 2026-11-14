@@ -1,0 +1,30 @@
+{
+  "scope": "four_plane_CPU_mapping_only",
+  "npu_executed": false,
+  "status": "passed",
+  "rows": 176,
+  "tasks": 1536,
+  "tasks_per_core": 32,
+  "appends": 512,
+  "normal_read_bytes": 92274688,
+  "normal_write_bytes": 92319744,
+  "bypass_read_bytes": 41943040,
+  "bypass_write_bytes": 41963520,
+  "tiling_words": [
+    16,
+    16,
+    2048,
+    64,
+    47104,
+    3,
+    1,
+    768,
+    16,
+    1552,
+    48,
+    175,
+    1
+  ],
+  "header_sha256": "c22cbc240b6e2efaef036d6fb5853ad4f92da95e0839c1a5f3ab9c1bcd0a9533",
+  "checker_source_sha256": "aee626874ee6969647023776236f85f7316c3225fc73847ece6641496cadebdf"
+}

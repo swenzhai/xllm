@@ -184,6 +184,46 @@
         "op_kernel/t5_split_qkv_append_cache_kernel.h"
       ],
       "kernel_policy": "flat_output_tiles"
+    },
+    {
+      "name": "c19_four_plane_184",
+      "budget_mib": 190,
+      "policy": "read_balance",
+      "normal_key_rows": 256,
+      "normal_value_rows": 240,
+      "large_value_rows": 240,
+      "patch": "patches/c19_four_plane_184.patch",
+      "allowed_patch_files": [
+        "common/t5_split_qkv_append_cache_tiling.h",
+        "op_kernel/t5_split_qkv_append_cache_kernel.h"
+      ],
+      "kernel_policy": "four_plane",
+      "four_plane_rows": 184,
+      "actual_normal_key_input_rows": 184,
+      "actual_normal_value_input_rows": 184,
+      "actual_normal_key_output_rows": 184,
+      "actual_normal_value_output_rows": 184,
+      "supplied_outputs_plan": "c19_four_plane_184_host_result.json"
+    },
+    {
+      "name": "c20_four_plane_176",
+      "budget_mib": 190,
+      "policy": "read_balance",
+      "normal_key_rows": 256,
+      "normal_value_rows": 240,
+      "large_value_rows": 240,
+      "patch": "patches/c20_four_plane_176.patch",
+      "allowed_patch_files": [
+        "common/t5_split_qkv_append_cache_tiling.h",
+        "op_kernel/t5_split_qkv_append_cache_kernel.h"
+      ],
+      "kernel_policy": "four_plane",
+      "four_plane_rows": 176,
+      "actual_normal_key_input_rows": 176,
+      "actual_normal_value_input_rows": 176,
+      "actual_normal_key_output_rows": 176,
+      "actual_normal_value_output_rows": 176,
+      "supplied_outputs_plan": "c20_four_plane_176_host_result.json"
     }
   ]
 }

@@ -1,0 +1,398 @@
+{
+  "status": "passed",
+  "scope": "host_mapping_and_policy_only",
+  "npu_executed": false,
+  "candidates": [
+    {
+      "name": "control",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 199229440,
+        "value_rows": 240,
+        "normal_key_rows": 256,
+        "read_balance_enabled": true,
+        "value_tasks": 720,
+        "normal_bytes": 197296128
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      },
+      "kernel_policy": "read_balance",
+      "scope_note": "Actual shared policy and generic mapper"
+    },
+    {
+      "name": "c1_186mib",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 195035136,
+        "value_rows": 224,
+        "normal_key_rows": 256,
+        "read_balance_enabled": true,
+        "value_tasks": 672,
+        "normal_bytes": 193101824
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      },
+      "kernel_policy": "read_balance",
+      "scope_note": "Actual shared policy and generic mapper"
+    },
+    {
+      "name": "c2_182mib",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 190840832,
+        "value_rows": 208,
+        "normal_key_rows": 256,
+        "read_balance_enabled": true,
+        "value_tasks": 624,
+        "normal_bytes": 188907520
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      },
+      "kernel_policy": "read_balance",
+      "scope_note": "Actual shared policy and generic mapper"
+    },
+    {
+      "name": "c3_input_priority_186mib",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 195035136,
+        "value_rows": 256,
+        "normal_key_rows": 224,
+        "read_balance_enabled": false,
+        "value_tasks": 768,
+        "normal_bytes": 193097728
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      },
+      "kernel_policy": "input_priority",
+      "scope_note": "Actual shared policy and generic mapper"
+    },
+    {
+      "name": "c4_input_priority_190mib",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 199229440,
+        "value_rows": 256,
+        "normal_key_rows": 240,
+        "read_balance_enabled": false,
+        "value_tasks": 768,
+        "normal_bytes": 197294080
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      },
+      "kernel_policy": "input_priority",
+      "scope_note": "Actual shared policy and generic mapper"
+    },
+    {
+      "name": "c5_mirror_key_value",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 199229440,
+        "value_rows": 240,
+        "normal_key_rows": 256,
+        "read_balance_enabled": true,
+        "value_tasks": 720,
+        "normal_bytes": 197296128
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      },
+      "kernel_policy": "mirror_key_value",
+      "scope_note": "Shared quota helper and generic mapper only; mirror prefetch requires NPU tests"
+    },
+    {
+      "name": "c6_key_prefix2k",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 199229440,
+        "value_rows": 240,
+        "normal_key_rows": 256,
+        "read_balance_enabled": true,
+        "value_tasks": 720,
+        "normal_bytes": 197296128
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      },
+      "kernel_policy": "key_output_placement",
+      "scope_note": "Actual shared policy and generic mapper"
+    },
+    {
+      "name": "c7_key_tail2k",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 199229440,
+        "value_rows": 240,
+        "normal_key_rows": 256,
+        "read_balance_enabled": true,
+        "value_tasks": 720,
+        "normal_bytes": 197296128
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      },
+      "kernel_policy": "key_output_placement",
+      "scope_note": "Actual shared policy and generic mapper"
+    },
+    {
+      "name": "c8_distributed_value_input",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 199229440,
+        "value_rows": 240,
+        "normal_key_rows": 256,
+        "read_balance_enabled": true,
+        "value_tasks": 720,
+        "normal_bytes": 197296128
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      },
+      "kernel_policy": "distributed_value_input",
+      "scope_note": "Actual shared policy and generic mapper"
+    },
+    {
+      "name": "c9_input_only",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 180355072,
+        "value_rows": 256,
+        "normal_key_rows": 0,
+        "read_balance_enabled": false,
+        "value_tasks": 768,
+        "normal_bytes": 134348800
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      },
+      "kernel_policy": "input_only",
+      "scope_note": "Actual shared policy and generic mapper"
+    },
+    {
+      "name": "c10_key_chain_only",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 199229440,
+        "value_rows": 0,
+        "normal_key_rows": 256,
+        "read_balance_enabled": true,
+        "value_tasks": 0,
+        "normal_bytes": 134381568
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      },
+      "kernel_policy": "key_chain_only",
+      "scope_note": "Actual shared policy and generic mapper"
+    },
+    {
+      "name": "c14_outputs_only",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 199229440,
+        "value_rows": 0,
+        "normal_key_rows": 256,
+        "read_balance_enabled": true,
+        "value_tasks": 0,
+        "normal_bytes": 134381568
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      },
+      "kernel_policy": "outputs_only",
+      "scope_note": "Actual shared policy and generic mapper"
+    },
+    {
+      "name": "c15_value_before_key",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 199229440,
+        "value_rows": 240,
+        "normal_key_rows": 256,
+        "read_balance_enabled": true,
+        "value_tasks": 720,
+        "normal_bytes": 197296128
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      },
+      "kernel_policy": "reversed_output_allocation",
+      "scope_note": "Actual shared policy and generic mapper"
+    },
+    {
+      "name": "c17_distributed_key_output",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 199229440,
+        "value_rows": 256,
+        "normal_key_rows": 240,
+        "read_balance_enabled": false,
+        "value_tasks": 768,
+        "normal_bytes": 197294080
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      },
+      "kernel_policy": "distributed_key_output",
+      "scope_note": "Actual shared policy and generic mapper"
+    },
+    {
+      "name": "c18_flat_output_tiles",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 199229440,
+        "value_rows": 256,
+        "normal_key_rows": 240,
+        "read_balance_enabled": false,
+        "value_tasks": 768,
+        "normal_bytes": 197294080
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      },
+      "kernel_policy": "flat_output_tiles",
+      "scope_note": "Actual shared policy and generic mapper"
+    },
+    {
+      "name": "c19_four_plane_184",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 199229440,
+        "value_rows": 240,
+        "normal_key_rows": 256,
+        "read_balance_enabled": true,
+        "value_tasks": 720,
+        "normal_bytes": 197296128
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      },
+      "kernel_policy": "four_plane",
+      "scope_note": "Actual shared policy and generic mapper"
+    },
+    {
+      "name": "c20_four_plane_176",
+      "policy": {
+        "npu_executed": false,
+        "scope": "host_policy_only",
+        "tiling_bytes": 52,
+        "budget_bytes": 199229440,
+        "value_rows": 240,
+        "normal_key_rows": 256,
+        "read_balance_enabled": true,
+        "value_tasks": 720,
+        "normal_bytes": 197296128
+      },
+      "mapping": {
+        "scope": "host_address_mapping_only",
+        "status": "passed",
+        "npu_executed": false,
+        "shape_core_offset_checks": 104,
+        "decoded_tasks": 171584
+      },
+      "kernel_policy": "four_plane",
+      "scope_note": "Actual shared policy and generic mapper"
+    }
+  ]
+}

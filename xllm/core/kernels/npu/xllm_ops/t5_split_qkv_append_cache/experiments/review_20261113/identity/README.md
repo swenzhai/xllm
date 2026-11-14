@@ -28,4 +28,40 @@ A matched L2 profiler run is intended to correlate counts with allocations from
 the same process; different metric/process samples must not be spliced together.
 
 Remote investigation root: /workspace/t5qkv-identity-20261114-01. The crossover
-is running; no new optimized implementation or performance pass is claimed.
+is complete: 8 precision processes passed all 35 cases and 24 timing processes
+completed with unchanged source/artifacts. Both old/new versions fail default
+allocator limits on both chips, while page1g is faster. No new performance pass
+is claimed.
+
+
+The complete 31556 allocation sizes match the full public workload exactly in
+all four memory-history runs; each large case uses one stable output address
+triple for all 1000 timed calls. PID/driver tables resolve visibility 0/1 to NPU3
+chips 0/1, physical IDs 6/7 and PCIe 91:00.0/93:00.0. Default allocation VAs are
+identical across these two chips, but same-run 007 kernel medians are about
+124/95 us and r0 read-miss-allocation events about 242k/140k. Page1g medians are
+about 72 us and event counts about 0.5k/1.7k. These raw events are not universal
+cache hit percentages. The observed bottleneck is cache residency/access
+sensitivity associated with segment layout and physical-device mapping;
+physical HBM page/cache-index addresses remain unavailable.
+
+Default large input and output base VAs all have zero low 21 bits. Page1g's
+input/output data bases differ by small offsets (1024,1536,2048,35328 mod 2MiB).
+C6/C7 therefore test placement without changing the kernel: both allocate a
+fresh independent Key storage with 2KiB slack when the existing cache-admission
+policy is active. C6 places logical Key data after that prefix; C7 starts at the
+original base and leaves identical slack at the tail. Output shapes, continuity,
+ownership and current stream remain unchanged; no input copy/global allocator
+setting/output reuse/explicit workspace is introduced. The task permits
+independent contiguous tensors and a 16KiB memory-overhead allowance; actual
+memory and release checks must still pass. The derived eight-case cache boundary
+test asserts the real Key storage offset and records data/base pointers.
+
+The historical padded-allocation failures do not qualify this new controlled
+experiment. C6/C7 are unvalidated hypotheses, and a gain only in one allocator
+or one fresh process does not qualify either candidate.
+
+Retained archives (individually SHA-verified): crossover 139 files,
+560f3e544a17ba304bca98d1994f01cd38611f26f5dbfd2bad5d9c7e0f76cd68;
+address/PMU 86 files,
+cfa8b6d204d31e049d058beef289150da50005f3f784efd257d1d15b16fc920e.

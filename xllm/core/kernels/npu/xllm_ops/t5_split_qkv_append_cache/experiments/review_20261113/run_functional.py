@@ -44,7 +44,7 @@ def _boundary_source(text: str, entry: dict[str, Any], no_admission: bool = Fals
         # The task allows independent contiguous outputs with nonzero offset;
         # record the actual data/base difference, not only allocator block VAs.
         offset = entry["key_output_offset_elements"]
-        text = text.replace("item.update(status=\"passed\", shape=", 
+        text = text.replace("item.update(status=\"passed\", shape=",
             "if outputs[1].storage_offset() != " + str(offset) + ":\n"
             "                        raise AssertionError(\"unexpected Key output placement\")\n"
             "                    item.update(output_storage_offsets=[t.storage_offset() for t in outputs],\n"

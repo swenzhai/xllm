@@ -1,0 +1,1363 @@
+{
+  "scope": "same_process_virtual_allocation_and_L2_diagnostics_not_acceptance",
+  "address_limit": "Virtual addresses/allocator segments; physical HBM page addresses unavailable",
+  "allocation_mapping": "Exact complete size sequence: nonempty inputs, then 1051 fresh Q/K/V triples per public case",
+  "records": [
+    {
+      "visible_device": "0",
+      "allocator": "default",
+      "physical_device": {
+        "npu_id": 3,
+        "chip_id": 0,
+        "physical_id": 6,
+        "pcie_bus": "0000:91:00.0"
+      },
+      "allocations": 31556,
+      "events": 94672,
+      "segments": [
+        {
+          "address": 20618009378816,
+          "total_size": 2097152,
+          "segment_type": "small",
+          "is_expandable": false
+        },
+        {
+          "address": 20618013573120,
+          "total_size": 20971520,
+          "segment_type": "large",
+          "is_expandable": false
+        },
+        {
+          "address": 20618034544640,
+          "total_size": 20971520,
+          "segment_type": "large",
+          "is_expandable": false
+        },
+        {
+          "address": 20618055516160,
+          "total_size": 69206016,
+          "segment_type": "large",
+          "is_expandable": false
+        },
+        {
+          "address": 20618124722176,
+          "total_size": 69206016,
+          "segment_type": "large",
+          "is_expandable": false
+        },
+        {
+          "address": 20618193928192,
+          "total_size": 69206016,
+          "segment_type": "large",
+          "is_expandable": false
+        },
+        {
+          "address": 20618263134208,
+          "total_size": 69206016,
+          "segment_type": "large",
+          "is_expandable": false
+        }
+      ],
+      "cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "input_addresses": [
+            20618009378816
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009391616,
+                20618009396224,
+                20618009400832
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 6.84,
+            "aiv_r0_read_cache_hit": 167.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 168.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 120.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 136.45595
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "input_addresses": [
+            20618009391616,
+            20618009395200,
+            20618009526784
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20618009658368,
+                20618009790976
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 3.36,
+            "aiv_r0_read_cache_hit": 1078.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 1078.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 555.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 132.85665
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "input_addresses": [
+            20618009658368,
+            20618013573120,
+            20618019865088
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20618026157056,
+                20618034544640
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 9.921,
+            "aiv_r0_read_cache_hit": 49415.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 49416.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 24936.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 139.4111
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "input_addresses": [
+            20618009378816,
+            20618055516160,
+            20618124722176
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009477632,
+                20618193928192,
+                20618263134208
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 124.4075,
+            "aiv_r0_read_cache_hit": 266457.0,
+            "aiv_r0_read_cache_miss_allocate": 241901.0,
+            "aiv_r1_read_cache_hit": 266679.5,
+            "aiv_r1_read_cache_miss_allocate": 241778.5,
+            "aiv_write_cache_hit": 96700.0,
+            "aiv_write_cache_miss_allocate": 35508.0
+          },
+          "instrumented_wall_us_not_acceptance": 252.9239
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "input_addresses": [
+            20618009477632,
+            20618013573120,
+            20618015670784
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20618017768448,
+                20618019866112
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 8.561,
+            "aiv_r0_read_cache_hit": 16504.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 16504.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 8242.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 138.04835
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "input_addresses": [
+            20618009378816
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009391616,
+                20618009396224,
+                20618009400832
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 6.92,
+            "aiv_r0_read_cache_hit": 167.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 168.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 120.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 136.4599
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "input_addresses": [
+            20618009391616,
+            20618009395200,
+            20618009526784
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20618009658368,
+                20618009790976
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 3.38,
+            "aiv_r0_read_cache_hit": 1078.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 1078.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 555.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 132.72205
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "input_addresses": [
+            20618009658368,
+            20618013573120,
+            20618019865088
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20618026157056,
+                20618034544640
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 10.041,
+            "aiv_r0_read_cache_hit": 49416.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 49415.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0,
+            "aiv_write_cache_hit": 24936.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 139.24329999999998
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "input_addresses": [
+            20618009378816,
+            20618055516160,
+            20618124722176
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009477632,
+                20618193928192,
+                20618263134208
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 121.787,
+            "aiv_r0_read_cache_hit": 271561.5,
+            "aiv_r0_read_cache_miss_allocate": 236833.5,
+            "aiv_r1_read_cache_hit": 271487.5,
+            "aiv_r1_read_cache_miss_allocate": 236906.5,
+            "aiv_write_cache_hit": 98643.5,
+            "aiv_write_cache_miss_allocate": 33564.5
+          },
+          "instrumented_wall_us_not_acceptance": 250.2934
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "input_addresses": [
+            20618009477632,
+            20618013573120,
+            20618015670784
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20618017768448,
+                20618019866112
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 8.6005,
+            "aiv_r0_read_cache_hit": 16504.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 16504.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 8242.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 138.11020000000002
+        }
+      ]
+    },
+    {
+      "visible_device": "0",
+      "allocator": "page1g",
+      "physical_device": {
+        "npu_id": 3,
+        "chip_id": 0,
+        "physical_id": 6,
+        "pcie_bus": "0000:91:00.0"
+      },
+      "allocations": 31556,
+      "events": 94667,
+      "segments": [
+        {
+          "address": 20618009378816,
+          "total_size": 2097152,
+          "segment_type": "small",
+          "is_expandable": false
+        },
+        {
+          "address": 20622285471744,
+          "total_size": 1073741824,
+          "segment_type": "large",
+          "is_expandable": false
+        }
+      ],
+      "cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "input_addresses": [
+            20618009378816
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009391616,
+                20618009396224,
+                20618009400832
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 6.981,
+            "aiv_r0_read_cache_hit": 168.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 167.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0,
+            "aiv_write_cache_hit": 120.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 136.53265
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "input_addresses": [
+            20618009391616,
+            20618009395200,
+            20618009526784
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20618009658368,
+                20618009790976
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 3.38,
+            "aiv_r0_read_cache_hit": 1078.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 1078.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0,
+            "aiv_write_cache_hit": 555.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 133.08535
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "input_addresses": [
+            20618009658368,
+            20622285471744,
+            20622291763712
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20622298055680,
+                20622304359936
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 9.8705,
+            "aiv_r0_read_cache_hit": 49416.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 49415.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0,
+            "aiv_write_cache_hit": 24936.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 139.3733
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "input_addresses": [
+            20618009378816,
+            20622298055680,
+            20622365165056
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009477632,
+                20622432274432,
+                20622499416576
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 71.685,
+            "aiv_r0_read_cache_hit": 507908.5,
+            "aiv_r0_read_cache_miss_allocate": 503.0,
+            "aiv_r1_read_cache_hit": 507907.0,
+            "aiv_r1_read_cache_miss_allocate": 502.0,
+            "aiv_write_cache_hit": 132208.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 200.9894
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "input_addresses": [
+            20618009477632,
+            20622285471744,
+            20622287569408
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20622289667072,
+                20622291764736
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 8.5305,
+            "aiv_r0_read_cache_hit": 16504.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 16504.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 8242.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 137.76035000000002
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "input_addresses": [
+            20618009378816
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009391616,
+                20618009396224,
+                20618009400832
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 6.8,
+            "aiv_r0_read_cache_hit": 167.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 168.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 120.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 135.9268
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "input_addresses": [
+            20618009391616,
+            20618009395200,
+            20618009526784
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20618009658368,
+                20618009790976
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 3.38,
+            "aiv_r0_read_cache_hit": 1078.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 1078.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 555.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 132.9795
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "input_addresses": [
+            20618009658368,
+            20622285471744,
+            20622291763712
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20622298055680,
+                20622304359936
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 9.92,
+            "aiv_r0_read_cache_hit": 49415.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 49416.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 24936.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 139.3375
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "input_addresses": [
+            20618009378816,
+            20622298055680,
+            20622365165056
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009477632,
+                20622432274432,
+                20622499416576
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 72.104,
+            "aiv_r0_read_cache_hit": 507874.0,
+            "aiv_r0_read_cache_miss_allocate": 536.0,
+            "aiv_r1_read_cache_hit": 507870.0,
+            "aiv_r1_read_cache_miss_allocate": 535.5,
+            "aiv_write_cache_hit": 132208.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 201.44660000000002
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "input_addresses": [
+            20618009477632,
+            20622285471744,
+            20622287569408
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20622289667072,
+                20622291764736
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 8.581,
+            "aiv_r0_read_cache_hit": 16504.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 16504.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 8242.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 137.93554999999998
+        }
+      ]
+    },
+    {
+      "visible_device": "1",
+      "allocator": "default",
+      "physical_device": {
+        "npu_id": 3,
+        "chip_id": 1,
+        "physical_id": 7,
+        "pcie_bus": "0000:93:00.0"
+      },
+      "allocations": 31556,
+      "events": 94672,
+      "segments": [
+        {
+          "address": 20618009378816,
+          "total_size": 2097152,
+          "segment_type": "small",
+          "is_expandable": false
+        },
+        {
+          "address": 20618013573120,
+          "total_size": 20971520,
+          "segment_type": "large",
+          "is_expandable": false
+        },
+        {
+          "address": 20618034544640,
+          "total_size": 20971520,
+          "segment_type": "large",
+          "is_expandable": false
+        },
+        {
+          "address": 20618055516160,
+          "total_size": 69206016,
+          "segment_type": "large",
+          "is_expandable": false
+        },
+        {
+          "address": 20618124722176,
+          "total_size": 69206016,
+          "segment_type": "large",
+          "is_expandable": false
+        },
+        {
+          "address": 20618193928192,
+          "total_size": 69206016,
+          "segment_type": "large",
+          "is_expandable": false
+        },
+        {
+          "address": 20618263134208,
+          "total_size": 69206016,
+          "segment_type": "large",
+          "is_expandable": false
+        }
+      ],
+      "cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "input_addresses": [
+            20618009378816
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009391616,
+                20618009396224,
+                20618009400832
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 6.921,
+            "aiv_r0_read_cache_hit": 167.5,
+            "aiv_r0_read_cache_miss_allocate": 0.5,
+            "aiv_r1_read_cache_hit": 167.5,
+            "aiv_r1_read_cache_miss_allocate": 0.5,
+            "aiv_write_cache_hit": 120.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 136.1036
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "input_addresses": [
+            20618009391616,
+            20618009395200,
+            20618009526784
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20618009658368,
+                20618009790976
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 3.38,
+            "aiv_r0_read_cache_hit": 1078.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 1078.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 555.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 132.9035
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "input_addresses": [
+            20618009658368,
+            20618013573120,
+            20618019865088
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20618026157056,
+                20618034544640
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 9.881,
+            "aiv_r0_read_cache_hit": 49415.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 49416.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 24936.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 139.27115
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "input_addresses": [
+            20618009378816,
+            20618055516160,
+            20618124722176
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009477632,
+                20618193928192,
+                20618263134208
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 94.848,
+            "aiv_r0_read_cache_hit": 368031.5,
+            "aiv_r0_read_cache_miss_allocate": 140398.0,
+            "aiv_r1_read_cache_hit": 368077.5,
+            "aiv_r1_read_cache_miss_allocate": 140309.0,
+            "aiv_write_cache_hit": 128189.5,
+            "aiv_write_cache_miss_allocate": 4018.5
+          },
+          "instrumented_wall_us_not_acceptance": 223.605
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "input_addresses": [
+            20618009477632,
+            20618013573120,
+            20618015670784
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20618017768448,
+                20618019866112
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 8.521,
+            "aiv_r0_read_cache_hit": 16504.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 16504.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0,
+            "aiv_write_cache_hit": 8242.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 137.85665
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "input_addresses": [
+            20618009378816
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009391616,
+                20618009396224,
+                20618009400832
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 6.92,
+            "aiv_r0_read_cache_hit": 167.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 168.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 120.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 136.41435
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "input_addresses": [
+            20618009391616,
+            20618009395200,
+            20618009526784
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20618009658368,
+                20618009790976
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 3.38,
+            "aiv_r0_read_cache_hit": 1078.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 1078.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0,
+            "aiv_write_cache_hit": 555.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 132.8787
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "input_addresses": [
+            20618009658368,
+            20618013573120,
+            20618019865088
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20618026157056,
+                20618034544640
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 9.861,
+            "aiv_r0_read_cache_hit": 49415.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 49416.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 24936.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 139.3111
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "input_addresses": [
+            20618009378816,
+            20618055516160,
+            20618124722176
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009477632,
+                20618193928192,
+                20618263134208
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 93.0875,
+            "aiv_r0_read_cache_hit": 366445.0,
+            "aiv_r0_read_cache_miss_allocate": 141954.0,
+            "aiv_r1_read_cache_hit": 366390.5,
+            "aiv_r1_read_cache_miss_allocate": 142026.5,
+            "aiv_write_cache_hit": 127884.0,
+            "aiv_write_cache_miss_allocate": 4324.0
+          },
+          "instrumented_wall_us_not_acceptance": 221.58845000000002
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "input_addresses": [
+            20618009477632,
+            20618013573120,
+            20618015670784
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20618017768448,
+                20618019866112
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 8.5705,
+            "aiv_r0_read_cache_hit": 16504.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 16504.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 8242.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 137.8433
+        }
+      ]
+    },
+    {
+      "visible_device": "1",
+      "allocator": "page1g",
+      "physical_device": {
+        "npu_id": 3,
+        "chip_id": 1,
+        "physical_id": 7,
+        "pcie_bus": "0000:93:00.0"
+      },
+      "allocations": 31556,
+      "events": 94667,
+      "segments": [
+        {
+          "address": 20618009378816,
+          "total_size": 2097152,
+          "segment_type": "small",
+          "is_expandable": false
+        },
+        {
+          "address": 20622285471744,
+          "total_size": 1073741824,
+          "segment_type": "large",
+          "is_expandable": false
+        }
+      ],
+      "cases": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "input_addresses": [
+            20618009378816
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009391616,
+                20618009396224,
+                20618009400832
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 6.92,
+            "aiv_r0_read_cache_hit": 167.5,
+            "aiv_r0_read_cache_miss_allocate": 0.5,
+            "aiv_r1_read_cache_hit": 167.5,
+            "aiv_r1_read_cache_miss_allocate": 0.5,
+            "aiv_write_cache_hit": 120.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 136.48329999999999
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "input_addresses": [
+            20618009391616,
+            20618009395200,
+            20618009526784
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20618009658368,
+                20618009790976
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 3.361,
+            "aiv_r0_read_cache_hit": 1078.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 1078.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0,
+            "aiv_write_cache_hit": 555.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 132.8974
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "input_addresses": [
+            20618009658368,
+            20622285471744,
+            20622291763712
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20622298055680,
+                20622304359936
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 9.941,
+            "aiv_r0_read_cache_hit": 49415.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 49416.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 24936.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 139.41725
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "input_addresses": [
+            20618009378816,
+            20622298055680,
+            20622365165056
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009477632,
+                20622432274432,
+                20622499416576
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 71.925,
+            "aiv_r0_read_cache_hit": 506692.5,
+            "aiv_r0_read_cache_miss_allocate": 1714.0,
+            "aiv_r1_read_cache_hit": 506696.0,
+            "aiv_r1_read_cache_miss_allocate": 1719.0,
+            "aiv_write_cache_hit": 132208.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 201.4696
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "input_addresses": [
+            20618009477632,
+            20622285471744,
+            20622287569408
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20622289667072,
+                20622291764736
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 8.54,
+            "aiv_r0_read_cache_hit": 16504.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 16504.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 8242.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 138.11905
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "input_addresses": [
+            20618009378816
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009391616,
+                20618009396224,
+                20618009400832
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 6.921,
+            "aiv_r0_read_cache_hit": 167.5,
+            "aiv_r0_read_cache_miss_allocate": 0.5,
+            "aiv_r1_read_cache_hit": 167.5,
+            "aiv_r1_read_cache_miss_allocate": 0.5,
+            "aiv_write_cache_hit": 120.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 136.14170000000001
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "input_addresses": [
+            20618009391616,
+            20618009395200,
+            20618009526784
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20618009658368,
+                20618009790976
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 3.361,
+            "aiv_r0_read_cache_hit": 1078.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 1078.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 555.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 132.6946
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "input_addresses": [
+            20618009658368,
+            20622285471744,
+            20622291763712
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20622298055680,
+                20622304359936
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 9.861,
+            "aiv_r0_read_cache_hit": 49416.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 49415.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0,
+            "aiv_write_cache_hit": 24936.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 139.22854999999998
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "input_addresses": [
+            20618009378816,
+            20622298055680,
+            20622365165056
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009477632,
+                20622432274432,
+                20622499416576
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 72.146,
+            "aiv_r0_read_cache_hit": 506654.0,
+            "aiv_r0_read_cache_miss_allocate": 1758.0,
+            "aiv_r1_read_cache_hit": 506648.0,
+            "aiv_r1_read_cache_miss_allocate": 1761.5,
+            "aiv_write_cache_hit": 132208.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 201.1563
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "input_addresses": [
+            20618009477632,
+            20622285471744,
+            20622287569408
+          ],
+          "unique_timed_output_triples": 1,
+          "timed_output_triples": [
+            {
+              "addresses": [
+                20618009378816,
+                20622289667072,
+                20622291764736
+              ],
+              "count": 1000
+            }
+          ],
+          "omitted_rare_triples": 0,
+          "same_process_L2_medians": {
+            "Task Duration(us)": 8.561,
+            "aiv_r0_read_cache_hit": 16504.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 16504.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0,
+            "aiv_write_cache_hit": 8242.0,
+            "aiv_write_cache_miss_allocate": 0.0
+          },
+          "instrumented_wall_us_not_acceptance": 137.9151
+        }
+      ]
+    }
+  ]
+}

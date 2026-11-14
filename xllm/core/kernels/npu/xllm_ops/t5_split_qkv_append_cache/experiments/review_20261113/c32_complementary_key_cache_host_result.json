@@ -1,0 +1,31 @@
+{
+  "scope": "complementary_key_cache_CPU_mapping_only",
+  "npu_executed": false,
+  "status": "passed",
+  "tiles": 1426,
+  "elements_checked": 67141632,
+  "normal_write_slots": 13,
+  "pieces": 2448,
+  "normal_history_read_bytes": 79537536,
+  "bypass_history_read_bytes": 54680192,
+  "normal_footprint_512B_line_bound": 134425088,
+  "normal_key_write_bytes": 54706176,
+  "bypass_write_bytes": 79577088,
+  "tiling_words": [
+    16,
+    16,
+    2048,
+    64,
+    47104,
+    3,
+    1,
+    768,
+    16,
+    1552,
+    48,
+    240,
+    1
+  ],
+  "checker_sha256": "70b5a5788f20330fec6c6a0d724dc318946eed2f1f054483699c7d52753a153b",
+  "header_sha256": "8dc919294a46c556aeb551cbc3e8d7877423fff8d7197fae37ce7bd5d5e03c88"
+}

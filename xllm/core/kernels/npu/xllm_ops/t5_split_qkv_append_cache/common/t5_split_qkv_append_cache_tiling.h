@@ -47,7 +47,7 @@ constexpr uint64_t kMaxOutputElements = uint64_t{1} << 28;
 #define T5QKV_MAPPING_INLINE inline
 #endif
 
-constexpr uint64_t kL2BudgetBytes = uint64_t{172} * 1024 * 1024;
+constexpr uint64_t kL2BudgetBytes = uint64_t{190} * 1024 * 1024;
 constexpr uint64_t kReadBalanceBudgetBytes = uint64_t{190} * 1024 * 1024;
 
 struct CachePolicy {
@@ -55,6 +55,16 @@ struct CachePolicy {
   uint32_t key_tasks;
   bool bypass_value;
 };
+
+T5QKV_MAPPING_INLINE uint32_t cache_policy_gcd(uint32_t first,
+                                               uint32_t second) {
+  while (second != 0) {
+    const uint32_t remainder = first % second;
+    first = second;
+    second = remainder;
+  }
+  return first;
+}
 
 // Software admission budget, not a reservation or a residency guarantee.
 T5QKV_MAPPING_INLINE CachePolicy
@@ -71,7 +81,18 @@ make_cache_policy(const T5SplitQkvAppendCacheTilingData& tiling) {
   const uint64_t base = 4 * n * (tiling.past_length + 2);
   const uint64_t remaining = kL2BudgetBytes > base ? kL2BudgetBytes - base : 0;
   const uint64_t candidate_rows = remaining / (2 * row_elements);
-  const uint64_t admitted_rows = candidate_rows < rows ? candidate_rows : rows;
+  const uint64_t limited_rows = candidate_rows < rows ? candidate_rows : rows;
+  // Balance each history cache class and keep its output boundary 512B aligned
+  // relative to the fresh allocator-aligned output base.
+  const uint32_t core_group =
+      tiling.block_dim /
+      cache_policy_gcd(tiling.cache_tiles_per_head, tiling.block_dim);
+  const uint32_t alignment_group =
+      256 / cache_policy_gcd(static_cast<uint32_t>(row_elements % 256),
+                             /*second=*/256);
+  const uint32_t row_group = core_group * alignment_group /
+                             cache_policy_gcd(core_group, alignment_group);
+  const uint64_t admitted_rows = limited_rows - limited_rows % row_group;
   return {static_cast<uint32_t>(admitted_rows * row_elements),
           static_cast<uint32_t>(admitted_rows * tiling.cache_tiles_per_head),
           true};
@@ -83,34 +104,12 @@ struct ReadBalancePolicy {
   uint32_t value_tasks;
 };
 
-// Retain Key input/output and admit only a bounded prefix of Value input.
-// Value output uses the bypass hint. This budget is not a cache reservation.
+// Experimental input-priority plan: retain all history reads and spend the
+// remaining budget on a bounded Key-output prefix. Use the existing balanced
+// cached-Key / bypass-Key / Value phase scheduler; Value output still bypasses.
 T5QKV_MAPPING_INLINE ReadBalancePolicy
-make_read_balance_policy(const T5SplitQkvAppendCacheTilingData& tiling) {
-  const uint64_t n = uint64_t{tiling.batch} * tiling.head_num * tiling.head_dim;
-  const uint64_t base = 2 * n * (2 * uint64_t{tiling.past_length} + 5);
-  if (tiling.bypass_value_cache == 0 || tiling.past_length == 0 ||
-      base >= kReadBalanceBudgetBytes) {
-    return {};
-  }
-  const uint64_t rows = uint64_t{tiling.batch} * tiling.head_num;
-  uint64_t cached_rows = (kReadBalanceBudgetBytes - base) /
-                         (2 * uint64_t{tiling.past_length} * tiling.head_dim);
-  cached_rows = cached_rows < rows ? cached_rows : rows;
-  uint32_t divisor = tiling.cache_tiles_per_head;
-  uint32_t cores = tiling.block_dim;
-  while (cores != 0) {
-    const uint32_t remainder = divisor % cores;
-    divisor = cores;
-    cores = remainder;
-  }
-  const uint32_t group = tiling.block_dim / divisor;
-  if (cached_rows >= group) {
-    cached_rows -= cached_rows % group;
-  }
-  return {true,
-          static_cast<uint32_t>(cached_rows),
-          static_cast<uint32_t>(cached_rows) * tiling.cache_tiles_per_head};
+make_read_balance_policy(const T5SplitQkvAppendCacheTilingData& /*tiling*/) {
+  return {};
 }
 
 inline bool can_fuse_append(const T5SplitQkvAppendCacheTilingData& tiling) {
@@ -271,6 +270,193 @@ decode_task(const T5SplitQkvAppendCacheTilingData& tiling, uint32_t task_id) {
     task.append_count = tiling.head_dim;
   }
   return task;
+}
+// Flat output tiles coalesce row seams without padding or extra GM storage.
+struct FlatHistoryPiece {
+  uint32_t source_offset;
+  uint32_t count;
+  bool qkv;
+};
+
+T5QKV_MAPPING_INLINE bool uses_flat_history(
+    const T5SplitQkvAppendCacheTilingData& tiling) {
+  return tiling.batch * tiling.head_num == 256 && tiling.past_length == 2048 &&
+         tiling.head_dim == 64 && tiling.block_dim == 48 &&
+         tiling.tile_elements == 47104 && tiling.cacheable_key_rows == 240 &&
+         tiling.bypass_value_cache != 0 && fuses_append(tiling) &&
+         !make_read_balance_policy(tiling).enabled;
+}
+
+T5QKV_MAPPING_INLINE FlatHistoryPiece
+flat_history_piece(const T5SplitQkvAppendCacheTilingData& tiling,
+                   uint32_t output_offset,
+                   uint32_t remaining,
+                   bool value) {
+  const uint32_t history = tiling.past_length * tiling.head_dim;
+  const uint32_t row_elements = history + tiling.head_dim;
+  const uint32_t row = output_offset / row_elements;
+  const uint32_t column = output_offset % row_elements;
+  if (column < history) {
+    const uint32_t count =
+        history - column < remaining ? history - column : remaining;
+    return {row * history + column, count, false};
+  }
+  const uint32_t hd = tiling.head_num * tiling.head_dim;
+  const uint32_t count =
+      row_elements - column < remaining ? row_elements - column : remaining;
+  return {row / tiling.head_num * 3 * hd + (value ? 2 : 1) * hd +
+              row % tiling.head_num * tiling.head_dim + column - history,
+          count,
+          true};
+}
+constexpr uint32_t kStreamingTileElements = 31744;
+constexpr uint32_t kPairedPlaneElements = kStreamingTileElements / 2;
+constexpr bool kPairedAlignedStores = false;
+constexpr uint32_t kStreamingSlotElements = kStreamingTileElements;
+constexpr uint32_t kDispersedNormalSlots = 13;
+
+T5QKV_MAPPING_INLINE uint32_t
+dispersed_output_count(const T5SplitQkvAppendCacheTilingData& tiling) {
+  const uint32_t elements = tiling.batch * tiling.head_num *
+                            (tiling.past_length + 1) * tiling.head_dim;
+  return (elements + kPairedPlaneElements - 1) / kPairedPlaneElements;
+}
+
+T5QKV_MAPPING_INLINE TaskRange
+dispersed_output_range(const T5SplitQkvAppendCacheTilingData& tiling,
+                       uint32_t phase,
+                       uint32_t core) {
+  const uint32_t total = dispersed_output_count(tiling);
+  const uint32_t remainder = total % 16;
+  const uint32_t normal =
+      total / 16 * kDispersedNormalSlots +
+      (remainder < kDispersedNormalSlots ? remainder : kDispersedNormalSlots);
+  if (phase == 0) {
+    return partition_tasks(0, normal, tiling.block_dim, core);
+  }
+  if (phase == 1) {
+    const uint32_t rotated =
+        (core + tiling.block_dim - normal % tiling.block_dim) %
+        tiling.block_dim;
+    return partition_tasks(0, total - normal, tiling.block_dim, rotated);
+  }
+  const uint32_t rotated =
+      (core + tiling.block_dim - total % tiling.block_dim) % tiling.block_dim;
+  return partition_tasks(0, total, tiling.block_dim, rotated);
+}
+
+// Keep the final partial period normal so admitted/bypassed bytes exactly
+// match C21; distribute the three bypass slots within each full period.
+constexpr uint32_t kSpacedFullPeriods =
+    ((256 * 2049 * 64 + kStreamingTileElements - 1) / kStreamingTileElements) /
+    16;
+T5QKV_MAPPING_INLINE uint32_t dispersed_output_task(uint32_t phase,
+                                                    uint32_t dense) {
+  if (phase == 0) {
+    if (dense >= kSpacedFullPeriods * 13) {
+      return kSpacedFullPeriods * 16 + dense - kSpacedFullPeriods * 13;
+    }
+    const uint32_t lane = dense % 13;
+    return dense / 13 * 16 + lane + (lane >= 4) + (lane >= 8) + (lane >= 12);
+  }
+  if (phase == 1) {
+    return dense / 3 * 16 + 4 + dense % 3 * 5;
+  }
+  return dense;
+}
+
+T5QKV_MAPPING_INLINE uint32_t advance_dispersed_output(uint32_t phase,
+                                                       uint32_t physical) {
+  if (phase == 0) {
+    if (physical >= kSpacedFullPeriods * 16) {
+      return physical + 1;
+    }
+    ++physical;
+    const uint32_t lane = physical % 16;
+    return physical + (lane == 4 || lane == 9 || lane == 14);
+  }
+  if (phase == 1) {
+    physical += 5;
+    return physical + (physical % 16 == 3);
+  }
+  return physical + 1;
+}
+T5QKV_MAPPING_INLINE TaskRange
+interleaved_output_range(const T5SplitQkvAppendCacheTilingData& tiling,
+                         uint32_t core) {
+  const TaskRange pairs = partition_tasks(
+      0, dispersed_output_count(tiling), tiling.block_dim, core);
+  return {2 * pairs.begin, 2 * pairs.end};
+}
+
+T5QKV_MAPPING_INLINE bool interleaved_key_normal(uint32_t physical) {
+  return physical % 2 == 0;
+}
+T5QKV_MAPPING_INLINE bool interleaved_key_input_normal(uint32_t physical) {
+  return !interleaved_key_normal(physical);
+}
+T5QKV_MAPPING_INLINE TaskRange
+interleaved_query_range(const T5SplitQkvAppendCacheTilingData& tiling,
+                        uint32_t core) {
+  const uint32_t first_short =
+      dispersed_output_count(tiling) % tiling.block_dim;
+  if (first_short == 0) {
+    return partition_tasks(0, tiling.query_tasks, tiling.block_dim, core);
+  }
+  if (core < first_short) {
+    return {0, 0};
+  }
+  return partition_tasks(0,
+                         tiling.query_tasks,
+                         tiling.block_dim - first_short,
+                         core - first_short);
+}
+T5QKV_MAPPING_INLINE bool can_pair_history_sources(
+    const T5SplitQkvAppendCacheTilingData& tiling,
+    uint64_t past_key,
+    uint64_t past_value,
+    uint64_t key,
+    uint64_t value) {
+  if (!uses_flat_history(tiling) || past_key == 0 || key == 0 || value == 0 ||
+      key % 512 != 0 || value % 512 != 0 || past_value <= past_key ||
+      ((past_key | past_value) & 1) != 0) {
+    return false;
+  }
+  const uint64_t gap = past_value - past_key;
+  return gap >= kPairedPlaneElements * 2 && gap <= 0xffffffffULL;
+}
+T5QKV_MAPPING_INLINE TaskRange
+paired_stream_range(const T5SplitQkvAppendCacheTilingData& tiling,
+                    uint32_t core) {
+  return partition_tasks(
+      0, dispersed_output_count(tiling), tiling.block_dim, core);
+}
+constexpr uint32_t kBalancedCoreElements = 699392;
+constexpr uint32_t kBalancedFullFrames = 44;
+constexpr uint32_t kBalancedCoreTasks = 46;
+constexpr uint32_t kFusedQueryElements = 2048;
+struct BalancedPairPiece {
+  uint32_t offset;
+  uint32_t count;
+};
+T5QKV_MAPPING_INLINE BalancedPairPiece balanced_pair_piece(uint32_t core,
+                                                           uint32_t lane) {
+  if (lane < kBalancedFullFrames) {
+    return {core * kBalancedCoreElements + lane * kPairedPlaneElements,
+            kPairedPlaneElements};
+  }
+  return {core * kBalancedCoreElements +
+              kBalancedFullFrames * kPairedPlaneElements +
+              (lane - kBalancedFullFrames) * 512,
+          512};
+}
+T5QKV_MAPPING_INLINE TaskRange balanced_stream_range(uint32_t core) {
+  return {core * kBalancedCoreTasks, (core + 1) * kBalancedCoreTasks};
+}
+T5QKV_MAPPING_INLINE TaskRange
+balanced_query_range(const T5SplitQkvAppendCacheTilingData& tiling,
+                     uint32_t core) {
+  return partition_tasks(0, tiling.query_tasks, tiling.block_dim, core);
 }
 #undef T5QKV_MAPPING_INLINE
 }  // namespace t5qkv

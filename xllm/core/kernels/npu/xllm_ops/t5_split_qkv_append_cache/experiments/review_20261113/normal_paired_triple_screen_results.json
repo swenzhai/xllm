@@ -1,0 +1,1483 @@
+{
+  "scope": "normal_paired_triple_screen_NOT_ACCEPTANCE_NOT_ACCEPTANCE",
+  "archive": {
+    "remote_archive": "/workspace/t5qkv-normal-paired-triple-20261114-02/normal_paired_triple_evidence.tar.gz",
+    "sha256": "3a90e309a07cd9c22b79f96e7fcd1a2080bcfef347f668193649b0b3225ccb08",
+    "files": 389,
+    "bytes": 1467362
+  },
+  "functional": {
+    "scope": "functional_regression",
+    "status": "passed",
+    "npu_executed": true,
+    "records": [
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "default",
+        "test": "public_accuracy",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_default/public_accuracy.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "default",
+        "test": "extended",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_default/extended.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "default",
+        "test": "cache_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_default/cache_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "default",
+        "test": "cache_no_admission",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_default/cache_no_admission.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "default",
+        "test": "dispersed_key_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_default/dispersed_key_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "default",
+        "test": "supplied_outputs",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_default/supplied_outputs.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "default",
+        "test": "source_layouts",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_default/source_layouts.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "default",
+        "test": "queue_stress",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_default/queue_stress.json",
+        "npu_execution_verified": true,
+        "execution_evidence": "A3 runtime/source guard plus both entries: 8192 queued calls, 100 cross-stream release rounds, positive allocation recovery"
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "default",
+        "test": "tail_fusion_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_default/tail_fusion_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "default",
+        "test": "hot_geometry_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_default/hot_geometry_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "default",
+        "test": "large_queue_stress",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_default/large_queue_stress.json",
+        "npu_execution_verified": true,
+        "execution_evidence": "A3 runtime/source guard plus both entries: 8192 queued calls, 100 cross-stream release rounds, positive allocation recovery"
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "page1g",
+        "test": "public_accuracy",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_page1g/public_accuracy.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "page1g",
+        "test": "extended",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_page1g/extended.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "page1g",
+        "test": "cache_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_page1g/cache_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "page1g",
+        "test": "cache_no_admission",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_page1g/cache_no_admission.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "page1g",
+        "test": "dispersed_key_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_page1g/dispersed_key_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "page1g",
+        "test": "supplied_outputs",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_page1g/supplied_outputs.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "page1g",
+        "test": "source_layouts",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_page1g/source_layouts.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "page1g",
+        "test": "queue_stress",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_page1g/queue_stress.json",
+        "npu_execution_verified": true,
+        "execution_evidence": "A3 runtime/source guard plus both entries: 8192 queued calls, 100 cross-stream release rounds, positive allocation recovery"
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "page1g",
+        "test": "tail_fusion_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_page1g/tail_fusion_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "page1g",
+        "test": "hot_geometry_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_page1g/hot_geometry_boundary.json",
+        "npu_execution_verified": true
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "page1g",
+        "test": "large_queue_stress",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01/c35_normal_paired_triple_page1g/large_queue_stress.json",
+        "npu_execution_verified": true,
+        "execution_evidence": "A3 runtime/source guard plus both entries: 8192 queued calls, 100 cross-stream release rounds, positive allocation recovery"
+      }
+    ],
+    "source_and_artifacts_unchanged": true
+  },
+  "performance": {
+    "scope": "performance_only",
+    "phase": "screen",
+    "status": "failed",
+    "npu_executed": true,
+    "records": [
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/screen_01/000_c35_normal_paired_triple_default/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-normal-paired-triple-20261114-02/screen_01/000_c35_normal_paired_triple_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.2253,
+              17.5718,
+              17.36645,
+              17.24945,
+              17.047849999999997
+            ],
+            "wall_us_median": 17.36645,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.96575,
+              17.8186,
+              17.72015,
+              17.513,
+              17.571099999999998
+            ],
+            "wall_us_median": 17.72015,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.907349999999997,
+              17.083849999999998,
+              18.36705,
+              19.97625,
+              17.4651
+            ],
+            "wall_us_median": 17.907349999999997,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.9465,
+              73.89410000000001,
+              73.87389999999999,
+              73.815,
+              73.84805
+            ],
+            "wall_us_median": 73.87389999999999,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.791349999999998,
+              18.87815,
+              18.5495,
+              18.6034,
+              18.60435
+            ],
+            "wall_us_median": 18.60435,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.11535,
+              17.856650000000002,
+              18.0723,
+              17.99755,
+              18.06715
+            ],
+            "wall_us_median": 18.06715,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.60325,
+              18.25615,
+              18.23875,
+              19.05965,
+              18.0886
+            ],
+            "wall_us_median": 18.25615,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.6361,
+              18.7261,
+              19.1505,
+              19.57965,
+              19.2789
+            ],
+            "wall_us_median": 19.1505,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              74.1152,
+              74.0322,
+              73.9784,
+              73.92314999999999,
+              73.95135
+            ],
+            "wall_us_median": 73.9784,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.5472,
+              18.61845,
+              19.02665,
+              18.77165,
+              18.695700000000002
+            ],
+            "wall_us_median": 18.695700000000002,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 0
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/screen_01/001_c35_normal_paired_triple_page1g/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-normal-paired-triple-20261114-02/screen_01/001_c35_normal_paired_triple_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              20.667,
+              16.268549999999998,
+              16.3084,
+              16.29955,
+              16.1481
+            ],
+            "wall_us_median": 16.29955,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.95225,
+              16.931,
+              16.79055,
+              16.885650000000002,
+              16.8455
+            ],
+            "wall_us_median": 16.885650000000002,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.030099999999997,
+              16.321649999999998,
+              16.65905,
+              16.5484,
+              16.503049999999998
+            ],
+            "wall_us_median": 16.5484,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.71565,
+              73.75425,
+              73.5442,
+              73.626,
+              73.85735000000001
+            ],
+            "wall_us_median": 73.71565,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.85415,
+              17.552599999999998,
+              17.6929,
+              17.6784,
+              17.233400000000003
+            ],
+            "wall_us_median": 17.6784,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.126150000000003,
+              16.97575,
+              17.4339,
+              17.388849999999998,
+              17.341
+            ],
+            "wall_us_median": 17.341,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.68245,
+              17.521849999999997,
+              17.6798,
+              17.36295,
+              17.1995
+            ],
+            "wall_us_median": 17.521849999999997,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.3517,
+              17.64565,
+              17.725150000000003,
+              18.16945,
+              18.12435
+            ],
+            "wall_us_median": 17.725150000000003,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              74.09315,
+              73.8587,
+              73.78914999999999,
+              74.35445,
+              73.8991
+            ],
+            "wall_us_median": 73.8991,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.108849999999997,
+              18.614349999999998,
+              18.2551,
+              18.809099999999997,
+              17.9432
+            ],
+            "wall_us_median": 18.2551,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 0
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/screen_01/002_c35_normal_paired_triple_page1g/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-normal-paired-triple-20261114-02/screen_01/002_c35_normal_paired_triple_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.096400000000003,
+              16.4485,
+              16.21685,
+              16.2369,
+              16.35755
+            ],
+            "wall_us_median": 16.35755,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.74465,
+              16.8019,
+              16.738049999999998,
+              16.74795,
+              16.609450000000002
+            ],
+            "wall_us_median": 16.74465,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.4359,
+              16.3987,
+              16.48055,
+              16.4057,
+              16.3474
+            ],
+            "wall_us_median": 16.4057,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.88539999999999,
+              73.73689999999999,
+              73.7523,
+              73.72460000000001,
+              73.781
+            ],
+            "wall_us_median": 73.7523,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.764400000000002,
+              19.16205,
+              18.9181,
+              18.6851,
+              18.5525
+            ],
+            "wall_us_median": 18.764400000000002,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.2513,
+              18.47005,
+              18.017799999999998,
+              17.94515,
+              18.0625
+            ],
+            "wall_us_median": 18.0625,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.60995,
+              18.914,
+              18.70965,
+              18.573349999999998,
+              19.188599999999997
+            ],
+            "wall_us_median": 18.70965,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.678549999999998,
+              19.36825,
+              18.8565,
+              19.17675,
+              18.90565
+            ],
+            "wall_us_median": 18.90565,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.61314999999999,
+              73.5113,
+              73.4182,
+              73.4928,
+              73.49475
+            ],
+            "wall_us_median": 73.49475,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.9245,
+              17.21695,
+              17.154049999999998,
+              17.3322,
+              17.1244
+            ],
+            "wall_us_median": 17.21695,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 1
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/screen_01/003_c35_normal_paired_triple_default/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "runtime_identity": "/workspace/t5qkv-normal-paired-triple-20261114-02/screen_01/003_c35_normal_paired_triple_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              20.965349999999997,
+              16.8893,
+              16.734599999999997,
+              16.6813,
+              16.75795
+            ],
+            "wall_us_median": 16.75795,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              40.30285,
+              17.430049999999998,
+              17.453200000000002,
+              17.12035,
+              17.46425
+            ],
+            "wall_us_median": 17.453200000000002,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.40535,
+              17.36745,
+              17.3547,
+              17.30975,
+              17.27505
+            ],
+            "wall_us_median": 17.3547,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              76.28645,
+              76.08275,
+              76.0485,
+              75.7701,
+              75.82260000000001
+            ],
+            "wall_us_median": 76.0485,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.44275,
+              18.38785,
+              18.518,
+              18.3126,
+              17.83175
+            ],
+            "wall_us_median": 18.38785,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.67945,
+              17.6043,
+              17.489849999999997,
+              17.7453,
+              17.42345
+            ],
+            "wall_us_median": 17.6043,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.02435,
+              18.123150000000003,
+              18.414,
+              17.939049999999998,
+              17.8953
+            ],
+            "wall_us_median": 18.02435,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.7224,
+              17.7958,
+              17.9709,
+              18.18045,
+              18.252200000000002
+            ],
+            "wall_us_median": 17.9709,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              76.0362,
+              75.96164999999999,
+              76.15495,
+              75.8318,
+              75.9092
+            ],
+            "wall_us_median": 75.96164999999999,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.95815,
+              18.126450000000002,
+              18.09645,
+              18.1579,
+              18.2574
+            ],
+            "wall_us_median": 18.126450000000002,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 1
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/screen_01/004_c35_normal_paired_triple_default/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-normal-paired-triple-20261114-02/screen_01/004_c35_normal_paired_triple_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.237299999999998,
+              15.70325,
+              15.2958,
+              15.40225,
+              15.52875
+            ],
+            "wall_us_median": 15.52875,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.0959,
+              16.15415,
+              16.02565,
+              16.154799999999998,
+              27.48885
+            ],
+            "wall_us_median": 16.15415,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.2405,
+              17.908900000000003,
+              18.159,
+              18.1496,
+              18.0542
+            ],
+            "wall_us_median": 18.1496,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              74.38589999999999,
+              74.2773,
+              74.88795,
+              74.2939,
+              74.2499
+            ],
+            "wall_us_median": 74.2939,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.7685,
+              18.83995,
+              18.69105,
+              18.974400000000003,
+              18.628349999999998
+            ],
+            "wall_us_median": 18.7685,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.27695,
+              18.183400000000002,
+              17.853450000000002,
+              18.146900000000002,
+              18.21035
+            ],
+            "wall_us_median": 18.183400000000002,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.07275,
+              18.0344,
+              18.12035,
+              18.244349999999997,
+              17.88495
+            ],
+            "wall_us_median": 18.07275,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.094450000000002,
+              18.425349999999998,
+              18.398799999999998,
+              18.533450000000002,
+              18.6421
+            ],
+            "wall_us_median": 18.425349999999998,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              74.0124,
+              73.8962,
+              73.84264999999999,
+              74.02165,
+              73.86435
+            ],
+            "wall_us_median": 73.8962,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.4885,
+              18.3835,
+              18.58275,
+              18.51875,
+              18.22575
+            ],
+            "wall_us_median": 18.4885,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 2
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/screen_01/005_c35_normal_paired_triple_page1g/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-normal-paired-triple-20261114-02/screen_01/005_c35_normal_paired_triple_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              20.87405,
+              17.052799999999998,
+              16.11285,
+              16.73595,
+              16.3596
+            ],
+            "wall_us_median": 16.73595,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.08265,
+              17.046400000000002,
+              17.02145,
+              17.0284,
+              17.1616
+            ],
+            "wall_us_median": 17.046400000000002,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.059150000000002,
+              16.3867,
+              16.58635,
+              16.40755,
+              16.3644
+            ],
+            "wall_us_median": 16.40755,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.92685,
+              73.75535,
+              73.76395,
+              73.80845,
+              73.83145
+            ],
+            "wall_us_median": 73.80845,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.140849999999997,
+              17.78715,
+              17.91305,
+              17.8431,
+              17.80275
+            ],
+            "wall_us_median": 17.8431,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.7907,
+              17.95665,
+              17.266299999999998,
+              17.59765,
+              17.517599999999998
+            ],
+            "wall_us_median": 17.59765,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.7328,
+              19.184450000000002,
+              18.524099999999997,
+              18.876549999999998,
+              18.2405
+            ],
+            "wall_us_median": 18.7328,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.175150000000002,
+              18.12075,
+              18.6951,
+              19.181849999999997,
+              18.847450000000002
+            ],
+            "wall_us_median": 18.6951,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.6875,
+              73.54585,
+              74.03005,
+              73.96745,
+              74.30565
+            ],
+            "wall_us_median": 73.96745,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.716099999999997,
+              18.3057,
+              18.4478,
+              18.932299999999998,
+              18.35635
+            ],
+            "wall_us_median": 18.4478,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 2
+      }
+    ],
+    "references": [
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "default",
+        "role": "reference",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/screen_01/reference_default/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              106.2385,
+              76.45005,
+              77.25105,
+              75.80210000000001,
+              75.8892
+            ],
+            "wall_us_median": 76.45005,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              85.77165,
+              84.1724,
+              83.3492,
+              83.3427,
+              83.2951
+            ],
+            "wall_us_median": 83.3492,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              74.8052,
+              74.9436,
+              74.56535000000001,
+              75.56915,
+              74.86330000000001
+            ],
+            "wall_us_median": 74.86330000000001,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              233.5766,
+              233.4604,
+              233.25625,
+              232.95945,
+              232.9667
+            ],
+            "wall_us_median": 233.25625,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              97.61014999999999,
+              97.61875,
+              97.86105,
+              97.5253,
+              97.67195
+            ],
+            "wall_us_median": 97.61875,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              85.8283,
+              86.02565,
+              86.04325,
+              86.13419999999999,
+              86.32339999999999
+            ],
+            "wall_us_median": 86.04325,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              97.53985,
+              97.68660000000001,
+              97.81205,
+              97.48764999999999,
+              97.4933
+            ],
+            "wall_us_median": 97.53985,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              89.0158,
+              88.16885,
+              89.06605,
+              89.15644999999999,
+              88.87705
+            ],
+            "wall_us_median": 89.0158,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              233.538,
+              233.3022,
+              233.14825,
+              233.32155,
+              232.9665
+            ],
+            "wall_us_median": 233.3022,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              98.20519999999999,
+              98.2432,
+              98.4024,
+              97.952,
+              98.18865
+            ],
+            "wall_us_median": 98.20519999999999,
+            "max_wall_us": 29
+          }
+        ]
+      },
+      {
+        "candidate": "c35_normal_paired_triple",
+        "allocator": "page1g",
+        "role": "reference",
+        "report": "/workspace/t5qkv-normal-paired-triple-20261114-02/screen_01/reference_page1g/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              85.11795,
+              79.02435000000001,
+              78.593,
+              136.55020000000002,
+              100.39345
+            ],
+            "wall_us_median": 85.11795,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              101.42285000000001,
+              97.4695,
+              95.6336,
+              95.303,
+              96.22985
+            ],
+            "wall_us_median": 96.22985,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              85.99175,
+              82.48830000000001,
+              82.56105000000001,
+              82.84425,
+              82.03269999999999
+            ],
+            "wall_us_median": 82.56105000000001,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              238.92260000000002,
+              238.74925,
+              238.86,
+              239.1865,
+              238.63835
+            ],
+            "wall_us_median": 238.86,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              97.1217,
+              96.51689999999999,
+              96.1953,
+              96.81415,
+              96.6207
+            ],
+            "wall_us_median": 96.6207,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              86.16525,
+              87.3742,
+              87.00869999999999,
+              86.93714999999999,
+              86.9379
+            ],
+            "wall_us_median": 86.9379,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              96.47085000000001,
+              96.38815,
+              96.5098,
+              95.99980000000001,
+              96.18865
+            ],
+            "wall_us_median": 96.38815,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              89.09639999999999,
+              88.49155,
+              88.62095,
+              88.52789999999999,
+              88.94535
+            ],
+            "wall_us_median": 88.62095,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              239.20065,
+              238.8569,
+              238.79085,
+              238.81189999999998,
+              238.8869
+            ],
+            "wall_us_median": 238.8569,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              98.04695,
+              97.74010000000001,
+              97.62285,
+              97.2963,
+              97.24585
+            ],
+            "wall_us_median": 97.62285,
+            "max_wall_us": 29
+          }
+        ]
+      }
+    ],
+    "full_acceptance": false,
+    "post_identity": true,
+    "source_and_artifacts_unchanged": true
+  },
+  "promoted": false,
+  "profile_derived": [
+    {
+      "allocator": "default",
+      "case_name": "T5SplitQkvAppendCache_007_float16_random",
+      "samples": 1000,
+      "csv": "/workspace/t5qkv-normal-paired-triple-20261114-02/normal_paired_Pipe_default_01/default_00/profile/PROF_000001_20261114103936231_00207339MPGIFCPD/mindstudio_profiler_output/op_summary_20261114103947.csv",
+      "csv_sha256": "6c19735a19242c03510abe4382e9bb5d5f325d213a86b9048cb70819de3caf36",
+      "metrics": {
+        "Task Duration(us)": 75.785445,
+        "aiv_scalar_time(us)": 6.099649,
+        "aiv_mte2_time(us)": 68.509682,
+        "aiv_mte3_time(us)": 66.353915
+      }
+    },
+    {
+      "allocator": "default",
+      "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+      "samples": 1000,
+      "csv": "/workspace/t5qkv-normal-paired-triple-20261114-02/normal_paired_Pipe_default_01/default_00/profile/PROF_000001_20261114103936231_00207339MPGIFCPD/mindstudio_profiler_output/op_summary_20261114103947.csv",
+      "csv_sha256": "6c19735a19242c03510abe4382e9bb5d5f325d213a86b9048cb70819de3caf36",
+      "metrics": {
+        "Task Duration(us)": 75.629133,
+        "aiv_scalar_time(us)": 6.13688,
+        "aiv_mte2_time(us)": 68.467759,
+        "aiv_mte3_time(us)": 66.405259
+      }
+    },
+    {
+      "allocator": "page1g",
+      "case_name": "T5SplitQkvAppendCache_007_float16_random",
+      "samples": 1000,
+      "csv": "/workspace/t5qkv-normal-paired-triple-20261114-02/normal_paired_Pipe_page1g_01/page1g_00/profile/PROF_000001_20261114103953622_00207682DIPRQHAE/mindstudio_profiler_output/op_summary_20261114104005.csv",
+      "csv_sha256": "d077b3c46ae37f32168aa9bb6e901ad29b942f603989852b78135f503f28b252",
+      "metrics": {
+        "Task Duration(us)": 73.217807,
+        "aiv_scalar_time(us)": 6.1408,
+        "aiv_mte2_time(us)": 67.169755,
+        "aiv_mte3_time(us)": 65.020958
+      }
+    },
+    {
+      "allocator": "page1g",
+      "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+      "samples": 1000,
+      "csv": "/workspace/t5qkv-normal-paired-triple-20261114-02/normal_paired_Pipe_page1g_01/page1g_00/profile/PROF_000001_20261114103953622_00207682DIPRQHAE/mindstudio_profiler_output/op_summary_20261114104005.csv",
+      "csv_sha256": "d077b3c46ae37f32168aa9bb6e901ad29b942f603989852b78135f503f28b252",
+      "metrics": {
+        "Task Duration(us)": 73.557972,
+        "aiv_scalar_time(us)": 6.125791,
+        "aiv_mte2_time(us)": 67.143662,
+        "aiv_mte3_time(us)": 64.951119
+      }
+    }
+  ],
+  "driver": {
+    "source_revision": "3697f15352fa6db637ca7bdda241b6467ebd1461",
+    "bundle_sha256": "e9478e9abce3a9c926a7bf09daa0d71d256a60bc7b259645840a13c7d82ec43d",
+    "status": "failed_stage_2",
+    "plan": [
+      [
+        "/workspace/t5qkv-dev-20261029/env/venv/bin/python",
+        "/workspace/t5qkv-normal-paired-triple-20261114-02/runner/build.py",
+        "--prepared-root",
+        "/workspace/t5qkv-normal-paired-triple-20261114-02",
+        "--candidate",
+        "c35_normal_paired_triple"
+      ],
+      [
+        "/workspace/t5qkv-dev-20261029/env/venv/bin/python",
+        "/workspace/t5qkv-normal-paired-triple-20261114-02/runner/run_functional.py",
+        "--prepared-root",
+        "/workspace/t5qkv-normal-paired-triple-20261114-02",
+        "--report-dir",
+        "/workspace/t5qkv-normal-paired-triple-20261114-02/functional_full_01",
+        "--candidates",
+        "c35_normal_paired_triple",
+        "--full"
+      ],
+      [
+        "/workspace/t5qkv-dev-20261029/env/venv/bin/python",
+        "/workspace/t5qkv-normal-paired-triple-20261114-02/runner/run_matrix.py",
+        "--prepared-root",
+        "/workspace/t5qkv-normal-paired-triple-20261114-02",
+        "--report-dir",
+        "/workspace/t5qkv-normal-paired-triple-20261114-02/screen_01",
+        "--candidates",
+        "c35_normal_paired_triple",
+        "--phase",
+        "screen",
+        "--post-identity"
+      ]
+    ],
+    "stages": [
+      {
+        "index": 0,
+        "exit_code": 0
+      },
+      {
+        "index": 1,
+        "exit_code": 0
+      },
+      {
+        "index": 2,
+        "exit_code": 1
+      }
+    ],
+    "confirmation_eligible_candidates": [
+      "c35_normal_paired_triple"
+    ]
+  }
+}

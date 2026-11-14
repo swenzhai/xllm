@@ -257,3 +257,11 @@ R5第二轮30功能子检查完整通过，18批筛选完成且实际加载五�
 - C28 paired_history_aligned仅CPU准备，增加按已验证32B约束的基本DataCopy输出变体，暂不优先占用NPU。
 
 已复核本地9.1.0 API页183–192/238–248：A3支持uint16，DataCopyPad Ext GM起址无对齐限制、Local起址32B、blockCount2合法、blockLen≤47104、GM srcStride为byte且uint32、UB dstStride为32B。基本DataCopy count*sizeof(uint16)全部为512B倍数，不发生向下取整。追加source-layout12（两dtype×正向2B源间隔/反序/相同源×ACLNN/direct），补强2D快路径和回退的真实验证；不增加官方case分母。预计C25/C27/C29目标构建→40子功能→18完整10项原协议/post-identity；通过才20新进程确认/full回归及正式报告/包更新。
+
+第四轮40功能全部通过、18原协议性能完成，前后source/artifact一致，post-identity五库核验均成功。C27默认三批007=71.770/72.279/86.826µs、017=71.462/72.019/87.823µs，第三批失败；1g三批约60–61µs通过。C29默认约89µs失败，1g约61µs。confirmation gate按全部六批通过条件阻止后续confirm/full，没有选取前两批晋升；正式报告、XLSX、交付包和默认源码保持原样。
+
+追加4进程memory-history诊断（NOT ACCEPTANCE），每进程31556次alloc匹配完整10项协议，每大case的1000次计时输出地址三元组唯一；四进程的007/017输入和输出绝对虚拟地址全部相同，K/V间隔均69206016B，均满足C27源地址guard。插桩耗时仍出现约71–73与87–88µs两档，故地址顺序回退不能解释差异；未直接采集设备分支轨迹，不把CPU guard推演称为设备分支观察。
+
+另5个同进程history+PMU诊断：两个default L2进程的007 task均值72.014/86.713µs，aiv_r0_read_cache_miss_allocate均值45287/101184，r1相近；page1g约60.265µs、r0约379。两个default Pipe进程007 task约72.103/87.465µs，Scalar约5.415/5.366µs，MTE2约54.973/65.374µs、MTE3约52.281/60.730µs。各数字仅属于各自进程，不将L2和Pipe拼接成一个样本，也不从计数推断未测物理地址/cache hash。791原件归档13faae5e779bea2574f093a43618ca3eff1ac28fa6a08e1591c4976bd9f028fd，含原始CSV和memory trace，逐文件SHA核验；采样均不参与验收。见history_scheduling_screen_results.json。
+
+第五轮C30仅将C27配对块由normal/bypass分组改为线性物理输出地址顺序，各块仍按C25原mask选择Key hint；验证过早写回是否使尚未读取的输入遭到额外置换这一假设。1936读指令、2852写指令、正常Key写54706176B/旁路写79577088B、184KiB UB、POD和事件生命周期全部相同；实际CPU mapper全67141632元素/1426块、29–30任务每核检查通过。C28基本DataCopy整块输出作为独立对照，满足既有512B字节倍数约束；不把新增API变体当成已优化。计划C27/C28/C30构建→42功能→18完整原协议/post-identity筛选；任一批失败不晋升，通过才20新进程确认和full回归。

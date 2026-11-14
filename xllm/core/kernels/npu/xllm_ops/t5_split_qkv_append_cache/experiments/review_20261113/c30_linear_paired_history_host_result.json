@@ -1,0 +1,30 @@
+{
+  "scope": "linear_paired_2d_CPU_mapping_only",
+  "npu_executed": false,
+  "status": "passed",
+  "paired_tasks": 1426,
+  "elements_checked": 67141632,
+  "read_DMA_instructions": 1936,
+  "write_DMA_instructions": 2852,
+  "normal_key_write_bytes": 54706176,
+  "bypass_write_bytes": 79577088,
+  "normal_history_read_bytes": 134217728,
+  "aligned_store_variant": false,
+  "tiling_words": [
+    16,
+    16,
+    2048,
+    64,
+    47104,
+    3,
+    1,
+    768,
+    16,
+    1552,
+    48,
+    240,
+    1
+  ],
+  "checker_sha256": "35c44a9e7157a58b432b2239f68cd5093a74a05c2257a18c2cc6af3eab86c373",
+  "header_sha256": "91bebaa24c76246bdce8fedacf97dba351fb39f647a858c161b7482eb22b5f52"
+}

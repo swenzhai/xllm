@@ -124,12 +124,15 @@ def _main() -> int:
             derived = _distributed_source(text, entry)
             path.write_text(derived)
             files.append(str(path))
-        if entry.get("kernel_policy") == "distributed_key_output":
+        if entry.get("kernel_policy") in ("distributed_key_output", "flat_output_tiles"):
             path = reports / (name + "_executed_distributed_key.py")
-            path.write_text(_distributed_key_source(text))
+            derived = _distributed_key_source(text)
+            if entry.get("kernel_policy") == "flat_output_tiles":
+                derived = derived.replace("normal_key_regions=[[4,84],[88,168],[172,252]]", "normal_key_regions=[[0,240]], output_tile_elements=47104")
+            path.write_text(derived)
             files.append(str(path))
-    if any(_candidate(root, n).get("kernel_policy") == "distributed_key_output" for n in args.candidates):
-        files += [str(HERE / "identity/check_supplied_outputs.py"), str(HERE / "distributed_write_host_result.json")]
+    if any(_candidate(root, n).get("kernel_policy") in ("distributed_key_output", "flat_output_tiles") for n in args.candidates):
+        files += [str(HERE / "identity/check_supplied_outputs.py"), str(HERE / "distributed_write_host_result.json"), str(HERE / "flat_mapping_host_result.json")]
     before = _snapshot(files)
     _write(reports / "pretest_manifest.json", before)
     summary = {"scope": "functional_pre_screen" if not args.full else "functional_regression",
@@ -156,10 +159,10 @@ def _main() -> int:
                     commands.append(("cache_no_admission", reports / (name + "_executed_cache_no_admission.py"), []))
                 if _candidate(root, name).get("kernel_policy") == "distributed_value_input":
                     commands.append(("distributed_value_boundary", reports / (name + "_executed_distributed_value.py"), []))
-                if _candidate(root, name).get("kernel_policy") == "distributed_key_output":
+                if _candidate(root, name).get("kernel_policy") in ("distributed_key_output", "flat_output_tiles"):
                     commands += [
                         ("distributed_key_boundary", reports / (name + "_executed_distributed_key.py"), []),
-                        ("supplied_outputs", HERE / "identity/check_supplied_outputs.py", ["--tiling-words", str(HERE / "distributed_write_host_result.json")]),
+                        ("supplied_outputs", HERE / "identity/check_supplied_outputs.py", ["--tiling-words", str(HERE / "distributed_write_host_result.json"), str(HERE / "flat_mapping_host_result.json")]),
                     ]
                 if args.full:
                     commands += [

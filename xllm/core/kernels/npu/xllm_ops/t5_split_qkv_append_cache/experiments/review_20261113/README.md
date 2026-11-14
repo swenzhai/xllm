@@ -216,3 +216,8 @@ confirmation runner directory; do not overwrite runners used by completed or
 active experiments. The current cache-pair screen uses its original frozen
 runner, without retroactively claiming this additional per-process check.
 Eight host driver/guard tests pass; mocked library fixtures are not NPU evidence.
+
+
+C18 `flat_output_tiles`：以C4的两历史输入正常缓存、240行Key输出正常/16行旁路、Value输出旁路为基础，将大输出改为连续47104元素tile。跨head处最多三段gather（历史尾/本步64元素/下一行历史头），合并成一段MTE3写入。仅256行、L2048/D64、48核且Key/Value均512B对齐启用；其他沿用原C4。无输出padding/额外GM/全局allocator配置，52字节POD、184KiB UB与双槽事件顺序保持。正常/旁路分界和所有写入块起止均512B对齐。host实际helper逐元素核验67141632元素、1427写tile/2448读取piece、每元素恰好一次；这只是CPU映射验证，不能代表A3通过。
+
+本轮停止条件：C18完成目标构建、18项功能预筛及12批完整原10项协议筛选；若默认或1g任一批失败不晋升，不启动相同方向的盲目参数扫描。通过后才扩展20新进程确认和full回归。外部pool conditioning诊断不参与验收判定。

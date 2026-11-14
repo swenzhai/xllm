@@ -1,0 +1,303 @@
+--- a/common/t5_split_qkv_append_cache_tiling.h
++++ b/common/t5_split_qkv_append_cache_tiling.h
+@@ -47,7 +47,7 @@
+ #define T5QKV_MAPPING_INLINE inline
+ #endif
+ 
+-constexpr uint64_t kL2BudgetBytes = uint64_t{172} * 1024 * 1024;
++constexpr uint64_t kL2BudgetBytes = uint64_t{190} * 1024 * 1024;
+ constexpr uint64_t kReadBalanceBudgetBytes = uint64_t{190} * 1024 * 1024;
+ 
+ struct CachePolicy {
+@@ -55,6 +55,16 @@
+   uint32_t key_tasks;
+   bool bypass_value;
+ };
++
++T5QKV_MAPPING_INLINE uint32_t cache_policy_gcd(uint32_t first,
++                                               uint32_t second) {
++  while (second != 0) {
++    const uint32_t remainder = first % second;
++    first = second;
++    second = remainder;
++  }
++  return first;
++}
+ 
+ // Software admission budget, not a reservation or a residency guarantee.
+ T5QKV_MAPPING_INLINE CachePolicy
+@@ -71,7 +81,18 @@
+   const uint64_t base = 4 * n * (tiling.past_length + 2);
+   const uint64_t remaining = kL2BudgetBytes > base ? kL2BudgetBytes - base : 0;
+   const uint64_t candidate_rows = remaining / (2 * row_elements);
+-  const uint64_t admitted_rows = candidate_rows < rows ? candidate_rows : rows;
++  const uint64_t limited_rows = candidate_rows < rows ? candidate_rows : rows;
++  // Balance each history cache class and keep its output boundary 512B aligned
++  // relative to the fresh allocator-aligned output base.
++  const uint32_t core_group =
++      tiling.block_dim /
++      cache_policy_gcd(tiling.cache_tiles_per_head, tiling.block_dim);
++  const uint32_t alignment_group =
++      256 / cache_policy_gcd(static_cast<uint32_t>(row_elements % 256),
++                             /*second=*/256);
++  const uint32_t row_group = core_group * alignment_group /
++                             cache_policy_gcd(core_group, alignment_group);
++  const uint64_t admitted_rows = limited_rows - limited_rows % row_group;
+   return {static_cast<uint32_t>(admitted_rows * row_elements),
+           static_cast<uint32_t>(admitted_rows * tiling.cache_tiles_per_head),
+           true};
+@@ -83,34 +104,12 @@
+   uint32_t value_tasks;
+ };
+ 
+-// Retain Key input/output and admit only a bounded prefix of Value input.
+-// Value output uses the bypass hint. This budget is not a cache reservation.
++// Experimental input-priority plan: retain all history reads and spend the
++// remaining budget on a bounded Key-output prefix. Use the existing balanced
++// cached-Key / bypass-Key / Value phase scheduler; Value output still bypasses.
+ T5QKV_MAPPING_INLINE ReadBalancePolicy
+-make_read_balance_policy(const T5SplitQkvAppendCacheTilingData& tiling) {
+-  const uint64_t n = uint64_t{tiling.batch} * tiling.head_num * tiling.head_dim;
+-  const uint64_t base = 2 * n * (2 * uint64_t{tiling.past_length} + 5);
+-  if (tiling.bypass_value_cache == 0 || tiling.past_length == 0 ||
+-      base >= kReadBalanceBudgetBytes) {
+-    return {};
+-  }
+-  const uint64_t rows = uint64_t{tiling.batch} * tiling.head_num;
+-  uint64_t cached_rows = (kReadBalanceBudgetBytes - base) /
+-                         (2 * uint64_t{tiling.past_length} * tiling.head_dim);
+-  cached_rows = cached_rows < rows ? cached_rows : rows;
+-  uint32_t divisor = tiling.cache_tiles_per_head;
+-  uint32_t cores = tiling.block_dim;
+-  while (cores != 0) {
+-    const uint32_t remainder = divisor % cores;
+-    divisor = cores;
+-    cores = remainder;
+-  }
+-  const uint32_t group = tiling.block_dim / divisor;
+-  if (cached_rows >= group) {
+-    cached_rows -= cached_rows % group;
+-  }
+-  return {true,
+-          static_cast<uint32_t>(cached_rows),
+-          static_cast<uint32_t>(cached_rows) * tiling.cache_tiles_per_head};
++make_read_balance_policy(const T5SplitQkvAppendCacheTilingData& /*tiling*/) {
++  return {};
+ }
+ 
+ inline bool can_fuse_append(const T5SplitQkvAppendCacheTilingData& tiling) {
+@@ -272,5 +271,43 @@
+   }
+   return task;
+ }
++// Flat output tiles coalesce row seams without padding or extra GM storage.
++struct FlatHistoryPiece {
++  uint32_t source_offset;
++  uint32_t count;
++  bool qkv;
++};
++
++T5QKV_MAPPING_INLINE bool uses_flat_history(
++    const T5SplitQkvAppendCacheTilingData& tiling) {
++  return tiling.batch * tiling.head_num == 256 && tiling.past_length == 2048 &&
++         tiling.head_dim == 64 && tiling.block_dim == 48 &&
++         tiling.tile_elements == 47104 && tiling.cacheable_key_rows == 240 &&
++         tiling.bypass_value_cache != 0 && fuses_append(tiling) &&
++         !make_read_balance_policy(tiling).enabled;
++}
++
++T5QKV_MAPPING_INLINE FlatHistoryPiece
++flat_history_piece(const T5SplitQkvAppendCacheTilingData& tiling,
++                   uint32_t output_offset,
++                   uint32_t remaining,
++                   bool value) {
++  const uint32_t history = tiling.past_length * tiling.head_dim;
++  const uint32_t row_elements = history + tiling.head_dim;
++  const uint32_t row = output_offset / row_elements;
++  const uint32_t column = output_offset % row_elements;
++  if (column < history) {
++    const uint32_t count =
++        history - column < remaining ? history - column : remaining;
++    return {row * history + column, count, false};
++  }
++  const uint32_t hd = tiling.head_num * tiling.head_dim;
++  const uint32_t count =
++      row_elements - column < remaining ? row_elements - column : remaining;
++  return {row / tiling.head_num * 3 * hd + (value ? 2 : 1) * hd +
++              row % tiling.head_num * tiling.head_dim + column - history,
++          count,
++          true};
++}
+ #undef T5QKV_MAPPING_INLINE
+ }  // namespace t5qkv
+--- a/op_kernel/t5_split_qkv_append_cache_kernel.h
++++ b/op_kernel/t5_split_qkv_append_cache_kernel.h
+@@ -32,6 +32,9 @@
+     const ReadBalancePolicy read_policy = make_read_balance_policy(tiling);
+     balanced_ = read_policy.enabled;
+     normal_value_tasks_ = read_policy.value_tasks;
++    flat_ = uses_flat_history(tiling) &&
++            reinterpret_cast<uint64_t>(key) % 512 == 0 &&
++            reinterpret_cast<uint64_t>(value) % 512 == 0;
+     const uint32_t query_elements =
+         tiling.batch * tiling.head_num * tiling.head_dim;
+     qkv_.SetGlobalBuffer(reinterpret_cast<__gm__ uint16_t*>(qkv),
+@@ -83,7 +86,22 @@
+     const uint32_t append_tasks =
+         fuses_append(tiling_) ? 0 : 2 * tiling_.batch * tiling_.head_num;
+     const uint32_t core = AscendC::GetBlockIdx();
+-    if (balanced_) {
++    if (flat_) {
++      const uint32_t output_elements = tiling_.batch * tiling_.head_num *
++                                       (tiling_.past_length + 1) *
++                                       tiling_.head_dim;
++      const uint32_t elements[3] = {cacheable_key_elements_,
++                                    output_elements - cacheable_key_elements_,
++                                    output_elements};
++      for (uint32_t phase = 0; phase < 3; ++phase) {
++        ranges_[phase] =
++            partition_tasks(0,
++                            (elements[phase] + tiling_.tile_elements - 1) /
++                                tiling_.tile_elements,
++                            tiling_.block_dim,
++                            core);
++      }
++    } else if (balanced_) {
+       ranges_[0] = partition_tasks(
+           0, tiling_.cache_tasks_per_tensor, tiling_.block_dim, core);
+       ranges_[1] =
+@@ -104,7 +122,11 @@
+       ranges_[2] = partition_tasks(
+           0, tiling_.cache_tasks_per_tensor, tiling_.block_dim, core);
+     }
+-    process_history_pipeline();
++    if (flat_) {
++      process_history_pipeline<true>();
++    } else {
++      process_history_pipeline<false>();
++    }
+     process_phase(history_tasks, append_tasks);
+     process_phase(history_tasks + append_tasks, tiling_.query_tasks);
+     for (uint32_t slot = 0; slot < 2; ++slot) {
+@@ -129,6 +151,7 @@
+     uint32_t tile;
+   };
+ 
++  template <bool Flat>
+   __aicore__ inline void enter_phase(Cursor& cursor) {
+     while (cursor.phase < 3 &&
+            ranges_[cursor.phase].begin == ranges_[cursor.phase].end) {
+@@ -136,17 +159,20 @@
+     }
+     if (cursor.phase < 3) {
+       cursor.task = ranges_[cursor.phase].begin;
+-      cursor.row = cursor.task / tiling_.cache_tiles_per_head;
+-      cursor.tile = cursor.task % tiling_.cache_tiles_per_head;
+-    }
+-  }
+-
++      if constexpr (!Flat) {
++        cursor.row = cursor.task / tiling_.cache_tiles_per_head;
++        cursor.tile = cursor.task % tiling_.cache_tiles_per_head;
++      }
++    }
++  }
++
++  template <bool Flat>
+   __aicore__ inline void advance(Cursor& cursor) {
+     ++cursor.task;
+     if (cursor.task == ranges_[cursor.phase].end) {
+       ++cursor.phase;
+-      enter_phase(cursor);
+-    } else {
++      enter_phase<Flat>(cursor);
++    } else if constexpr (!Flat) {
+       ++cursor.tile;
+       if (cursor.tile == tiling_.cache_tiles_per_head) {
+         cursor.tile = 0;
+@@ -155,7 +181,40 @@
+     }
+   }
+ 
++  __aicore__ inline HistoryWrite prefetch_flat(const Cursor& cursor,
++                                               uint32_t slot) {
++    const bool value = cursor.phase == 2;
++    const uint32_t output_elements = tiling_.batch * tiling_.head_num *
++                                     (tiling_.past_length + 1) *
++                                     tiling_.head_dim;
++    const uint32_t begin = cursor.phase == 1 ? cacheable_key_elements_ : 0;
++    const uint32_t end =
++        cursor.phase == 0 ? cacheable_key_elements_ : output_elements;
++    const uint32_t offset = begin + cursor.task * tiling_.tile_elements;
++    const uint32_t count = end - offset < tiling_.tile_elements
++                               ? end - offset
++                               : tiling_.tile_elements;
++    auto local = buffer_.Get<uint16_t>()[slot * tiling_.tile_elements];
++    const auto& history = value ? past_value_ : past_key_;
++    const AscendC::DataCopyPadExtParams<uint16_t> pad{false, 0, 0, 0};
++    uint32_t done = 0;
++    while (done < count) {
++      const FlatHistoryPiece piece =
++          flat_history_piece(tiling_, offset + done, count - done, value);
++      const AscendC::DataCopyExtParams copy{1, piece.count * 2, 0, 0, 0};
++      const auto& source = piece.qkv ? qkv_ : history;
++      AscendC::DataCopyPad(local[done], source[piece.source_offset], copy, pad);
++      done += piece.count;
++    }
++    AscendC::SetFlag<AscendC::HardEvent::MTE2_MTE3>(read_events_[slot]);
++    return {offset, count, static_cast<HistoryOutput>(cursor.phase)};
++  }
++
++  template <bool Flat>
+   __aicore__ inline HistoryWrite prefetch(const Cursor& cursor, uint32_t slot) {
++    if constexpr (Flat) {
++      return prefetch_flat(cursor, slot);
++    }
+     const bool value = balanced_ ? cursor.phase != 0 : cursor.phase == 2;
+     const auto& source =
+         !value ? past_key_
+@@ -189,6 +248,7 @@
+                       : static_cast<HistoryOutput>(cursor.phase)};
+   }
+ 
++  template <bool Flat>
+   __aicore__ inline void process_history_pipeline() {
+     uint32_t total = 0;
+     for (uint32_t phase = 0; phase < 3; ++phase) {
+@@ -198,13 +258,13 @@
+       return;
+     }
+     Cursor cursor{};
+-    enter_phase(cursor);
++    enter_phase<Flat>(cursor);
+     uint32_t slot = 0;
+     // Each slot owns one event in each direction. Consume the prior store
+     // before reusing its UB region, including at cache-class boundaries.
+     bool used[2] = {true, false};
+-    HistoryWrite current = prefetch(cursor, slot);
+-    advance(cursor);
++    HistoryWrite current = prefetch<Flat>(cursor, slot);
++    advance<Flat>(cursor);
+     for (uint32_t index = 0; index < total; ++index) {
+       HistoryWrite next{};
+       const uint32_t next_slot = slot ^ 1;
+@@ -213,9 +273,9 @@
+           AscendC::WaitFlag<AscendC::HardEvent::MTE3_MTE2>(
+               write_events_[next_slot]);
+         }
+-        next = prefetch(cursor, next_slot);
++        next = prefetch<Flat>(cursor, next_slot);
+         used[next_slot] = true;
+-        advance(cursor);
++        advance<Flat>(cursor);
+       }
+       AscendC::WaitFlag<AscendC::HardEvent::MTE2_MTE3>(read_events_[slot]);
+       auto local = buffer_.Get<uint16_t>()[slot * tiling_.tile_elements];
+@@ -302,6 +362,7 @@
+     AscendC::WaitFlag<AscendC::HardEvent::MTE3_MTE2>(write_events_[0]);
+   }
+ 
++  bool flat_ = false;
+   bool balanced_ = false;
+   uint32_t normal_value_tasks_ = 0;
+   uint32_t cacheable_key_elements_ = 0;

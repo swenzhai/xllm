@@ -1,0 +1,25 @@
+{
+  "scope": "host_flat_mapping_only",
+  "npu_executed": false,
+  "status": "passed",
+  "output_elements_checked": 67141632,
+  "tiles": 1427,
+  "pieces": 2448,
+  "tiling_words": [
+    16,
+    16,
+    2048,
+    64,
+    47104,
+    3,
+    1,
+    768,
+    16,
+    1552,
+    48,
+    240,
+    1
+  ],
+  "header_sha256": "23357d15c642d5d71379764ea7c7948c99a0786c04394a209b17adbd5a470264",
+  "checker_source_sha256": "f6e569f6ecd8a4476edf8e7bf0ddffd4739f257acca1f59f0de66c0ab4586273"
+}

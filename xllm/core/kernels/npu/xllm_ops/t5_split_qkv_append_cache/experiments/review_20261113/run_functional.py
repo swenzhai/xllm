@@ -141,19 +141,23 @@ def _main() -> int:
             derived = _distributed_source(text, entry)
             path.write_text(derived)
             files.append(str(path))
-        if entry.get("kernel_policy") in ("distributed_key_output", "flat_output_tiles", "dispersed_key_output"):
+        if entry.get("kernel_policy") in ("distributed_key_output", "flat_output_tiles", "dispersed_key_output", "paired_history", "interleaved_history"):
             path = reports / (name + "_executed_distributed_key.py")
             derived = _distributed_key_source(text)
             if entry.get("kernel_policy") == "flat_output_tiles":
                 derived = derived.replace("normal_key_regions=[[4,84],[88,168],[172,252]]", "normal_key_regions=[[0,240]], output_tile_elements=47104")
-            if entry.get("kernel_policy") == "dispersed_key_output":
+            if entry.get("kernel_policy") in ("dispersed_key_output", "paired_history", "interleaved_history"):
                 derived = derived.replace("normal_key_rows=cache_rows", "legacy_key_quota_rows=cache_rows")
                 derived = derived.replace("normal_key_regions=[[4,84],[88,168],[172,252]]",
                     "normal_write_slots=" + str(entry["normal_output_slots"]) + ", slot_period=16, output_tile_elements=47104")
                 if entry.get("bypass_output_slots"):
                     derived = derived.replace("slot_period=16,", "bypass_slot_pattern=" + str(entry["bypass_output_slots"]) + ", slot_period=16,")
+                if entry.get("kernel_policy") == "paired_history":
+                    derived = derived.replace("output_tile_elements=47104", "parent_tile_elements=47104, output_plane_elements=" + str(entry["paired_plane_elements"]))
             path.write_text(derived)
             files += [str(path), str(_supplied_plan(entry))]
+            if entry.get("kernel_policy") in ("paired_history", "interleaved_history"):
+                files.append(str(HERE / "identity/check_source_layouts.py"))
         if entry.get("kernel_policy") == "four_plane":
             path = reports / (name + "_executed_four_plane.py")
             derived = _distributed_key_source(text)
@@ -162,7 +166,7 @@ def _main() -> int:
                                       "normal_rows_per_plane=cache_rows, planes=4")
             path.write_text(derived)
             files += [str(path), str(_supplied_plan(entry)), str(HERE / "identity/check_supplied_outputs.py")]
-    if any(_candidate(root, n).get("kernel_policy") in ("distributed_key_output", "flat_output_tiles", "dispersed_key_output") for n in args.candidates):
+    if any(_candidate(root, n).get("kernel_policy") in ("distributed_key_output", "flat_output_tiles", "dispersed_key_output", "paired_history", "interleaved_history") for n in args.candidates):
         files += [str(HERE / "identity/check_supplied_outputs.py"), str(HERE / "distributed_write_host_result.json"), str(HERE / "flat_mapping_host_result.json")]
     before = _snapshot(files)
     _write(reports / "pretest_manifest.json", before)
@@ -190,9 +194,9 @@ def _main() -> int:
                     commands.append(("cache_no_admission", reports / (name + "_executed_cache_no_admission.py"), []))
                 if _candidate(root, name).get("kernel_policy") == "distributed_value_input":
                     commands.append(("distributed_value_boundary", reports / (name + "_executed_distributed_value.py"), []))
-                if _candidate(root, name).get("kernel_policy") in ("distributed_key_output", "flat_output_tiles", "dispersed_key_output"):
+                if _candidate(root, name).get("kernel_policy") in ("distributed_key_output", "flat_output_tiles", "dispersed_key_output", "paired_history", "interleaved_history"):
                     commands += [
-                        ("dispersed_key_boundary" if _candidate(root, name).get("kernel_policy") == "dispersed_key_output" else "distributed_key_boundary", reports / (name + "_executed_distributed_key.py"), []),
+                        ("dispersed_key_boundary" if _candidate(root, name).get("kernel_policy") in ("dispersed_key_output", "paired_history", "interleaved_history") else "distributed_key_boundary", reports / (name + "_executed_distributed_key.py"), []),
                         ("supplied_outputs", HERE / "identity/check_supplied_outputs.py", _supplied_args(_candidate(root, name))),
                     ]
                 if _candidate(root, name).get("kernel_policy") == "four_plane":
@@ -200,6 +204,8 @@ def _main() -> int:
                         ("four_plane_boundary", reports / (name + "_executed_four_plane.py"), []),
                         ("supplied_outputs", HERE / "identity/check_supplied_outputs.py", _supplied_args(_candidate(root, name))),
                     ]
+                if _candidate(root, name).get("kernel_policy") in ("paired_history", "interleaved_history"):
+                    commands.append(("source_layouts", HERE / "identity/check_source_layouts.py", []))
                 if args.full:
                     commands += [
                         ("queue_stress", project / "tests/queue_stress.py", ["--package-dir", str(package)]),
@@ -223,6 +229,7 @@ def _main() -> int:
                         raise ValueError("Candidate functional check failed; inspect original records")
                     expected = {"public_accuracy": 35, "extended": 206, "cache_boundary": 8, "cache_no_admission": 8, "distributed_value_boundary": 8, "distributed_key_boundary": 8, "four_plane_boundary": 8, "supplied_outputs": 4}
                     expected["dispersed_key_boundary"] = 8
+                    expected["source_layouts"] = 12
                     expected["supplied_outputs"] = _candidate(root, name).get("expected_supplied_outputs", 4)
                     if label in expected and len(result.get("cases", result.get("records", []))) != expected[label]:
                         raise ValueError("Unexpected functional record count")

@@ -44,7 +44,7 @@ class DriverTest(unittest.TestCase):
         root = Path(__file__).resolve().parent
         entries = _read(root / "candidates.json")["candidates"]
         for entry in entries:
-            if entry.get("kernel_policy") not in {"distributed_key_output", "flat_output_tiles", "four_plane", "dispersed_key_output"}:
+            if entry.get("kernel_policy") not in {"distributed_key_output", "flat_output_tiles", "four_plane", "dispersed_key_output", "paired_history", "interleaved_history"}:
                 continue
             with self.subTest(candidate=entry["name"]):
                 parsed = _parse_args(["--solution-file", "synthetic_solution.py",

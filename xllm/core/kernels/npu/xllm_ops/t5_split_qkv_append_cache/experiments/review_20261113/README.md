@@ -247,3 +247,13 @@ R5第二轮30功能子检查完整通过，18批筛选完成且实际加载五�
 第三轮只改变分布、不增减驻留预算：C25以C21为父，将每个完整16-tile周期的三个bypass位置从[13,14,15]改为[4,9,14]，最后不足一个周期仍全normal；正常Key写54706176B、bypass写79577088B严格相同。两份历史读取仍全部normal，Value写全部bypass，连续写块仍512B对齐。C26为同一分布加受13字段guard的字面POD入口，作为独立A/B项测量是否有Scalar余量；尚未声称编译器已缩减机器码。CPU实际helper全67141632元素/1426tile/29–30任务每核覆盖，dense和增量映射一致、目标normal/bypass字节与C21精确相等；C26另通过13单字段变化/3其他合法形状guard检查。只有NPU真实验证才能证明性能收益。
 
 第三轮预算：C21/C25/C26重新目标构建，36功能子检查成功后18批原10项50/200/5交错筛选，post-identity保持；所有失败保留。只有候选完整初筛通过才20新进程确认、full回归和正式交付更新。禁止用C21已通过的两批宣称默认分配器已稳定达标。
+
+
+第三轮C21/C25/C26均36功能通过、18批原协议筛选完成，前后身份不变，无post-identity error；默认仍约82–84µs，1g约73µs，全部新候选未晋升。C25均匀槽分布没有闭合问题，C26字面入口SDK.text从9704增至17604字节、实际耗时无足够改善，不把“机器码变化”当成优化收益。480原件归档be9f4058b99dcdc0d180a77559915e3d125485470ad3ee0c3c49dc3de1f64f8b，逐SHA核验；见spaced_write_screen_results.json。
+
+第四轮转向读写调度，缓存字节数仍严格与C25相同：
+- C27 paired_history_pad：把对应K/V输出块各23552元素放在同一个47104-element UB槽内，MTE2用DataCopyPad Ext blockCount=2从两个已验证源区间成对读取（GM步长字节、UB步长32B）；QKV追加也按两组对应数据读取。只有目标大geometry、输出512B对齐、源K<V且差值在[47104,UINT32_MAX]并满足dtype对齐时启用，否则执行原C4/已定义Keychain路径。虚拟跨距内的间隙不访问、不分配；两输入仍由原封装recordStream保护。两半输出分别写入，W事件在两次store后发布，R事件在全部2-block读后发布；原双槽生命周期保持。CPU逐元素及显式2D地址/三种src-gap/UB两平面边界/正逆序和overrange guard验证通过。预计读取DMA指令1936（C25为2446）、写入2852（C25为1426），字节数/缓存footprint无变化，性能收益未测。
+- C29 interleaved_history：按同一逻辑块交替预取/写回Key、Value，保留47104元素单平面DMA、不增加指令总数，也不使用跨分配区间的2D视图。每核14或15个完整K/V对（28/30任务），mask与缓存字节数同C25，CPU全67141632元素检查通过。
+- C28 paired_history_aligned仅CPU准备，增加按已验证32B约束的基本DataCopy输出变体，暂不优先占用NPU。
+
+已复核本地9.1.0 API页183–192/238–248：A3支持uint16，DataCopyPad Ext GM起址无对齐限制、Local起址32B、blockCount2合法、blockLen≤47104、GM srcStride为byte且uint32、UB dstStride为32B。基本DataCopy count*sizeof(uint16)全部为512B倍数，不发生向下取整。追加source-layout12（两dtype×正向2B源间隔/反序/相同源×ACLNN/direct），补强2D快路径和回退的真实验证；不增加官方case分母。预计C25/C27/C29目标构建→40子功能→18完整10项原协议/post-identity；通过才20新进程确认/full回归及正式报告/包更新。

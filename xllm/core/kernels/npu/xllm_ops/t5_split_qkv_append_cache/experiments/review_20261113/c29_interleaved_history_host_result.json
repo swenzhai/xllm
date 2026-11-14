@@ -1,0 +1,29 @@
+{
+  "scope": "host_interleaved_KV_mapping_only",
+  "npu_executed": false,
+  "status": "passed",
+  "tiles": 1426,
+  "elements_checked": 67141632,
+  "normal_write_slots": 13,
+  "pieces": 2448,
+  "normal_history_read_bytes": 134217728,
+  "normal_key_write_bytes": 54706176,
+  "bypass_write_bytes": 79577088,
+  "tiling_words": [
+    16,
+    16,
+    2048,
+    64,
+    47104,
+    3,
+    1,
+    768,
+    16,
+    1552,
+    48,
+    240,
+    1
+  ],
+  "header_sha256": "86d86b7753def82a6d509922afa3fb06ae7bb1776c60efd5fdb5aa77120972bc",
+  "checker_source_sha256": "f3771d180806a4ba084388c9cbc852c14020615560b35f514d83f86658155c33"
+}

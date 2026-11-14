@@ -1,0 +1,30 @@
+{
+  "scope": "paired_2d_CPU_mapping_only",
+  "npu_executed": false,
+  "status": "passed",
+  "paired_tasks": 1426,
+  "elements_checked": 67141632,
+  "read_DMA_instructions": 1936,
+  "write_DMA_instructions": 2852,
+  "normal_key_write_bytes": 54706176,
+  "bypass_write_bytes": 79577088,
+  "normal_history_read_bytes": 134217728,
+  "aligned_store_variant": true,
+  "tiling_words": [
+    16,
+    16,
+    2048,
+    64,
+    47104,
+    3,
+    1,
+    768,
+    16,
+    1552,
+    48,
+    240,
+    1
+  ],
+  "header_sha256": "be417c96998dae1d7ca07bb2979fab220eb651465e4188c8dcb7624d5e136342",
+  "checker_source_sha256": "057a0167a39afd7bc1224ec29dd2cc2597c07f6f3f66b4b1b282c245cb80cf74"
+}

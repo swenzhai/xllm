@@ -150,6 +150,8 @@ def _main() -> int:
                 derived = derived.replace("normal_key_rows=cache_rows", "legacy_key_quota_rows=cache_rows")
                 derived = derived.replace("normal_key_regions=[[4,84],[88,168],[172,252]]",
                     "normal_write_slots=" + str(entry["normal_output_slots"]) + ", slot_period=16, output_tile_elements=47104")
+                if entry.get("bypass_output_slots"):
+                    derived = derived.replace("slot_period=16,", "bypass_slot_pattern=" + str(entry["bypass_output_slots"]) + ", slot_period=16,")
             path.write_text(derived)
             files += [str(path), str(_supplied_plan(entry))]
         if entry.get("kernel_policy") == "four_plane":

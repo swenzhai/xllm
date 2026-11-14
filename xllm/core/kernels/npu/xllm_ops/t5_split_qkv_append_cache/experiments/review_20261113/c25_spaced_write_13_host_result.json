@@ -1,0 +1,35 @@
+{
+  "scope": "host_dispersed_write_mapping_only",
+  "npu_executed": false,
+  "status": "passed",
+  "tiles": 1426,
+  "elements_checked": 67141632,
+  "normal_write_slots": 13,
+  "pieces": 2448,
+  "normal_history_read_bytes": 134217728,
+  "normal_key_write_bytes": 54706176,
+  "bypass_write_bytes": 79577088,
+  "tiling_words": [
+    16,
+    16,
+    2048,
+    64,
+    47104,
+    3,
+    1,
+    768,
+    16,
+    1552,
+    48,
+    240,
+    1
+  ],
+  "bypass_slots": [
+    4,
+    9,
+    14
+  ],
+  "last_partial_period_normal": true,
+  "header_sha256": "96bcc5150a388c8f9c40675f4f4cb8713647f3219175e4e1c10cd57e2de7deb5",
+  "checker_source_sha256": "94ddefca82364d2504b8ada5cbc69c1ce6758d1a69911e580b69217ff9297c99"
+}

@@ -19,7 +19,9 @@ limitations under the License.
 
 #include "common/t5_split_qkv_append_cache_tiling.h"
 
-int32_t main() {
+int32_t main(int32_t argc, char** argv) {
+  const bool spaced = argc == 2 && std::strcmp(argv[1], "--evenly-spaced") == 0;
+  assert(argc == 1 || spaced);
   T5SplitQkvAppendCacheTilingData tiling{};
   assert(t5qkv::make_tiling(/*batch=*/16,
                             /*head_num=*/16,
@@ -48,8 +50,11 @@ int32_t main() {
         assert(physical == t5qkv::dispersed_output_task(phase, rank));
         assert(physical < tasks);
         ++seen[phase == 2 ? 1 : 0][physical];
-        assert(phase == 2 || ((physical % 16 < t5qkv::kDispersedNormalSlots) ==
-                              (phase == 0)));
+        const uint32_t lane = physical % 16;
+        const bool normal = spaced ? (physical >= tasks / 16 * 16 ||
+                                      (lane != 4 && lane != 9 && lane != 14))
+                                   : lane < t5qkv::kDispersedNormalSlots;
+        assert(phase == 2 || normal == (phase == 0));
         const uint32_t offset = physical * tiling.tile_elements;
         const uint32_t count =
             std::min(output_elements - offset, tiling.tile_elements);
@@ -102,6 +107,10 @@ int32_t main() {
   }
   assert(read_bytes == uint64_t{2} * 256 * 2048 * 64 * 2);
   assert(normal_write + bypass_write == uint64_t{2} * output_elements * 2);
+  if (spaced) {
+    assert(t5qkv::kDispersedNormalSlots == 13);
+    assert(normal_write == 54706176 && bypass_write == 79577088);
+  }
   assert(read_bytes + normal_write + 131072 < uint64_t{190} * 1024 * 1024);
   std::array<uint32_t, 13> words{};
   std::memcpy(words.data(), &tiling, sizeof(tiling));

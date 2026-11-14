@@ -1,0 +1,5303 @@
+{
+  "scope": "dispersed_write_screen_and_profile_NOT_ACCEPTANCE",
+  "archive": {
+    "remote_archive": "/workspace/t5qkv-dispersed-write-20261114-01/dispersed_write_evidence.tar.gz",
+    "sha256": "48335674e6791084c7db29d6197b280f83d2ea0e3a19d0251455c72e6f93f967",
+    "files": 514,
+    "bytes": 3588814
+  },
+  "functional": {
+    "scope": "functional_pre_screen",
+    "status": "passed",
+    "npu_executed": true,
+    "records": [
+      {
+        "candidate": "control",
+        "allocator": "default",
+        "test": "public_accuracy",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/control_default/public_accuracy.json"
+      },
+      {
+        "candidate": "control",
+        "allocator": "default",
+        "test": "extended",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/control_default/extended.json"
+      },
+      {
+        "candidate": "control",
+        "allocator": "default",
+        "test": "cache_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/control_default/cache_boundary.json"
+      },
+      {
+        "candidate": "control",
+        "allocator": "page1g",
+        "test": "public_accuracy",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/control_page1g/public_accuracy.json"
+      },
+      {
+        "candidate": "control",
+        "allocator": "page1g",
+        "test": "extended",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/control_page1g/extended.json"
+      },
+      {
+        "candidate": "control",
+        "allocator": "page1g",
+        "test": "cache_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/control_page1g/cache_boundary.json"
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "default",
+        "test": "public_accuracy",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c21_dispersed_write_13_default/public_accuracy.json"
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "default",
+        "test": "extended",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c21_dispersed_write_13_default/extended.json"
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "default",
+        "test": "cache_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c21_dispersed_write_13_default/cache_boundary.json"
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "default",
+        "test": "cache_no_admission",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c21_dispersed_write_13_default/cache_no_admission.json"
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "default",
+        "test": "dispersed_key_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c21_dispersed_write_13_default/dispersed_key_boundary.json"
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "default",
+        "test": "supplied_outputs",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c21_dispersed_write_13_default/supplied_outputs.json"
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "page1g",
+        "test": "public_accuracy",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c21_dispersed_write_13_page1g/public_accuracy.json"
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "page1g",
+        "test": "extended",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c21_dispersed_write_13_page1g/extended.json"
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "page1g",
+        "test": "cache_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c21_dispersed_write_13_page1g/cache_boundary.json"
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "page1g",
+        "test": "cache_no_admission",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c21_dispersed_write_13_page1g/cache_no_admission.json"
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "page1g",
+        "test": "dispersed_key_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c21_dispersed_write_13_page1g/dispersed_key_boundary.json"
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "page1g",
+        "test": "supplied_outputs",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c21_dispersed_write_13_page1g/supplied_outputs.json"
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "default",
+        "test": "public_accuracy",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c22_dispersed_write_12_default/public_accuracy.json"
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "default",
+        "test": "extended",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c22_dispersed_write_12_default/extended.json"
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "default",
+        "test": "cache_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c22_dispersed_write_12_default/cache_boundary.json"
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "default",
+        "test": "cache_no_admission",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c22_dispersed_write_12_default/cache_no_admission.json"
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "default",
+        "test": "dispersed_key_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c22_dispersed_write_12_default/dispersed_key_boundary.json"
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "default",
+        "test": "supplied_outputs",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c22_dispersed_write_12_default/supplied_outputs.json"
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "page1g",
+        "test": "public_accuracy",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c22_dispersed_write_12_page1g/public_accuracy.json"
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "page1g",
+        "test": "extended",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c22_dispersed_write_12_page1g/extended.json"
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "page1g",
+        "test": "cache_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c22_dispersed_write_12_page1g/cache_boundary.json"
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "page1g",
+        "test": "cache_no_admission",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c22_dispersed_write_12_page1g/cache_no_admission.json"
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "page1g",
+        "test": "dispersed_key_boundary",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c22_dispersed_write_12_page1g/dispersed_key_boundary.json"
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "page1g",
+        "test": "supplied_outputs",
+        "exit_code": 0,
+        "status": "passed",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/functional_01/c22_dispersed_write_12_page1g/supplied_outputs.json"
+      }
+    ],
+    "source_and_artifacts_unchanged": true
+  },
+  "performance": {
+    "scope": "performance_only",
+    "phase": "screen",
+    "status": "failed",
+    "npu_executed": true,
+    "records": [
+      {
+        "candidate": "control",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/000_control_default/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/000_control_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.253349999999998,
+              16.72335,
+              16.566650000000003,
+              16.52665,
+              16.4067
+            ],
+            "wall_us_median": 16.566650000000003,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.0185,
+              17.016150000000003,
+              16.798299999999998,
+              16.839299999999998,
+              16.7904
+            ],
+            "wall_us_median": 16.839299999999998,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.759700000000002,
+              16.7611,
+              16.789450000000002,
+              16.5781,
+              16.77345
+            ],
+            "wall_us_median": 16.7611,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              88.11345,
+              85.67775,
+              85.3073,
+              84.98795,
+              85.35430000000001
+            ],
+            "wall_us_median": 85.35430000000001,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.55255,
+              17.47795,
+              17.355,
+              17.29985,
+              17.2469
+            ],
+            "wall_us_median": 17.355,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.132900000000003,
+              19.27295,
+              19.97305,
+              20.9938,
+              18.97295
+            ],
+            "wall_us_median": 19.27295,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.87545,
+              17.950200000000002,
+              17.1182,
+              17.67805,
+              16.681900000000002
+            ],
+            "wall_us_median": 17.67805,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.053549999999998,
+              16.7632,
+              16.8785,
+              17.544400000000003,
+              17.487099999999998
+            ],
+            "wall_us_median": 17.053549999999998,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              89.09385,
+              85.56255,
+              85.07995,
+              85.01289999999999,
+              84.56135
+            ],
+            "wall_us_median": 85.07995,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.5924,
+              17.3777,
+              17.38975,
+              17.30645,
+              17.52235
+            ],
+            "wall_us_median": 17.38975,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 0
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/001_c21_dispersed_write_13_default/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/001_c21_dispersed_write_13_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              20.27585,
+              16.299799999999998,
+              16.275100000000002,
+              16.0278,
+              16.1465
+            ],
+            "wall_us_median": 16.275100000000002,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.85295,
+              16.65385,
+              16.725900000000003,
+              16.829900000000002,
+              16.5761
+            ],
+            "wall_us_median": 16.725900000000003,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.6659,
+              19.77165,
+              19.7935,
+              19.58635,
+              19.1672
+            ],
+            "wall_us_median": 19.77165,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              74.09135,
+              73.91755,
+              73.95110000000001,
+              73.8415,
+              73.92035
+            ],
+            "wall_us_median": 73.92035,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.9835,
+              18.9399,
+              19.034950000000002,
+              18.986849999999997,
+              18.7442
+            ],
+            "wall_us_median": 18.9835,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.393150000000002,
+              18.54125,
+              18.12905,
+              18.36505,
+              18.1378
+            ],
+            "wall_us_median": 18.36505,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.6537,
+              19.1541,
+              18.7617,
+              19.11745,
+              18.427799999999998
+            ],
+            "wall_us_median": 18.7617,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.5655,
+              18.82815,
+              18.6825,
+              19.0015,
+              18.92715
+            ],
+            "wall_us_median": 18.82815,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.5991,
+              73.81505,
+              73.5425,
+              73.55245,
+              73.46155
+            ],
+            "wall_us_median": 73.55245,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.931,
+              19.436349999999997,
+              19.6645,
+              19.81485,
+              19.0395
+            ],
+            "wall_us_median": 19.436349999999997,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 0
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/002_c22_dispersed_write_12_default/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/002_c22_dispersed_write_12_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              28.62625,
+              17.2775,
+              16.9765,
+              16.9307,
+              17.2211
+            ],
+            "wall_us_median": 17.2211,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.3412,
+              17.34065,
+              17.1799,
+              17.42525,
+              16.9928
+            ],
+            "wall_us_median": 17.34065,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.47275,
+              17.3681,
+              17.31075,
+              17.3736,
+              17.45975
+            ],
+            "wall_us_median": 17.3736,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              84.8282,
+              84.33715,
+              84.3014,
+              84.49075,
+              84.4813
+            ],
+            "wall_us_median": 84.4813,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.8985,
+              19.42035,
+              18.69275,
+              18.668650000000003,
+              18.24935
+            ],
+            "wall_us_median": 18.69275,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.72645,
+              17.685,
+              17.81895,
+              17.75455,
+              17.8429
+            ],
+            "wall_us_median": 17.75455,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.7655,
+              19.0654,
+              18.8424,
+              19.2572,
+              18.7394
+            ],
+            "wall_us_median": 18.8424,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.703049999999998,
+              18.9727,
+              18.9011,
+              19.143,
+              19.203049999999998
+            ],
+            "wall_us_median": 18.9727,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              84.79260000000001,
+              84.45715,
+              84.3506,
+              83.87395,
+              83.7771
+            ],
+            "wall_us_median": 84.3506,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.76275,
+              19.103450000000002,
+              19.00605,
+              19.55435,
+              19.054
+            ],
+            "wall_us_median": 19.054,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 0
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/003_c22_dispersed_write_12_page1g/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/003_c22_dispersed_write_12_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              54.20015,
+              19.01545,
+              18.6083,
+              18.871,
+              18.4264
+            ],
+            "wall_us_median": 18.871,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.31705,
+              19.11585,
+              19.323700000000002,
+              19.1765,
+              19.041150000000002
+            ],
+            "wall_us_median": 19.1765,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.99675,
+              19.2039,
+              19.00945,
+              19.05905,
+              18.892049999999998
+            ],
+            "wall_us_median": 19.00945,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              74.8728,
+              74.69215,
+              74.6791,
+              74.71935,
+              74.68675
+            ],
+            "wall_us_median": 74.69215,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.0088,
+              17.0748,
+              16.995900000000002,
+              16.910700000000002,
+              16.940450000000002
+            ],
+            "wall_us_median": 16.995900000000002,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.3982,
+              16.23705,
+              16.180600000000002,
+              16.34125,
+              16.21595
+            ],
+            "wall_us_median": 16.23705,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.11125,
+              16.91325,
+              17.02955,
+              16.888,
+              16.34815
+            ],
+            "wall_us_median": 16.91325,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.32725,
+              16.3933,
+              16.410400000000003,
+              16.4076,
+              16.76155
+            ],
+            "wall_us_median": 16.4076,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              75.2782,
+              75.74289999999999,
+              75.29755,
+              75.13025,
+              75.03845
+            ],
+            "wall_us_median": 75.2782,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.488049999999998,
+              16.56025,
+              16.408900000000003,
+              16.487299999999998,
+              16.29895
+            ],
+            "wall_us_median": 16.487299999999998,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 0
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/004_c21_dispersed_write_13_page1g/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/004_c21_dispersed_write_13_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              48.55565,
+              16.80715,
+              16.26075,
+              16.47035,
+              16.565
+            ],
+            "wall_us_median": 16.565,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.1457,
+              16.94505,
+              17.156299999999998,
+              17.017,
+              16.75195
+            ],
+            "wall_us_median": 17.017,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.5708,
+              16.58025,
+              16.569,
+              16.499200000000002,
+              16.50275
+            ],
+            "wall_us_median": 16.569,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.15075,
+              73.20645,
+              73.1265,
+              73.5875,
+              73.12065
+            ],
+            "wall_us_median": 73.15075,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.1233,
+              18.2517,
+              17.8185,
+              18.111849999999997,
+              17.9307
+            ],
+            "wall_us_median": 18.111849999999997,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.73355,
+              17.7978,
+              17.4578,
+              17.5051,
+              17.5515
+            ],
+            "wall_us_median": 17.5515,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.3068,
+              18.9778,
+              18.5713,
+              18.56705,
+              18.20955
+            ],
+            "wall_us_median": 18.56705,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.34585,
+              18.1839,
+              17.88335,
+              18.514400000000002,
+              18.45615
+            ],
+            "wall_us_median": 18.34585,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.42139999999999,
+              73.21445,
+              73.1874,
+              73.23530000000001,
+              73.14395
+            ],
+            "wall_us_median": 73.21445,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.6159,
+              19.28515,
+              18.73975,
+              18.70875,
+              18.4801
+            ],
+            "wall_us_median": 18.70875,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 0
+      },
+      {
+        "candidate": "control",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/005_control_page1g/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/005_control_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              20.4537,
+              16.85395,
+              16.614150000000002,
+              16.6535,
+              16.33725
+            ],
+            "wall_us_median": 16.6535,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.109,
+              17.09615,
+              17.08035,
+              17.233700000000002,
+              17.2306
+            ],
+            "wall_us_median": 17.109,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.4101,
+              16.80025,
+              16.824650000000002,
+              16.5991,
+              16.8406
+            ],
+            "wall_us_median": 16.824650000000002,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              72.6435,
+              72.74035,
+              72.5015,
+              72.5857,
+              72.50895
+            ],
+            "wall_us_median": 72.5857,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.496650000000002,
+              18.48975,
+              18.40415,
+              18.04445,
+              18.1086
+            ],
+            "wall_us_median": 18.40415,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.935950000000002,
+              18.1896,
+              17.8015,
+              17.8274,
+              17.88235
+            ],
+            "wall_us_median": 17.88235,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.387700000000002,
+              18.0027,
+              18.8921,
+              18.22575,
+              18.2758
+            ],
+            "wall_us_median": 18.2758,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.13755,
+              18.934450000000002,
+              18.296950000000002,
+              18.80525,
+              18.525599999999997
+            ],
+            "wall_us_median": 18.525599999999997,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              72.12795,
+              72.03,
+              71.922,
+              72.0013,
+              71.9737
+            ],
+            "wall_us_median": 72.0013,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.6787,
+              18.6398,
+              18.7548,
+              18.877299999999998,
+              18.66225
+            ],
+            "wall_us_median": 18.6787,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 0
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/006_c21_dispersed_write_13_page1g/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/006_c21_dispersed_write_13_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.71405,
+              16.79005,
+              16.68375,
+              16.64605,
+              16.994
+            ],
+            "wall_us_median": 16.79005,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.4428,
+              17.33195,
+              17.3319,
+              17.534599999999998,
+              17.34885
+            ],
+            "wall_us_median": 17.34885,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.99395,
+              17.026400000000002,
+              16.9298,
+              16.96025,
+              16.867099999999997
+            ],
+            "wall_us_median": 16.96025,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.3345,
+              74.00455000000001,
+              73.23435,
+              73.285,
+              73.15965
+            ],
+            "wall_us_median": 73.285,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.064,
+              18.9325,
+              19.16215,
+              19.25285,
+              19.0075
+            ],
+            "wall_us_median": 19.064,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.4168,
+              18.7257,
+              18.08075,
+              18.26805,
+              18.1757
+            ],
+            "wall_us_median": 18.26805,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.9625,
+              19.45895,
+              19.2581,
+              18.984650000000002,
+              18.5973
+            ],
+            "wall_us_median": 18.984650000000002,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.579099999999997,
+              18.81565,
+              18.54535,
+              19.72705,
+              19.203049999999998
+            ],
+            "wall_us_median": 18.81565,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.705,
+              73.56845,
+              73.5392,
+              73.65985,
+              73.4768
+            ],
+            "wall_us_median": 73.56845,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.06915,
+              17.326150000000002,
+              17.61535,
+              17.79255,
+              17.45545
+            ],
+            "wall_us_median": 17.61535,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 1
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/007_c22_dispersed_write_12_page1g/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/007_c22_dispersed_write_12_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              20.8989,
+              16.642799999999998,
+              16.2588,
+              16.3415,
+              16.4483
+            ],
+            "wall_us_median": 16.4483,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.77925,
+              16.812,
+              16.802400000000002,
+              16.827849999999998,
+              16.4816
+            ],
+            "wall_us_median": 16.802400000000002,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.19715,
+              16.30515,
+              16.5987,
+              16.4013,
+              16.5664
+            ],
+            "wall_us_median": 16.4013,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              74.9142,
+              74.7057,
+              74.71495,
+              74.62814999999999,
+              74.6622
+            ],
+            "wall_us_median": 74.7057,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.95575,
+              17.9415,
+              18.2967,
+              17.9621,
+              18.00915
+            ],
+            "wall_us_median": 17.9621,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.0344,
+              17.289150000000003,
+              16.827599999999997,
+              16.97415,
+              16.770049999999998
+            ],
+            "wall_us_median": 16.97415,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.5777,
+              17.95425,
+              17.6722,
+              17.613799999999998,
+              17.3183
+            ],
+            "wall_us_median": 17.613799999999998,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.562099999999997,
+              17.72935,
+              17.216,
+              18.3238,
+              17.91835
+            ],
+            "wall_us_median": 17.72935,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              75.42760000000001,
+              74.7561,
+              74.79610000000001,
+              74.69185,
+              74.74315
+            ],
+            "wall_us_median": 74.7561,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.9001,
+              18.5745,
+              18.05305,
+              18.0895,
+              18.452450000000002
+            ],
+            "wall_us_median": 18.0895,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 1
+      },
+      {
+        "candidate": "control",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/008_control_page1g/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/008_control_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              22.166400000000003,
+              17.5024,
+              16.948700000000002,
+              16.92245,
+              16.92425
+            ],
+            "wall_us_median": 16.948700000000002,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.83645,
+              16.9101,
+              16.8595,
+              16.8457,
+              16.588549999999998
+            ],
+            "wall_us_median": 16.8457,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.49265,
+              16.3629,
+              16.486,
+              16.3614,
+              16.62735
+            ],
+            "wall_us_median": 16.486,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              72.55194999999999,
+              72.3537,
+              72.3637,
+              72.34035,
+              72.3861
+            ],
+            "wall_us_median": 72.3637,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.3968,
+              18.32125,
+              18.3017,
+              18.42375,
+              18.417849999999998
+            ],
+            "wall_us_median": 18.3968,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.18955,
+              18.487849999999998,
+              18.06195,
+              18.070400000000003,
+              18.10585
+            ],
+            "wall_us_median": 18.10585,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.5446,
+              18.79025,
+              18.4847,
+              18.4881,
+              18.299799999999998
+            ],
+            "wall_us_median": 18.4881,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.446900000000003,
+              17.482200000000002,
+              17.59685,
+              18.80295,
+              18.0062
+            ],
+            "wall_us_median": 17.59685,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              71.97789999999999,
+              72.01425,
+              72.173,
+              72.2805,
+              71.777
+            ],
+            "wall_us_median": 72.01425,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.591099999999997,
+              18.781650000000003,
+              18.92565,
+              18.7222,
+              18.4282
+            ],
+            "wall_us_median": 18.7222,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 1
+      },
+      {
+        "candidate": "control",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/009_control_default/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/009_control_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              20.68145,
+              16.5812,
+              16.07275,
+              16.22525,
+              16.07405
+            ],
+            "wall_us_median": 16.22525,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.94155,
+              44.42555,
+              16.698,
+              16.81755,
+              16.554599999999997
+            ],
+            "wall_us_median": 16.81755,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.780099999999997,
+              16.58175,
+              16.71475,
+              16.8268,
+              16.8179
+            ],
+            "wall_us_median": 16.780099999999997,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              76.09915,
+              75.86155000000001,
+              75.81665,
+              75.91669999999999,
+              75.91860000000001
+            ],
+            "wall_us_median": 75.91669999999999,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.691599999999998,
+              18.596,
+              18.4309,
+              18.4829,
+              18.3564
+            ],
+            "wall_us_median": 18.4829,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.71405,
+              18.39075,
+              17.722099999999998,
+              17.7583,
+              17.510900000000003
+            ],
+            "wall_us_median": 17.722099999999998,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.72975,
+              18.14495,
+              17.81485,
+              17.71155,
+              17.64145
+            ],
+            "wall_us_median": 17.72975,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.0243,
+              18.8929,
+              18.6402,
+              18.9054,
+              18.78965
+            ],
+            "wall_us_median": 18.78965,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              75.6166,
+              75.5031,
+              75.54265,
+              75.5007,
+              75.63855000000001
+            ],
+            "wall_us_median": 75.54265,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.66315,
+              19.13175,
+              18.83175,
+              18.664150000000003,
+              18.504150000000003
+            ],
+            "wall_us_median": 18.664150000000003,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 1
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/010_c22_dispersed_write_12_default/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/010_c22_dispersed_write_12_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.207900000000002,
+              16.611099999999997,
+              17.026049999999998,
+              16.5367,
+              17.44475
+            ],
+            "wall_us_median": 17.026049999999998,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.029049999999998,
+              17.198700000000002,
+              16.74445,
+              16.8887,
+              16.4852
+            ],
+            "wall_us_median": 16.8887,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.5254,
+              16.605349999999998,
+              16.2888,
+              16.5811,
+              16.64605
+            ],
+            "wall_us_median": 16.5811,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              84.292,
+              83.492,
+              83.68395,
+              84.6678,
+              84.0105
+            ],
+            "wall_us_median": 84.0105,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.372400000000003,
+              18.4917,
+              18.2841,
+              18.45325,
+              18.33375
+            ],
+            "wall_us_median": 18.372400000000003,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.987599999999997,
+              18.4644,
+              18.094900000000003,
+              18.209799999999998,
+              18.01305
+            ],
+            "wall_us_median": 18.094900000000003,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.2177,
+              18.823150000000002,
+              18.18725,
+              17.9957,
+              17.9515
+            ],
+            "wall_us_median": 18.18725,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.07655,
+              18.64855,
+              18.79955,
+              19.305349999999997,
+              19.05875
+            ],
+            "wall_us_median": 18.79955,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              85.04375,
+              84.63589999999999,
+              84.64415,
+              84.7831,
+              84.7806
+            ],
+            "wall_us_median": 84.7806,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.022599999999997,
+              19.66845,
+              19.1204,
+              19.6414,
+              18.97745
+            ],
+            "wall_us_median": 19.1204,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 1
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/011_c21_dispersed_write_13_default/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/011_c21_dispersed_write_13_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              20.89885,
+              16.70825,
+              16.408549999999998,
+              16.7225,
+              16.5493
+            ],
+            "wall_us_median": 16.70825,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.151400000000002,
+              16.97495,
+              17.0755,
+              17.06315,
+              16.91085
+            ],
+            "wall_us_median": 17.06315,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.629099999999998,
+              17.073,
+              17.17495,
+              17.0579,
+              17.0616
+            ],
+            "wall_us_median": 17.073,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              74.10895,
+              73.92739999999999,
+              73.97045,
+              73.9764,
+              74.04385
+            ],
+            "wall_us_median": 73.9764,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.14845,
+              18.86985,
+              18.9926,
+              18.934900000000003,
+              18.88175
+            ],
+            "wall_us_median": 18.934900000000003,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.263150000000003,
+              18.611,
+              18.01095,
+              18.252,
+              18.17905
+            ],
+            "wall_us_median": 18.252,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.739549999999998,
+              19.25995,
+              18.671950000000002,
+              18.92475,
+              18.4306
+            ],
+            "wall_us_median": 18.739549999999998,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.54355,
+              18.571150000000003,
+              18.9722,
+              19.309150000000002,
+              19.31625
+            ],
+            "wall_us_median": 18.9722,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.88980000000001,
+              73.7635,
+              73.77789999999999,
+              73.73825,
+              73.70639999999999
+            ],
+            "wall_us_median": 73.7635,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.11685,
+              19.54275,
+              19.07195,
+              19.2213,
+              18.8637
+            ],
+            "wall_us_median": 19.11685,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 1
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/012_c22_dispersed_write_12_default/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/012_c22_dispersed_write_12_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.39045,
+              17.11385,
+              16.965799999999998,
+              17.080849999999998,
+              16.961299999999998
+            ],
+            "wall_us_median": 17.080849999999998,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.4318,
+              17.4935,
+              17.484099999999998,
+              17.57605,
+              17.140900000000002
+            ],
+            "wall_us_median": 17.484099999999998,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.95815,
+              19.5873,
+              20.0073,
+              19.523049999999998,
+              19.251900000000003
+            ],
+            "wall_us_median": 19.523049999999998,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              85.0333,
+              85.12455,
+              84.9545,
+              84.60510000000001,
+              84.78710000000001
+            ],
+            "wall_us_median": 84.9545,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.914099999999998,
+              18.627650000000003,
+              18.72265,
+              18.984299999999998,
+              18.49865
+            ],
+            "wall_us_median": 18.72265,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.66205,
+              18.791,
+              18.730400000000003,
+              18.49935,
+              18.4026
+            ],
+            "wall_us_median": 18.66205,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.835099999999997,
+              19.36515,
+              19.12215,
+              18.53885,
+              18.286849999999998
+            ],
+            "wall_us_median": 18.835099999999997,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.43165,
+              19.29425,
+              19.4333,
+              19.269299999999998,
+              19.5858
+            ],
+            "wall_us_median": 19.29425,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              85.34410000000001,
+              85.12089999999999,
+              85.27510000000001,
+              85.16664999999999,
+              85.05505000000001
+            ],
+            "wall_us_median": 85.16664999999999,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.58765,
+              18.95775,
+              19.4463,
+              18.92795,
+              18.6911
+            ],
+            "wall_us_median": 18.95775,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 2
+      },
+      {
+        "candidate": "control",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/013_control_default/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/013_control_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.1528,
+              15.2609,
+              15.2698,
+              16.100649999999998,
+              16.07985
+            ],
+            "wall_us_median": 16.07985,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              15.9442,
+              15.9161,
+              15.99585,
+              15.58435,
+              16.2066
+            ],
+            "wall_us_median": 15.9442,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.863799999999998,
+              16.989099999999997,
+              17.14125,
+              16.823150000000002,
+              16.71755
+            ],
+            "wall_us_median": 16.863799999999998,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              75.70864999999999,
+              75.67094999999999,
+              75.5248,
+              75.60285,
+              75.45605
+            ],
+            "wall_us_median": 75.60285,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.501900000000003,
+              18.30605,
+              18.27165,
+              18.3696,
+              18.100849999999998
+            ],
+            "wall_us_median": 18.27165,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.51355,
+              17.483400000000003,
+              17.717599999999997,
+              17.4503,
+              17.7445
+            ],
+            "wall_us_median": 17.51355,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.53375,
+              19.07885,
+              18.281599999999997,
+              18.08845,
+              18.452450000000002
+            ],
+            "wall_us_median": 18.452450000000002,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.28585,
+              17.563599999999997,
+              19.1855,
+              18.363599999999998,
+              18.411
+            ],
+            "wall_us_median": 18.363599999999998,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              75.59755,
+              75.46645,
+              75.46335,
+              75.19789999999999,
+              75.48775
+            ],
+            "wall_us_median": 75.46645,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.70295,
+              19.340049999999998,
+              19.0875,
+              19.1128,
+              18.783150000000003
+            ],
+            "wall_us_median": 19.0875,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 2
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "default",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/014_c21_dispersed_write_13_default/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/014_c21_dispersed_write_13_default/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              20.878400000000003,
+              17.83605,
+              17.7838,
+              17.841099999999997,
+              17.955299999999998
+            ],
+            "wall_us_median": 17.841099999999997,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.449849999999998,
+              18.6376,
+              18.578200000000002,
+              18.36195,
+              18.053549999999998
+            ],
+            "wall_us_median": 18.449849999999998,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.45445,
+              18.3056,
+              18.19375,
+              18.56765,
+              18.09835
+            ],
+            "wall_us_median": 18.3056,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              85.68714999999999,
+              84.02905,
+              83.8416,
+              83.48214999999999,
+              83.52035000000001
+            ],
+            "wall_us_median": 83.8416,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.458599999999997,
+              19.4645,
+              19.2804,
+              19.1528,
+              18.8161
+            ],
+            "wall_us_median": 19.2804,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.589,
+              18.9649,
+              18.670900000000003,
+              18.3484,
+              18.864
+            ],
+            "wall_us_median": 18.670900000000003,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.2578,
+              20.07405,
+              19.077599999999997,
+              18.781650000000003,
+              18.86645
+            ],
+            "wall_us_median": 19.077599999999997,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.9123,
+              20.3478,
+              18.8048,
+              20.54275,
+              20.08675
+            ],
+            "wall_us_median": 20.08675,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              85.72744999999999,
+              84.9293,
+              83.99910000000001,
+              83.77055,
+              83.903
+            ],
+            "wall_us_median": 83.99910000000001,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.761200000000002,
+              19.6105,
+              19.83295,
+              19.9764,
+              21.3406
+            ],
+            "wall_us_median": 19.83295,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 2
+      },
+      {
+        "candidate": "c21_dispersed_write_13",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/015_c21_dispersed_write_13_page1g/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/015_c21_dispersed_write_13_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              20.52995,
+              16.514950000000002,
+              16.20395,
+              16.3331,
+              16.1149
+            ],
+            "wall_us_median": 16.3331,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.948700000000002,
+              16.7506,
+              16.70675,
+              16.82195,
+              16.8577
+            ],
+            "wall_us_median": 16.82195,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              16.8996,
+              16.369,
+              16.4393,
+              16.188,
+              16.4998
+            ],
+            "wall_us_median": 16.4393,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.51725,
+              73.17895,
+              73.125,
+              73.42795,
+              73.14185
+            ],
+            "wall_us_median": 73.17895,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.736549999999998,
+              18.77255,
+              18.5103,
+              18.794700000000002,
+              18.3856
+            ],
+            "wall_us_median": 18.736549999999998,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.795099999999998,
+              17.33125,
+              17.7246,
+              17.30795,
+              17.58675
+            ],
+            "wall_us_median": 17.58675,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.6673,
+              18.92955,
+              18.51325,
+              18.268900000000002,
+              17.67905
+            ],
+            "wall_us_median": 18.51325,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.5062,
+              18.1771,
+              18.22985,
+              18.8216,
+              18.573349999999998
+            ],
+            "wall_us_median": 18.22985,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              73.72245,
+              73.56685,
+              73.60719999999999,
+              73.529,
+              73.5331
+            ],
+            "wall_us_median": 73.56685,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.906299999999998,
+              18.9855,
+              18.8475,
+              19.2709,
+              18.6264
+            ],
+            "wall_us_median": 18.906299999999998,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 2
+      },
+      {
+        "candidate": "control",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/016_control_page1g/benchmark.json",
+        "status": "passed",
+        "npu_executed": true,
+        "exit_code": 0,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/016_control_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              21.32875,
+              17.23735,
+              16.866049999999998,
+              16.91075,
+              16.7136
+            ],
+            "wall_us_median": 16.91075,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              42.59105,
+              17.55705,
+              17.333849999999998,
+              17.6689,
+              17.10705
+            ],
+            "wall_us_median": 17.55705,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.33415,
+              20.6702,
+              17.2784,
+              17.0589,
+              17.5077
+            ],
+            "wall_us_median": 17.33415,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              72.35664999999999,
+              72.1704,
+              72.25005,
+              71.99055,
+              72.05725
+            ],
+            "wall_us_median": 72.1704,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.955299999999998,
+              19.393849999999997,
+              19.34925,
+              19.30045,
+              18.70405
+            ],
+            "wall_us_median": 19.30045,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.3033,
+              18.11995,
+              18.346400000000003,
+              18.4743,
+              18.1415
+            ],
+            "wall_us_median": 18.3033,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.059450000000002,
+              19.733849999999997,
+              19.145400000000002,
+              18.96525,
+              18.262
+            ],
+            "wall_us_median": 19.059450000000002,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.80705,
+              18.67645,
+              17.935950000000002,
+              19.109,
+              18.828349999999997
+            ],
+            "wall_us_median": 18.67645,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              72.3342,
+              72.21915,
+              72.29605000000001,
+              72.26695,
+              72.26875
+            ],
+            "wall_us_median": 72.26875,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              19.819950000000002,
+              20.212,
+              20.29455,
+              19.480349999999998,
+              19.541349999999998
+            ],
+            "wall_us_median": 19.819950000000002,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 2
+      },
+      {
+        "candidate": "c22_dispersed_write_12",
+        "allocator": "page1g",
+        "role": "custom",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/017_c22_dispersed_write_12_page1g/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "runtime_identity": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/017_c22_dispersed_write_12_page1g/runtime_identity.json",
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              23.124299999999998,
+              16.93195,
+              16.1904,
+              15.96395,
+              16.92265
+            ],
+            "wall_us_median": 16.92265,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.35035,
+              17.3752,
+              17.28525,
+              17.4701,
+              17.33865
+            ],
+            "wall_us_median": 17.35035,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.9039,
+              17.24805,
+              17.39675,
+              17.27195,
+              17.248099999999997
+            ],
+            "wall_us_median": 17.27195,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              75.67760000000001,
+              75.3893,
+              75.2109,
+              75.20605,
+              75.2594
+            ],
+            "wall_us_median": 75.2594,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.2215,
+              18.61965,
+              18.2585,
+              18.24795,
+              18.0657
+            ],
+            "wall_us_median": 18.24795,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.9812,
+              17.8048,
+              17.545450000000002,
+              17.87865,
+              17.9026
+            ],
+            "wall_us_median": 17.87865,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.69755,
+              19.47795,
+              19.05775,
+              18.85,
+              18.474
+            ],
+            "wall_us_median": 18.85,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              17.9662,
+              18.12095,
+              17.80265,
+              19.1399,
+              18.77845
+            ],
+            "wall_us_median": 18.12095,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              74.82985000000001,
+              74.70219999999999,
+              74.7542,
+              74.64635000000001,
+              74.7174
+            ],
+            "wall_us_median": 74.7174,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "passed",
+            "wall_us_rounds": [
+              18.64025,
+              18.45,
+              18.579150000000002,
+              18.6624,
+              18.845299999999998
+            ],
+            "wall_us_median": 18.64025,
+            "max_wall_us": 29
+          }
+        ],
+        "batch": 2
+      }
+    ],
+    "references": [
+      {
+        "candidate": "control",
+        "allocator": "default",
+        "role": "reference",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/reference_default/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              81.5484,
+              77.2291,
+              90.52905,
+              89.28425,
+              88.2234
+            ],
+            "wall_us_median": 88.2234,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              98.98625,
+              97.89739999999999,
+              97.5624,
+              97.8297,
+              85.4455
+            ],
+            "wall_us_median": 97.8297,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              75.9527,
+              76.09775,
+              76.13964999999999,
+              76.3429,
+              76.12935
+            ],
+            "wall_us_median": 76.12935,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              234.21265,
+              234.07755,
+              234.04595,
+              234.02020000000002,
+              234.0514
+            ],
+            "wall_us_median": 234.0514,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              86.03225,
+              85.26715,
+              84.6961,
+              84.4945,
+              85.07145
+            ],
+            "wall_us_median": 85.07145,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              75.72064999999999,
+              75.3517,
+              75.43395,
+              75.03139999999999,
+              74.33160000000001
+            ],
+            "wall_us_median": 75.3517,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              84.62435,
+              84.23564999999999,
+              84.77635000000001,
+              84.73705,
+              84.4294
+            ],
+            "wall_us_median": 84.62435,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              75.55885,
+              75.74064999999999,
+              75.69069999999999,
+              75.5215,
+              76.1789
+            ],
+            "wall_us_median": 75.69069999999999,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              234.1514,
+              233.976,
+              233.91514999999998,
+              233.86120000000003,
+              233.8762
+            ],
+            "wall_us_median": 233.91514999999998,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              86.1704,
+              85.4224,
+              84.80785,
+              84.061,
+              84.19895
+            ],
+            "wall_us_median": 84.80785,
+            "max_wall_us": 29
+          }
+        ]
+      },
+      {
+        "candidate": "control",
+        "allocator": "page1g",
+        "role": "reference",
+        "report": "/workspace/t5qkv-dispersed-write-20261114-01/screen_01/reference_page1g/benchmark.json",
+        "status": "failed",
+        "npu_executed": true,
+        "exit_code": 1,
+        "checks": [
+          {
+            "case_name": "T5SplitQkvAppendCache_001_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              82.02664999999999,
+              76.12925,
+              106.91735,
+              75.68875,
+              75.5206
+            ],
+            "wall_us_median": 76.12925,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_005_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              87.2643,
+              86.76335,
+              86.65985,
+              86.69565,
+              86.82495
+            ],
+            "wall_us_median": 86.76335,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_006_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              75.96539999999999,
+              75.07085000000001,
+              82.78065,
+              87.38369999999999,
+              87.1823
+            ],
+            "wall_us_median": 82.78065,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_007_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              238.4864,
+              238.3922,
+              238.28045,
+              238.27165,
+              238.22820000000002
+            ],
+            "wall_us_median": 238.28045,
+            "max_wall_us": 75
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_008_float16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              97.7915,
+              98.2328,
+              98.00715,
+              98.24560000000001,
+              98.33345
+            ],
+            "wall_us_median": 98.2328,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              86.9302,
+              87.9188,
+              87.5158,
+              87.4115,
+              87.5343
+            ],
+            "wall_us_median": 87.5158,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              98.301,
+              98.49855000000001,
+              98.34455,
+              98.37445,
+              98.25855
+            ],
+            "wall_us_median": 98.34455,
+            "max_wall_us": 28
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              87.56085,
+              87.4512,
+              87.61930000000001,
+              89.4845,
+              90.18085
+            ],
+            "wall_us_median": 87.61930000000001,
+            "max_wall_us": 29
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              238.8416,
+              238.75905,
+              238.7322,
+              238.6636,
+              238.68435
+            ],
+            "wall_us_median": 238.7322,
+            "max_wall_us": 77
+          },
+          {
+            "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+            "status": "failed",
+            "wall_us_rounds": [
+              99.16035000000001,
+              98.928,
+              99.0037,
+              98.8802,
+              98.75885000000001
+            ],
+            "wall_us_median": 98.928,
+            "max_wall_us": 29
+          }
+        ]
+      }
+    ],
+    "full_acceptance": false,
+    "post_identity": true,
+    "source_and_artifacts_unchanged": true
+  },
+  "profiles": {
+    "control": {
+      "scope": "derived_profile_diagnostics_not_acceptance",
+      "records": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_PipeUtilization/profile/PROF_000001_20261114065607264_00133444NHAKMEDM/mindstudio_profiler_output/op_summary_20261114065616.csv",
+          "csv_sha256": "ac1874a72daa6ab0f3cbebfc982c7b0ecacfce65bc0bf6d329392c3529d52884",
+          "instrumented_api_wall_us_median": 33.00525,
+          "median_reported_fields": {
+            "Task Duration(us)": 7.0,
+            "aiv_scalar_time(us)": 1.83,
+            "aiv_scalar_ratio": 0.4365,
+            "aiv_mte2_time(us)": 2.3075,
+            "aiv_mte2_ratio": 0.546,
+            "aiv_mte3_time(us)": 0.186,
+            "aiv_mte3_ratio": 0.049,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "17"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_PipeUtilization/profile/PROF_000001_20261114065607264_00133444NHAKMEDM/mindstudio_profiler_output/op_summary_20261114065616.csv",
+          "csv_sha256": "ac1874a72daa6ab0f3cbebfc982c7b0ecacfce65bc0bf6d329392c3529d52884",
+          "instrumented_api_wall_us_median": 33.6196,
+          "median_reported_fields": {
+            "Task Duration(us)": 3.38,
+            "aiv_scalar_time(us)": 1.453,
+            "aiv_scalar_ratio": 0.764,
+            "aiv_mte2_time(us)": 0.515,
+            "aiv_mte2_ratio": 0.27,
+            "aiv_mte3_time(us)": 0.149,
+            "aiv_mte3_ratio": 0.078,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_PipeUtilization/profile/PROF_000001_20261114065607264_00133444NHAKMEDM/mindstudio_profiler_output/op_summary_20261114065616.csv",
+          "csv_sha256": "ac1874a72daa6ab0f3cbebfc982c7b0ecacfce65bc0bf6d329392c3529d52884",
+          "instrumented_api_wall_us_median": 33.429550000000006,
+          "median_reported_fields": {
+            "Task Duration(us)": 9.861,
+            "aiv_scalar_time(us)": 2.213,
+            "aiv_scalar_ratio": 0.271,
+            "aiv_mte2_time(us)": 4.819,
+            "aiv_mte2_ratio": 0.589,
+            "aiv_mte3_time(us)": 2.837,
+            "aiv_mte3_ratio": 0.347,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_PipeUtilization/profile/PROF_000001_20261114065607264_00133444NHAKMEDM/mindstudio_profiler_output/op_summary_20261114065616.csv",
+          "csv_sha256": "ac1874a72daa6ab0f3cbebfc982c7b0ecacfce65bc0bf6d329392c3529d52884",
+          "instrumented_api_wall_us_median": 75.8885,
+          "median_reported_fields": {
+            "Task Duration(us)": 75.185,
+            "aiv_scalar_time(us)": 4.905,
+            "aiv_scalar_ratio": 0.07,
+            "aiv_mte2_time(us)": 56.5895,
+            "aiv_mte2_ratio": 0.813,
+            "aiv_mte3_time(us)": 56.494,
+            "aiv_mte3_ratio": 0.811,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "47"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_PipeUtilization/profile/PROF_000001_20261114065607264_00133444NHAKMEDM/mindstudio_profiler_output/op_summary_20261114065616.csv",
+          "csv_sha256": "ac1874a72daa6ab0f3cbebfc982c7b0ecacfce65bc0bf6d329392c3529d52884",
+          "instrumented_api_wall_us_median": 19.701349999999998,
+          "median_reported_fields": {
+            "Task Duration(us)": 8.6,
+            "aiv_scalar_time(us)": 1.8485,
+            "aiv_scalar_ratio": 0.346,
+            "aiv_mte2_time(us)": 3.124,
+            "aiv_mte2_ratio": 0.58,
+            "aiv_mte3_time(us)": 0.767,
+            "aiv_mte3_ratio": 0.143,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_PipeUtilization/profile/PROF_000001_20261114065607264_00133444NHAKMEDM/mindstudio_profiler_output/op_summary_20261114065616.csv",
+          "csv_sha256": "ac1874a72daa6ab0f3cbebfc982c7b0ecacfce65bc0bf6d329392c3529d52884",
+          "instrumented_api_wall_us_median": 20.66995,
+          "median_reported_fields": {
+            "Task Duration(us)": 6.821,
+            "aiv_scalar_time(us)": 1.762,
+            "aiv_scalar_ratio": 0.425,
+            "aiv_mte2_time(us)": 2.3375000000000004,
+            "aiv_mte2_ratio": 0.559,
+            "aiv_mte3_time(us)": 0.178,
+            "aiv_mte3_ratio": 0.048,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "17"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_PipeUtilization/profile/PROF_000001_20261114065607264_00133444NHAKMEDM/mindstudio_profiler_output/op_summary_20261114065616.csv",
+          "csv_sha256": "ac1874a72daa6ab0f3cbebfc982c7b0ecacfce65bc0bf6d329392c3529d52884",
+          "instrumented_api_wall_us_median": 20.57755,
+          "median_reported_fields": {
+            "Task Duration(us)": 3.38,
+            "aiv_scalar_time(us)": 1.458,
+            "aiv_scalar_ratio": 0.765,
+            "aiv_mte2_time(us)": 0.511,
+            "aiv_mte2_ratio": 0.269,
+            "aiv_mte3_time(us)": 0.15,
+            "aiv_mte3_ratio": 0.078,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_PipeUtilization/profile/PROF_000001_20261114065607264_00133444NHAKMEDM/mindstudio_profiler_output/op_summary_20261114065616.csv",
+          "csv_sha256": "ac1874a72daa6ab0f3cbebfc982c7b0ecacfce65bc0bf6d329392c3529d52884",
+          "instrumented_api_wall_us_median": 20.58375,
+          "median_reported_fields": {
+            "Task Duration(us)": 9.92,
+            "aiv_scalar_time(us)": 2.132,
+            "aiv_scalar_ratio": 0.257,
+            "aiv_mte2_time(us)": 4.951499999999999,
+            "aiv_mte2_ratio": 0.597,
+            "aiv_mte3_time(us)": 2.875,
+            "aiv_mte3_ratio": 0.347,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_PipeUtilization/profile/PROF_000001_20261114065607264_00133444NHAKMEDM/mindstudio_profiler_output/op_summary_20261114065616.csv",
+          "csv_sha256": "ac1874a72daa6ab0f3cbebfc982c7b0ecacfce65bc0bf6d329392c3529d52884",
+          "instrumented_api_wall_us_median": 76.14895,
+          "median_reported_fields": {
+            "Task Duration(us)": 75.445,
+            "aiv_scalar_time(us)": 4.85,
+            "aiv_scalar_ratio": 0.07,
+            "aiv_mte2_time(us)": 56.66,
+            "aiv_mte2_ratio": 0.816,
+            "aiv_mte3_time(us)": 56.358000000000004,
+            "aiv_mte3_ratio": 0.812,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "47"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_PipeUtilization/profile/PROF_000001_20261114065607264_00133444NHAKMEDM/mindstudio_profiler_output/op_summary_20261114065616.csv",
+          "csv_sha256": "ac1874a72daa6ab0f3cbebfc982c7b0ecacfce65bc0bf6d329392c3529d52884",
+          "instrumented_api_wall_us_median": 19.877599999999997,
+          "median_reported_fields": {
+            "Task Duration(us)": 8.541,
+            "aiv_scalar_time(us)": 1.848,
+            "aiv_scalar_ratio": 0.346,
+            "aiv_mte2_time(us)": 3.117,
+            "aiv_mte2_ratio": 0.579,
+            "aiv_mte3_time(us)": 0.7625,
+            "aiv_mte3_ratio": 0.1425,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_L2Cache/profile/PROF_000001_20261114065622280_00133787NQBLIDNE/mindstudio_profiler_output/op_summary_20261114065632.csv",
+          "csv_sha256": "a7ef0e879922474293b86bf1e8f7c638c08ad75a6920210089e089225cd5e309",
+          "instrumented_api_wall_us_median": 136.217,
+          "median_reported_fields": {
+            "Task Duration(us)": 6.94,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 120.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 167.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 168.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "17"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_L2Cache/profile/PROF_000001_20261114065622280_00133787NQBLIDNE/mindstudio_profiler_output/op_summary_20261114065632.csv",
+          "csv_sha256": "a7ef0e879922474293b86bf1e8f7c638c08ad75a6920210089e089225cd5e309",
+          "instrumented_api_wall_us_median": 132.75560000000002,
+          "median_reported_fields": {
+            "Task Duration(us)": 3.3705,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 555.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 1078.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 1078.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_L2Cache/profile/PROF_000001_20261114065622280_00133787NQBLIDNE/mindstudio_profiler_output/op_summary_20261114065632.csv",
+          "csv_sha256": "a7ef0e879922474293b86bf1e8f7c638c08ad75a6920210089e089225cd5e309",
+          "instrumented_api_wall_us_median": 139.1799,
+          "median_reported_fields": {
+            "Task Duration(us)": 10.021,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 24936.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 49416.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 49415.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_L2Cache/profile/PROF_000001_20261114065622280_00133787NQBLIDNE/mindstudio_profiler_output/op_summary_20261114065632.csv",
+          "csv_sha256": "a7ef0e879922474293b86bf1e8f7c638c08ad75a6920210089e089225cd5e309",
+          "instrumented_api_wall_us_median": 213.25535,
+          "median_reported_fields": {
+            "Task Duration(us)": 84.905,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 128089.5,
+            "aiv_write_cache_miss_allocate": 4118.5,
+            "aiv_r0_read_cache_hit": 433528.5,
+            "aiv_r0_read_cache_miss_allocate": 74869.5,
+            "aiv_r1_read_cache_hit": 433537.0,
+            "aiv_r1_read_cache_miss_allocate": 74874.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "47"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_L2Cache/profile/PROF_000001_20261114065622280_00133787NQBLIDNE/mindstudio_profiler_output/op_summary_20261114065632.csv",
+          "csv_sha256": "a7ef0e879922474293b86bf1e8f7c638c08ad75a6920210089e089225cd5e309",
+          "instrumented_api_wall_us_median": 137.78560000000002,
+          "median_reported_fields": {
+            "Task Duration(us)": 8.58,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 8242.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 16504.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 16504.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_L2Cache/profile/PROF_000001_20261114065622280_00133787NQBLIDNE/mindstudio_profiler_output/op_summary_20261114065632.csv",
+          "csv_sha256": "a7ef0e879922474293b86bf1e8f7c638c08ad75a6920210089e089225cd5e309",
+          "instrumented_api_wall_us_median": 136.2274,
+          "median_reported_fields": {
+            "Task Duration(us)": 7.0,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 120.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 168.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 167.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "17"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_L2Cache/profile/PROF_000001_20261114065622280_00133787NQBLIDNE/mindstudio_profiler_output/op_summary_20261114065632.csv",
+          "csv_sha256": "a7ef0e879922474293b86bf1e8f7c638c08ad75a6920210089e089225cd5e309",
+          "instrumented_api_wall_us_median": 132.81904999999998,
+          "median_reported_fields": {
+            "Task Duration(us)": 3.38,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 555.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 1078.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 1078.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_L2Cache/profile/PROF_000001_20261114065622280_00133787NQBLIDNE/mindstudio_profiler_output/op_summary_20261114065632.csv",
+          "csv_sha256": "a7ef0e879922474293b86bf1e8f7c638c08ad75a6920210089e089225cd5e309",
+          "instrumented_api_wall_us_median": 139.21635,
+          "median_reported_fields": {
+            "Task Duration(us)": 9.82,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 24936.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 49415.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 49416.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_L2Cache/profile/PROF_000001_20261114065622280_00133787NQBLIDNE/mindstudio_profiler_output/op_summary_20261114065632.csv",
+          "csv_sha256": "a7ef0e879922474293b86bf1e8f7c638c08ad75a6920210089e089225cd5e309",
+          "instrumented_api_wall_us_median": 214.1839,
+          "median_reported_fields": {
+            "Task Duration(us)": 85.375,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 127943.0,
+            "aiv_write_cache_miss_allocate": 4265.0,
+            "aiv_r0_read_cache_hit": 432988.0,
+            "aiv_r0_read_cache_miss_allocate": 75413.0,
+            "aiv_r1_read_cache_hit": 432980.0,
+            "aiv_r1_read_cache_miss_allocate": 75441.5
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "47"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/default_L2Cache/profile/PROF_000001_20261114065622280_00133787NQBLIDNE/mindstudio_profiler_output/op_summary_20261114065632.csv",
+          "csv_sha256": "a7ef0e879922474293b86bf1e8f7c638c08ad75a6920210089e089225cd5e309",
+          "instrumented_api_wall_us_median": 137.8173,
+          "median_reported_fields": {
+            "Task Duration(us)": 8.541,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 8242.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 16504.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 16504.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_PipeUtilization/profile/PROF_000001_20261114065645904_00134226KINCKAIE/mindstudio_profiler_output/op_summary_20261114065656.csv",
+          "csv_sha256": "93de5cbda8c21f11e6d8f2505c4d7f194525322825ea276d805da040fec9a51e",
+          "instrumented_api_wall_us_median": 17.2847,
+          "median_reported_fields": {
+            "Task Duration(us)": 6.841,
+            "aiv_scalar_time(us)": 1.7835,
+            "aiv_scalar_ratio": 0.425,
+            "aiv_mte2_time(us)": 2.337,
+            "aiv_mte2_ratio": 0.558,
+            "aiv_mte3_time(us)": 0.1825,
+            "aiv_mte3_ratio": 0.048,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "17"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_PipeUtilization/profile/PROF_000001_20261114065645904_00134226KINCKAIE/mindstudio_profiler_output/op_summary_20261114065656.csv",
+          "csv_sha256": "93de5cbda8c21f11e6d8f2505c4d7f194525322825ea276d805da040fec9a51e",
+          "instrumented_api_wall_us_median": 17.15175,
+          "median_reported_fields": {
+            "Task Duration(us)": 3.38,
+            "aiv_scalar_time(us)": 1.4635,
+            "aiv_scalar_ratio": 0.768,
+            "aiv_mte2_time(us)": 0.513,
+            "aiv_mte2_ratio": 0.268,
+            "aiv_mte3_time(us)": 0.15,
+            "aiv_mte3_ratio": 0.078,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_PipeUtilization/profile/PROF_000001_20261114065645904_00134226KINCKAIE/mindstudio_profiler_output/op_summary_20261114065656.csv",
+          "csv_sha256": "93de5cbda8c21f11e6d8f2505c4d7f194525322825ea276d805da040fec9a51e",
+          "instrumented_api_wall_us_median": 18.05875,
+          "median_reported_fields": {
+            "Task Duration(us)": 9.94,
+            "aiv_scalar_time(us)": 2.1414999999999997,
+            "aiv_scalar_ratio": 0.256,
+            "aiv_mte2_time(us)": 4.959,
+            "aiv_mte2_ratio": 0.598,
+            "aiv_mte3_time(us)": 2.883,
+            "aiv_mte3_ratio": 0.347,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_PipeUtilization/profile/PROF_000001_20261114065645904_00134226KINCKAIE/mindstudio_profiler_output/op_summary_20261114065656.csv",
+          "csv_sha256": "93de5cbda8c21f11e6d8f2505c4d7f194525322825ea276d805da040fec9a51e",
+          "instrumented_api_wall_us_median": 73.04615,
+          "median_reported_fields": {
+            "Task Duration(us)": 72.305,
+            "aiv_scalar_time(us)": 4.8,
+            "aiv_scalar_ratio": 0.07,
+            "aiv_mte2_time(us)": 54.429,
+            "aiv_mte2_ratio": 0.801,
+            "aiv_mte3_time(us)": 55.376000000000005,
+            "aiv_mte3_ratio": 0.815,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "47"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_PipeUtilization/profile/PROF_000001_20261114065645904_00134226KINCKAIE/mindstudio_profiler_output/op_summary_20261114065656.csv",
+          "csv_sha256": "93de5cbda8c21f11e6d8f2505c4d7f194525322825ea276d805da040fec9a51e",
+          "instrumented_api_wall_us_median": 18.86055,
+          "median_reported_fields": {
+            "Task Duration(us)": 8.561,
+            "aiv_scalar_time(us)": 1.8595000000000002,
+            "aiv_scalar_ratio": 0.347,
+            "aiv_mte2_time(us)": 3.101,
+            "aiv_mte2_ratio": 0.579,
+            "aiv_mte3_time(us)": 0.763,
+            "aiv_mte3_ratio": 0.143,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_PipeUtilization/profile/PROF_000001_20261114065645904_00134226KINCKAIE/mindstudio_profiler_output/op_summary_20261114065656.csv",
+          "csv_sha256": "93de5cbda8c21f11e6d8f2505c4d7f194525322825ea276d805da040fec9a51e",
+          "instrumented_api_wall_us_median": 18.7271,
+          "median_reported_fields": {
+            "Task Duration(us)": 6.94,
+            "aiv_scalar_time(us)": 1.804,
+            "aiv_scalar_ratio": 0.428,
+            "aiv_mte2_time(us)": 2.3495,
+            "aiv_mte2_ratio": 0.552,
+            "aiv_mte3_time(us)": 0.1885,
+            "aiv_mte3_ratio": 0.049,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "17"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_PipeUtilization/profile/PROF_000001_20261114065645904_00134226KINCKAIE/mindstudio_profiler_output/op_summary_20261114065656.csv",
+          "csv_sha256": "93de5cbda8c21f11e6d8f2505c4d7f194525322825ea276d805da040fec9a51e",
+          "instrumented_api_wall_us_median": 19.4031,
+          "median_reported_fields": {
+            "Task Duration(us)": 3.38,
+            "aiv_scalar_time(us)": 1.466,
+            "aiv_scalar_ratio": 0.7695000000000001,
+            "aiv_mte2_time(us)": 0.509,
+            "aiv_mte2_ratio": 0.268,
+            "aiv_mte3_time(us)": 0.15,
+            "aiv_mte3_ratio": 0.078,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_PipeUtilization/profile/PROF_000001_20261114065645904_00134226KINCKAIE/mindstudio_profiler_output/op_summary_20261114065656.csv",
+          "csv_sha256": "93de5cbda8c21f11e6d8f2505c4d7f194525322825ea276d805da040fec9a51e",
+          "instrumented_api_wall_us_median": 19.495849999999997,
+          "median_reported_fields": {
+            "Task Duration(us)": 10.001,
+            "aiv_scalar_time(us)": 2.2645,
+            "aiv_scalar_ratio": 0.278,
+            "aiv_mte2_time(us)": 4.735,
+            "aiv_mte2_ratio": 0.582,
+            "aiv_mte3_time(us)": 2.837,
+            "aiv_mte3_ratio": 0.347,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_PipeUtilization/profile/PROF_000001_20261114065645904_00134226KINCKAIE/mindstudio_profiler_output/op_summary_20261114065656.csv",
+          "csv_sha256": "93de5cbda8c21f11e6d8f2505c4d7f194525322825ea276d805da040fec9a51e",
+          "instrumented_api_wall_us_median": 72.44825,
+          "median_reported_fields": {
+            "Task Duration(us)": 71.764,
+            "aiv_scalar_time(us)": 4.8995,
+            "aiv_scalar_ratio": 0.073,
+            "aiv_mte2_time(us)": 53.849000000000004,
+            "aiv_mte2_ratio": 0.8,
+            "aiv_mte3_time(us)": 54.614,
+            "aiv_mte3_ratio": 0.811,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "47"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_PipeUtilization/profile/PROF_000001_20261114065645904_00134226KINCKAIE/mindstudio_profiler_output/op_summary_20261114065656.csv",
+          "csv_sha256": "93de5cbda8c21f11e6d8f2505c4d7f194525322825ea276d805da040fec9a51e",
+          "instrumented_api_wall_us_median": 18.795150000000003,
+          "median_reported_fields": {
+            "Task Duration(us)": 8.581,
+            "aiv_scalar_time(us)": 1.865,
+            "aiv_scalar_ratio": 0.348,
+            "aiv_mte2_time(us)": 3.1094999999999997,
+            "aiv_mte2_ratio": 0.578,
+            "aiv_mte3_time(us)": 0.76,
+            "aiv_mte3_ratio": 0.143,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_L2Cache/profile/PROF_000001_20261114065701995_00134559JMHKLRFJ/mindstudio_profiler_output/op_summary_20261114065713.csv",
+          "csv_sha256": "ca72348bf6c3bec64ab0998f169487f2b885465e75c3f89db393c9c69b94ea94",
+          "instrumented_api_wall_us_median": 136.45315,
+          "median_reported_fields": {
+            "Task Duration(us)": 6.981,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 120.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 168.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 167.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "17"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_L2Cache/profile/PROF_000001_20261114065701995_00134559JMHKLRFJ/mindstudio_profiler_output/op_summary_20261114065713.csv",
+          "csv_sha256": "ca72348bf6c3bec64ab0998f169487f2b885465e75c3f89db393c9c69b94ea94",
+          "instrumented_api_wall_us_median": 132.92010000000002,
+          "median_reported_fields": {
+            "Task Duration(us)": 3.36,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 555.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 1078.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 1078.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_L2Cache/profile/PROF_000001_20261114065701995_00134559JMHKLRFJ/mindstudio_profiler_output/op_summary_20261114065713.csv",
+          "csv_sha256": "ca72348bf6c3bec64ab0998f169487f2b885465e75c3f89db393c9c69b94ea94",
+          "instrumented_api_wall_us_median": 139.3102,
+          "median_reported_fields": {
+            "Task Duration(us)": 9.861,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 24936.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 49415.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 49416.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_L2Cache/profile/PROF_000001_20261114065701995_00134559JMHKLRFJ/mindstudio_profiler_output/op_summary_20261114065713.csv",
+          "csv_sha256": "ca72348bf6c3bec64ab0998f169487f2b885465e75c3f89db393c9c69b94ea94",
+          "instrumented_api_wall_us_median": 201.22115,
+          "median_reported_fields": {
+            "Task Duration(us)": 71.785,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 132208.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 506522.0,
+            "aiv_r0_read_cache_miss_allocate": 1879.5,
+            "aiv_r1_read_cache_hit": 506524.5,
+            "aiv_r1_read_cache_miss_allocate": 1880.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "47"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_L2Cache/profile/PROF_000001_20261114065701995_00134559JMHKLRFJ/mindstudio_profiler_output/op_summary_20261114065713.csv",
+          "csv_sha256": "ca72348bf6c3bec64ab0998f169487f2b885465e75c3f89db393c9c69b94ea94",
+          "instrumented_api_wall_us_median": 137.9839,
+          "median_reported_fields": {
+            "Task Duration(us)": 8.58,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 8242.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 16504.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 16504.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_L2Cache/profile/PROF_000001_20261114065701995_00134559JMHKLRFJ/mindstudio_profiler_output/op_summary_20261114065713.csv",
+          "csv_sha256": "ca72348bf6c3bec64ab0998f169487f2b885465e75c3f89db393c9c69b94ea94",
+          "instrumented_api_wall_us_median": 135.9866,
+          "median_reported_fields": {
+            "Task Duration(us)": 6.8,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 120.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 168.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 167.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "17"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_L2Cache/profile/PROF_000001_20261114065701995_00134559JMHKLRFJ/mindstudio_profiler_output/op_summary_20261114065713.csv",
+          "csv_sha256": "ca72348bf6c3bec64ab0998f169487f2b885465e75c3f89db393c9c69b94ea94",
+          "instrumented_api_wall_us_median": 132.53304999999997,
+          "median_reported_fields": {
+            "Task Duration(us)": 3.361,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 555.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 1078.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 1078.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_L2Cache/profile/PROF_000001_20261114065701995_00134559JMHKLRFJ/mindstudio_profiler_output/op_summary_20261114065713.csv",
+          "csv_sha256": "ca72348bf6c3bec64ab0998f169487f2b885465e75c3f89db393c9c69b94ea94",
+          "instrumented_api_wall_us_median": 139.4334,
+          "median_reported_fields": {
+            "Task Duration(us)": 9.921,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 24936.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 49415.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 49416.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_L2Cache/profile/PROF_000001_20261114065701995_00134559JMHKLRFJ/mindstudio_profiler_output/op_summary_20261114065713.csv",
+          "csv_sha256": "ca72348bf6c3bec64ab0998f169487f2b885465e75c3f89db393c9c69b94ea94",
+          "instrumented_api_wall_us_median": 201.4236,
+          "median_reported_fields": {
+            "Task Duration(us)": 72.244,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 132208.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 506545.5,
+            "aiv_r0_read_cache_miss_allocate": 1865.5,
+            "aiv_r1_read_cache_hit": 506537.5,
+            "aiv_r1_read_cache_miss_allocate": 1868.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "47"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_control/page1g_L2Cache/profile/PROF_000001_20261114065701995_00134559JMHKLRFJ/mindstudio_profiler_output/op_summary_20261114065713.csv",
+          "csv_sha256": "ca72348bf6c3bec64ab0998f169487f2b885465e75c3f89db393c9c69b94ea94",
+          "instrumented_api_wall_us_median": 138.2757,
+          "median_reported_fields": {
+            "Task Duration(us)": 8.52,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 8242.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 16504.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 16504.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0
+          }
+        }
+      ],
+      "mapping": "10 cases in public benchmark order; 1051 tasks/case; discard first 51, retain final 1000",
+      "counter_scope": "raw PMU event counts and reported time/ratios; bypass misses may not allocate; not universal hit percentages"
+    },
+    "c21_dispersed_write_13": {
+      "scope": "derived_profile_diagnostics_not_acceptance",
+      "records": [
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_PipeUtilization/profile/PROF_000001_20261114065728244_00135010IGRPCBMK/mindstudio_profiler_output/op_summary_20261114065737.csv",
+          "csv_sha256": "327087a414c63a0dcec63526807d77a8cf3e408799152da6735c5a2f3049f36b",
+          "instrumented_api_wall_us_median": 17.5778,
+          "median_reported_fields": {
+            "Task Duration(us)": 6.94,
+            "aiv_scalar_time(us)": 1.8014999999999999,
+            "aiv_scalar_ratio": 0.431,
+            "aiv_mte2_time(us)": 2.3485,
+            "aiv_mte2_ratio": 0.558,
+            "aiv_mte3_time(us)": 0.171,
+            "aiv_mte3_ratio": 0.045,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "17"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_PipeUtilization/profile/PROF_000001_20261114065728244_00135010IGRPCBMK/mindstudio_profiler_output/op_summary_20261114065737.csv",
+          "csv_sha256": "327087a414c63a0dcec63526807d77a8cf3e408799152da6735c5a2f3049f36b",
+          "instrumented_api_wall_us_median": 17.58605,
+          "median_reported_fields": {
+            "Task Duration(us)": 3.4,
+            "aiv_scalar_time(us)": 1.4615,
+            "aiv_scalar_ratio": 0.763,
+            "aiv_mte2_time(us)": 0.513,
+            "aiv_mte2_ratio": 0.269,
+            "aiv_mte3_time(us)": 0.148,
+            "aiv_mte3_ratio": 0.077,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_PipeUtilization/profile/PROF_000001_20261114065728244_00135010IGRPCBMK/mindstudio_profiler_output/op_summary_20261114065737.csv",
+          "csv_sha256": "327087a414c63a0dcec63526807d77a8cf3e408799152da6735c5a2f3049f36b",
+          "instrumented_api_wall_us_median": 18.140150000000002,
+          "median_reported_fields": {
+            "Task Duration(us)": 10.041,
+            "aiv_scalar_time(us)": 2.257,
+            "aiv_scalar_ratio": 0.277,
+            "aiv_mte2_time(us)": 4.745,
+            "aiv_mte2_ratio": 0.583,
+            "aiv_mte3_time(us)": 2.843,
+            "aiv_mte3_ratio": 0.347,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_PipeUtilization/profile/PROF_000001_20261114065728244_00135010IGRPCBMK/mindstudio_profiler_output/op_summary_20261114065737.csv",
+          "csv_sha256": "327087a414c63a0dcec63526807d77a8cf3e408799152da6735c5a2f3049f36b",
+          "instrumented_api_wall_us_median": 74.17445,
+          "median_reported_fields": {
+            "Task Duration(us)": 73.364,
+            "aiv_scalar_time(us)": 4.902,
+            "aiv_scalar_ratio": 0.07,
+            "aiv_mte2_time(us)": 57.922,
+            "aiv_mte2_ratio": 0.83,
+            "aiv_mte3_time(us)": 59.521,
+            "aiv_mte3_ratio": 0.853,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "47"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_PipeUtilization/profile/PROF_000001_20261114065728244_00135010IGRPCBMK/mindstudio_profiler_output/op_summary_20261114065737.csv",
+          "csv_sha256": "327087a414c63a0dcec63526807d77a8cf3e408799152da6735c5a2f3049f36b",
+          "instrumented_api_wall_us_median": 20.14775,
+          "median_reported_fields": {
+            "Task Duration(us)": 8.541,
+            "aiv_scalar_time(us)": 1.8515000000000001,
+            "aiv_scalar_ratio": 0.345,
+            "aiv_mte2_time(us)": 3.1065,
+            "aiv_mte2_ratio": 0.5794999999999999,
+            "aiv_mte3_time(us)": 0.765,
+            "aiv_mte3_ratio": 0.142,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_PipeUtilization/profile/PROF_000001_20261114065728244_00135010IGRPCBMK/mindstudio_profiler_output/op_summary_20261114065737.csv",
+          "csv_sha256": "327087a414c63a0dcec63526807d77a8cf3e408799152da6735c5a2f3049f36b",
+          "instrumented_api_wall_us_median": 20.23075,
+          "median_reported_fields": {
+            "Task Duration(us)": 7.021,
+            "aiv_scalar_time(us)": 1.854,
+            "aiv_scalar_ratio": 0.444,
+            "aiv_mte2_time(us)": 2.308,
+            "aiv_mte2_ratio": 0.548,
+            "aiv_mte3_time(us)": 0.174,
+            "aiv_mte3_ratio": 0.044,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "17"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_PipeUtilization/profile/PROF_000001_20261114065728244_00135010IGRPCBMK/mindstudio_profiler_output/op_summary_20261114065737.csv",
+          "csv_sha256": "327087a414c63a0dcec63526807d77a8cf3e408799152da6735c5a2f3049f36b",
+          "instrumented_api_wall_us_median": 20.84985,
+          "median_reported_fields": {
+            "Task Duration(us)": 3.38,
+            "aiv_scalar_time(us)": 1.471,
+            "aiv_scalar_ratio": 0.767,
+            "aiv_mte2_time(us)": 0.509,
+            "aiv_mte2_ratio": 0.266,
+            "aiv_mte3_time(us)": 0.148,
+            "aiv_mte3_ratio": 0.077,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_PipeUtilization/profile/PROF_000001_20261114065728244_00135010IGRPCBMK/mindstudio_profiler_output/op_summary_20261114065737.csv",
+          "csv_sha256": "327087a414c63a0dcec63526807d77a8cf3e408799152da6735c5a2f3049f36b",
+          "instrumented_api_wall_us_median": 20.64245,
+          "median_reported_fields": {
+            "Task Duration(us)": 9.881,
+            "aiv_scalar_time(us)": 2.222,
+            "aiv_scalar_ratio": 0.272,
+            "aiv_mte2_time(us)": 4.8095,
+            "aiv_mte2_ratio": 0.587,
+            "aiv_mte3_time(us)": 2.835,
+            "aiv_mte3_ratio": 0.346,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_PipeUtilization/profile/PROF_000001_20261114065728244_00135010IGRPCBMK/mindstudio_profiler_output/op_summary_20261114065737.csv",
+          "csv_sha256": "327087a414c63a0dcec63526807d77a8cf3e408799152da6735c5a2f3049f36b",
+          "instrumented_api_wall_us_median": 74.32915,
+          "median_reported_fields": {
+            "Task Duration(us)": 73.55449999999999,
+            "aiv_scalar_time(us)": 4.887499999999999,
+            "aiv_scalar_ratio": 0.07,
+            "aiv_mte2_time(us)": 58.046499999999995,
+            "aiv_mte2_ratio": 0.829,
+            "aiv_mte3_time(us)": 59.735,
+            "aiv_mte3_ratio": 0.853,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "allocator": "default",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "47"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_PipeUtilization/profile/PROF_000001_20261114065728244_00135010IGRPCBMK/mindstudio_profiler_output/op_summary_20261114065737.csv",
+          "csv_sha256": "327087a414c63a0dcec63526807d77a8cf3e408799152da6735c5a2f3049f36b",
+          "instrumented_api_wall_us_median": 19.9315,
+          "median_reported_fields": {
+            "Task Duration(us)": 8.56,
+            "aiv_scalar_time(us)": 1.8639999999999999,
+            "aiv_scalar_ratio": 0.347,
+            "aiv_mte2_time(us)": 3.113,
+            "aiv_mte2_ratio": 0.578,
+            "aiv_mte3_time(us)": 0.7635000000000001,
+            "aiv_mte3_ratio": 0.142,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_L2Cache/profile/PROF_000001_20261114065743380_00135351JPJKPCGF/mindstudio_profiler_output/op_summary_20261114065755.csv",
+          "csv_sha256": "440dc8976cb4149cc185c9934c752ccdd9a30bc01d0bc5bd2f41076c93858cf4",
+          "instrumented_api_wall_us_median": 136.4765,
+          "median_reported_fields": {
+            "Task Duration(us)": 6.8305,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 120.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 168.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 167.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "17"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_L2Cache/profile/PROF_000001_20261114065743380_00135351JPJKPCGF/mindstudio_profiler_output/op_summary_20261114065755.csv",
+          "csv_sha256": "440dc8976cb4149cc185c9934c752ccdd9a30bc01d0bc5bd2f41076c93858cf4",
+          "instrumented_api_wall_us_median": 132.80535,
+          "median_reported_fields": {
+            "Task Duration(us)": 3.3804999999999996,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 555.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 1078.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 1078.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_L2Cache/profile/PROF_000001_20261114065743380_00135351JPJKPCGF/mindstudio_profiler_output/op_summary_20261114065755.csv",
+          "csv_sha256": "440dc8976cb4149cc185c9934c752ccdd9a30bc01d0bc5bd2f41076c93858cf4",
+          "instrumented_api_wall_us_median": 138.8974,
+          "median_reported_fields": {
+            "Task Duration(us)": 9.941,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 24936.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 49416.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 49415.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_L2Cache/profile/PROF_000001_20261114065743380_00135351JPJKPCGF/mindstudio_profiler_output/op_summary_20261114065755.csv",
+          "csv_sha256": "440dc8976cb4149cc185c9934c752ccdd9a30bc01d0bc5bd2f41076c93858cf4",
+          "instrumented_api_wall_us_median": 212.5588,
+          "median_reported_fields": {
+            "Task Duration(us)": 84.295,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 99721.5,
+            "aiv_write_cache_miss_allocate": 7238.5,
+            "aiv_r0_read_cache_hit": 453205.5,
+            "aiv_r0_read_cache_miss_allocate": 71586.5,
+            "aiv_r1_read_cache_hit": 453256.0,
+            "aiv_r1_read_cache_miss_allocate": 71536.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "47"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_L2Cache/profile/PROF_000001_20261114065743380_00135351JPJKPCGF/mindstudio_profiler_output/op_summary_20261114065755.csv",
+          "csv_sha256": "440dc8976cb4149cc185c9934c752ccdd9a30bc01d0bc5bd2f41076c93858cf4",
+          "instrumented_api_wall_us_median": 137.6876,
+          "median_reported_fields": {
+            "Task Duration(us)": 8.560500000000001,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 8242.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 16504.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 16504.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_L2Cache/profile/PROF_000001_20261114065743380_00135351JPJKPCGF/mindstudio_profiler_output/op_summary_20261114065755.csv",
+          "csv_sha256": "440dc8976cb4149cc185c9934c752ccdd9a30bc01d0bc5bd2f41076c93858cf4",
+          "instrumented_api_wall_us_median": 136.03825,
+          "median_reported_fields": {
+            "Task Duration(us)": 6.98,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 120.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 168.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 167.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "17"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_L2Cache/profile/PROF_000001_20261114065743380_00135351JPJKPCGF/mindstudio_profiler_output/op_summary_20261114065755.csv",
+          "csv_sha256": "440dc8976cb4149cc185c9934c752ccdd9a30bc01d0bc5bd2f41076c93858cf4",
+          "instrumented_api_wall_us_median": 133.15085000000002,
+          "median_reported_fields": {
+            "Task Duration(us)": 3.38,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 555.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 1078.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 1078.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_L2Cache/profile/PROF_000001_20261114065743380_00135351JPJKPCGF/mindstudio_profiler_output/op_summary_20261114065755.csv",
+          "csv_sha256": "440dc8976cb4149cc185c9934c752ccdd9a30bc01d0bc5bd2f41076c93858cf4",
+          "instrumented_api_wall_us_median": 139.3745,
+          "median_reported_fields": {
+            "Task Duration(us)": 10.0205,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 24936.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 49415.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 49416.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_L2Cache/profile/PROF_000001_20261114065743380_00135351JPJKPCGF/mindstudio_profiler_output/op_summary_20261114065755.csv",
+          "csv_sha256": "440dc8976cb4149cc185c9934c752ccdd9a30bc01d0bc5bd2f41076c93858cf4",
+          "instrumented_api_wall_us_median": 213.06205,
+          "median_reported_fields": {
+            "Task Duration(us)": 84.085,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 100198.0,
+            "aiv_write_cache_miss_allocate": 6762.0,
+            "aiv_r0_read_cache_hit": 454627.5,
+            "aiv_r0_read_cache_miss_allocate": 70164.5,
+            "aiv_r1_read_cache_hit": 454671.5,
+            "aiv_r1_read_cache_miss_allocate": 70120.5
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "allocator": "default",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "47"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/default_L2Cache/profile/PROF_000001_20261114065743380_00135351JPJKPCGF/mindstudio_profiler_output/op_summary_20261114065755.csv",
+          "csv_sha256": "440dc8976cb4149cc185c9934c752ccdd9a30bc01d0bc5bd2f41076c93858cf4",
+          "instrumented_api_wall_us_median": 137.93529999999998,
+          "median_reported_fields": {
+            "Task Duration(us)": 8.561,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 8242.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 16504.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 16504.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_PipeUtilization/profile/PROF_000001_20261114065810506_00135776BGAQOJIH/mindstudio_profiler_output/op_summary_20261114065820.csv",
+          "csv_sha256": "732e5ecbe2fa90c2b1fee23fae42639bbaadaf4ac5801e3105683d570cc1dd16",
+          "instrumented_api_wall_us_median": 16.25335,
+          "median_reported_fields": {
+            "Task Duration(us)": 7.001,
+            "aiv_scalar_time(us)": 1.8545,
+            "aiv_scalar_ratio": 0.445,
+            "aiv_mte2_time(us)": 2.308,
+            "aiv_mte2_ratio": 0.549,
+            "aiv_mte3_time(us)": 0.173,
+            "aiv_mte3_ratio": 0.044,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "17"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_PipeUtilization/profile/PROF_000001_20261114065810506_00135776BGAQOJIH/mindstudio_profiler_output/op_summary_20261114065820.csv",
+          "csv_sha256": "732e5ecbe2fa90c2b1fee23fae42639bbaadaf4ac5801e3105683d570cc1dd16",
+          "instrumented_api_wall_us_median": 16.53065,
+          "median_reported_fields": {
+            "Task Duration(us)": 3.3905,
+            "aiv_scalar_time(us)": 1.469,
+            "aiv_scalar_ratio": 0.767,
+            "aiv_mte2_time(us)": 0.509,
+            "aiv_mte2_ratio": 0.267,
+            "aiv_mte3_time(us)": 0.148,
+            "aiv_mte3_ratio": 0.077,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_PipeUtilization/profile/PROF_000001_20261114065810506_00135776BGAQOJIH/mindstudio_profiler_output/op_summary_20261114065820.csv",
+          "csv_sha256": "732e5ecbe2fa90c2b1fee23fae42639bbaadaf4ac5801e3105683d570cc1dd16",
+          "instrumented_api_wall_us_median": 17.09975,
+          "median_reported_fields": {
+            "Task Duration(us)": 9.901,
+            "aiv_scalar_time(us)": 2.2325,
+            "aiv_scalar_ratio": 0.272,
+            "aiv_mte2_time(us)": 4.823,
+            "aiv_mte2_ratio": 0.587,
+            "aiv_mte3_time(us)": 2.837,
+            "aiv_mte3_ratio": 0.346,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_PipeUtilization/profile/PROF_000001_20261114065810506_00135776BGAQOJIH/mindstudio_profiler_output/op_summary_20261114065820.csv",
+          "csv_sha256": "732e5ecbe2fa90c2b1fee23fae42639bbaadaf4ac5801e3105683d570cc1dd16",
+          "instrumented_api_wall_us_median": 73.6311,
+          "median_reported_fields": {
+            "Task Duration(us)": 72.925,
+            "aiv_scalar_time(us)": 4.8965,
+            "aiv_scalar_ratio": 0.07,
+            "aiv_mte2_time(us)": 57.6455,
+            "aiv_mte2_ratio": 0.827,
+            "aiv_mte3_time(us)": 59.7915,
+            "aiv_mte3_ratio": 0.857,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "47"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_PipeUtilization/profile/PROF_000001_20261114065810506_00135776BGAQOJIH/mindstudio_profiler_output/op_summary_20261114065820.csv",
+          "csv_sha256": "732e5ecbe2fa90c2b1fee23fae42639bbaadaf4ac5801e3105683d570cc1dd16",
+          "instrumented_api_wall_us_median": 15.586450000000001,
+          "median_reported_fields": {
+            "Task Duration(us)": 8.601,
+            "aiv_scalar_time(us)": 1.8639999999999999,
+            "aiv_scalar_ratio": 0.347,
+            "aiv_mte2_time(us)": 3.1055,
+            "aiv_mte2_ratio": 0.577,
+            "aiv_mte3_time(us)": 0.762,
+            "aiv_mte3_ratio": 0.142,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_PipeUtilization/profile/PROF_000001_20261114065810506_00135776BGAQOJIH/mindstudio_profiler_output/op_summary_20261114065820.csv",
+          "csv_sha256": "732e5ecbe2fa90c2b1fee23fae42639bbaadaf4ac5801e3105683d570cc1dd16",
+          "instrumented_api_wall_us_median": 16.954849999999997,
+          "median_reported_fields": {
+            "Task Duration(us)": 6.86,
+            "aiv_scalar_time(us)": 1.788,
+            "aiv_scalar_ratio": 0.432,
+            "aiv_mte2_time(us)": 2.3315,
+            "aiv_mte2_ratio": 0.559,
+            "aiv_mte3_time(us)": 0.1675,
+            "aiv_mte3_ratio": 0.044,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "17"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_PipeUtilization/profile/PROF_000001_20261114065810506_00135776BGAQOJIH/mindstudio_profiler_output/op_summary_20261114065820.csv",
+          "csv_sha256": "732e5ecbe2fa90c2b1fee23fae42639bbaadaf4ac5801e3105683d570cc1dd16",
+          "instrumented_api_wall_us_median": 17.1608,
+          "median_reported_fields": {
+            "Task Duration(us)": 3.381,
+            "aiv_scalar_time(us)": 1.475,
+            "aiv_scalar_ratio": 0.768,
+            "aiv_mte2_time(us)": 0.51,
+            "aiv_mte2_ratio": 0.265,
+            "aiv_mte3_time(us)": 0.148,
+            "aiv_mte3_ratio": 0.077,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_PipeUtilization/profile/PROF_000001_20261114065810506_00135776BGAQOJIH/mindstudio_profiler_output/op_summary_20261114065820.csv",
+          "csv_sha256": "732e5ecbe2fa90c2b1fee23fae42639bbaadaf4ac5801e3105683d570cc1dd16",
+          "instrumented_api_wall_us_median": 17.027150000000002,
+          "median_reported_fields": {
+            "Task Duration(us)": 9.921,
+            "aiv_scalar_time(us)": 2.1475,
+            "aiv_scalar_ratio": 0.258,
+            "aiv_mte2_time(us)": 4.946,
+            "aiv_mte2_ratio": 0.596,
+            "aiv_mte3_time(us)": 2.877,
+            "aiv_mte3_ratio": 0.347,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_PipeUtilization/profile/PROF_000001_20261114065810506_00135776BGAQOJIH/mindstudio_profiler_output/op_summary_20261114065820.csv",
+          "csv_sha256": "732e5ecbe2fa90c2b1fee23fae42639bbaadaf4ac5801e3105683d570cc1dd16",
+          "instrumented_api_wall_us_median": 73.83005,
+          "median_reported_fields": {
+            "Task Duration(us)": 73.305,
+            "aiv_scalar_time(us)": 4.844,
+            "aiv_scalar_ratio": 0.069,
+            "aiv_mte2_time(us)": 57.7095,
+            "aiv_mte2_ratio": 0.824,
+            "aiv_mte3_time(us)": 59.971999999999994,
+            "aiv_mte3_ratio": 0.856,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "PipeUtilization",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "47"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_PipeUtilization/profile/PROF_000001_20261114065810506_00135776BGAQOJIH/mindstudio_profiler_output/op_summary_20261114065820.csv",
+          "csv_sha256": "732e5ecbe2fa90c2b1fee23fae42639bbaadaf4ac5801e3105683d570cc1dd16",
+          "instrumented_api_wall_us_median": 16.40635,
+          "median_reported_fields": {
+            "Task Duration(us)": 8.5805,
+            "aiv_scalar_time(us)": 1.87,
+            "aiv_scalar_ratio": 0.349,
+            "aiv_mte2_time(us)": 3.089,
+            "aiv_mte2_ratio": 0.575,
+            "aiv_mte3_time(us)": 0.76,
+            "aiv_mte3_ratio": 0.142,
+            "aiv_write_cache_hit": null,
+            "aiv_write_cache_miss_allocate": null,
+            "aiv_r0_read_cache_hit": null,
+            "aiv_r0_read_cache_miss_allocate": null,
+            "aiv_r1_read_cache_hit": null,
+            "aiv_r1_read_cache_miss_allocate": null
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_001_float16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_L2Cache/profile/PROF_000001_20261114065826419_00136121DIJGIQIO/mindstudio_profiler_output/op_summary_20261114065837.csv",
+          "csv_sha256": "9f3e3d58d63a97bc0cbfe91574b739c132b969ab13010686c3498dd0596e9143",
+          "instrumented_api_wall_us_median": 136.27214999999998,
+          "median_reported_fields": {
+            "Task Duration(us)": 6.96,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 120.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 167.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 168.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_005_float16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "17"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_L2Cache/profile/PROF_000001_20261114065826419_00136121DIJGIQIO/mindstudio_profiler_output/op_summary_20261114065837.csv",
+          "csv_sha256": "9f3e3d58d63a97bc0cbfe91574b739c132b969ab13010686c3498dd0596e9143",
+          "instrumented_api_wall_us_median": 132.9051,
+          "median_reported_fields": {
+            "Task Duration(us)": 3.4,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 555.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 1078.0,
+            "aiv_r0_read_cache_miss_allocate": 0.0,
+            "aiv_r1_read_cache_hit": 1078.0,
+            "aiv_r1_read_cache_miss_allocate": 1.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_006_float16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_L2Cache/profile/PROF_000001_20261114065826419_00136121DIJGIQIO/mindstudio_profiler_output/op_summary_20261114065837.csv",
+          "csv_sha256": "9f3e3d58d63a97bc0cbfe91574b739c132b969ab13010686c3498dd0596e9143",
+          "instrumented_api_wall_us_median": 139.3942,
+          "median_reported_fields": {
+            "Task Duration(us)": 10.041,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 24936.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 49415.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 49416.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_007_float16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_L2Cache/profile/PROF_000001_20261114065826419_00136121DIJGIQIO/mindstudio_profiler_output/op_summary_20261114065837.csv",
+          "csv_sha256": "9f3e3d58d63a97bc0cbfe91574b739c132b969ab13010686c3498dd0596e9143",
+          "instrumented_api_wall_us_median": 201.89625,
+          "median_reported_fields": {
+            "Task Duration(us)": 72.86449999999999,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 106960.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 524770.0,
+            "aiv_r0_read_cache_miss_allocate": 22.0,
+            "aiv_r1_read_cache_hit": 524771.0,
+            "aiv_r1_read_cache_miss_allocate": 21.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_008_float16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "47"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_L2Cache/profile/PROF_000001_20261114065826419_00136121DIJGIQIO/mindstudio_profiler_output/op_summary_20261114065837.csv",
+          "csv_sha256": "9f3e3d58d63a97bc0cbfe91574b739c132b969ab13010686c3498dd0596e9143",
+          "instrumented_api_wall_us_median": 137.87429999999998,
+          "median_reported_fields": {
+            "Task Duration(us)": 8.500499999999999,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 8242.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 16504.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 16504.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_011_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_L2Cache/profile/PROF_000001_20261114065826419_00136121DIJGIQIO/mindstudio_profiler_output/op_summary_20261114065837.csv",
+          "csv_sha256": "9f3e3d58d63a97bc0cbfe91574b739c132b969ab13010686c3498dd0596e9143",
+          "instrumented_api_wall_us_median": 136.43765,
+          "median_reported_fields": {
+            "Task Duration(us)": 7.02,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 120.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 167.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 168.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_015_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "17"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_L2Cache/profile/PROF_000001_20261114065826419_00136121DIJGIQIO/mindstudio_profiler_output/op_summary_20261114065837.csv",
+          "csv_sha256": "9f3e3d58d63a97bc0cbfe91574b739c132b969ab13010686c3498dd0596e9143",
+          "instrumented_api_wall_us_median": 132.98675,
+          "median_reported_fields": {
+            "Task Duration(us)": 3.38,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 555.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 1078.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 1078.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_016_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_L2Cache/profile/PROF_000001_20261114065826419_00136121DIJGIQIO/mindstudio_profiler_output/op_summary_20261114065837.csv",
+          "csv_sha256": "9f3e3d58d63a97bc0cbfe91574b739c132b969ab13010686c3498dd0596e9143",
+          "instrumented_api_wall_us_median": 139.03815,
+          "median_reported_fields": {
+            "Task Duration(us)": 9.861,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 24936.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 49415.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 49416.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_017_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "48"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_L2Cache/profile/PROF_000001_20261114065826419_00136121DIJGIQIO/mindstudio_profiler_output/op_summary_20261114065837.csv",
+          "csv_sha256": "9f3e3d58d63a97bc0cbfe91574b739c132b969ab13010686c3498dd0596e9143",
+          "instrumented_api_wall_us_median": 201.8004,
+          "median_reported_fields": {
+            "Task Duration(us)": 72.944,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 106960.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 524772.0,
+            "aiv_r0_read_cache_miss_allocate": 20.0,
+            "aiv_r1_read_cache_hit": 524773.0,
+            "aiv_r1_read_cache_miss_allocate": 19.0
+          }
+        },
+        {
+          "case_name": "T5SplitQkvAppendCache_018_bfloat16_random",
+          "allocator": "page1g",
+          "metric": "L2Cache",
+          "timed_tasks": 1000,
+          "block_counts": [
+            "47"
+          ],
+          "csv_path": "/workspace/t5qkv-dispersed-write-20261114-01/profiles_c21_dispersed_write_13/page1g_L2Cache/profile/PROF_000001_20261114065826419_00136121DIJGIQIO/mindstudio_profiler_output/op_summary_20261114065837.csv",
+          "csv_sha256": "9f3e3d58d63a97bc0cbfe91574b739c132b969ab13010686c3498dd0596e9143",
+          "instrumented_api_wall_us_median": 137.7844,
+          "median_reported_fields": {
+            "Task Duration(us)": 8.6,
+            "aiv_scalar_time(us)": null,
+            "aiv_scalar_ratio": null,
+            "aiv_mte2_time(us)": null,
+            "aiv_mte2_ratio": null,
+            "aiv_mte3_time(us)": null,
+            "aiv_mte3_ratio": null,
+            "aiv_write_cache_hit": 8242.0,
+            "aiv_write_cache_miss_allocate": 0.0,
+            "aiv_r0_read_cache_hit": 16504.0,
+            "aiv_r0_read_cache_miss_allocate": 1.0,
+            "aiv_r1_read_cache_hit": 16504.0,
+            "aiv_r1_read_cache_miss_allocate": 0.0
+          }
+        }
+      ],
+      "mapping": "10 cases in public benchmark order; 1051 tasks/case; discard first 51, retain final 1000",
+      "counter_scope": "raw PMU event counts and reported time/ratios; bypass misses may not allocate; not universal hit percentages"
+    }
+  },
+  "promoted": false
+}

@@ -1,0 +1,1083 @@
+{
+  "scope": "isolated_allocation_API_argument_trace_NOT_ACCEPTANCE",
+  "archive": {
+    "remote_archive": "/workspace/t5qkv-allocation-policy-20261114-01/allocation_policy_evidence.tar.gz",
+    "sha256": "7dd7bb0ab641629e107dd6621727d9432d5d1e930644c28cc54a5dcff72eca9b",
+    "files": 32
+  },
+  "installed_provenance": {
+    "scope": "installed_allocator_API_argument_diagnostic_no_operator",
+    "header_sha256": "22c603cb80ab582006d4f26697ceb14c059d7f3613cf13b3c72aeb0d3d36e3c1",
+    "libtorch_npu_sha256": "83fb9a0eb249aef6bca7f8463047fcb4d3062cc4849f17ddf31a5e050c838842",
+    "build_command": "g++ -std=c++17 -Wall -Wextra -Werror -shared -fPIC -O2 -I /usr/local/Ascend/cann-9.1.0/include trace_alloc_policy.cpp -ldl -o trace_alloc_policy.so"
+  },
+  "policy_enum": "typedef enum aclrtMemMallocPolicy {\n    ACL_MEM_MALLOC_HUGE_FIRST,\n    ACL_MEM_MALLOC_HUGE_ONLY,\n    ACL_MEM_MALLOC_NORMAL_ONLY,\n    ACL_MEM_MALLOC_HUGE_FIRST_P2P,\n    ACL_MEM_MALLOC_HUGE_ONLY_P2P,\n    ACL_MEM_MALLOC_NORMAL_ONLY_P2P,\n    ACL_MEM_MALLOC_HUGE1G_ONLY,\n    ACL_MEM_MALLOC_HUGE1G_ONLY_P2P,\n    ACL_MEM_TYPE_LOW_BAND_WIDTH   = 0x0100,\n    ACL_MEM_TYPE_HIGH_BAND_WIDTH  = 0x1000,\n    ACL_MEM_ACCESS_USER_SPACE_READONLY = 0x100000,\n} aclrtMemMallocPolicy;\n",
+  "torch_npu_version": "__version__ = '2.10.0.post4'\ngit_version = '5dd8ef3f9b375b5ae4a83538d5785754148c3302'\n",
+  "diagnostic": {
+    "scope": "isolated_API_interposition_NO_OPERATOR_NOT_ACCEPTANCE",
+    "status": "completed_diagnostic_NOT_ACCEPTANCE",
+    "records": [
+      {
+        "visible_device": "0",
+        "allocator": "default",
+        "primer_bytes": 0,
+        "directory": "/workspace/t5qkv-allocation-policy-20261114-01/reports_01/chip0_default_0",
+        "calls": [
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 2097152,
+            "policy_raw": 0,
+            "rc": 0,
+            "pointer_or_handle": "0x12c081200000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          },
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 69206016,
+            "policy_raw": 0,
+            "rc": 0,
+            "pointer_or_handle": "0x12c081400000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          },
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 69206016,
+            "policy_raw": 0,
+            "rc": 0,
+            "pointer_or_handle": "0x12c085600000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          },
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 69206016,
+            "policy_raw": 0,
+            "rc": 0,
+            "pointer_or_handle": "0x12c089800000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          },
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 69206016,
+            "policy_raw": 0,
+            "rc": 0,
+            "pointer_or_handle": "0x12c08da00000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          }
+        ],
+        "allocator_segments": [
+          {
+            "device": 0,
+            "address": 20618009378816,
+            "total_size": 2097152,
+            "allocated_size": 132096,
+            "active_size": 132096,
+            "requested_size": 131072,
+            "stream": 187651951887368,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "small",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20618009378816,
+                "size": 98816,
+                "requested_size": 98304,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618009477632,
+                "size": 33280,
+                "requested_size": 32768,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618009510912,
+                "size": 1965056,
+                "requested_size": 0,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          },
+          {
+            "device": 0,
+            "address": 20618011475968,
+            "total_size": 69206016,
+            "allocated_size": 67109376,
+            "active_size": 67109376,
+            "requested_size": 67108864,
+            "stream": 187651951887368,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "large",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20618011475968,
+                "size": 67109376,
+                "requested_size": 67108864,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618078585344,
+                "size": 2096640,
+                "requested_size": 0,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          },
+          {
+            "device": 0,
+            "address": 20618080681984,
+            "total_size": 69206016,
+            "allocated_size": 67109376,
+            "active_size": 67109376,
+            "requested_size": 67108864,
+            "stream": 187651951887368,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "large",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20618080681984,
+                "size": 67109376,
+                "requested_size": 67108864,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618147791360,
+                "size": 2096640,
+                "requested_size": 0,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          },
+          {
+            "device": 0,
+            "address": 20618149888000,
+            "total_size": 69206016,
+            "allocated_size": 67142144,
+            "active_size": 67142144,
+            "requested_size": 67141632,
+            "stream": 187651951887368,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "large",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20618149888000,
+                "size": 67142144,
+                "requested_size": 67141632,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618217030144,
+                "size": 2063872,
+                "requested_size": 0,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          },
+          {
+            "device": 0,
+            "address": 20618219094016,
+            "total_size": 69206016,
+            "allocated_size": 67142144,
+            "active_size": 67142144,
+            "requested_size": 67141632,
+            "stream": 187651951887368,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "large",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20618219094016,
+                "size": 67142144,
+                "requested_size": 67141632,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618286236160,
+                "size": 2063872,
+                "requested_size": 0,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          }
+        ],
+        "mapped_segments": [
+          {
+            "virtual_address": 20618009378816,
+            "bytes": 2097152,
+            "policy_raw": 0
+          },
+          {
+            "virtual_address": 20618011475968,
+            "bytes": 69206016,
+            "policy_raw": 0
+          },
+          {
+            "virtual_address": 20618080681984,
+            "bytes": 69206016,
+            "policy_raw": 0
+          },
+          {
+            "virtual_address": 20618149888000,
+            "bytes": 69206016,
+            "policy_raw": 0
+          },
+          {
+            "virtual_address": 20618219094016,
+            "bytes": 69206016,
+            "policy_raw": 0
+          }
+        ]
+      },
+      {
+        "visible_device": "0",
+        "allocator": "default",
+        "primer_bytes": 1073741312,
+        "directory": "/workspace/t5qkv-allocation-policy-20261114-01/reports_01/chip0_default_1073741312",
+        "calls": [
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 1073741824,
+            "policy_raw": 0,
+            "rc": 0,
+            "pointer_or_handle": "0x12c180000000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          },
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 2097152,
+            "policy_raw": 0,
+            "rc": 0,
+            "pointer_or_handle": "0x12c081200000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          }
+        ],
+        "allocator_segments": [
+          {
+            "device": 0,
+            "address": 20618009378816,
+            "total_size": 2097152,
+            "allocated_size": 132096,
+            "active_size": 132096,
+            "requested_size": 131072,
+            "stream": 187651675077832,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "small",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20618009378816,
+                "size": 98816,
+                "requested_size": 98304,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618009477632,
+                "size": 33280,
+                "requested_size": 32768,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618009510912,
+                "size": 1965056,
+                "requested_size": 0,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          },
+          {
+            "device": 0,
+            "address": 20622285471744,
+            "total_size": 1073741824,
+            "allocated_size": 268503040,
+            "active_size": 268503040,
+            "requested_size": 268500992,
+            "stream": 187651675077832,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "large",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20622285471744,
+                "size": 67109376,
+                "requested_size": 67108864,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20622352581120,
+                "size": 67109376,
+                "requested_size": 67108864,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20622419690496,
+                "size": 67142144,
+                "requested_size": 67141632,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20622486832640,
+                "size": 67142144,
+                "requested_size": 67141632,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20622553974784,
+                "size": 805238784,
+                "requested_size": 1073741312,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          }
+        ],
+        "mapped_segments": [
+          {
+            "virtual_address": 20618009378816,
+            "bytes": 2097152,
+            "policy_raw": 0
+          },
+          {
+            "virtual_address": 20622285471744,
+            "bytes": 1073741824,
+            "policy_raw": 0
+          }
+        ]
+      },
+      {
+        "visible_device": "0",
+        "allocator": "page1g",
+        "primer_bytes": 0,
+        "directory": "/workspace/t5qkv-allocation-policy-20261114-01/reports_01/chip0_page1g_0",
+        "calls": [
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 2097152,
+            "policy_raw": 0,
+            "rc": 0,
+            "pointer_or_handle": "0x12c081200000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          },
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 1073741824,
+            "policy_raw": 6,
+            "rc": 0,
+            "pointer_or_handle": "0x12c180000000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          }
+        ],
+        "allocator_segments": [
+          {
+            "device": 0,
+            "address": 20618009378816,
+            "total_size": 2097152,
+            "allocated_size": 132096,
+            "active_size": 132096,
+            "requested_size": 131072,
+            "stream": 187651288428056,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "small",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20618009378816,
+                "size": 98816,
+                "requested_size": 98304,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618009477632,
+                "size": 33280,
+                "requested_size": 32768,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618009510912,
+                "size": 1965056,
+                "requested_size": 0,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          },
+          {
+            "device": 0,
+            "address": 20622285471744,
+            "total_size": 1073741824,
+            "allocated_size": 268503040,
+            "active_size": 268503040,
+            "requested_size": 268500992,
+            "stream": 187651288428056,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "large",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20622285471744,
+                "size": 67109376,
+                "requested_size": 67108864,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20622352581120,
+                "size": 67109376,
+                "requested_size": 67108864,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20622419690496,
+                "size": 67142144,
+                "requested_size": 67141632,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20622486832640,
+                "size": 67142144,
+                "requested_size": 67141632,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20622553974784,
+                "size": 805238784,
+                "requested_size": 0,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          }
+        ],
+        "mapped_segments": [
+          {
+            "virtual_address": 20618009378816,
+            "bytes": 2097152,
+            "policy_raw": 0
+          },
+          {
+            "virtual_address": 20622285471744,
+            "bytes": 1073741824,
+            "policy_raw": 6
+          }
+        ]
+      },
+      {
+        "visible_device": "1",
+        "allocator": "default",
+        "primer_bytes": 0,
+        "directory": "/workspace/t5qkv-allocation-policy-20261114-01/reports_01/chip1_default_0",
+        "calls": [
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 2097152,
+            "policy_raw": 0,
+            "rc": 0,
+            "pointer_or_handle": "0x12c081200000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          },
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 69206016,
+            "policy_raw": 0,
+            "rc": 0,
+            "pointer_or_handle": "0x12c081400000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          },
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 69206016,
+            "policy_raw": 0,
+            "rc": 0,
+            "pointer_or_handle": "0x12c085600000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          },
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 69206016,
+            "policy_raw": 0,
+            "rc": 0,
+            "pointer_or_handle": "0x12c089800000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          },
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 69206016,
+            "policy_raw": 0,
+            "rc": 0,
+            "pointer_or_handle": "0x12c08da00000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          }
+        ],
+        "allocator_segments": [
+          {
+            "device": 0,
+            "address": 20618009378816,
+            "total_size": 2097152,
+            "allocated_size": 132096,
+            "active_size": 132096,
+            "requested_size": 131072,
+            "stream": 187651602166984,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "small",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20618009378816,
+                "size": 98816,
+                "requested_size": 98304,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618009477632,
+                "size": 33280,
+                "requested_size": 32768,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618009510912,
+                "size": 1965056,
+                "requested_size": 0,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          },
+          {
+            "device": 0,
+            "address": 20618011475968,
+            "total_size": 69206016,
+            "allocated_size": 67109376,
+            "active_size": 67109376,
+            "requested_size": 67108864,
+            "stream": 187651602166984,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "large",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20618011475968,
+                "size": 67109376,
+                "requested_size": 67108864,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618078585344,
+                "size": 2096640,
+                "requested_size": 0,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          },
+          {
+            "device": 0,
+            "address": 20618080681984,
+            "total_size": 69206016,
+            "allocated_size": 67109376,
+            "active_size": 67109376,
+            "requested_size": 67108864,
+            "stream": 187651602166984,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "large",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20618080681984,
+                "size": 67109376,
+                "requested_size": 67108864,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618147791360,
+                "size": 2096640,
+                "requested_size": 0,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          },
+          {
+            "device": 0,
+            "address": 20618149888000,
+            "total_size": 69206016,
+            "allocated_size": 67142144,
+            "active_size": 67142144,
+            "requested_size": 67141632,
+            "stream": 187651602166984,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "large",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20618149888000,
+                "size": 67142144,
+                "requested_size": 67141632,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618217030144,
+                "size": 2063872,
+                "requested_size": 0,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          },
+          {
+            "device": 0,
+            "address": 20618219094016,
+            "total_size": 69206016,
+            "allocated_size": 67142144,
+            "active_size": 67142144,
+            "requested_size": 67141632,
+            "stream": 187651602166984,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "large",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20618219094016,
+                "size": 67142144,
+                "requested_size": 67141632,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618286236160,
+                "size": 2063872,
+                "requested_size": 0,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          }
+        ],
+        "mapped_segments": [
+          {
+            "virtual_address": 20618009378816,
+            "bytes": 2097152,
+            "policy_raw": 0
+          },
+          {
+            "virtual_address": 20618011475968,
+            "bytes": 69206016,
+            "policy_raw": 0
+          },
+          {
+            "virtual_address": 20618080681984,
+            "bytes": 69206016,
+            "policy_raw": 0
+          },
+          {
+            "virtual_address": 20618149888000,
+            "bytes": 69206016,
+            "policy_raw": 0
+          },
+          {
+            "virtual_address": 20618219094016,
+            "bytes": 69206016,
+            "policy_raw": 0
+          }
+        ]
+      },
+      {
+        "visible_device": "1",
+        "allocator": "default",
+        "primer_bytes": 1073741312,
+        "directory": "/workspace/t5qkv-allocation-policy-20261114-01/reports_01/chip1_default_1073741312",
+        "calls": [
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 1073741824,
+            "policy_raw": 0,
+            "rc": 0,
+            "pointer_or_handle": "0x12c180000000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          },
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 2097152,
+            "policy_raw": 0,
+            "rc": 0,
+            "pointer_or_handle": "0x12c081200000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          }
+        ],
+        "allocator_segments": [
+          {
+            "device": 0,
+            "address": 20618009378816,
+            "total_size": 2097152,
+            "allocated_size": 132096,
+            "active_size": 132096,
+            "requested_size": 131072,
+            "stream": 187651831405608,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "small",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20618009378816,
+                "size": 98816,
+                "requested_size": 98304,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618009477632,
+                "size": 33280,
+                "requested_size": 32768,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618009510912,
+                "size": 1965056,
+                "requested_size": 0,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          },
+          {
+            "device": 0,
+            "address": 20622285471744,
+            "total_size": 1073741824,
+            "allocated_size": 268503040,
+            "active_size": 268503040,
+            "requested_size": 268500992,
+            "stream": 187651831405608,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "large",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20622285471744,
+                "size": 67109376,
+                "requested_size": 67108864,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20622352581120,
+                "size": 67109376,
+                "requested_size": 67108864,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20622419690496,
+                "size": 67142144,
+                "requested_size": 67141632,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20622486832640,
+                "size": 67142144,
+                "requested_size": 67141632,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20622553974784,
+                "size": 805238784,
+                "requested_size": 1073741312,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          }
+        ],
+        "mapped_segments": [
+          {
+            "virtual_address": 20618009378816,
+            "bytes": 2097152,
+            "policy_raw": 0
+          },
+          {
+            "virtual_address": 20622285471744,
+            "bytes": 1073741824,
+            "policy_raw": 0
+          }
+        ]
+      },
+      {
+        "visible_device": "1",
+        "allocator": "page1g",
+        "primer_bytes": 0,
+        "directory": "/workspace/t5qkv-allocation-policy-20261114-01/reports_01/chip1_page1g_0",
+        "calls": [
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 2097152,
+            "policy_raw": 0,
+            "rc": 0,
+            "pointer_or_handle": "0x12c081200000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          },
+          {
+            "function": "aclrtMallocAlign32",
+            "bytes": 1073741824,
+            "policy_raw": 6,
+            "rc": 0,
+            "pointer_or_handle": "0x12c180000000",
+            "handle_type": -1,
+            "allocation_type": -1,
+            "mem_attr": -1
+          }
+        ],
+        "allocator_segments": [
+          {
+            "device": 0,
+            "address": 20618009378816,
+            "total_size": 2097152,
+            "allocated_size": 132096,
+            "active_size": 132096,
+            "requested_size": 131072,
+            "stream": 187652093979848,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "small",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20618009378816,
+                "size": 98816,
+                "requested_size": 98304,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618009477632,
+                "size": 33280,
+                "requested_size": 32768,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20618009510912,
+                "size": 1965056,
+                "requested_size": 0,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          },
+          {
+            "device": 0,
+            "address": 20622285471744,
+            "total_size": 1073741824,
+            "allocated_size": 268503040,
+            "active_size": 268503040,
+            "requested_size": 268500992,
+            "stream": 187652093979848,
+            "segment_pool_id": [
+              0,
+              0
+            ],
+            "segment_type": "large",
+            "is_expandable": false,
+            "frames": [],
+            "blocks": [
+              {
+                "address": 20622285471744,
+                "size": 67109376,
+                "requested_size": 67108864,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20622352581120,
+                "size": 67109376,
+                "requested_size": 67108864,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20622419690496,
+                "size": 67142144,
+                "requested_size": 67141632,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20622486832640,
+                "size": 67142144,
+                "requested_size": 67141632,
+                "state": "active_allocated",
+                "frames": []
+              },
+              {
+                "address": 20622553974784,
+                "size": 805238784,
+                "requested_size": 0,
+                "state": "inactive",
+                "frames": []
+              }
+            ]
+          }
+        ],
+        "mapped_segments": [
+          {
+            "virtual_address": 20618009378816,
+            "bytes": 2097152,
+            "policy_raw": 0
+          },
+          {
+            "virtual_address": 20622285471744,
+            "bytes": 1073741824,
+            "policy_raw": 6
+          }
+        ]
+      }
+    ],
+    "before": {
+      "/workspace/t5qkv-allocation-policy-20261114-01/trace_alloc_policy.cpp": "9085701102a87d126d3fe120b85166c8ad01eee304a6bddb1b49b36f2b64fcc1",
+      "/workspace/t5qkv-allocation-policy-20261114-01/trace_alloc_policy.so": "5e883a87f9681b9c6159835a6ff4b3c5c9844af152e725268eb0f26dacb6dc76",
+      "/workspace/t5qkv-allocation-policy-20261114-01/probe_pages.py": "69e88c70698fbde83c4a63fdcf6f249d75ed82d3318422cf83b3a043d3fa9e2b",
+      "/workspace/t5qkv-allocation-policy-20261114-01/run_policy_probe.py": "9b4432560e332a640fc581dc794881b993bbcfe6e608ac93979803bd45b44542",
+      "/usr/local/Ascend/cann-9.1.0/include/acl/acl_rt.h": "22c603cb80ab582006d4f26697ceb14c059d7f3613cf13b3c72aeb0d3d36e3c1"
+    },
+    "after": {
+      "/workspace/t5qkv-allocation-policy-20261114-01/trace_alloc_policy.cpp": "9085701102a87d126d3fe120b85166c8ad01eee304a6bddb1b49b36f2b64fcc1",
+      "/workspace/t5qkv-allocation-policy-20261114-01/trace_alloc_policy.so": "5e883a87f9681b9c6159835a6ff4b3c5c9844af152e725268eb0f26dacb6dc76",
+      "/workspace/t5qkv-allocation-policy-20261114-01/probe_pages.py": "69e88c70698fbde83c4a63fdcf6f249d75ed82d3318422cf83b3a043d3fa9e2b",
+      "/workspace/t5qkv-allocation-policy-20261114-01/run_policy_probe.py": "9b4432560e332a640fc581dc794881b993bbcfe6e608ac93979803bd45b44542",
+      "/usr/local/Ascend/cann-9.1.0/include/acl/acl_rt.h": "22c603cb80ab582006d4f26697ceb14c059d7f3613cf13b3c72aeb0d3d36e3c1"
+    },
+    "source_and_interposer_unchanged": true
+  },
+  "observed_difference": "Default and externally primed default call aclrtMallocAlign32 with policy=0 ACL_MEM_MALLOC_HUGE_FIRST. page_size:1g uses policy=6 ACL_MEM_MALLOC_HUGE1G_ONLY for the 1GiB segment; all observed calls returned success. Small 2MiB segments use policy=0 in both modes.",
+  "limits": "Interposition changes symbol lookup only and forwards original arguments/return codes; no operator or benchmark was run. Observed request policy is not an independent measurement of physical contiguity, page coloring or L2 hash. Page API still reports 2MiB."
+}

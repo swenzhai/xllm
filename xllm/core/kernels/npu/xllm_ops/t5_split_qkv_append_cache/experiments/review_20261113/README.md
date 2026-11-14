@@ -221,3 +221,5 @@ Eight host driver/guard tests pass; mocked library fixtures are not NPU evidence
 C18 `flat_output_tiles`：以C4的两历史输入正常缓存、240行Key输出正常/16行旁路、Value输出旁路为基础，将大输出改为连续47104元素tile。跨head处最多三段gather（历史尾/本步64元素/下一行历史头），合并成一段MTE3写入。仅256行、L2048/D64、48核且Key/Value均512B对齐启用；其他沿用原C4。无输出padding/额外GM/全局allocator配置，52字节POD、184KiB UB与双槽事件顺序保持。正常/旁路分界和所有写入块起止均512B对齐。host实际helper逐元素核验67141632元素、1427写tile/2448读取piece、每元素恰好一次；这只是CPU映射验证，不能代表A3通过。
 
 本轮停止条件：C18完成目标构建、18项功能预筛及12批完整原10项协议筛选；若默认或1g任一批失败不晋升，不启动相同方向的盲目参数扫描。通过后才扩展20新进程确认和full回归。外部pool conditioning诊断不参与验收判定。
+
+最终R4诊断入口：[默认分配器定位记录](identity/定位记录.md)。实际API跟踪已确认default/外部预留使用HUGE_FIRST(0)、page1g大段使用HUGE1G_ONLY(6)，均成功；相同绝对虚拟地址不是等价物理分配证明。C18完整功能通过但默认性能仍失败，产品/交付包/XLSX未晋升或修改。API插桩代码仅用于诊断，不参与原协议计时。

@@ -64,6 +64,11 @@ def _boundary_source(text: str, entry: dict[str, Any], no_admission: bool = Fals
             "                                output_data_addresses=[t.data_ptr() for t in outputs],\n"
             "                                output_storage_addresses=[t.untyped_storage().data_ptr() for t in outputs])\n"
             "                    item.update(status=\"passed\", shape=")
+    if entry.get("kernel_policy") == "reversed_output_allocation":
+        text = text.replace("item.update(status=\"passed\", shape=",
+            "item.update(output_data_addresses=[t.data_ptr() for t in outputs],\n"
+            "                                output_storage_addresses=[t.untyped_storage().data_ptr() for t in outputs])\n"
+            "                    item.update(status=\"passed\", shape=")
     return text
 
 

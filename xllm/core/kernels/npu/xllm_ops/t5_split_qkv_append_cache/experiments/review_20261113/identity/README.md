@@ -118,3 +118,16 @@ at similar total working size. Extra HBM traffic can outweigh any residency gain
 The additional eight-case fixture explicitly checks each cache plan, not a
 nonexistent partial-admission boundary. None is a performance-qualified version
 until full real pre-screen and independent original-protocol timing finish.
+
+
+All three two-plane plans completed 24 functional children and 24 full timing
+processes but failed absolute limits: input-only/output-only are about 94–96 us,
+Key-chain-only about 125 us. Reduced residency has not overcome its measured
+extra memory-transfer cost. C15 therefore preserves the original near-188MiB
+cache plan and kernel, changing only large-output allocation order (Value before
+Key, returned order still Query/Key/Value). It uses the same three independent
+allocations and sizes, no slack, dummy allocation, pool priming, global allocator
+option or extra workspace. Small shapes retain their original order. Any gain
+must survive complete independent-process tests; output addresses are recorded
+rather than assuming the allocator follows a particular order. The new screen
+will also use --post-identity to verify actually mapped libraries per process.

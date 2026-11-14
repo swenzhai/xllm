@@ -39,6 +39,35 @@ def _report(slow: bool = False) -> dict[str, Any]:
 
 
 class DriverTest(unittest.TestCase):
+    def test_loaded_library_guard_requires_every_actual_hash(self) -> None:
+        from identity.run_crossover import _identity
+        with tempfile.TemporaryDirectory(prefix="t5qkv-library-guard-") as temporary:
+            root = Path(temporary)
+            project, prefix = root / "project", root / "install"
+            files = [project / "_t5qkv.test.so", project / "build_direct/libt5qkv_direct.so",
+                prefix / "op_api/lib/libcust_opapi.so",
+                prefix / "op_impl/ai_core/tbe/op_tiling/lib/linux/aarch64/libcust_opmaster_rt2.0.so",
+                prefix / "op_proto/lib/linux/aarch64/libcust_opsproto_rt2.0.so"]
+            for path in files:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b"synthetic host-only guard fixture")
+            mapped = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
+            identity = {"device_name": "Ascend910_9382", "visible_devices": 1, "loaded_files": mapped}
+            config = {"new": {"project": str(project), "prefix": str(prefix)}}
+            path = root / "identity.json"
+            _write(path, identity)
+            _identity(path, config, "new")
+            for missing in files:
+                bad = copy.deepcopy(identity)
+                del bad["loaded_files"][str(missing)]
+                _write(path, bad)
+                with self.assertRaises(ValueError):
+                    _identity(path, config, "new")
+            _write(path, identity)
+            files[0].write_bytes(b"changed file")
+            with self.assertRaises(ValueError):
+                _identity(path, config, "new")
+
     def test_boundary_metadata_covers_partial_and_zero_admission(self) -> None:
         # Execute only the generated pure-integer metadata prefix, never imports
         # or NPU operations. The C++ policy checker independently checks geometry.

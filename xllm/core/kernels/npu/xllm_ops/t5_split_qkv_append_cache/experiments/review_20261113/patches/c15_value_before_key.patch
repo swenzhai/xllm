@@ -1,0 +1,38 @@
+--- a/framework/binding.cpp
++++ b/framework/binding.cpp
+@@ -22,6 +22,7 @@
+ #include <memory>
+ #include <stdexcept>
+ #include <string>
++#include <utility>
+ #include <vector>
+ 
+ #include "common/t5_split_qkv_append_cache_tiling.h"
+@@ -266,10 +267,23 @@
+   outputs.emplace_back(
+       torch::empty({tiling.batch, tiling.head_num, 1, tiling.head_dim},
+                    inputs[0].options()));
+-  outputs.emplace_back(torch::empty(
+-      {tiling.batch, tiling.head_num, tiling.past_length + 1, tiling.head_dim},
+-      inputs[0].options()));
+-  outputs.emplace_back(torch::empty_like(outputs[1]));
++  if (tiling.bypass_value_cache != 0) {
++    // Compare output placement without extra storage or allocator conditioning.
++    torch::Tensor value = torch::empty({tiling.batch,
++                                        tiling.head_num,
++                                        tiling.past_length + 1,
++                                        tiling.head_dim},
++                                       inputs[0].options());
++    outputs.emplace_back(torch::empty_like(value));
++    outputs.emplace_back(std::move(value));
++  } else {
++    outputs.emplace_back(torch::empty({tiling.batch,
++                                       tiling.head_num,
++                                       tiling.past_length + 1,
++                                       tiling.head_dim},
++                                      inputs[0].options()));
++    outputs.emplace_back(torch::empty_like(outputs[1]));
++  }
+   for (const auto& input : inputs) {
+     c10_npu::NPUCachingAllocator::recordStream(input.storage().data_ptr(),
+                                                stream);

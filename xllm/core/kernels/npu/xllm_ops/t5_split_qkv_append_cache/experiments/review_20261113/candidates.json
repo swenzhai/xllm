@@ -145,6 +145,19 @@
       "actual_normal_value_input_rows": 0,
       "actual_normal_key_output_rows": 256,
       "actual_normal_value_output_rows": 256
+    },
+    {
+      "name": "c15_value_before_key",
+      "budget_mib": 190,
+      "large_value_rows": 240,
+      "policy": "read_balance",
+      "normal_key_rows": 256,
+      "normal_value_rows": 240,
+      "patch": "patches/c15_value_before_key.patch",
+      "allowed_patch_files": [
+        "framework/binding.cpp"
+      ],
+      "kernel_policy": "reversed_output_allocation"
     }
   ]
 }

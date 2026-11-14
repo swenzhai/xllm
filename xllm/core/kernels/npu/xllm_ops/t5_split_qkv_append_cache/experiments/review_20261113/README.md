@@ -202,3 +202,17 @@ or new acceptance delivery was produced. See [A3阶段复测记录](A3阶段复�
 and `mirror_screen_results.json` for this bounded candidate-screen stage and
 its retained evidence. The next diagnostic direction is same-device old/new
 machine-code and allocation/device mapping comparisons, not more budget scans.
+
+
+## Confirmation with loaded-library identity
+
+The updated driver accepts `--post-identity`. Each custom child runs the original
+benchmark via the audited `identity/after_benchmark.py` wrapper, then hashes and
+checks all five actually mapped operator libraries and captures PID/npu-smi and
+allocator state. No measurement hook or extra allocation runs before/inside the
+original benchmark. Wrapper/guard source files join the before/after freeze.
+The reference stays the unmodified benchmark. This option is intended for a new
+confirmation runner directory; do not overwrite runners used by completed or
+active experiments. The current cache-pair screen uses its original frozen
+runner, without retroactively claiming this additional per-process check.
+Eight host driver/guard tests pass; mocked library fixtures are not NPU evidence.

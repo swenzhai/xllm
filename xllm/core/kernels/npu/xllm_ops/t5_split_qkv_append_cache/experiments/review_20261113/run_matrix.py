@@ -103,7 +103,7 @@ def _freeze_files(root: Path, names: list[str], package: Path) -> list[str]:
 
 def _benchmark(root: Path, package: Path, directory: Path, python: str,
                name: str, allocator: str, baseline: bool,
-               targets: dict[str, Any]) -> dict[str, Any]:
+               targets: dict[str, Any], collect_identity: bool = False) -> dict[str, Any]:
     directory.mkdir(exist_ok=False)
     env = _environment(root, name, allocator)
     solution = root / name / "project" / ("tests/taskbook_baseline.py" if baseline else "solution.py")
@@ -113,9 +113,19 @@ def _benchmark(root: Path, package: Path, directory: Path, python: str,
                               "npu_executed": False}
     command = [python, str(package / "benchmark.py"), "--solution-file", str(solution),
                "--device", "0", "--report", record["report"]]
+    identity = directory / "runtime_identity.json"
+    if collect_identity and not baseline:
+        command = [python, str(HERE / "identity/after_benchmark.py"),
+            "--script", str(package / "benchmark.py"), "--identity", str(identity),
+            "--expected-prefix", str(root / name / "install/vendors/t5qkv"), "--", *command[2:]]
     rc = _child(command, package, env, directory / "benchmark.log")
     record["exit_code"] = rc
     try:
+        if collect_identity and not baseline:
+            from identity.run_crossover import _identity
+            _identity(identity, {"new": {"project": str(root / name / "project"),
+                "prefix": str(root / name / "install/vendors/t5qkv")}}, "new")
+            record["runtime_identity"] = str(identity)
         original = _read(Path(record["report"]))
         record["npu_executed"] = original.get("npu_executed") is True
         result = _evaluate(original, targets)
@@ -129,14 +139,17 @@ def _benchmark(root: Path, package: Path, directory: Path, python: str,
 
 
 def _execute(root: Path, package: Path, directory: Path, names: list[str],
-             plan: list[dict[str, Any]], python: str, phase: str) -> int:
+             plan: list[dict[str, Any]], python: str, phase: str, collect_identity: bool = False) -> int:
     targets = _read(package / "performance_targets.json")
     files = _freeze_files(root, names, package)
+    if collect_identity:
+        files += [str(HERE / "identity" / n) for n in ["after_benchmark.py", "run_crossover.py"]]
     before = _snapshot(files)
     _write(directory / "pretest_manifest.json", before)
     summary: dict[str, Any] = {"scope": "performance_only", "phase": phase,
                                "status": "running", "npu_executed": False,
-                               "records": [], "references": [], "full_acceptance": False}
+                               "records": [], "references": [], "full_acceptance": False,
+                               "post_identity": collect_identity}
     _write(directory / "summary.json", summary)
     try:
         # Guard both fresh-process allocator contexts before any timed workload.
@@ -170,7 +183,7 @@ def _execute(root: Path, package: Path, directory: Path, names: list[str],
             if _snapshot(files) != before:
                 raise ValueError("Source/artifact changed before a benchmark")
             result = _benchmark(root, package, directory / f"{index:03}_{item['candidate']}_{item['allocator']}",
-                                python, item["candidate"], item["allocator"], False, targets)
+                                python, item["candidate"], item["allocator"], False, targets, collect_identity)
             result["batch"] = item["batch"]
             summary["records"].append(result)
             summary["npu_executed"] |= result["npu_executed"]
@@ -199,6 +212,7 @@ def _main() -> int:
     parser.add_argument("--batches", type=int)
     parser.add_argument("--python", default=sys.executable)
     parser.add_argument("--plan-only", action="store_true")
+    parser.add_argument("--post-identity", action="store_true", help="Check actual loaded libraries after every custom benchmark; no timing hooks")
     args = parser.parse_args()
     batches = args.batches if args.batches is not None else (10 if args.phase == "confirm" else 3)
     if (batches < 1 or len(set(args.candidates)) != len(args.candidates)
@@ -215,14 +229,14 @@ def _main() -> int:
     report.mkdir(parents=True, exist_ok=False)
     _write(report / "execution_plan.json", {"status": "planned", "npu_executed": False,
             "phase": args.phase, "protocol": {"warmup": 50, "iterations": 200, "rounds": 5},
-            "source_commit": prepared["source_commit"], "plan": plan})
+            "source_commit": prepared["source_commit"], "post_identity": args.post_identity, "plan": plan})
     if args.plan_only:
         print(json.dumps({"status": "planned_not_executed", "npu_executed": False,
                           "custom_processes": len(plan), "report_dir": str(report)}))
         return 0
     with (root / "matrix.lock").open("a") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        return _execute(root, package, report, args.candidates, plan, args.python, args.phase)
+        return _execute(root, package, report, args.candidates, plan, args.python, args.phase, args.post_identity)
 
 
 if __name__ == "__main__":

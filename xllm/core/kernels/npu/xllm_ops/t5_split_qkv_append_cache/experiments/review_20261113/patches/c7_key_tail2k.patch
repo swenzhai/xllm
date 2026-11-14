@@ -1,0 +1,33 @@
+--- a/framework/binding.cpp
++++ b/framework/binding.cpp
+@@ -266,9 +266,27 @@
+   outputs.emplace_back(
+       torch::empty({tiling.batch, tiling.head_num, 1, tiling.head_dim},
+                    inputs[0].options()));
+-  outputs.emplace_back(torch::empty(
+-      {tiling.batch, tiling.head_num, tiling.past_length + 1, tiling.head_dim},
+-      inputs[0].options()));
++  if (tiling.bypass_value_cache != 0) {
++    // Independent output storage with 2 KiB slack. The placement experiment
++    // changes no kernel, copy bytes, input, global allocator option or
++    // workspace.
++    constexpr int64_t kSlackElements = 1024;
++    const int64_t key_elements = int64_t{tiling.batch} * tiling.head_num *
++                                 (tiling.past_length + 1) * tiling.head_dim;
++    outputs.emplace_back(
++        torch::empty({key_elements + kSlackElements}, inputs[0].options())
++            .narrow(/*dim=*/0, /*start=*/0, key_elements)
++            .view({tiling.batch,
++                   tiling.head_num,
++                   tiling.past_length + 1,
++                   tiling.head_dim}));
++  } else {
++    outputs.emplace_back(torch::empty({tiling.batch,
++                                       tiling.head_num,
++                                       tiling.past_length + 1,
++                                       tiling.head_dim},
++                                      inputs[0].options()));
++  }
+   outputs.emplace_back(torch::empty_like(outputs[1]));
+   for (const auto& input : inputs) {
+     c10_npu::NPUCachingAllocator::recordStream(input.storage().data_ptr(),

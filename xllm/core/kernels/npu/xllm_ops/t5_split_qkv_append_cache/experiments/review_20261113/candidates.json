@@ -63,6 +63,36 @@
       "actual_normal_value_input_rows": 256,
       "actual_normal_key_output_rows": 0,
       "actual_normal_value_output_rows": 256
+    },
+    {
+      "name": "c6_key_prefix2k",
+      "budget_mib": 190,
+      "large_value_rows": 240,
+      "policy": "read_balance",
+      "normal_key_rows": 256,
+      "normal_value_rows": 240,
+      "patch": "patches/c6_key_prefix2k.patch",
+      "allowed_patch_files": [
+        "framework/binding.cpp"
+      ],
+      "kernel_policy": "key_output_placement",
+      "key_output_offset_elements": 1024,
+      "key_output_slack_bytes": 2048
+    },
+    {
+      "name": "c7_key_tail2k",
+      "budget_mib": 190,
+      "large_value_rows": 240,
+      "policy": "read_balance",
+      "normal_key_rows": 256,
+      "normal_value_rows": 240,
+      "patch": "patches/c7_key_tail2k.patch",
+      "allowed_patch_files": [
+        "framework/binding.cpp"
+      ],
+      "kernel_policy": "key_output_placement",
+      "key_output_offset_elements": 0,
+      "key_output_slack_bytes": 2048
     }
   ]
 }

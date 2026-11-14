@@ -40,6 +40,17 @@ def _boundary_source(text: str, entry: dict[str, Any], no_admission: bool = Fals
     if entry.get("kernel_policy") == "mirror_key_value":
         text = text.replace("normal_value_rows=cache_rows", "normal_key_input_rows=cache_rows")
         text = text.replace("Value-input", "Key-input")
+    if entry.get("kernel_policy") == "key_output_placement":
+        # The task allows independent contiguous outputs with nonzero offset;
+        # record the actual data/base difference, not only allocator block VAs.
+        offset = entry["key_output_offset_elements"]
+        text = text.replace("item.update(status=\"passed\", shape=", 
+            "if outputs[1].storage_offset() != " + str(offset) + ":\n"
+            "                        raise AssertionError(\"unexpected Key output placement\")\n"
+            "                    item.update(output_storage_offsets=[t.storage_offset() for t in outputs],\n"
+            "                                output_data_addresses=[t.data_ptr() for t in outputs],\n"
+            "                                output_storage_addresses=[t.untyped_storage().data_ptr() for t in outputs])\n"
+            "                    item.update(status=\"passed\", shape=")
     return text
 
 

@@ -1,0 +1,42 @@
+{
+  "scope": "complementary_cache_query_balance_CPU",
+  "npu_executed": false,
+  "status": "passed",
+  "tiles": 1426,
+  "elements_checked": 67141632,
+  "normal_write_slots": 13,
+  "pieces": 2448,
+  "normal_history_read_bytes": 79537536,
+  "bypass_history_read_bytes": 54680192,
+  "normal_footprint_512B_line_bound": 134425088,
+  "normal_key_write_bytes": 54706176,
+  "bypass_write_bytes": 79577088,
+  "tiling_words": [
+    16,
+    16,
+    2048,
+    64,
+    47104,
+    3,
+    1,
+    768,
+    16,
+    1552,
+    48,
+    240,
+    1
+  ],
+  "checker_sha256": "b14f21682b251336d830db2170cf2ed936b61f8fcbe0934d2a1d7feb1bdbe9cc",
+  "header_sha256": "69a89fb4ed16da43110dd091e74a4d2cffa797d916a1c0ff6e74b48463701d12",
+  "query_tasks_rebalanced": 16,
+  "query_cores": [
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47
+  ],
+  "max_query_tasks_per_core": 3
+}

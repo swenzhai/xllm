@@ -149,9 +149,11 @@ def _main() -> int:
             if entry.get("kernel_policy") in ("dispersed_key_output", "paired_history", "interleaved_history"):
                 derived = derived.replace("normal_key_rows=cache_rows", "legacy_key_quota_rows=cache_rows")
                 derived = derived.replace("normal_key_regions=[[4,84],[88,168],[172,252]]",
-                    "normal_write_slots=" + str(entry["normal_output_slots"]) + ", slot_period=16, output_tile_elements=47104")
+                    "normal_write_slots=" + str(entry["normal_output_slots"]) + ", slot_period=" +
+                    str(entry["output_slot_period"]) + ", output_tile_elements=47104")
                 if entry.get("bypass_output_slots"):
-                    derived = derived.replace("slot_period=16,", "bypass_slot_pattern=" + str(entry["bypass_output_slots"]) + ", slot_period=16,")
+                    period = "slot_period=" + str(entry["output_slot_period"]) + ","
+                    derived = derived.replace(period, "bypass_slot_pattern=" + str(entry["bypass_output_slots"]) + ", " + period)
                 if entry.get("kernel_policy") == "paired_history":
                     derived = derived.replace("output_tile_elements=47104", "parent_tile_elements=47104, output_plane_elements=" + str(entry["paired_plane_elements"]))
             path.write_text(derived)

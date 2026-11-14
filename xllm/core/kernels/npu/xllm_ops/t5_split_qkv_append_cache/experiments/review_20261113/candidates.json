@@ -472,6 +472,36 @@
       "aligned_paired_stores": false,
       "parent_candidate": "c27_paired_history_pad",
       "linear_paired_order": true
+    },
+    {
+      "name": "c31_half_admission_paired",
+      "budget_mib": 190,
+      "policy": "input_priority",
+      "normal_key_rows": 240,
+      "normal_value_rows": 256,
+      "patch": "patches/c31_half_admission_paired.patch",
+      "allowed_patch_files": [
+        "common/t5_split_qkv_append_cache_tiling.h",
+        "op_kernel/t5_split_qkv_append_cache_kernel.h"
+      ],
+      "kernel_policy": "paired_history",
+      "normal_output_slots": 1,
+      "output_slot_period": 2,
+      "bypass_output_slots": [
+        1
+      ],
+      "last_partial_period_normal": true,
+      "paired_plane_elements": 23552,
+      "actual_normal_key_input_rows": 256,
+      "actual_normal_value_input_rows": 256,
+      "supplied_outputs_plan": "c31_half_admission_paired_host_result.json",
+      "expected_supplied_outputs": 8,
+      "aligned_paired_stores": false,
+      "parent_candidate": "c30_linear_paired_history",
+      "linear_paired_order": true,
+      "actual_normal_key_write_bytes": 33603584,
+      "actual_bypass_write_bytes": 100679680,
+      "normal_footprint_note": "128MiB history inputs + half of Key output + unchanged small tensors"
     }
   ]
 }
